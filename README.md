@@ -57,10 +57,10 @@ This repository is organized into two main directories:
 
 - packages/: Contains all the reusable, versioned, and publishable libraries. These are the shared building blocks of our system.
   - layers/
-    - base: Foundational UI components, theme, and styles.
-    - auth: Authentication provider integration, composables, components and accounts.
-    - forms: Common form components and validation logic.
-    - pay: Components and services related to payments.
+    - [base](./packages/layers/base): Foundational UI components, theme, and styles.
+    - [auth](./packages/layers/auth): Authentication provider integration, composables, components and accounts.
+    - [forms](./packages/layers/forms): Common form components and validation logic.
+    - [pay](./packages/layers/pay): Components and services related to payments.
 - apps/: Contains deployable applications that consume the packages.
 
 Additional layers can be added under the `packages/layers/` directory. Other content should be organized similarly. e.g., Modules should be created under a new `packages/modules/` directory.
