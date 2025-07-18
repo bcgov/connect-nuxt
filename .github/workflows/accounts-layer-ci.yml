@@ -1,10 +1,10 @@
-name: Accounts Layer CI
+name: Auth Layer CI
 
 on:
   pull_request:
     paths:
-      - "packages/base/**"
-      - "packages/accounts/**"
+      - "packages/layers/base/**"
+      - "packages/layers/auth/**"
   workflow_dispatch:
 
 defaults:
@@ -17,11 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["accounts"]
+        project: ["auth"]
         job: ['lint', 'build', 'test:unit']
     defaults:
       run:
-        working-directory: ./packages/${{ matrix.project }}
+        working-directory: ./packages/layers/${{ matrix.project }}
     steps:
     - uses: actions/checkout@v4
     - uses: pnpm/action-setup@v4
@@ -45,12 +45,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["accounts"]
+        project: ["auth"]
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     defaults:
       run:
-        working-directory: ./packages/${{ matrix.project }}
+        working-directory: ./packages/layers/${{ matrix.project }}
     env:
       CI: true
     container:
@@ -79,7 +79,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: blob-report-${{ matrix.shardIndex }}
-        path: packages/${{ matrix.project }}/blob-report
+        path: packages/layers/${{ matrix.project }}/blob-report
         retention-days: 1
 
   merge-reports:
@@ -88,10 +88,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["accounts"]
+        project: ["auth"]
     defaults:
       run:
-        working-directory: ./packages/${{ matrix.project }}
+        working-directory: ./packages/layers/${{ matrix.project }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -101,7 +101,7 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
-        path: packages/${{ matrix.project }}/all-blob-reports
+        path: packages/layers/${{ matrix.project }}/all-blob-reports
         pattern: blob-report-*
         merge-multiple: true
 
@@ -112,5 +112,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: html-report--attempt-${{ github.run_attempt }}
-        path: packages/${{ matrix.project }}/playwright-report
+        path: packages/layers/${{ matrix.project }}/playwright-report
         retention-days: 2

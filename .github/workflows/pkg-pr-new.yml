@@ -23,30 +23,30 @@ jobs:
       with: 
         filters: |
           base:
-            - 'packages/base-ui/**'  
-          accounts:
-            - 'packages/accounts/**'  
+            - 'packages/layers/base/**'  
+          auth:
+            - 'packages/layers/auth/**'  
           forms:
-            - 'packages/forms/**'  
+            - 'packages/layers/forms/**'  
           pay:
-            - 'packages/pay/**'
+            - 'packages/layers/pay/**'
     
     - name: Create package list
       id: package_list
-      if: steps.changes.outputs.base == 'true' || steps.changes.outputs.accounts == 'true' || steps.changes.outputs.forms == 'true' || steps.changes.outputs.pay == 'true'
+      if: steps.changes.outputs.base == 'true' || steps.changes.outputs.auth == 'true' || steps.changes.outputs.forms == 'true' || steps.changes.outputs.pay == 'true'
       run: |
         PACKAGE_LIST=""
         if [ "${{ steps.changes.outputs.base }}" == "true" ]; then
-          PACKAGE_LIST+="./packages/base-ui "
+          PACKAGE_LIST+="./packages/layers/base "
         fi
-        if [ "${{ steps.changes.outputs.accounts }}" == "true" ]; then
-          PACKAGE_LIST+="./packages/accounts "
+        if [ "${{ steps.changes.outputs.auth }}" == "true" ]; then
+          PACKAGE_LIST+="./packages/layers/auth "
         fi
         if [ "${{ steps.changes.outputs.forms }}" == "true" ]; then
-          PACKAGE_LIST+="./packages/forms "
+          PACKAGE_LIST+="./packages/layers/forms "
         fi
         if [ "${{ steps.changes.outputs.pay }}" == "true" ]; then
-          PACKAGE_LIST+="./packages/pay "
+          PACKAGE_LIST+="./packages/layers/pay "
         fi
         echo "PACKAGES_TO_PUBLISH=${PACKAGE_LIST}"
         echo "list=${PACKAGE_LIST}" >> $GITHUB_OUTPUT
