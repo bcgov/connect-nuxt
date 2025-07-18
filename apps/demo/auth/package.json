@@ -1,5 +1,5 @@
 {
-  "name": "auth-layer-demo-app",
+  "name": "nuxt-auth-demo-app",
   "private": true,
   "type": "module",
   "version": "0.1.0",
