@@ -1,5 +1,5 @@
 /* @import "tailwindcss";
 @import "@nuxt/ui";
-@source "../../../node_modules/@sbc-connect/base-layer"; */
+@source "../../../node_modules/@sbc-connect/nuxt-base"; */
 @import "#base/modules/assets/runtime/assets/core-tw.css";
 @source "../../../";
