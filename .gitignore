@@ -81,6 +81,7 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+.data
 
 # Gatsby files
 .cache/
@@ -137,3 +138,16 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Firebase
+*.firebase
+*.firebaserc
+
+# macOS
+.DS_Store
+
+# playwright e2e test
+**/test-results
+**/tests/e2e/.auth/**
+**/playwright-report
+**/blob-report
