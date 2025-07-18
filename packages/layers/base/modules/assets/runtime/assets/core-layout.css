@@ -1,0 +1,13 @@
+@reference "tailwindcss";
+
+.app-container {
+  @apply min-h-dvh flex flex-col bg-(--color-bcGovGray-100) text-(--color-bcGovGray-700); /*  bg-gray-100 text-gray-700 */
+}
+
+.app-inner-container {
+  @apply max-w-(--container-bcGovLg) w-full mx-auto px-4;
+}
+
+.app-body {
+  @apply grow relative flex flex-col;
+}

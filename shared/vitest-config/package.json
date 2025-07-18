@@ -1,0 +1,8 @@
+{
+  "name": "@sbc-connect/vitest-config",
+  "type": "module",
+  "version": "0.0.1",
+  "repository": "github:bcgov/connect-nuxt",
+  "main": "./vitest.config.ts",
+  "private": true
+}

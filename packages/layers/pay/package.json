@@ -1,0 +1,36 @@
+{
+  "name": "@sbc-connect/nuxt-pay",
+  "type": "module",
+  "version": "0.1.0",
+  "repository": "github:bcgov/connect-nuxt",
+  "main": "./nuxt.config.ts",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "dev": "nuxi dev .playground",
+    "dev:prepare": "nuxt prepare .playground",
+    "build": "nuxt build .playground",
+    "generate": "nuxt generate .playground",
+    "preview": "nuxt preview .playground",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "devDependencies": {
+    "nuxt": "catalog:",
+    "typescript": "catalog:",
+    "vue": "catalog:",
+    "@nuxtjs/i18n": "catalog:",
+    "@playwright/test": "catalog:",
+    "@axe-core/playwright": "catalog:",
+    "@faker-js/faker": "catalog:",
+    "@nuxt/test-utils": "catalog:",
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "happy-dom": "catalog:",
+    "otpauth": "catalog:",
+    "@testing-library/vue": "catalog:",
+    "@vue/test-utils": "catalog:"
+  },
+  "dependencies": {
+    "@sbc-connect/nuxt-auth": "workspace:*"
+  }
+}

@@ -1,0 +1,73 @@
+name: pkg-pr-new
+on: 
+  pull_request:
+    paths: 
+      - 'packages/**'
+
+jobs:
+  build:
+    # if: "!startsWith(github.head_ref, 'changeset-release/')"
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: read  
+
+    steps:
+    - name: Checkout code repository
+      uses: actions/checkout@v4
+
+    - name: Determine changes in packages
+      uses: dorny/paths-filter@v3
+      id: changes
+      with: 
+        filters: |
+          base:
+            - 'packages/layers/base/**'  
+          auth:
+            - 'packages/layers/auth/**'  
+          forms:
+            - 'packages/layers/forms/**'  
+          pay:
+            - 'packages/layers/pay/**'
+    
+    - name: Create package list
+      id: package_list
+      if: steps.changes.outputs.base == 'true' || steps.changes.outputs.auth == 'true' || steps.changes.outputs.forms == 'true' || steps.changes.outputs.pay == 'true'
+      run: |
+        PACKAGE_LIST=""
+        if [ "${{ steps.changes.outputs.base }}" == "true" ]; then
+          PACKAGE_LIST+="./packages/layers/base "
+        fi
+        if [ "${{ steps.changes.outputs.auth }}" == "true" ]; then
+          PACKAGE_LIST+="./packages/layers/auth "
+        fi
+        if [ "${{ steps.changes.outputs.forms }}" == "true" ]; then
+          PACKAGE_LIST+="./packages/layers/forms "
+        fi
+        if [ "${{ steps.changes.outputs.pay }}" == "true" ]; then
+          PACKAGE_LIST+="./packages/layers/pay "
+        fi
+        echo "PACKAGES_TO_PUBLISH=${PACKAGE_LIST}"
+        echo "list=${PACKAGE_LIST}" >> $GITHUB_OUTPUT
+
+    - name: Setup pnpm
+      if: steps.package_list.outputs.list != ''
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+
+    - name: Setup node.js
+      if: steps.package_list.outputs.list != ''
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'pnpm'
+    
+    - name: Install dependencies
+      if: steps.package_list.outputs.list != ''
+      run: pnpm install
+
+    - name: Publish Changed Packages
+      if: steps.package_list.outputs.list != ''
+      run: npx pkg-pr-new publish ${{ steps.package_list.outputs.list }} --pnpm --compact --template './apps/stackblitz-template'
