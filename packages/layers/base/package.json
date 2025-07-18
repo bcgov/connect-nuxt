@@ -1,0 +1,43 @@
+{
+  "name": "@sbc-connect/nuxt-base",
+  "type": "module",
+  "version": "0.1.0",
+  "repository": "github:bcgov/connect-nuxt",
+  "main": "./nuxt.config.ts",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "dev": "nuxi dev .playground",
+    "prepare": "nuxt prepare .playground",
+    "build": "nuxt build .playground",
+    "build:test": "pnpm generate && npx serve .playground/.output/public",
+    "generate": "nuxt generate .playground",
+    "preview": "npx serve .playground/.output/public",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "pnpm run test:unit; pnpm run test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "npx playwright test"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^3.2.0"
+  },
+  "devDependencies": {
+    "@sbc-connect/playwright-config": "workspace:*",
+    "@sbc-connect/vitest-config": "workspace:*",
+    "nuxt": "catalog:",
+    "typescript": "catalog:",
+    "vue": "catalog:",
+    "@nuxtjs/i18n": "catalog:",
+    "@playwright/test": "catalog:",
+    "@axe-core/playwright": "catalog:",
+    "@faker-js/faker": "catalog:",
+    "@nuxt/test-utils": "catalog:",
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "happy-dom": "catalog:",
+    "otpauth": "catalog:",
+    "@testing-library/vue": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "dotenv": "catalog:"
+  }
+}
