@@ -65,7 +65,7 @@ pnpm changeset
   - Write your summary using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary), e.g., `fix`, `feat`, `chore`, etc.
   - Write in the past tense (e.g., "Fixed a bug..." or "Added a new feature...").
   - Be clear and concise.
-  - Reference any relevant issue or ticket numbers (e.g., Fixes bcgov/entity#42). GitHub will automatically link these in the final release notes.
+  - Reference any relevant issue or ticket numbers (e.g., `Fixes bcgov/entity#42`). GitHub will automatically link these in the final release notes.
   - If you need to write a multi-line summary, just press Enter without typing anything to open your default command-line editor.
 
 5. **Submit Changeset:**
