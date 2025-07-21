@@ -82,9 +82,11 @@ You must commit this file along with your code changes.
 ### Step 4: The Automation Takes Over
 Once your pull request is reviewed and merged into main, the rest of the process is fully automated:
 
+  ![Screenshot of the Changesets github action pull request.](./img/github-action-pr.png)
+
   1. The Changesets GitHub Action detects the new changeset file on main.
-  2. It automatically opens a new pull request titled "Version Packages". This PR will contain the updated version numbers in the package.json files and the new entries in the CHANGELOG.md.
-  3. After the "Version Packages" PR is reviewed and merged, the action will automatically publish the new package versions to the npm registry and create a corresponding GitHub Release.
+  2. It automatically opens a new pull request titled "update versions". This PR will contain the updated version numbers in the package.json files and the new entries in the CHANGELOG.md.
+  3. After the "update versions" PR is reviewed and merged, the action will automatically publish the new package versions to the npm registry and create a corresponding GitHub Release.
 
 By following this process, you ensure that every change is properly versioned and documented, leading to a clean and predictable release workflow.
 
