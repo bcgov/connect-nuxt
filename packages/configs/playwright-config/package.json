@@ -6,7 +6,7 @@
   "main": "./playwright.config.ts",
   "private": true,
   "dependencies": {
-    "@axe-core/playwright": "^4.10.2",
+    "@nuxt/test-utils": "catalog:",
     "@playwright/test": "^1.52.0"
   }
 }
