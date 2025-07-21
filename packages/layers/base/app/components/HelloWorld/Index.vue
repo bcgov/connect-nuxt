@@ -4,7 +4,7 @@ const { myLayer } = useAppConfig()
 
 <template>
   <div class="bg-primary">
-    Should have bg-primary
+    Should have bg-primary new text
     <h1>Hello World!</h1>
     <pre>{{ myLayer }}</pre>
     <p class="text-bcGovGray-900">
