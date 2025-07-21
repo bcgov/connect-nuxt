@@ -74,6 +74,8 @@ This monorepo uses [Changesets](https://github.com/changesets/changesets) to man
 ### Adding a Change
 When you have made a code change in a PR that should be included in the next release, you **must** add a changeset.
 
+A detailed step-by-step guide can be found at [A Guide to the Changesets Workflow](./docs/changesets/workflow.md)
+
 1. Run the changeset command (must be done from the repo root):
 ```bash
 pnpm changeset

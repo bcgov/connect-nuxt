@@ -55,6 +55,8 @@ Pull requests will be evaluated by the repository guardians on a schedule and if
 
 All contributors retain the original copyright to their stuff, but by contributing to this project, you grant a world-wide, royalty-free, perpetual, irrevocable, non-exclusive, transferable license to all users **under the terms of the license under which this project is distributed**.
 
+Adding a Changeset is a **required** step for any pull request that contains a code change affecting a versioned package. A detailed step-by-step guide can be found at [A Guide to the Changesets Workflow](./docs/changesets/workflow.md)
+
 ### Submitting Your Contribution
 
 1. Ensure your code follows the project's [style](#code-style-and-standards) and conventions, including [internationalization](#internationalization), [accessibility](#accessibility), and [responsive design](#responsive-design).
