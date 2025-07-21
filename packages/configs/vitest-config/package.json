@@ -4,5 +4,10 @@
   "version": "0.0.2",
   "repository": "github:bcgov/connect-nuxt",
   "main": "./vitest.config.ts",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@nuxt/test-utils": "catalog:",
+    "happy-dom": "^17.6.3",
+    "vitest": "^3.2.3"
+  }
 }
