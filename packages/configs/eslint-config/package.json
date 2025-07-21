@@ -4,5 +4,9 @@
   "version": "0.0.2",
   "repository": "github:bcgov/connect-nuxt",
   "main": "./eslint.config.ts",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@nuxt/eslint-config": "^1.6.0",
+    "eslint": "^9.31.0"
+  }
 }

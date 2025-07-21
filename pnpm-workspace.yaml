@@ -8,18 +8,4 @@ catalog:
   vue: "latest"
   vue-router: "^4.5.1"
   '@nuxtjs/i18n': ^9.5.5
-  '@playwright/test': ^1.52.0
-  '@axe-core/playwright': ^4.10.2
-  '@faker-js/faker': ^9.8.0
-  '@nuxt/test-utils': ^3.19.1
-  vitest: ^3.2.3
-  '@vitest/coverage-v8': ^3.2.3
-  happy-dom: ^17.6.3
-  otpauth: ^9.4.0
-  '@testing-library/vue': ^8.1.0
-  '@vue/test-utils': ^2.4.6
-  '@nuxt/ui': ^3.2.0
-  dotenv: ^17.2.0
   vue-tsc: ^3.0.2
-  eslint: ^9.31.0
-  '@nuxt/eslint-config': ^1.6.0

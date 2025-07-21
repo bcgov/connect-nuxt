@@ -20,27 +20,14 @@
     "typecheck": "npx nuxt typecheck"
   },
   "devDependencies": {
+    "@nuxtjs/i18n": "catalog:",
     "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
-    "@axe-core/playwright": "catalog:",
-    "@faker-js/faker": "catalog:",
-    "@nuxt/test-utils": "catalog:",
-    "@nuxtjs/i18n": "catalog:",
-    "@playwright/test": "catalog:",
-    "@testing-library/vue": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
-    "@vue/test-utils": "catalog:",
-    "happy-dom": "catalog:",
     "nuxt": "catalog:",
-    "otpauth": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:",
     "vue": "catalog:",
-    "dotenv": "catalog:",
-    "vue-tsc": "catalog:",
-    "@nuxt/eslint-config": "catalog:",
-    "eslint": "catalog:"
+    "vue-tsc": "catalog:"
   },
   "dependencies": {
     "@sbc-connect/nuxt-base": "workspace:*"

@@ -4,5 +4,9 @@
   "version": "0.0.2",
   "repository": "github:bcgov/connect-nuxt",
   "main": "./playwright.config.ts",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.52.0"
+  }
 }
