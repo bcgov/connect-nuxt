@@ -6,8 +6,4 @@ test.describe('Example 1', () => {
     await expect(page.getByRole('heading', { name: 'Hello World!' })).toBeVisible()
     await expect(page.getByText('{ "name": "My amazing Base Nuxt layer (playground)" }')).toBeVisible()
   })
-  test('Another example 1 test', async ({ page }) => {
-    await page.goto('./')
-    await expect(page.getByRole('heading', { name: 'Hello World!' })).toBeVisible()
-  })
 })

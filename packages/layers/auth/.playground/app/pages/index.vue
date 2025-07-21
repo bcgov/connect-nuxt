@@ -1,5 +1,5 @@
 <template>
   <div>
-    <HelloWorld />
+    <HelloWorldAuth />
   </div>
 </template>

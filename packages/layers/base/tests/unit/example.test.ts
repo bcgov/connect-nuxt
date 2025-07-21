@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import HelloWorld from '../../app/components/HelloWorld.vue'
+import HelloWorld from '../../app/components/HelloWorld/Index.vue'
 
 // example test from the person-roles (testing component from there)
 describe('Example Test', () => {

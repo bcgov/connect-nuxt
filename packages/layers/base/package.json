@@ -16,12 +16,14 @@
     "lint:fix": "eslint --fix .",
     "test": "pnpm run test:unit; pnpm run test:e2e",
     "test:unit": "vitest run",
-    "test:e2e": "npx playwright test"
+    "test:e2e": "npx playwright test",
+    "typecheck": "npx nuxt typecheck"
   },
   "dependencies": {
-    "@nuxt/ui": "^3.2.0"
+    "@nuxt/ui": "catalog:"
   },
   "devDependencies": {
+    "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
     "nuxt": "catalog:",
@@ -38,6 +40,9 @@
     "otpauth": "catalog:",
     "@testing-library/vue": "catalog:",
     "@vue/test-utils": "catalog:",
-    "dotenv": "catalog:"
+    "dotenv": "catalog:",
+    "vue-tsc": "catalog:",
+    "@nuxt/eslint-config": "catalog:",
+    "eslint": "catalog:"
   }
 }

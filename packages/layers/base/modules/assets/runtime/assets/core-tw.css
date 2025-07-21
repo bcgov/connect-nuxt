@@ -1,7 +1,5 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
-
-@source "../../../../";
+@reference "tailwindcss";
+@reference "@nuxt/ui";
 
 /* Customize Nuxt UI default tokens */
 :root {
