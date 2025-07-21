@@ -7,6 +7,6 @@ describe('Example Test', () => {
   test('Renders HelloWorld component', async () => {
     const wrapper = await mountSuspended(HelloWorldAuth, {})
 
-    expect(wrapper.text()).toContain('Hello World!')
+    expect(wrapper.text()).toContain('Auth - should be red-700')
   })
 })
