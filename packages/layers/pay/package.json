@@ -7,14 +7,22 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "nuxi dev .playground",
-    "dev:prepare": "nuxt prepare .playground",
+    "prepare": "nuxt prepare .playground",
     "build": "nuxt build .playground",
+    "build:test": "pnpm generate && npx serve .playground/.output/public",
     "generate": "nuxt generate .playground",
-    "preview": "nuxt preview .playground",
+    "preview": "npx serve .playground/.output/public",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "pnpm run test:unit; pnpm run test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "npx playwright test",
+    "typecheck": "npx nuxt typecheck"
   },
   "devDependencies": {
+    "@sbc-connect/eslint-config": "workspace:*",
+    "@sbc-connect/playwright-config": "workspace:*",
+    "@sbc-connect/vitest-config": "workspace:*",
     "nuxt": "catalog:",
     "typescript": "catalog:",
     "vue": "catalog:",
@@ -28,7 +36,11 @@
     "happy-dom": "catalog:",
     "otpauth": "catalog:",
     "@testing-library/vue": "catalog:",
-    "@vue/test-utils": "catalog:"
+    "@vue/test-utils": "catalog:",
+    "dotenv": "catalog:",
+    "vue-tsc": "catalog:",
+    "@nuxt/eslint-config": "catalog:",
+    "eslint": "catalog:"
   },
   "dependencies": {
     "@sbc-connect/nuxt-auth": "workspace:*"

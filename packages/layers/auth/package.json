@@ -19,6 +19,7 @@
     "test:e2e": "npx playwright test"
   },
   "devDependencies": {
+    "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
     "@axe-core/playwright": "catalog:",
@@ -35,7 +36,10 @@
     "typescript": "catalog:",
     "vitest": "catalog:",
     "vue": "catalog:",
-    "dotenv": "catalog:"
+    "dotenv": "catalog:",
+    "vue-tsc": "catalog:",
+    "@nuxt/eslint-config": "catalog:",
+    "eslint": "catalog:"
   },
   "dependencies": {
     "@sbc-connect/nuxt-base": "workspace:*"

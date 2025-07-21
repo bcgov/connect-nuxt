@@ -1,4 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { createResolver } from 'nuxt/kit'
+
+const { resolve } = createResolver(import.meta.url)
+
 export default defineNuxtConfig({
   ssr: false,
 
@@ -6,5 +10,11 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-06-10',
 
-  extends: ['@sbc-connect/nuxt-base']
+  extends: ['@sbc-connect/nuxt-base'],
+
+  alias: {
+    '#forms': resolve('./')
+  },
+
+  css: [resolve('./app/assets/css/tw-forms.css')]
 })

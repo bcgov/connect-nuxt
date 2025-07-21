@@ -1,0 +1,8 @@
+{
+  "name": "@sbc-connect/eslint-config",
+  "type": "module",
+  "version": "0.0.1",
+  "repository": "github:bcgov/connect-nuxt",
+  "main": "./eslint.config.ts",
+  "private": true
+}

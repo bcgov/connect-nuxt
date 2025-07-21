@@ -16,8 +16,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.5",
-    "@nuxt/eslint-config": "^1.6.0",
-    "eslint": "^9.31.0",
     "pkg-pr-new": "^0.0.54"
   }
 }

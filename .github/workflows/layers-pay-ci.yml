@@ -1,10 +1,11 @@
-name: Auth Layer CI
+name: Pay Layer CI
 
 on:
   pull_request:
     paths:
       - "packages/layers/base/**"
       - "packages/layers/auth/**"
+      - "packages/layers/pay/**"
   workflow_dispatch:
 
 defaults:
@@ -17,8 +18,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["auth"]
-        job: ['lint', 'build', 'test:unit']
+        project: ["pay"]
+        job: ['lint', 'typecheck', 'build', 'test:unit']
     defaults:
       run:
         working-directory: ./packages/layers/${{ matrix.project }}
@@ -45,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["auth"]
+        project: ["pay"]
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     defaults:
@@ -88,7 +89,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["auth"]
+        project: ["pay"]
     defaults:
       run:
         working-directory: ./packages/layers/${{ matrix.project }}

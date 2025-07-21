@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "./core-tw.css";
+@import "./core-layout.css";
+
+@source "../../../../app/";

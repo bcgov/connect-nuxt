@@ -7,8 +7,6 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
-  modules: ['@nuxt/ui'],
-
   alias: {
     'BCGovFonts': resolve('./public/fonts/BCSans'),
     'BCGovLogoSmEn': resolve('./public/BCGovLogo/gov_bc_logo_vert_en.png'),
@@ -17,8 +15,6 @@ export default defineNuxtConfig({
     'BCGovLogoLgFr': resolve('./public/BCGovLogo/gov_bc_logo_horiz_fr.png'),
     '#base': resolve('./')
   },
-
-  css: [],
 
   compatibilityDate: '2025-07-10'
 })

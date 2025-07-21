@@ -12,6 +12,10 @@ export default defineNuxtConfig({
 
   extends: ['@sbc-connect/nuxt-base'],
 
+  alias: {
+    '#auth': resolve('./')
+  },
+
   css: [
     resolve('./app/assets/css/tw-auth.css')
   ]
