@@ -7,7 +7,7 @@ Following this process is a **required** step for any pull request that contains
 <!-- omit in toc -->
 ## Table of Contents
 
-- [What is a Changeset?](#what-is-a-changeset?)
+- [What is a Changeset?](#what-is-a-changeset)
 - [The Step-by-Step Workflow](#the-step-by-step-workflow)
 - [Managing Beta Releases](#managing-beta-releases)
 
