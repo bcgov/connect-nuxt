@@ -1,6 +1,6 @@
 <template>
   <Demo>
-    <div class="bg-green-100 p-3">
+    <div class="bg-green-100 p-3 lg:hidden">
       <slot>
         <p>Hello from Auth!</p>
       </slot>

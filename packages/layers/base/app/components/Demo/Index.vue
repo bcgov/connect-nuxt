@@ -15,7 +15,7 @@ const show = ref(false)
       class="bg-red-100 p-5"
     >
       <slot>
-        <p>Hello from base!</p>
+        <p class="hidden sm:block">Hello from base!</p>
       </slot>
     </div>
   </div>
