@@ -14,11 +14,9 @@ Following this process is a **required** step for any pull request that contains
 ## What is a Changeset?
 A changeset is a small markdown file that describes an "intent to release." It captures three key pieces of information:
 
-Which packages have been changed.
-
-How they should be versioned (major, minor, or patch).
-
-A summary of the changes for the changelog.
+1. Which packages have been changed.
+2. How they should be versioned (major, minor, or patch).
+3. A summary of the changes for the changelog.
 
 These files are committed alongside your code, and our CI/CD pipeline uses them to automate the entire release process.
 
@@ -82,7 +80,7 @@ You must commit this file along with your code changes.
 ### Step 4: The Automation Takes Over
 Once your pull request is reviewed and merged into main, the rest of the process is fully automated:
 
-  ![Screenshot of the Changesets github action pull request.](./img/github-action-pr.png)
+  ![Screenshot of the Changesets github action pull request.](./img/gh-action-pr.png)
 
   1. The Changesets GitHub Action detects the new changeset file on main.
   2. It automatically opens a new pull request titled "update versions". This PR will contain the updated version numbers in the package.json files and the new entries in the CHANGELOG.md.
