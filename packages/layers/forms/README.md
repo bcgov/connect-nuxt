@@ -1,73 +1,44 @@
-# Nuxt Layer Starter
+[![License](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg)](LICENSE) [![pkg.pr.new](https://pkg.pr.new/badge/OWNER/REPO)](https://pkg.pr.new/~/bcgov/connect-nuxt)
 
-Create Nuxt extendable layer with this GitHub template.
+# @sbc-connect/nuxt-forms
+A Nuxt layer for building and managing complex forms within the Connect ecosystem.
 
-## Setup
+This package provides a library of reusable form components, integrated validation logic, and composables to standardize form creation and handling across all filings.
 
-Make sure to install the dependencies:
+## Features
 
-```bash
-pnpm install
-```
+### Form Management
+- A comprehensive set of accessible, pre-styled form input components.
+- Standardized validation schemas using Zod for consistent error handling.
 
-## Working on your layer
+### Core Development Assets
+- Pre-built components for common inputs like addresses, postal codes, names, emails and phone numbers.
+- Reusable Zod schemas to manage the input validations.
 
-Your layer is at the root of this repository, it is exactly like a regular Nuxt project, except you can publish it on NPM.
+For detailed usage and API documentation, please see the [Forms Layer Docs](../../../docs/packages/layers/forms/intro.md).
 
-The `.playground` directory should help you on trying your layer during development.
+## Usage
 
-Running `pnpm dev` will prepare and boot `.playground` directory, which imports your layer itself.
-
-## Distributing your layer
-
-Your Nuxt layer is shaped exactly the same as any other Nuxt project, except you can publish it on NPM.
-
-To do so, you only have to check if `files` in `package.json` are valid, then run:
+### Install
 
 ```bash
-npm publish --access public
+pnpm install @sbc-connect/nuxt-forms
 ```
 
-Once done, your users will only have to run:
+### Configure
+Then add the dependency to `extends` in `nuxt.config`:
 
-```bash
-npm install --save your-layer
-```
-
-Then add the dependency to their `extends` in `nuxt.config`:
+> [!NOTE]
+> `@sbc-connect/nuxt-forms` already includes `@sbc-connect/nuxt-base`, it is not necessary to install `@sbc-connect/nuxt-base`.
 
 ```ts
 defineNuxtConfig({
-  extends: 'your-layer'
+  extends: '@sbc-connect/nuxt-forms'
 })
 ```
 
-## Development Server
+## Environment Variables
+This layer does not require any specific environment variables to be set.
 
-Start the development server on http://localhost:3000
-
-```bash
-pnpm dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-pnpm build
-```
-
-Or statically generate it with:
-
-```bash
-pnpm generate
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Contributing
+We welcome contributions to this package! Please see the main [suspicious link removed] for information on our branching strategy, commit conventions, and pull request process.
