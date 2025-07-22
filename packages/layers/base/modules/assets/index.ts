@@ -13,7 +13,7 @@ export default defineNuxtModule<ModuleOptions>({
   // Default configuration options of the Nuxt module
   defaults: {},
   async setup(_options, _nuxt) {
-    console.info('setting up assets module')
+    console.info('Setting up assets module')
     const resolver = createResolver(import.meta.url)
 
     _nuxt.options.css.push(resolver.resolve('./runtime/assets/core-tw.css'))

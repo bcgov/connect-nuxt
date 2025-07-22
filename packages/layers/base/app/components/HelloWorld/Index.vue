@@ -7,8 +7,8 @@ const { myLayer } = useAppConfig()
     Should have bg-primary
     <h1>Hello World!</h1>
     <pre>{{ myLayer }}</pre>
-    <p class="text-bcGovGray-900">
-      Hello World text base should be bcGovGray-900
+    <p class="text-gray-900">
+      Hello World text base should be gray-900
     </p>
   </div>
 </template>

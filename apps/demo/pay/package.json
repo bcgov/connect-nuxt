@@ -20,19 +20,13 @@
     "test:e2e:ui": "npx playwright test --ui"
   },
   "dependencies": {
-    "nuxt": "catalog:",
-    "vue": "catalog:",
-    "vue-router": "catalog:",
     "@sbc-connect/nuxt-pay": "workspace:*"
   },
   "devDependencies": {
-    "@nuxtjs/i18n": "catalog:",
     "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
-    "nuxt": "catalog:",
     "typescript": "catalog:",
-    "vue": "catalog:",
     "vue-tsc": "catalog:"
   }
 }

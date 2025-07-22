@@ -7,6 +7,6 @@ describe('Example Test', () => {
   test('Renders HelloWorld component', async () => {
     const wrapper = await mountSuspended(HelloWorldPay, {})
 
-    expect(wrapper.text()).toContain('Pay - Should be bcGovColor-activeBlue')
+    expect(wrapper.text()).toContain('Pay - Should be connect-primary')
   })
 })

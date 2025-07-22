@@ -6,7 +6,7 @@ scripts
 app/tests
 vitest.config.ts
 tests
-eslint.config.mjs
+eslint.config.ts
 tsconfig.json
 playwright-report
 
