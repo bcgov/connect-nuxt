@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default defineAppConfig({
   connect: {
     header: {
@@ -5,7 +6,7 @@ export default defineAppConfig({
     },
     footer: {
       versions: []
-    },
+    }
   },
   ui: {
     badge: {
@@ -58,7 +59,7 @@ export default defineAppConfig({
     dropdownMenu: {
       slots: {
         content: 'bg-white ring-0',
-        group: 'p-0',
+        group: 'p-0'
       }
     },
     formField: {
@@ -198,7 +199,7 @@ declare module '@nuxt/schema' {
     myLayer?: {
       /** Project name */
       name?: string
-    },
+    }
     connect?: {
       header?: {
         localeSelect?: boolean

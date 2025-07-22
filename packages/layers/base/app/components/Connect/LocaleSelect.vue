@@ -18,6 +18,7 @@ const items = computed((): DropdownMenuItem[] => {
   return [options]
 })
 </script>
+
 <template>
   <UDropdownMenu
     v-if="items[0] && items[0].length > 1"

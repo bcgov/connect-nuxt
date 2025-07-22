@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import { ConnectHeader } from '#components';
-
-</script>
-
 <template>
   <div class="app-container">
     <ConnectHeader />

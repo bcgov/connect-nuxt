@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   btn: {
     appVersion: 'App Version',

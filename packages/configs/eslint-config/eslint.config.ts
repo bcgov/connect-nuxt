@@ -29,6 +29,7 @@ export default createConfigForNuxt({
     'vue/comma-dangle': 'warn',
     'vue/component-api-style': 'error',
     'vue/html-indent': 'warn',
+    'vue/max-attributes-per-line': ['error', { singleline: { max: 2 }, multiline: { max: 1 } }],
     'vue/script-indent': 'warn',
     '@stylistic/brace-style': 'off',
     '@stylistic/indent': ['error', 2],

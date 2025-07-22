@@ -3,9 +3,11 @@
 
 /* Customize Nuxt UI default tokens */
 :root {
-  --ui-primary: var(--color-connect-primary);
-  --ui-secondary: var(--color-connect-white);
+  --ui-primary: var(--color-blue-500);
+  --ui-secondary: white;
   --ui-neutral: var(--color-gray-700);
+  --ui-success: var(--color-green-600);
+  --ui-warning: #F8661A;
   --ui-radius: 0.25rem;
   --ui-error: var(--color-connect-error);
   --ui-text-inverted: var(--color-connect-white);
@@ -31,7 +33,6 @@
   /* these colours are as defined in styleguide: */
   /* https://preview.uxpin.com/73eb31e6346bc2863a066f02218a3af289325619#/pages/138840439/simulate/sitemap?mode=i */
   /* for more details see previous link */
-  --color-connect-primary: var(--color-blue-500);
   --color-connect-darkBlue: var(--color-midnightBlue-900);
   --color-connect-lightBlue: var(--color-blue-50);
   --color-connect-darkGray: var(--color-gray-900);
@@ -49,10 +50,6 @@
   --color-connect-hairlinesOnWhite: var(--color-gray-300);
   --color-connect-specialityDottedLines: #899EB2;
   --color-connect-formFieldLines: #6F7780;
-  /* OUTCOMES */
-  --color-connect-approved: var(--color-green-600);
-  --color-connect-error: var(--color-red-600);
-  --color-connect-caution: #F8661A;
 
   /* GRAY */
   --color-gray-50: #f8f9fa;

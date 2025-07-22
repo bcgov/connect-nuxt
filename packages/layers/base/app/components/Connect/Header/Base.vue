@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const localeSelect = useAppConfig().connect.header.localeSelect
 </script>
+
 <template>
   <ConnectHeaderWrapper>
     <div class="flex items-center justify-between">
