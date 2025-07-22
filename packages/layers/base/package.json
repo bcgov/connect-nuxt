@@ -21,8 +21,7 @@
   },
   "dependencies": {
     "@nuxt/ui": "^3.2.0",
-    "@nuxtjs/i18n": "^10.0.1",
-    "nuxt": "^4.0.0"
+    "@nuxtjs/i18n": "^10.0.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
@@ -31,6 +30,7 @@
     "@sbc-connect/vitest-config": "workspace:*",
     "@vitest/coverage-v8": "catalog:",
     "dotenv": "catalog:",
+    "nuxt": "catalog:",
     "typescript": "catalog:",
     "vue-tsc": "catalog:"
   }

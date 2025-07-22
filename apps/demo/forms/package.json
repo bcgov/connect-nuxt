@@ -26,6 +26,7 @@
     "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
+    "nuxt": "catalog:",
     "typescript": "catalog:",
     "vue-tsc": "catalog:"
   }
