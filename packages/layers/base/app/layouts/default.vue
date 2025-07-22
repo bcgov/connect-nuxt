@@ -5,7 +5,7 @@
       <div class="flex flex-col lg:flex-row lg:gap-6 grow">
         <div class="grow max-w-full overflow-hidden">
           <div class="text-2xl font-bold">
-            Initial Commit
+            Second Commit
           </div>
           <slot />
         </div>
