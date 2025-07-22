@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
-    "@nuxtjs/i18n": "catalog:",
     "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",

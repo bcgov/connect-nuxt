@@ -3,10 +3,12 @@
 
 /* Customize Nuxt UI default tokens */
 :root {
-  --ui-primary: var(--color-blue-500);
+  --ui-primary: var(--color-connect-primary);
+  --ui-secondary: var(--color-connect-white);
+  --ui-neutral: var(--color-gray-700);
   --ui-radius: 0.25rem;
-  --ui-error: var(--color-red-600);
-  --ui-text-inverted: #FFFFFF;
+  --ui-error: var(--color-connect-error);
+  --ui-text-inverted: var(--color-connect-white);
 }
 
 @theme static {
@@ -29,46 +31,41 @@
   /* these colours are as defined in styleguide: */
   /* https://preview.uxpin.com/73eb31e6346bc2863a066f02218a3af289325619#/pages/138840439/simulate/sitemap?mode=i */
   /* for more details see previous link */
-  /* last updated on (2023-10-16) */
-  /* PRIMARY COLOURS */
-  --color-bcGovColor-footer: #003366;
-  --color-bcGovColor-header: #003366;
-  --color-bcGovColor-navDivider: #FCBA19;
-  /* LINK COLOURS */
-  --color-bcGovColor-activeBlue: #1669BB;
-  --color-bcGovColor-markBlue: #1a5a96;
-  --color-bcGovColor-markBlueHover: #0000EE;
-  /* TEXT/NON-CLICKABLE COLOURS */
-  --color-bcGovColor-darkGray: #212529;
-  --color-bcGovColor-midGray: #495057;
-  --color-bcGovColor-lightGray: #757575;
-  --color-bcGovColor-nonClickable: #38598A;
-  /* BACKGROUND COLOURS */
-  --color-bcGovColor-white: #FFFFFF;
-  --color-bcGovColor-gray1: #F1F3F5;
-  --color-bcGovColor-gray2: #E2E8EE;
-  --color-bcGovColor-lightBlue: #E4EDF7;
+  --color-connect-primary: var(--color-blue-500);
+  --color-connect-darkBlue: var(--color-midnightBlue-900);
+  --color-connect-lightBlue: var(--color-blue-50);
+  --color-connect-darkGray: var(--color-gray-900);
+  --color-connect-midGray: var(--color-gray-700);
+  --color-connect-lightGray: #757575;
+  --color-connect-white: #FFFFFF;
+  --color-connect-yellow: var(--color-yellow-400);
+  /* Are below used? */
+  /* --color-bcGovColor-markBlue: #1a5a96; */
+  /* --color-bcGovColor-markBlueHover: #0000EE; */
+  --color-connect-nonClickable: var(--color-blue-350);
+  --color-connect-gray1: var(--color-gray-100);
+  --color-connect-gray2: #E2E8EE;
   /* LINES */
-  --color-bcGovColor-hairlinesOnWhite: #DEE2E6;
-  --color-bcGovColor-specialityDottedLines: #899EB2;
-  --color-bcGovColor-formFieldLines: #6F7780;
+  --color-connect-hairlinesOnWhite: var(--color-gray-300);
+  --color-connect-specialityDottedLines: #899EB2;
+  --color-connect-formFieldLines: #6F7780;
   /* OUTCOMES */
-  --color-outcomes-approved: #2E8540;
-  --color-outcomes-error: #D3272C;
-  --color-outcomes-caution: #F8661A;
+  --color-connect-approved: var(--color-green-600);
+  --color-connect-error: var(--color-red-600);
+  --color-connect-caution: #F8661A;
 
   /* GRAY */
-  --color-bcGovGray-50: #f8f9fa;
-  --color-bcGovGray-100: #f1f3f5;
-  --color-bcGovGray-200: #e9ecef;
-  --color-bcGovGray-300: #dee2e6;
-  --color-bcGovGray-400: #ced4da;
-  --color-bcGovGray-500: #adb5bd;
-  --color-bcGovGray-600: #868e96;
-  --color-bcGovGray-700: #495057;
-  --color-bcGovGray-800: #343a40;
-  --color-bcGovGray-900: #212529;
-  --color-bcGovGray-950: #232529;
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #f1f3f5;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #adb5bd;
+  --color-gray-600: #868e96;
+  --color-gray-700: #495057;
+  --color-gray-800: #343a40;
+  --color-gray-900: #212529;
+  --color-gray-950: #232529;
   
   /* BLUE */
   --color-blue-50: #e4edf7;
@@ -194,7 +191,7 @@ body {
   h2,
   h3,
   h4 {
-    @apply text-bcGovGray-900;
+    @apply text-gray-900;
   }
 
   h1,
@@ -221,7 +218,7 @@ body {
   }
 
   p {
-    @apply font-normal text-bcGovColor-midGray;
+    @apply font-normal text-connect-midGray;
   }
 
   td,
@@ -231,10 +228,10 @@ body {
 
   /* floating labels */
   .floating-label-input {
-    @apply pointer-events-none absolute left-0 top-1 text-bcGovGray-900 text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:translate-none peer-focus:text-blue-500;
+    @apply pointer-events-none absolute left-0 top-1 text-gray-900 text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:translate-none peer-focus:text-blue-500;
   }
   
   .floating-label-textarea {
-    @apply pointer-events-none absolute left-0 top-1 text-bcGovGray-900 text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-blue-500;
+    @apply pointer-events-none absolute left-0 top-1 text-gray-900 text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-blue-500;
   }
 }
