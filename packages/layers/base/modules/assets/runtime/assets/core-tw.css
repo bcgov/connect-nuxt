@@ -3,14 +3,13 @@
 
 /* Customize Nuxt UI default tokens */
 :root {
+  --ui-error: var(--color-connect-error);
+  --ui-neutral: var(--color-gray-700);
   --ui-primary: var(--color-blue-500);
   --ui-secondary: white;
-  --ui-neutral: var(--color-gray-700);
   --ui-success: var(--color-green-600);
   --ui-warning: #F8661A;
   --ui-radius: 0.25rem;
-  --ui-error: var(--color-connect-error);
-  --ui-text-inverted: white;
 }
 
 @theme static {
@@ -38,7 +37,6 @@
   --color-connect-darkGray: var(--color-gray-900);
   --color-connect-midGray: var(--color-gray-700);
   --color-connect-lightGray: #757575;
-  --color-connect-white: #FFFFFF;
   --color-connect-yellow: var(--color-yellow-400);
   /* Are below used? */
   /* --color-bcGovColor-markBlue: #1a5a96; */
