@@ -1,7 +1,6 @@
 [![License](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg)](LICENSE) [![pkg.pr.new](https://pkg.pr.new/badge/OWNER/REPO)](https://pkg.pr.new/~/bcgov/connect-nuxt)
 
 # @sbc-connect/nuxt-base
-
 The foundational Nuxt layer for all Connect applications.
 
 This package contains the core UI components, styling, and utilities for the Connect ecosystem. Extend this layer in your Nuxt project to get a consistent, on-brand starting point with zero configuration.
@@ -33,7 +32,7 @@ Then add the dependency to `extends` in `nuxt.config`:
 
 ```ts
 defineNuxtConfig({
-  extends: '@sbc-connect/nuxt-core-layer'
+  extends: '@sbc-connect/nuxt-base'
 })
 ```
 

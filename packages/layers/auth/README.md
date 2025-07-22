@@ -1,73 +1,65 @@
-# Nuxt Layer Starter
+[![License](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg)](LICENSE) [![pkg.pr.new](https://pkg.pr.new/badge/OWNER/REPO)](https://pkg.pr.new/~/bcgov/connect-nuxt)
 
-Create Nuxt extendable layer with this GitHub template.
+# @sbc-connect/nuxt-auth
+A Nuxt layer for handling user authentication and session management within the Connect ecosystem.
 
-## Setup
+This package provides the necessary composables, plugins, and logic to integrate authentication into a Nuxt application, offering a secure and standardized login experience.
 
-Make sure to install the dependencies:
+## Features
+### Authentication & Session Management
+- Integration with the BC Government authentication provider.
+- User session management.
+- User account management.
 
-```bash
-pnpm install
-```
+### Core Development Assets
+- useConnectAuth() composable to access user information and token state.
+- login() and logout() helper functions.
+- Automatic token refreshing and session validation.
 
-## Working on your layer
+For detailed usage and API documentation, please see the [Auth Layer Docs](../../../docs/packages/layers/auth/intro.md).
 
-Your layer is at the root of this repository, it is exactly like a regular Nuxt project, except you can publish it on NPM.
+## Usage
 
-The `.playground` directory should help you on trying your layer during development.
-
-Running `pnpm dev` will prepare and boot `.playground` directory, which imports your layer itself.
-
-## Distributing your layer
-
-Your Nuxt layer is shaped exactly the same as any other Nuxt project, except you can publish it on NPM.
-
-To do so, you only have to check if `files` in `package.json` are valid, then run:
+### Install
 
 ```bash
-npm publish --access public
+pnpm install @sbc-connect/nuxt-auth
 ```
 
-Once done, your users will only have to run:
+### Configure
+Then add the dependency to `extends` in `nuxt.config`:
 
-```bash
-npm install --save your-layer
-```
-
-Then add the dependency to their `extends` in `nuxt.config`:
+> [!NOTE]
+> `@sbc-connect/nuxt-auth` already includes `@sbc-connect/nuxt-base`, it is not necessary to `@sbc-connect/nuxt-base`.
 
 ```ts
 defineNuxtConfig({
-  extends: 'your-layer'
+  extends: '@sbc-connect/nuxt-auth'
 })
 ```
 
-## Development Server
+## Environment Variables
+This project requires certain environment variables to be set to run correctly.
 
-Start the development server on http://localhost:3000
+Create a file named .env in the root of the project.
 
-```bash
-pnpm dev
+Copy the contents of the .env.example file into your new .env file.
+
+### Local Development
+For local development, you will need credentials for the development instance of the authentication provider.
+
+```
+# .env
+NUXT_AUTH_PROVIDER_URL="https://dev.oidc.gov.bc.ca/auth"
+NUXT_AUTH_PROVIDER_REALM="your-realm-name"
+NUXT_AUTH_PROVIDER_CLIENT_ID="your-client-id"
 ```
 
-## Production
+### Production Environments
+> [!IMPORTANT]
+> The values for staging and production environments are managed securely and should not be stored in this file.
 
-Build the application for production:
+To obtain the correct values for a production build or deployment, please contact the Connect Platform Team.
 
-```bash
-pnpm build
-```
-
-Or statically generate it with:
-
-```bash
-pnpm generate
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Contributing
+We welcome contributions to this package! Please see the main [Contribution Guidelines](../../../CONTRIBUTING.md) for information on our branching strategy, commit conventions, and pull request process.
