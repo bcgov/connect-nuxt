@@ -1,73 +1,63 @@
-# Nuxt Layer Starter
+# @sbc-connect/nuxt-pay
+A Nuxt layer for handling fee calculation and payment processing within the Connect ecosystem.
 
-Create Nuxt extendable layer with this GitHub template.
+This package provides the necessary components, composables, and service integrations to use the Connect payment flow, offering a standardized payment experience for all applications.
 
-## Setup
+## Features
 
-Make sure to install the dependencies:
+### Payment Integration
+- Utilities for fetching fees by payment code.
+- Components for displaying fee summaries and handling payment actions.
 
-```bash
-pnpm install
-```
 
-## Working on your layer
+### Core Development Assets
+- useConnectFeeStore() Pinia store for managing filing fees and payment status.
+- Composables for interacting with the payment API.
+- Pre-configured for handling different payment methods (Credit Card, PAD, etc.).
 
-Your layer is at the root of this repository, it is exactly like a regular Nuxt project, except you can publish it on NPM.
+For detailed usage and documentation, please see the [Pay Layer Docs](../../../docs/packages/layers/pay/intro.md).
 
-The `.playground` directory should help you on trying your layer during development.
+## Usage
 
-Running `pnpm dev` will prepare and boot `.playground` directory, which imports your layer itself.
-
-## Distributing your layer
-
-Your Nuxt layer is shaped exactly the same as any other Nuxt project, except you can publish it on NPM.
-
-To do so, you only have to check if `files` in `package.json` are valid, then run:
+### Install
 
 ```bash
-npm publish --access public
+pnpm install @sbc-connect/nuxt-pay
 ```
 
-Once done, your users will only have to run:
+### Configure
+Then add the dependency to `extends` in `nuxt.config`:
 
-```bash
-npm install --save your-layer
-```
-
-Then add the dependency to their `extends` in `nuxt.config`:
+> [!NOTE]
+> `@sbc-connect/nuxt-pay` already includes `@sbc-connect/nuxt-auth`, it is not necessary to install `@sbc-connect/nuxt-auth`.
 
 ```ts
 defineNuxtConfig({
-  extends: 'your-layer'
+  extends: '@sbc-connect/nuxt-pay'
 })
 ```
 
-## Development Server
+## Environment Variables
+This project requires certain environment variables to be set to run correctly.
 
-Start the development server on http://localhost:3000
+Create a file named .env in the root of the project.
 
-```bash
-pnpm dev
+Copy the contents of the .env.example file into your new .env file.
+
+### Local Development
+For local development, you will need credentials for the interacting with the Pay services.
+
+```
+# .env
+NUXT_PUBLIC_PAY_API_URL="https://pay-api-dev.pathfinder.gov.bc.ca/api/v1"
+NUXT_PUBLIC_PAY_API_KEY="your-dev-api-key"
 ```
 
-## Production
+### Production Environments
+> [!IMPORTANT]
+> The values for staging and production environments are managed securely and should not be stored in this file.
 
-Build the application for production:
+To obtain the correct values for a production build or deployment, please contact the Connect Platform Team.
 
-```bash
-pnpm build
-```
-
-Or statically generate it with:
-
-```bash
-pnpm generate
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Contributing
+We welcome contributions to this package! Please see the main [suspicious link removed] for information on our branching strategy, commit conventions, and pull request process.

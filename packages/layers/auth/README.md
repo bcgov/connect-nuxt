@@ -16,7 +16,7 @@ This package provides the necessary composables, plugins, and logic to integrate
 - login() and logout() helper functions.
 - Automatic token refreshing and session validation.
 
-For detailed usage and API documentation, please see the [Auth Layer Docs](../../../docs/packages/layers/auth/intro.md).
+For detailed usage and documentation, please see the [Auth Layer Docs](../../../docs/packages/layers/auth/intro.md).
 
 ## Usage
 
@@ -30,7 +30,7 @@ pnpm install @sbc-connect/nuxt-auth
 Then add the dependency to `extends` in `nuxt.config`:
 
 > [!NOTE]
-> `@sbc-connect/nuxt-auth` already includes `@sbc-connect/nuxt-base`, it is not necessary to `@sbc-connect/nuxt-base`.
+> `@sbc-connect/nuxt-auth` already includes `@sbc-connect/nuxt-base`, it is not necessary to install `@sbc-connect/nuxt-base`.
 
 ```ts
 defineNuxtConfig({
@@ -50,9 +50,9 @@ For local development, you will need credentials for the development instance of
 
 ```
 # .env
-NUXT_AUTH_PROVIDER_URL="https://dev.oidc.gov.bc.ca/auth"
-NUXT_AUTH_PROVIDER_REALM="your-realm-name"
-NUXT_AUTH_PROVIDER_CLIENT_ID="your-client-id"
+NUXT_PUBLIC_AUTH_PROVIDER_URL="https://dev.oidc.gov.bc.ca/auth"
+NUXT_PUBLIC_AUTH_PROVIDER_REALM="your-realm-name"
+NUXT_PUBLIC_AUTH_PROVIDER_CLIENT_ID="your-client-id"
 ```
 
 ### Production Environments
