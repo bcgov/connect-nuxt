@@ -65,6 +65,14 @@ This repository is organized into two main directories:
 
 Additional layers can be added under the `packages/layers/` directory. Other content should be organized similarly. e.g., Modules should be created under a new `packages/modules/` directory.
 
+## Pull Request Previews
+This repository uses [pkg-pr-new](https://github.com/stackblitz-labs/pkg.pr.new?tab=readme-ov-file) for continuous deployment of preview packages. When a pull request is opened that modifies a package, a bot will automatically post a comment with links to install the preview version.
+
+This allows for immediate testing and validation of changes in a live environment without needing to go through the full release process. The comment will also include a link to an interactive StackBlitz environment where the changes can be reviewed.
+
+> [!NOTE]
+> For subsequent changes pushed to the same pull request, it is required to use the installation link that contains the direct commit hash instead of the PR number (e.g., @a1b2c3d instead of @42). This will ensure you are testing against the absolute latest version and avoid any potential caching issues with the PR number tag.
+
 ## Versioning & Release Workflow
 This monorepo uses [Changesets](https://github.com/changesets/changesets) to manage versioning, changelogs, and publishing.
 
