@@ -10,7 +10,7 @@
   --ui-warning: #F8661A;
   --ui-radius: 0.25rem;
   --ui-error: var(--color-connect-error);
-  --ui-text-inverted: var(--color-connect-white);
+  --ui-text-inverted: white;
 }
 
 @theme static {
