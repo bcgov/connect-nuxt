@@ -18,6 +18,8 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-07-10',
 
+  modules: ['@nuxtjs/i18n'],
+
   // For more details on i18n in layers: https://i18n.nuxtjs.org/docs/guide/layers
   // For more details on config: https://i18n.nuxtjs.org/docs/api/options
   i18n: {
