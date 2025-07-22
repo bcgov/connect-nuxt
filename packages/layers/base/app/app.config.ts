@@ -24,7 +24,7 @@ export default defineAppConfig({
         {
           color: 'primary',
           variant: 'solid',
-          class: 'font-bold text-(--ui-bg) bg-(--ui-primary) hover:bg-(--ui-primary)/75 disabled:bg-(--ui-primary) aria-disabled:bg-(--ui-primary) focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--ui-primary)'
+          class: 'font-bold text-(--ui-secondary) bg-(--ui-primary) hover:bg-(--ui-primary)/75 disabled:bg-(--ui-primary) aria-disabled:bg-(--ui-primary) focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--ui-primary)'
         },
         {
           color: 'primary',
