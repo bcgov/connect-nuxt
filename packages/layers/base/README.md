@@ -1,73 +1,63 @@
-# Nuxt Layer Starter
+[![License](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg)](LICENSE) [![pkg.pr.new](https://pkg.pr.new/badge/OWNER/REPO)](https://pkg.pr.new/~/bcgov/connect-nuxt)
 
-Create Nuxt extendable layer with this GitHub template.
+# @sbc-connect/nuxt-base
 
-## Setup
+The foundational Nuxt layer for all Connect applications.
 
-Make sure to install the dependencies:
+This package contains the core UI components, styling, and utilities for the Connect ecosystem. Extend this layer in your Nuxt project to get a consistent, on-brand starting point with zero configuration.
 
+## Features
+
+### BC Government Branding
+- Official color theme and design tokens
+- BCSans font family with pre-configured @font-face rules
+- BC Government logos and favicon assets
+
+### Core Development Assets
+- A library of reusable base components
+- Essential composables for common application logic
+- Standard utility functions
+- Pre-configured for Internationalization (i18n)
+
+For detailed usage and documentation, please see the [Base Layer Docs](../../../docs/packages/layers/base/intro.md)
+
+## Usage
+
+### Install
 ```bash
-pnpm install
+pnpm install @sbc-connect/nuxt-base
 ```
 
-## Working on your layer
-
-Your layer is at the root of this repository, it is exactly like a regular Nuxt project, except you can publish it on NPM.
-
-The `.playground` directory should help you on trying your layer during development.
-
-Running `pnpm dev` will prepare and boot `.playground` directory, which imports your layer itself.
-
-## Distributing your layer
-
-Your Nuxt layer is shaped exactly the same as any other Nuxt project, except you can publish it on NPM.
-
-To do so, you only have to check if `files` in `package.json` are valid, then run:
-
-```bash
-npm publish --access public
-```
-
-Once done, your users will only have to run:
-
-```bash
-npm install --save your-layer
-```
-
-Then add the dependency to their `extends` in `nuxt.config`:
+### Configure
+Then add the dependency to `extends` in `nuxt.config`:
 
 ```ts
 defineNuxtConfig({
-  extends: 'your-layer'
+  extends: '@sbc-connect/nuxt-core-layer'
 })
 ```
 
-## Development Server
+### Environment Variables
+This project requires certain environment variables to be set to run correctly.
 
-Start the development server on http://localhost:3000
+Create a file named .env in the root of the project.
 
-```bash
-pnpm dev
+Copy the contents of the .env.example file into your new .env file.
+
+#### Local Development
+For local development, the following variables are required. The default values are suitable for running the application on your local machine:
+
+```
+# .env
+NUXT_BASE_URL="http://localhost:3000/"
 ```
 
-## Production
+#### Production Environments
+> [!IMPORTANT]
+> The values for staging and production environments are managed securely and should not be stored in this file.
 
-Build the application for production:
+To obtain the correct values for a production build or deployment, please contact the Connect Platform Team.
 
-```bash
-pnpm build
-```
+## Contributing
 
-Or statically generate it with:
-
-```bash
-pnpm generate
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+We welcome contributions to this package! Please see the main [Contribution Guidelines](../../../CONTRIBUTING.md) for information on our branching strategy, commit conventions, and pull request process.
