@@ -18,6 +18,9 @@ catalogs:
     dotenv:
       specifier: ^17.2.0
       version: 17.2.0
+    nuxt:
+      specifier: 4.0.0
+      version: 4.0.0
     typescript:
       specifier: ^5.8.3
       version: 5.8.3
@@ -54,6 +57,9 @@ importers:
       '@sbc-connect/vitest-config':
         specifier: workspace:*
         version: link:../../../packages/configs/vitest-config
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -76,6 +82,9 @@ importers:
       '@sbc-connect/vitest-config':
         specifier: workspace:*
         version: link:../../../packages/configs/vitest-config
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -98,6 +107,9 @@ importers:
       '@sbc-connect/vitest-config':
         specifier: workspace:*
         version: link:../../../packages/configs/vitest-config
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -120,6 +132,9 @@ importers:
       '@sbc-connect/vitest-config':
         specifier: workspace:*
         version: link:../../../packages/configs/vitest-config
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -197,6 +212,9 @@ importers:
       dotenv:
         specifier: 'catalog:'
         version: 17.2.0
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -212,9 +230,6 @@ importers:
       '@nuxtjs/i18n':
         specifier: ^10.0.1
         version: 10.0.1(@netlify/blobs@9.1.2)(@vue/compiler-dom@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(rollup@4.45.1)(vue@3.5.17(typescript@5.8.3))
-      nuxt:
-        specifier: ^4.0.0
-        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
     devDependencies:
       '@axe-core/playwright':
         specifier: 'catalog:'
@@ -234,6 +249,9 @@ importers:
       dotenv:
         specifier: 'catalog:'
         version: 17.2.0
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -265,6 +283,9 @@ importers:
       dotenv:
         specifier: 'catalog:'
         version: 17.2.0
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -296,6 +317,9 @@ importers:
       dotenv:
         specifier: 'catalog:'
         version: 17.2.0
+      nuxt:
+        specifier: 'catalog:'
+        version: 4.0.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@7.0.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
       typescript:
         specifier: 'catalog:'
         version: 5.8.3

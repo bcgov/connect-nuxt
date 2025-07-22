@@ -26,6 +26,7 @@
     "@sbc-connect/vitest-config": "workspace:*",
     "@vitest/coverage-v8": "catalog:",
     "dotenv": "catalog:",
+    "nuxt": "catalog:",
     "typescript": "catalog:",
     "vue-tsc": "catalog:"
   },
