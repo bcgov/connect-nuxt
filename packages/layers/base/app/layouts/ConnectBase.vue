@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <ConnectHeader />
+    <ConnectSystemBanner />
     <ConnectBreadcrumb />
     <div class="app-inner-container app-body">
       <div class="flex flex-col lg:flex-row lg:gap-6 grow">
