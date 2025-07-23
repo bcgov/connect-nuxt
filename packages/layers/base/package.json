@@ -21,6 +21,7 @@
     "typecheck": "npx nuxt typecheck"
   },
   "dependencies": {
+    "@iconify-json/mdi": "^1.2.3",
     "@nuxt/ui": "^3.2.0",
     "@nuxtjs/i18n": "^10.0.2",
     "launchdarkly-vue-client-sdk": "^2.4.1"
