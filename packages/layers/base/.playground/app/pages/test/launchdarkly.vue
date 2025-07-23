@@ -8,27 +8,35 @@ const { getStoredFlag, getFeatureFlag } = useConnectLaunchDarkly()
 // --- Scenario 1: Reactive Mode (Default) ---
 // These return a `computed` ref. They will have a default value initially
 // and then automatically update once the LD client is initialized.
-const storedFlagReactive = getStoredFlag<string>('allowable-business-passcode-types', 'Loading...')
-const featureFlagReactive = getFeatureFlag<string>('allowable-business-passcode-types', 'Loading...')
+const storedFlagReactive = getStoredFlag<string>('allowable-business-passcode-types', 'reactive-default')
+const featureFlagReactive = getFeatureFlag<string>('allowable-business-passcode-types', 'reactive-default')
 
 // --- Scenario 2: Await Mode ---
 // We use refs to hold the data and a loading state for a better user experience.
-const storedFlagAwait = await getStoredFlag<string>('allowable-business-passcode-types', 'await-default', 'await')
-const featureFlagAwait = await getFeatureFlag<string>('allowable-business-passcode-types', 'await-default', 'await')
+const storedFlagAwait = ref<string | undefined>('Loading...')
+const featureFlagAwait = ref<string | undefined>('Loading...')
+// using top-level await prevents the page from being rendered until that is resolved
+// using onMounted is not required
+// this is required for test purposes to show that the reactive option returns the default value until LD is ready
+onMounted(async () => {
+  storedFlagAwait.value = await getStoredFlag<string>('allowable-business-passcode-types', 'await-default', 'await')
+  featureFlagAwait.value = await getFeatureFlag<string>('allowable-business-passcode-types', 'await-default', 'await')
+})
 
 // This watcher will fire immediately and then again when the reactive flags update.
 watchEffect(() => {
-  console.info('--- Reactive Watcher (Fires multiple times) ---')
+  console.info('--- Reactive Watcher ---')
   console.info('storedFlagReactive:', storedFlagReactive.value)
   console.info('featureFlagReactive:', featureFlagReactive.value)
   console.info('---------------------------------------------')
 })
 
 // This watcher will only fire once, after the LD client is fully ready.
+// This may fire multiple times if the values resolve at different times
 watchEffect(async () => {
-  console.info('--- Await Watcher (Fires once when ready) ---')
-  console.info('Awaited Stored Flag:', storedFlagAwait)
-  console.info('Awaited Feature Flag:', featureFlagAwait)
+  console.info('--- Await Watcher ---')
+  console.info('Awaited Stored Flag:', storedFlagAwait.value)
+  console.info('Awaited Feature Flag:', featureFlagAwait.value)
   console.info('------------------------------------------')
 })
 </script>
