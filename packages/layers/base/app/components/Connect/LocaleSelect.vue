@@ -28,7 +28,7 @@ const items = computed((): DropdownMenuItem[] => {
     <UButton
       data-testid="locale-select-dropdown"
       icon="i-mdi-web"
-      :aria-label="$t('ConnectLocaleSelect.label')"
+      :aria-label="$t('connect.label.localeSelect')"
       size="lg"
       variant="ghost"
       color="secondary"

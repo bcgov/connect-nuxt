@@ -19,24 +19,24 @@ import enSmallLogo from 'BCGovLogoSmEn'
     <img
       class="hidden h-[60px] scale-125 sm:block"
       :src="frLargeLogo"
-      :alt="$t('ConnectBCGovLogo.alt')"
+      :alt="$t('connect.label.bcGovLogo')"
     >
     <img
       class="block h-[64px] scale-125 sm:hidden"
       :src="frSmallLogo"
-      :alt="$t('ConnectBCGovLogo.alt')"
+      :alt="$t('connect.label.bcGovLogo')"
     >
   </div>
   <div v-else class="shrink-0">
     <img
       class="hidden h-[60px] scale-125 sm:block"
       :src="enLargeLogo"
-      :alt="$t('ConnectBCGovLogo.alt')"
+      :alt="$t('connect.label.bcGovLogo')"
     >
     <img
       class="block h-[64px] scale-150 sm:hidden"
       :src="enSmallLogo"
-      :alt="$t('ConnectBCGovLogo.alt')"
+      :alt="$t('connect.label.bcGovLogo')"
     >
   </div>
 </template>
