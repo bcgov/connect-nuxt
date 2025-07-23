@@ -78,6 +78,18 @@ export default defineNuxtConfig({
     }
   },
 
+  icon: {
+    clientBundle: {
+      icons: [
+        'mdi:arrow-left',
+        'mdi:info-outline',
+        'mdi:information',
+        'mdi:web',
+        'mdi:check'
+      ]
+    }
+  },
+
   runtimeConfig: {
     public: {
       // Should in alphabetical order
