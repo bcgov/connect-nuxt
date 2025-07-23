@@ -1,93 +1,38 @@
 import { initialize } from 'launchdarkly-js-client-sdk'
-import type { LDClient, LDFlagSet, LDOptions, LDMultiKindContext } from 'launchdarkly-js-client-sdk'
+import type { LDClient, LDFlagSet, LDOptions, LDContext } from 'launchdarkly-js-client-sdk'
 
-// --- State ---
-// Defined in the module scope, so they are created only once and shared across the app.
-const ldClient = ref<LDClient | null>(null)
-const ldContext = ref<LDMultiKindContext>({
-  kind: 'multi',
-  org: { key: 'anonymous' },
-  user: { key: 'anonymous' }
-})
-const ldFlagSet = ref<LDFlagSet>({})
+// state
+// Defined outside of composable, so they are created only once and shared
+const ldClient = shallowRef<LDClient | null>(null)
+const ldFlagSet = shallowRef<LDFlagSet>({})
 const ldInitialized = ref(false)
 const isInitializing = ref(false)
 
-// --- Private Helper Functions ---
-
 /**
- * Builds the context object required by LaunchDarkly.
- * This function must be called from within a composable context.
- */
-const createLdContext = (): LDMultiKindContext => {
-  const keycloak = useKeycloak()
-  const accountStore = useConnectAccountStore()
-  const { public: rtc } = useRuntimeConfig()
-
-  // Create user context
-  const user = {
-    key: keycloak.kcUser.keycloakGuid,
-    firstName: keycloak.kcUser.firstName,
-    lastName: keycloak.kcUser.lastName,
-    email: keycloak.kcUser.email,
-    roles: keycloak.kcUser.roles,
-    loginSource: keycloak.kcUser.loginSource,
-    appSource: rtc.appName
-  }
-
-  // Default org to user key if no account is active
-  let org: Record<string, any> = { key: user.key, appSource: rtc.appName }
-
-  // Use account info if available
-  if (accountStore.currentAccount.id) {
-    org = {
-      key: accountStore.currentAccount.id,
-      accountType: accountStore.currentAccount.accountType,
-      accountStatus: accountStore.currentAccount.accountStatus,
-      type: accountStore.currentAccount.type,
-      label: accountStore.currentAccount.label,
-      appSource: rtc.appName
-    }
-  }
-
-  return { kind: 'multi', org, user }
-}
-
-/**
- * Identifies the user to LaunchDarkly with the latest context.
- */
-const updateUserContext = () => {
-  if (!ldClient.value) {
-    return
-  }
-  const newContext = createLdContext()
-  ldContext.value = newContext
-
-  ldClient.value.identify(newContext).then(() => {
-    ldFlagSet.value = ldClient.value?.allFlags() || {}
-  }).catch((error) => {
-    console.error('LaunchDarkly: Failed to update context.', error)
-  })
-}
-
-/**
- * Initializes the LaunchDarkly client.
- */
-const init = () => {
-  const keycloak = useKeycloak()
-  const { public: rtc } = useRuntimeConfig()
+ * Initializes the LaunchDarkly client with an anonymous context.
+*/
+function init(): void {
+  const rtc = useRuntimeConfig().public
 
   // Prevent re-initialization
   if (ldInitialized.value || isInitializing.value) {
     return
   }
-  // Guard against running without required info
-  if (!keycloak.isAuthenticated || !keycloak.kcUser?.keycloakGuid || !rtc.ldClientId) {
+  // Prevent initialization if missing client ID
+  if (!rtc.ldClientId) {
+    console.error('LaunchDarkly: ldClientId is not configured.')
     return
   }
 
   isInitializing.value = true
-  ldContext.value = createLdContext()
+
+  const ldContext: LDContext = {
+    kind: 'user',
+    key: 'anonymous',
+    anonymous: true,
+    appSource: rtc.appName
+  }
+
   const options: LDOptions = {
     streaming: false,
     useReport: false,
@@ -95,13 +40,13 @@ const init = () => {
   }
 
   try {
-    ldClient.value = initialize(rtc.ldClientId, ldContext.value, options)
+    ldClient.value = initialize(rtc.ldClientId, ldContext, options)
 
     ldClient.value.on('initialized', () => {
       ldFlagSet.value = ldClient.value?.allFlags() || {}
       ldInitialized.value = true
       isInitializing.value = false
-      console.info('LaunchDarkly: Initialization complete.')
+      console.info('LaunchDarkly: Anonymous initialization complete.')
     })
 
     ldClient.value.on('error', (error) => {
@@ -114,59 +59,81 @@ const init = () => {
   }
 }
 
-// A guard to ensure the watchers are only set up once.
-let watchersInitialized = false
-
 /**
- * Composable for interacting with the LaunchDarkly service.
- */
-export const useLaunchdarkly = () => {
-  // --- Reactive Triggers ---
-  // This block runs every time the composable is used, but the guard
-  // prevents the watchers from being duplicated across components.
-  if (!watchersInitialized && process.client) {
-    const keycloak = useKeycloak()
-    const accountStore = useConnectAccountStore()
-
-    // Initialize or update context when authentication state changes.
-    watch(() => keycloak.isAuthenticated, (isAuthenticated) => {
-      if (isAuthenticated) {
-        ldInitialized.value ? updateUserContext() : init()
-      }
-    }, { immediate: true }) // `immediate` ensures this runs on initial app load.
-
-    // Update context when the user's account changes.
-    watch(() => accountStore.currentAccount.id, (accountId) => {
-      if (accountId && ldInitialized.value) {
-        updateUserContext()
-      }
-    })
-
-    watchersInitialized = true
-  }
-
-  // --- Public API ---
-
-  /**
-   * Gets the variation of a feature flag. This may trigger a network request.
-   * @param name The name of the feature flag.
-   * @returns The value of the flag, or null if not available.
-   */
-  const getFeatureFlag = (name: string): any => {
-    return ldClient.value ? ldClient.value.variation(name) : null
+ * Composable for the LaunchDarkly service.
+*/
+export const useConnectLaunchDarkly = () => {
+  // initialize only once
+  if (!ldInitialized.value && !isInitializing.value && import.meta.client) {
+    init()
   }
 
   /**
-   * Gets a flag value from the locally stored flag set without a network request.
+   * Returns a flag's value. Can operate in two modes.
    * @param name The name of the feature flag.
-   * @returns The value of the flag, or undefined if not available.
+   * @param defaultValue The value to use until the flag is loaded.
+   * @param mode - 'reactive' (default) returns a ref that updates automatically. 'await' returns a promise that resolves when the client is ready.
+   * @returns A readonly ref or a promise resolving to the flag's value.
    */
-  const getStoredFlag = (name: string): any => {
-    if (!ldInitialized.value) {
-      console.warn('LaunchDarkly: Accessing stored flag before initialization.')
+  function getFeatureFlag<T>(name: string, defaultValue: T | undefined, mode: 'await'): Promise<T | undefined>
+  function getFeatureFlag<T>(name: string, defaultValue?: T | undefined, mode?: 'reactive'): Readonly<Ref<T | undefined>>
+  function getFeatureFlag<T>(
+    name: string,
+    defaultValue: T | undefined = undefined,
+    mode: 'reactive' | 'await' = 'reactive'
+  ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
+    if (mode === 'await') {
+      return new Promise(async (resolve) => {
+        await ldClient.value?.waitUntilReady()
+        resolve(ldClient.value ? ldClient.value.variation(name, defaultValue) : defaultValue)
+      })
     }
-    return ldFlagSet.value[name]
+
+    // reactive mode
+    return readonly(computed(() => {
+      if (!ldClient.value || !ldInitialized.value) {
+        return defaultValue
+      }
+      return ldClient.value.variation(name, defaultValue)
+    }))
   }
+
+    /**
+   * Returns a flag's value from the locally stored flag set. Can operate in two modes.
+   * @param name The name of the feature flag.
+   * @param defaultValue The value to use until the flag is loaded.
+   * @param mode - 'reactive' (default) returns a ref that updates automatically. 'await' returns a promise that resolves when the client is ready.
+   * @returns A readonly ref or a promise resolving to the flag's value.
+   */
+    async function getStoredFlag<T>(name: string, defaultValue: T | undefined, mode: 'await'): Promise<T | undefined>
+    function getStoredFlag<T>(name: string, defaultValue?: T | undefined, mode?: 'reactive'): Readonly<Ref<T | undefined>>
+    function getStoredFlag<T>(
+      name: string,
+      defaultValue: T | undefined = undefined,
+      mode: 'reactive' | 'await' = 'reactive'
+    ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
+      if (mode === 'await') {
+        return new Promise(async (resolve) => {
+          await ldClient.value?.waitUntilReady()
+          resolve(ldFlagSet.value[name] ?? defaultValue)
+        })
+      }
+  
+      // reactive mode
+      return readonly(computed(() => {
+        if (!ldInitialized.value) {
+          return defaultValue
+        }
+        return ldFlagSet.value[name] ?? defaultValue
+      }))
+    }
+
+  // TODO: or do we do this and then everytime the fn is called its required to use await?
+  // TODO: returning the computed means we dont need to add LD to middleware
+  // async function getStoredFlag(name: string): Promise<unknown> {
+  //   await ldClient.value?.waitUntilReady()
+  //   return ldFlagSet.value[name]
+  // }
 
   /**
    * Resets the LaunchDarkly state and closes the client connection.
@@ -184,6 +151,7 @@ export const useLaunchdarkly = () => {
     getStoredFlag,
     ldInitialized: readonly(ldInitialized),
     ldFlagSet: readonly(ldFlagSet),
+    ldClient: readonly(ldClient),
     $reset
   }
 }
