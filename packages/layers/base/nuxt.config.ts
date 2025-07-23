@@ -18,6 +18,10 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-07-10',
 
+  imports: {
+    dirs: ['interfaces']
+  },
+
   modules: ['@nuxtjs/i18n'],
 
   // For more details on i18n in layers: https://i18n.nuxtjs.org/docs/guide/layers
@@ -43,5 +47,43 @@ export default defineNuxtConfig({
       }
     ],
     strategy: 'prefix'
+  },
+
+  ui: {
+    theme: {
+      colors: [
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'error',
+        'brandDark',
+        'brandLight',
+        'lineDark',
+        'lineLight',
+        'lineSpecial',
+        'neutral',
+        'neutralDark',
+        'neutralLight',
+        'shadeCaution',
+        'shadeLight',
+        'shadeNew',
+        'shadePrimary',
+        'shadeSecondary',
+        'shadeSpecial',
+        'shadeWarning'
+      ]
+    }
+  },
+
+  runtimeConfig: {
+    public: {
+      // Should in alphabetical order
+      appName: process.env.npm_package_name || '',
+      baseUrl: process.env.NUXT_BASE_URL,
+      registryHomeURL: process.env.NUXT_REGISTRY_HOME_URL,
+      version: `Connect Base Layer v${process.env.npm_package_version || ''}`
+    }
   }
 })

@@ -5,6 +5,7 @@ export default createConfigForNuxt({
     stylistic: true
   }
 }).append({
+  files: ['**/*.ts', '**/*.vue'],
   rules: {
     'no-console': ['error', { allow: ['info', 'error', 'warn'] }],
     'no-debugger': 'off',

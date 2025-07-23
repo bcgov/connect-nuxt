@@ -2,14 +2,55 @@
 @reference "@nuxt/ui";
 
 /* Customize Nuxt UI default tokens */
+/* Follows https://sites.google.com/bcdevexchange.org/designsystem/foundation-styles/colours */
 :root {
-  --ui-error: var(--color-connect-error);
-  --ui-neutral: var(--color-gray-700);
+  --ui-error: var(--color-red-600);
   --ui-primary: var(--color-blue-500);
   --ui-secondary: white;
   --ui-success: var(--color-green-600);
   --ui-warning: #F8661A;
+  /* Custom themes */
+  --ui-brandDark: var(--color-midnightBlue-900);
+  --ui-brandLight: var(--color-yellow-400);
+  --ui-lineDark: #6F7780;
+  --ui-lineLight: var(--color-gray-300);
+  --ui-lineSpecial: #899EB2;
+  --ui-neutral: var(--color-gray-700);
+  --ui-neutralDark: var(--color-gray-900);
+  --ui-neutralLight: #757575;
+  --ui-shadeCaution: #FFF7E3;
+  --ui-shadeLight: white;
+  --ui-shadeNew: #E8F5E9;
+  --ui-shadePrimary: var(--color-gray-100);
+  --ui-shadeSecondary: #E2E8EE;
+  --ui-shadeSpecial: var(--color-blue-50);
+  --ui-shadeWarning: #FAE9E9;
   --ui-radius: 0.25rem;
+}
+
+/* FUTURE: add dark themed colours (currently set to be the same) */
+.dark {
+  --ui-error: var(--color-red-600);
+  --ui-primary: var(--color-blue-500);
+  --ui-secondary: white;
+  --ui-success: var(--color-green-600);
+  --ui-warning: #F8661A;
+  /* Custom themes */
+  --ui-brandDark: var(--color-midnightBlue-900);
+  --ui-brandLight: var(--color-yellow-400);
+  --ui-lineDark: #6F7780;
+  --ui-lineLight: var(--color-gray-300);
+  --ui-lineSpecial: #899EB2;
+  --ui-neutral: var(--color-gray-700);
+  --ui-neutralDark: var(--color-gray-900);
+  --ui-neutralLight: #757575;
+  --ui-shadeCaution: #FFF7E3;
+  --ui-shadeLight: white;
+  --ui-shadeNew: #E8F5E9;
+  --ui-shadePrimary: var(--color-gray-100);
+  --ui-shadeSecondary: #E2E8EE;
+  --ui-shadeSpecial: var(--color-blue-50);
+  --ui-shadeWarning: #FAE9E9;
 }
 
 @theme static {
@@ -27,27 +68,6 @@
 
   /* box shadow */
   --shadow-bcGovInput: inset 0 -2px 0 0px #1669bb;
-
-  /* COLOURS */
-  /* these colours are as defined in styleguide: */
-  /* https://preview.uxpin.com/73eb31e6346bc2863a066f02218a3af289325619#/pages/138840439/simulate/sitemap?mode=i */
-  /* for more details see previous link */
-  --color-connect-darkBlue: var(--color-midnightBlue-900);
-  --color-connect-lightBlue: var(--color-blue-50);
-  --color-connect-darkGray: var(--color-gray-900);
-  --color-connect-midGray: var(--color-gray-700);
-  --color-connect-lightGray: #757575;
-  --color-connect-yellow: var(--color-yellow-400);
-  /* Are below used? */
-  /* --color-bcGovColor-markBlue: #1a5a96; */
-  /* --color-bcGovColor-markBlueHover: #0000EE; */
-  --color-connect-nonClickable: var(--color-blue-350);
-  --color-connect-gray1: var(--color-gray-100);
-  --color-connect-gray2: #E2E8EE;
-  /* LINES */
-  --color-connect-hairlinesOnWhite: var(--color-gray-300);
-  --color-connect-specialityDottedLines: #899EB2;
-  --color-connect-formFieldLines: #6F7780;
 
   /* GRAY */
   --color-gray-50: #f8f9fa;
@@ -186,7 +206,7 @@ body {
   h2,
   h3,
   h4 {
-    @apply text-gray-900;
+    @apply text-neutralDark;
   }
 
   h1,
@@ -213,20 +233,20 @@ body {
   }
 
   p {
-    @apply font-normal text-connect-midGray;
+    @apply font-normal text-neutral;
   }
 
   td,
   th {
-    @apply text-gray-900 text-sm;
+    @apply text-neutralDark text-sm;
   }
 
   /* floating labels */
   .floating-label-input {
-    @apply pointer-events-none absolute left-0 top-1 text-gray-900 text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:translate-none peer-focus:text-blue-500;
+    @apply pointer-events-none absolute left-0 top-1 text-neutralDark text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:translate-none peer-focus:text-primary;
   }
   
   .floating-label-textarea {
-    @apply pointer-events-none absolute left-0 top-1 text-gray-900 text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-blue-500;
+    @apply pointer-events-none absolute left-0 top-1 text-neutralDark text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-primary;
   }
 }

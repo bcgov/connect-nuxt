@@ -5,8 +5,8 @@
     <h3 class="text-red-700">
       Auth - should be red-700
     </h3>
-    <p class="text-connect-yellow">
-      Auth - should be connect-yellow
+    <p class="text-connect-gold">
+      Auth - should be connect-gold
     </p>
   </div>
 </template>
