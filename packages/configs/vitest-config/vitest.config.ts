@@ -6,7 +6,7 @@ export default defineVitestConfig({
   test: {
     environment: 'nuxt',
     dir: './tests/unit',
-    include: ['*.test.ts'],
+    include: ['*/**.test.ts'],
     environmentOptions: {
       nuxt: {
         rootDir: fileURLToPath(new URL('./playground', import.meta.url)),
