@@ -22,7 +22,7 @@ const message = ld.getStoredFlag<string>('banner-text')
       :ui="{
         root: 'rounded-none bg-yellow-400 p-0 app-inner-container',
         wrapper: 'bg-yellow-400',
-        close: 'mt-2 text-gray-900'
+        close: 'mt-2 text-gray-900',
       }"
       @update:open="close = true"
     >
@@ -37,6 +37,7 @@ const message = ld.getStoredFlag<string>('banner-text')
     </UAlert>
   </div>
 </template>
+
 <!-- must style globally for vhtml style to work  -->
 <style>
 .vhtml > a {

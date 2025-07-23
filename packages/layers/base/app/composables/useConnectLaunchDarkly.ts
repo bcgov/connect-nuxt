@@ -72,21 +72,35 @@ export const useConnectLaunchDarkly = () => {
    * Returns a flag's value. Can operate in two modes.
    * @param name The name of the feature flag.
    * @param defaultValue The value to use until the flag is loaded.
-   * @param mode - 'reactive' (default) returns a ref that updates automatically. 'await' returns a promise that resolves when the client is ready.
+   * @param mode - 'reactive' (default) returns a ref that updates automatically.
+   * 'await' returns a promise that resolves when the client is ready.
    * @returns A readonly ref or a promise resolving to the flag's value.
    */
-  function getFeatureFlag<T>(name: string, defaultValue: T | undefined, mode: 'await'): Promise<T | undefined>
-  function getFeatureFlag<T>(name: string, defaultValue?: T | undefined, mode?: 'reactive'): Readonly<Ref<T | undefined>>
+  function getFeatureFlag<T>(
+    name: string,
+    defaultValue: T | undefined,
+    mode: 'await'
+  ): Promise<T | undefined>
+  function getFeatureFlag<T>(
+    name: string,
+    defaultValue?: T | undefined,
+    mode?: 'reactive'
+  ): Readonly<Ref<T | undefined>>
   function getFeatureFlag<T>(
     name: string,
     defaultValue: T | undefined = undefined,
     mode: 'reactive' | 'await' = 'reactive'
   ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
     if (mode === 'await') {
-      return new Promise(async (resolve) => {
-        await ldClient.value?.waitUntilReady()
-        resolve(ldClient.value ? ldClient.value.variation(name, defaultValue) : defaultValue)
-      })
+      if (!ldClient.value) {
+        return Promise.resolve(defaultValue)
+      }
+      return ldClient.value.waitUntilReady()
+        .then(() => ldClient.value ? ldClient.value.variation(name, defaultValue) : defaultValue)
+        .catch((error) => {
+          console.error(`LaunchDarkly: Error waiting for client while getting flag "${name}".`, error)
+          return defaultValue
+        })
     }
 
     // reactive mode
@@ -98,35 +112,41 @@ export const useConnectLaunchDarkly = () => {
     }))
   }
 
-    /**
+  /**
    * Returns a flag's value from the locally stored flag set. Can operate in two modes.
    * @param name The name of the feature flag.
    * @param defaultValue The value to use until the flag is loaded.
-   * @param mode - 'reactive' (default) returns a ref that updates automatically. 'await' returns a promise that resolves when the client is ready.
+   * @param mode - 'reactive' (default) returns a ref that updates automatically.
+   * 'await' returns a promise that resolves when the client is ready.
    * @returns A readonly ref or a promise resolving to the flag's value.
    */
-    async function getStoredFlag<T>(name: string, defaultValue: T | undefined, mode: 'await'): Promise<T | undefined>
-    function getStoredFlag<T>(name: string, defaultValue?: T | undefined, mode?: 'reactive'): Readonly<Ref<T | undefined>>
-    function getStoredFlag<T>(
-      name: string,
-      defaultValue: T | undefined = undefined,
-      mode: 'reactive' | 'await' = 'reactive'
-    ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
-      if (mode === 'await') {
-        return new Promise(async (resolve) => {
-          await ldClient.value?.waitUntilReady()
-          resolve(ldFlagSet.value[name] ?? defaultValue)
-        })
+  async function getStoredFlag<T>(name: string, defaultValue: T | undefined, mode: 'await'): Promise<T | undefined>
+  function getStoredFlag<T>(name: string, defaultValue?: T | undefined, mode?: 'reactive'): Readonly<Ref<T | undefined>>
+  function getStoredFlag<T>(
+    name: string,
+    defaultValue: T | undefined = undefined,
+    mode: 'reactive' | 'await' = 'reactive'
+  ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
+    if (mode === 'await') {
+      if (!ldClient.value) {
+        return Promise.resolve(defaultValue)
       }
-  
-      // reactive mode
-      return readonly(computed(() => {
-        if (!ldInitialized.value) {
+      return ldClient.value.waitUntilReady()
+        .then(() => ldFlagSet.value[name] ?? defaultValue)
+        .catch((error) => {
+          console.error(`LaunchDarkly: Error waiting for client while getting stored flag "${name}".`, error)
           return defaultValue
-        }
-        return ldFlagSet.value[name] ?? defaultValue
-      }))
+        })
     }
+
+    // reactive mode
+    return readonly(computed(() => {
+      if (!ldInitialized.value) {
+        return defaultValue
+      }
+      return ldFlagSet.value[name] ?? defaultValue
+    }))
+  }
 
   // TODO: or do we do this and then everytime the fn is called its required to use await?
   // TODO: returning the computed means we dont need to add LD to middleware
