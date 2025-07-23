@@ -8,6 +8,7 @@ useHead({
   }
 })
 </script>
+
 <template>
   <UApp :toaster="{ position: 'bottom-center' }">
     <NuxtLayout>
