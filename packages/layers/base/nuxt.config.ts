@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-10',
 
   imports: {
-    dirs: ['interfaces']
+    dirs: ['interfaces', 'composables']
   },
 
   modules: ['@nuxtjs/i18n'],
@@ -83,7 +83,8 @@ export default defineNuxtConfig({
       appName: process.env.npm_package_name || '',
       baseUrl: process.env.NUXT_BASE_URL,
       registryHomeURL: process.env.NUXT_REGISTRY_HOME_URL,
-      version: `Connect Base Layer v${process.env.npm_package_version || ''}`
+      version: `Connect Base Layer v${process.env.npm_package_version || ''}`,
+      ldClientId: ''
     }
   }
 })
