@@ -15,7 +15,7 @@ const errorKey: string | number = props.error?.statusCode === 404 ? 404 : 'unkno
 useRoute().meta.hideBreadcrumbs = true
 
 useHead({
-  title: errorKey === 404 ? t('ConnectPage.error.404.title') : t('ConnectPage.error.unknown.title')
+  title: errorKey === 404 ? t('connect.page.error.404.title') : t('connect.page.error.unknown.title')
 })
 
 const errorObj = {
@@ -29,21 +29,20 @@ const errorObj = {
 }
 
 onMounted(() => {
-  console.error('Nuxt Application Error: ', errorObj)
+  console.error('Application Error: ', errorObj)
 })
 </script>
 
 <template>
-  <!-- TODO: add locale prop to UApp -->
   <UApp :toaster="{ position: 'bottom-center' }">
-    <NuxtLayout name="default">
+    <NuxtLayout name="connect-base">
       <div class="m-auto flex flex-col items-center gap-4 h-full justify-center">
         <h1>
-          {{ $t(`ConnectPage.error.${errorKey}.h1`) }}
+          {{ $t(`connect.page.error.${errorKey}.h1`) }}
         </h1>
-        <p>{{ $t(`ConnectPage.error.${errorKey}.content`) }}</p>
+        <p>{{ $t(`connect.page.error.${errorKey}.content`) }}</p>
         <UButton
-          :label="$t('label.goHome')"
+          :label="$t('connect.label.goHome')"
           icon="i-mdi-home"
           size="xl"
           :to="localePath('/')"
