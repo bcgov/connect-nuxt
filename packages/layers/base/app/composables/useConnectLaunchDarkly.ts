@@ -78,19 +78,19 @@ export const useConnectLaunchDarkly = () => {
    */
   function getFeatureFlag<T>(
     name: string,
-    defaultValue: T | undefined,
+    defaultValue: T,
     mode: 'await'
-  ): Promise<T | undefined>
+  ): Promise<T>
   function getFeatureFlag<T>(
     name: string,
-    defaultValue?: T | undefined,
+    defaultValue?: T,
     mode?: 'reactive'
-  ): Readonly<Ref<T | undefined>>
+  ): Readonly<Ref<T>>
   function getFeatureFlag<T>(
     name: string,
-    defaultValue: T | undefined = undefined,
+    defaultValue: T,
     mode: 'reactive' | 'await' = 'reactive'
-  ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
+  ): Readonly<Ref<T>> | Promise<T> {
     if (mode === 'await') {
       if (!ldClient.value) {
         return Promise.resolve(defaultValue)
@@ -120,13 +120,13 @@ export const useConnectLaunchDarkly = () => {
    * 'await' returns a promise that resolves when the client is ready.
    * @returns A readonly ref or a promise resolving to the flag's value.
    */
-  async function getStoredFlag<T>(name: string, defaultValue: T | undefined, mode: 'await'): Promise<T | undefined>
-  function getStoredFlag<T>(name: string, defaultValue?: T | undefined, mode?: 'reactive'): Readonly<Ref<T | undefined>>
+  async function getStoredFlag<T>(name: string, defaultValue: T, mode: 'await'): Promise<T>
+  function getStoredFlag<T>(name: string, defaultValue?: T, mode?: 'reactive'): Readonly<Ref<T>>
   function getStoredFlag<T>(
     name: string,
-    defaultValue: T | undefined = undefined,
+    defaultValue: T,
     mode: 'reactive' | 'await' = 'reactive'
-  ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
+  ): Readonly<Ref<T>> | Promise<T> {
     if (mode === 'await') {
       if (!ldClient.value) {
         return Promise.resolve(defaultValue)

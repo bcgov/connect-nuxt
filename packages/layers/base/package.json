@@ -16,15 +16,16 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "pnpm run test:unit; pnpm run test:e2e",
-    "test:unit": "vitest run",
+    "test:unit": "vitest run --passWithNoTests",
     "test:unit:watch": "vitest",
     "test:e2e": "npx playwright test",
     "typecheck": "npx nuxt typecheck"
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "@nuxt/ui": "^3.2.0",
+    "@nuxt/ui": "^3.3.0",
     "@nuxtjs/i18n": "^10.0.2",
+    "dompurify": "^3.2.6",
     "launchdarkly-vue-client-sdk": "^2.4.1"
   },
   "devDependencies": {

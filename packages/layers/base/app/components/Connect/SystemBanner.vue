@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const ld = useConnectLaunchDarkly()
-// const { $sanitize } = useNuxtApp()
+const { $sanitize } = useNuxtApp()
 
 defineProps({
   dismissible: { type: Boolean, default: false },
@@ -8,7 +8,10 @@ defineProps({
 })
 
 const close = ref(false)
-const message = ld.getStoredFlag<string>('banner-text')
+const message = ref('')
+onMounted(async () => {
+  message.value = $sanitize(await ld.getStoredFlag('banner-text', '', 'await'))
+})
 </script>
 
 <template>
