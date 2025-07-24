@@ -34,6 +34,11 @@ export default defineAppConfig({
         }
       ]
     },
+    button: {
+      slots: {
+        base: 'cursor-pointer'
+      }
+    },
     dropdownMenu: {
       slots: {
         content: 'bg-secondary ring-0',

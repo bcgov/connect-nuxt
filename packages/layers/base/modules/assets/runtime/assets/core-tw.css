@@ -17,6 +17,8 @@
   --ui-lineDark: #6F7780;
   --ui-lineLight: var(--color-gray-300);
   --ui-lineSpecial: #899EB2;
+  --ui-markBlue: #1A5A96;
+  --ui-markBlueHover: #0000EE;
   --ui-neutral: var(--color-gray-700);
   --ui-neutralDark: var(--color-gray-900);
   --ui-neutralLight: #757575;
@@ -43,6 +45,8 @@
   --ui-lineDark: #6F7780;
   --ui-lineLight: var(--color-gray-300);
   --ui-lineSpecial: #899EB2;
+  --ui-markBlue: #1A5A96;
+  --ui-markBlueHover: #0000EE;
   --ui-neutral: var(--color-gray-700);
   --ui-neutralDark: var(--color-gray-900);
   --ui-neutralLight: #757575;

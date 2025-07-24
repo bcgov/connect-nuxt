@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const localeSelect = useAppConfig().connect.header.localeSelect
+const headerConfig = useAppConfig().connect.header
 </script>
 
 <template>
@@ -9,7 +9,8 @@ const localeSelect = useAppConfig().connect.header.localeSelect
       <ClientOnly>
         <div class="flex gap-4">
           <slot />
-          <ConnectLocaleSelect v-if="localeSelect" />
+          <ConnectHeaderWhatsNew v-if="headerConfig.whatsNew" />
+          <ConnectLocaleSelect v-if="headerConfig.localeSelect" />
         </div>
       </ClientOnly>
     </div>

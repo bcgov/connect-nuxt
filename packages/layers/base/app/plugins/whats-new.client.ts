@@ -1,38 +1,41 @@
 import { useStorage } from '@vueuse/core'
-
-interface WhatsNewItem {
-  app: string
-  date: string
-  description: string
-  id:number
-  priority: boolean
-  read: boolean
-  title: string
-}
+import isEqual from 'lodash-es/isEqual'
 
 export default defineNuxtPlugin((nuxtApp) => {
+  // exit early if whats new === false
+  const whatsNew = useAppConfig().connect.header.whatsNew
+  if (!whatsNew) {
+    return
+  }
   const rtc = useRuntimeConfig().public
   const url = rtc.statusApiUrl + rtc.statusApiVersion
-  // load whats new only once
+  
+  // load whats new only once when app mounts
   nuxtApp.hook('app:mounted', async () => {
-    const state = useStorage<{ viewed: boolean, items: WhatsNewItem[] }>(
-      'connect-whats-new',
-      { viewed: false, items: [] },
-      localStorage,
-      { mergeDefaults: true }
+    // set default localStorage state
+    const state = useStorage<ConnectWhatsNewState>(
+      'connect-whats-new', // storage key
+      { viewed: false, items: [] }, // default value
+      localStorage, // could change this to sessionStorage
+      { mergeDefaults: true } // merge anything already in localStorage with default value
     )
 
-    console.log('WHATS NEW: ', state.value)
     try {
-      const res = await $fetch<WhatsNewItem[]>(`${url}/whatsnew`, { 
-        parseResponse: JSON.parse,
+      // fetch items
+      const res = await $fetch<ConnectWhatsNewItem[]>(`${url}/whatsnew`, { 
+        parseResponse: JSON.parse, // required to parse JSON correctly
         headers: {
           'App-Name': rtc.appName
         }
       })
-      state.value.items = res
-      console.log(res)
-      console.log('WHATS NEW: ', state.value)
-    } catch {}
+
+      // only update value if new items exist
+      if (!isEqual(state.value.items, res) && res.length > 0) {
+        state.value.items = res 
+        state.value.viewed = false
+      }  
+    } catch {
+      // silently handle errors
+    }
   })
 })
