@@ -12,26 +12,26 @@ const message = ld.getStoredFlag<string>('banner-text')
 </script>
 
 <template>
-  <div class="bg-yellow-400">
+  <div class="bg-brandLight px-2">
     <UAlert
       v-show="!!message && !close"
-      class="border-b-2 border-yellow-400 py-0"
+      class="py-0"
       :description="message"
       :close="dismissible"
       close-icon="i-mdi-close"
       :ui="{
-        root: 'rounded-none bg-yellow-400 p-0 app-inner-container',
-        wrapper: 'bg-yellow-400',
-        close: 'mt-2 text-gray-900',
+        root: 'rounded-none bg-brandLight p-0 app-inner-container',
+        wrapper: 'bg-brandLight',
+        close: 'mt-2 text-neutralDark',
       }"
       @update:open="close = true"
     >
-      <!-- dismissible ? { class: 'pr-2 text-gray-900' } : null -->
+      <!-- dismissible ? { class: 'pr-2 text-neutralDark' } : null -->
       <template #description>
         <div class="flex gap-2 items-center py-2">
-          <UIcon class="size-7 shrink-0 text-gray-900 self-start" :name="icon" />
+          <UIcon class="size-7 shrink-0 text-neutralDark self-start" :name="icon" />
           <!-- eslint-disable vue/no-v-html tailwindcss/no-custom-classname -->
-          <p class="vhtml text-gray-900" v-html="message" />
+          <p class="vhtml text-neutralDark" v-html="message" />
         </div>
       </template>
     </UAlert>
@@ -41,7 +41,7 @@ const message = ld.getStoredFlag<string>('banner-text')
 <!-- must style globally for vhtml style to work  -->
 <style>
 .vhtml > a {
-  color: #212529;
+  color: var(--ui-neutralDark);
   text-decoration: underline;
 }
 </style>
