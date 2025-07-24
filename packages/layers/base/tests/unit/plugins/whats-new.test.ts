@@ -20,7 +20,7 @@ mockNuxtImport('useRuntimeConfig', () => () => ({
   }
 }))
 
-// Mock the global $fetch
+// Mock $fetch
 const mockFetch = vi.fn()
 vi.stubGlobal('$fetch', mockFetch)
 
@@ -31,17 +31,17 @@ describe("What's New Plugin", () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    // Reset the mock storage state before each test
+    // reset storage state before each test
     // @ts-expect-error - Type '{ id: number; title: string; }' is not assignable to type 'never'
     mockStorageRef.value = { viewed: false, items: [{ id: 1, title: 'Old Item' }] }
 
-    // Provide the mock implementation for the mocked modules here.
+    // mock vueuse and lodash
     vi.mocked(useStorage).mockReturnValue(mockStorageRef)
     vi.mocked(isEqual).mockClear()
 
     mockAppConfig = true
 
-    // Create a mock nuxtApp object with a hook spy
+    // mock nuxt app with hook
     mockNuxtApp = {
       hook: vi.fn((event, callback) => {
         if (event === 'app:mounted') {
