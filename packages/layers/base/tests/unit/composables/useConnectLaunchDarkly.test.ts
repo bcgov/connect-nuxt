@@ -1,8 +1,10 @@
-import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, test, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { initialize } from 'launchdarkly-js-client-sdk'
 import type { LDClient } from 'launchdarkly-js-client-sdk'
-import type { useConnectLaunchDarkly as UseConnectLaunchdarklyType } from '../../../app/composables/useConnectLaunchDarkly'
+import type {
+  useConnectLaunchDarkly as UseConnectLaunchdarklyType
+} from '../../../app/composables/useConnectLaunchDarkly'
 
 vi.mock('launchdarkly-js-client-sdk')
 mockNuxtImport('useRuntimeConfig', () => () => ({
@@ -37,7 +39,7 @@ describe('useConnectLaunchdarkly', () => {
       variation: vi.fn((name, defaultValue) => ldFlags[name] ?? defaultValue),
       waitUntilReady: vi.fn(() => Promise.resolve()),
       close: vi.fn()
-    }  as unknown as LDClient
+    } as unknown as LDClient
     vi.mocked(initialize).mockReturnValue(mockLdClient)
   })
 
