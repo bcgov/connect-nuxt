@@ -13,5 +13,6 @@
 - update vitest config to search nested folders
 - update --ui-radius var so rounded-md is 0.25rem
 - remove core main css file causing duplicate fonts
+- add html sanitizer plugin
 
 issue: bcgov/entity#29334

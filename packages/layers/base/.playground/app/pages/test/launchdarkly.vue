@@ -13,8 +13,8 @@ const featureFlagReactive = getFeatureFlag<string>('allowable-business-passcode-
 
 // --- Scenario 2: Await Mode ---
 // We use refs to hold the data and a loading state for a better user experience.
-const storedFlagAwait = ref<string | undefined>('Loading...')
-const featureFlagAwait = ref<string | undefined>('Loading...')
+const storedFlagAwait = ref<string>('Loading...')
+const featureFlagAwait = ref<string>('Loading...')
 // using top-level await prevents the page from being rendered until that is resolved
 // using onMounted is not required
 // this is required for test purposes to show that the reactive option returns the default value until LD is ready
