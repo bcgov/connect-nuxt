@@ -17,6 +17,7 @@
     "lint:fix": "eslint --fix .",
     "test": "pnpm run test:unit; pnpm run test:e2e",
     "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "test:e2e": "npx playwright test",
     "typecheck": "npx nuxt typecheck"
   },
