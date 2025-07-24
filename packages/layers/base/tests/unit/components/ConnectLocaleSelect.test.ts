@@ -100,7 +100,7 @@ describe('<ConnectLocaleSelect />', () => {
       }
     })
 
-    // @ts-ignore // cant find items in wrapper instance
+    // @ts-expect-error - cant find items in wrapper instance
     const computedItems = wrapper.vm.items
 
     const expectedItems = [
