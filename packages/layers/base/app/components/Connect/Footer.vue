@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const rtc = useRuntimeConfig().public
 const uiVersion = rtc.version
-const feesUrl =  `${rtc.registryHomeUrl}product-fees`
+const feesUrl = `${rtc.registryHomeUrl}product-fees`
 const dependencyVersions: string[] = useAppConfig().connect?.footer?.versions || []
 const localePath = useLocalePath()
 const links = [

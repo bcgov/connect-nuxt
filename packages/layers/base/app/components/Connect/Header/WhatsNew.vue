@@ -13,6 +13,7 @@ function open() {
   state.value.viewed = true
 }
 </script>
+
 <template>
   <UChip
     :show="!state.viewed && state.items.length > 0"
@@ -20,7 +21,7 @@ function open() {
     position="top-left"
     inset
     :ui="{
-      base: 'ring-(--ui-error)'
+      base: 'ring-(--ui-error)',
     }"
   >
     <UButton

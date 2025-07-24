@@ -25,7 +25,7 @@ const mockFetch = vi.fn()
 vi.stubGlobal('$fetch', mockFetch)
 
 describe("What's New Plugin", () => {
-  let mockNuxtApp: any
+  let mockNuxtApp: unknown
   let appMountedCallback: () => Promise<void>
   const mockStorageRef = ref({ viewed: false, items: [] })
 
@@ -56,6 +56,7 @@ describe("What's New Plugin", () => {
     // run plugin
     whatsNewPlugin.setup(mockNuxtApp, {})
     // hook should not be called
+    // @ts-expect-error - 'mockNuxtApp' is of type 'unknown'
     expect(mockNuxtApp.hook).not.toHaveBeenCalled()
   })
 
@@ -63,7 +64,9 @@ describe("What's New Plugin", () => {
     // run plugin
     whatsNewPlugin.setup(mockNuxtApp, {})
     // hook should be called
+    // @ts-expect-error - 'mockNuxtApp' is of type 'unknown'
     expect(mockNuxtApp.hook).toHaveBeenCalledOnce()
+    // @ts-expect-error - 'mockNuxtApp' is of type 'unknown'
     expect(mockNuxtApp.hook).toHaveBeenCalledWith('app:mounted', expect.any(Function))
   })
 
@@ -116,6 +119,39 @@ describe("What's New Plugin", () => {
       expect(mockFetch).toHaveBeenCalledOnce()
       // assert state hasnt been updated
       expect(mockStorageRef.value.items).toEqual(oldItems)
+    })
+
+    test('should NOT update storage if the API returns an empty array', async () => {
+      // mock fetch to return empty array
+      const oldItems = mockStorageRef.value.items
+      mockFetch.mockResolvedValue([])
+      vi.mocked(isEqual).mockReturnValue(false)
+
+      // run plugin
+      whatsNewPlugin.setup(mockNuxtApp, {})
+      await appMountedCallback()
+
+      // assert fetch was called
+      expect(mockFetch).toHaveBeenCalledOnce()
+      // assert state not updated
+      expect(mockStorageRef.value.items).toEqual(oldItems)
+    })
+
+    test('should set viewed to false when new items are fetched', async () => {
+      // mock fetch to reutn new items
+      mockStorageRef.value.viewed = true // initial state is viewed and oldItems
+      const newItems = [{ id: 2, title: 'New Item' }]
+      mockFetch.mockResolvedValue(newItems)
+      vi.mocked(isEqual).mockReturnValue(false)
+
+      // run plugin
+      whatsNewPlugin.setup(mockNuxtApp, {})
+      await appMountedCallback()
+
+      // assert state has new items
+      expect(mockStorageRef.value.items).toEqual(newItems)
+      // assert viewed is now false
+      expect(mockStorageRef.value.viewed).toBe(false)
     })
   })
 })

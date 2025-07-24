@@ -5,6 +5,7 @@ defineProps<{
   items: ConnectWhatsNewItem[]
 }>()
 </script>
+
 <template>
   <USlideover
     :title="$t('connect.label.whatsNewSlideover')"
@@ -13,13 +14,13 @@ defineProps<{
     :close="{
       color: 'neutral',
       variant: 'ghost',
-      class: 'cursor-pointer hover:bg-gray-100/50 focus-visible:bg-transparent focus-visible:ring-2 rounded-full'
+      class: 'cursor-pointer hover:bg-gray-100/50 focus-visible:bg-transparent focus-visible:ring-2 rounded-full',
     }"
     :ui="{
       header: 'bg-brandLight',
       title: 'text-brandDark',
       body: 'flex-1 overflow-y-auto p-0 sm:p-0',
-      description: 'sr-only'
+      description: 'sr-only',
     }"
   >
     <template #body>
@@ -50,6 +51,7 @@ defineProps<{
     </template>
   </USlideover>
 </template>
+
 <!-- must style globally for vhtml style to work  -->
 <style>
 .vhtml a {
