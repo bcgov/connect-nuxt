@@ -1,8 +1,11 @@
 import { useStorage } from '@vueuse/core'
 import isEqual from 'lodash-es/isEqual'
 
-export default defineNuxtPlugin((nuxtApp) => {
-  // exit early if whats new === false
+export default defineNuxtPlugin({
+  name: 'connect-whats-new-plugin',
+  parallel: true,
+  setup(nuxtApp) {
+    // exit early if whats new === false
   const whatsNew = useAppConfig().connect.header.whatsNew
   if (!whatsNew) {
     return
@@ -38,4 +41,5 @@ export default defineNuxtPlugin((nuxtApp) => {
       // silently handle errors
     }
   })
+  }
 })
