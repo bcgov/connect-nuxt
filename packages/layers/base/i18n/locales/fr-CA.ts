@@ -1,7 +1,39 @@
 /* eslint-disable max-len */
 export default {
+  /* Ordering should be alphabetical unless otherwise specified */
+  connect: {
+    breadcrumb: {
+      /* Only include breadcrumb values that extended apps may overwrite */
+      arialabel: "Fil d'Ariane",
+      default: 'Service Connect CB'
+    },
+    footer: {
+      /* Only include footer values that extended apps may overwrite */
+      navLabel: 'Liens utiles' // <nav> aria-label
+    },
+    header: {
+      /* Only include header values that extended apps may overwrite */
+      homeLink: 'Accueil', // aria-label
+      navLabel: 'Navigation principale', // <nav> aria-label
+      title: 'Service Connect CB'
+    },
+    label: {
+      accessibility: 'Accessibilité',
+      appVersion: "Version de l'Application",
+      bcApp: 'Une application en ligne CB',
+      bcGovLogo: 'Logo du gouvernement de la Colombie-Britannique',
+      copyright: "Droits d'auteur",
+      disclaimer: 'Clause de non-responsabilité',
+      fees: 'Frais',
+      goBack: 'Retour',
+      home: 'Accueil',
+      localeSelect: 'Sélectionnez une langue, langue courante: Français',
+      privacy: 'Confidentialité',
+      releaseNotes: 'Notes de Version'
+    },
+    text: {}
+  },
   btn: {
-    appVersion: "Version de l'Application",
     bcRegHome: 'Accueil des Registres de la CB',
     createAccount: 'Créer un Compte',
     editProfile: 'Editer le Profil',
@@ -32,35 +64,6 @@ export default {
   notifications: {
     none: 'Aucune Notification',
     teamMemberApproval: "{count} membre de l'équipe doit être approuvé pour accéder à ce compte. | {count} membres de l'équipe doivent être approuvés pour accéder à ce compte."
-  },
-  ConnectFooter: {
-    navLabel: 'Liens utiles', // <nav> aria-label
-    home: 'Accueil',
-    releaseNotes: 'Notes de Version',
-    fees: 'Frais',
-    disclaimer: 'Clause de non-responsabilité',
-    privacy: 'Confidentialité',
-    ally: 'Accessibilité',
-    copyright: "Droits d'auteur",
-    bcApp: 'Une application en ligne CB'
-  },
-  ConnectHeader: {
-    title: 'Service Connect CB',
-    logoBtnLabel: 'Accueil', // <img> link aria-label
-    navLabel: 'Navigation principale', // <nav> aria-label
-    homeLink: 'Home'
-  },
-  ConnectBCGovLogo: {
-    alt: 'Logo du gouvernement de la Colombie-Britannique' // <img> alt
-  },
-  ConnectLocaleSelect: {
-    // aria-label
-    label: 'Sélectionnez une langue, langue courante: Français'
-  },
-  ConnectBreadcrumb: {
-    default: 'Service Connect CB',
-    backBtn: 'Retour',
-    arialabel: "Fil d'Ariane"
   },
   ConnectPage: {
     error: {

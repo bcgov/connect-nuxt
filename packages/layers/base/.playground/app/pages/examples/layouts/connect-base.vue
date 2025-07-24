@@ -5,7 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <HelloWorldAuth />
-  </div>
+  <HelloWorld />
 </template>
