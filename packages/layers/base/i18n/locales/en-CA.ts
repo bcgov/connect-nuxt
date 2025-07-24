@@ -25,10 +25,25 @@ export default {
       disclaimer: 'Disclaimer',
       fees: 'Fees',
       goBack: 'Go Back',
+      goHome: 'Go Home',
       home: 'Home',
       localeSelect: 'Select a Language, current language: English',
       privacy: 'Privacy',
       releaseNotes: 'Release Notes'
+    },
+    page: {
+      error: {
+        404: {
+          title: 'Page Not Found - Service BC Connect',
+          h1: '404 Page Not Found',
+          content: 'This page could not be found or does not exist.'
+        },
+        unknown: {
+          title: 'Unknown Error - Service BC Connect',
+          h1: 'Unknown Error',
+          content: 'An unknown error occured, please refresh the page or try again later.'
+        }
+      }
     },
     text: {}
   },

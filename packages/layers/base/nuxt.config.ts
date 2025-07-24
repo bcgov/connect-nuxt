@@ -77,13 +77,26 @@ export default defineNuxtConfig({
     }
   },
 
+  icon: {
+    clientBundle: {
+      icons: [
+        'mdi:arrow-left',
+        'mdi:info-outline',
+        'mdi:information',
+        'mdi:web',
+        'mdi:check'
+      ]
+    }
+  },
+
   runtimeConfig: {
     public: {
       // Should in alphabetical order
       appName: process.env.npm_package_name || '',
       baseUrl: process.env.NUXT_BASE_URL,
       registryHomeURL: process.env.NUXT_REGISTRY_HOME_URL,
-      version: `Connect Base Layer v${process.env.npm_package_version || ''}`
+      version: `Connect Base Layer v${process.env.npm_package_version || ''}`,
+      ldClientId: ''
     }
   }
 })

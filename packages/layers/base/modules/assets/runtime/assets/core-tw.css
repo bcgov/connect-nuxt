@@ -1,5 +1,7 @@
-@reference "tailwindcss";
-@reference "@nuxt/ui";
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@source "../../../../app/";
 
 /* Customize Nuxt UI default tokens */
 /* Follows https://sites.google.com/bcdevexchange.org/designsystem/foundation-styles/colours */
@@ -25,7 +27,7 @@
   --ui-shadeSecondary: #E2E8EE;
   --ui-shadeSpecial: var(--color-blue-50);
   --ui-shadeWarning: #FAE9E9;
-  --ui-radius: 0.25rem;
+  --ui-radius: 0.1667rem;
 }
 
 /* FUTURE: add dark themed colours (currently set to be the same) */
@@ -51,6 +53,7 @@
   --ui-shadeSecondary: #E2E8EE;
   --ui-shadeSpecial: var(--color-blue-50);
   --ui-shadeWarning: #FAE9E9;
+  --ui-radius: 0.1667rem;
 }
 
 @theme static {

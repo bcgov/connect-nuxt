@@ -18,7 +18,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     _nuxt.options.css.push(resolver.resolve('./runtime/assets/core-tw.css'))
     _nuxt.options.css.push(resolver.resolve('./runtime/assets/core-layout.css'))
-    _nuxt.options.css.push(resolver.resolve('./runtime/assets/core-main.css'))
+    // _nuxt.options.css.push(resolver.resolve('./runtime/assets/core-main.css'))
     await installModule('@nuxt/ui')
   }
 })
