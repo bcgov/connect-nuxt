@@ -14,7 +14,7 @@ test.describe('Error.vue', () => {
     // error text
     await expect(page.getByRole('heading', { name: 'Unknown Error' })).toBeVisible()
     await expect(page.getByText('An unknown error occured, please refresh the page or try again later.')).toBeVisible()
-    
+
     // should display a link/button to return home
     await expect(page.getByRole('link', { name: 'Go Home' })).toBeVisible()
   })

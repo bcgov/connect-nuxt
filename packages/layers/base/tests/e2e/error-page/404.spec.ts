@@ -14,7 +14,7 @@ test.describe('Error.vue', () => {
     // error text
     await expect(page.getByRole('heading', { name: '404 Page Not Found' })).toBeVisible()
     await expect(page.getByText('This page could not be found or does not exist.')).toBeVisible()
-    
+
     // should display a link/button to return home
     await expect(page.getByRole('link', { name: 'Go Home' })).toBeVisible()
   })
