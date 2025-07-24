@@ -72,8 +72,7 @@ export default defineNuxtConfig({
         'shadePrimary',
         'shadeSecondary',
         'shadeSpecial',
-        'shadeWarning',
-        'white'
+        'shadeWarning'
       ]
     }
   },
