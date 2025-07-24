@@ -1,7 +1,8 @@
 export default defineAppConfig({
   connect: {
     header: {
-      localeSelect: true
+      localeSelect: true,
+      whatsNew: true
     },
     footer: {
       versions: []
@@ -50,13 +51,10 @@ export default defineAppConfig({
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
-    myLayer?: {
-      /** Project name */
-      name?: string
-    }
     connect?: {
       header?: {
         localeSelect?: boolean
+        whatsNew?: boolean
       }
       footer?: {
         versions?: string[]
