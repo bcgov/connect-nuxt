@@ -48,7 +48,7 @@ For local development, the following variables are required. The default values 
 
 ```
 # .env
-NUXT_BASE_URL="http://localhost:3000/"
+NUXT_PUBLIC_BASE_URL="http://localhost:3000/"
 ```
 
 #### Production Environments

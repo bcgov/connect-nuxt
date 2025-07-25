@@ -27,10 +27,10 @@ export default defineConfig<ConfigOptions>({
     nuxt: {
       rootDir: resolve('./'),
       runner: 'vitest',
-      host: process.env.NUXT_BASE_URL
+      host: process.env.NUXT_PUBLIC_BASE_URL
     },
     actionTimeout: 2000,
-    baseURL: process.env.NUXT_BASE_URL,
+    baseURL: process.env.NUXT_PUBLIC_BASE_URL,
     trace: 'retain-on-failure',
     screenshot: 'on-first-failure',
     // do not open browser

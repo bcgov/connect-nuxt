@@ -32,6 +32,10 @@
     "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@sbc-connect/nuxt-base": "workspace:*"
+    "@pinia/nuxt": "^0.11.2",
+    "@sbc-connect/nuxt-base": "workspace:*",
+    "keycloak-js": "^26.2.0",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.4.1"
   }
 }
