@@ -13,7 +13,8 @@ export default defineNuxtPlugin(async () => {
   try {
     // default behaviour when keycloak session expires
     // try to update token - log out if token update fails
-    // callbacks must be registered before 'init' https://www.keycloak.org/securing-apps/javascript-adapter#_callback_events
+    // callbacks must be registered before 'init'
+    // https://www.keycloak.org/securing-apps/javascript-adapter#_callback_events
     keycloak.onTokenExpired = async () => {
       try {
         console.info('[Auth] Token expired, refreshing token...')
@@ -45,7 +46,7 @@ export default defineNuxtPlugin(async () => {
 
   // executed when user is authenticated and idle = true
   // TODO: manage session expiry
-  async function sessionExpired () {
+  async function sessionExpired() {
     // if (route.meta.sessionExpiredFn) { // if route meta provided, override default behaviour
     //   await route.meta.sessionExpiredFn()
     // } else { // open expiry modal
@@ -55,7 +56,7 @@ export default defineNuxtPlugin(async () => {
   }
 
   // refresh token if expiring within <minValidity> - checks every <refreshIntervalTimeout>
-  function scheduleRefreshToken () {
+  function scheduleRefreshToken() {
     console.info('[Auth] Verifying token validity.')
 
     setTimeout(async () => {
@@ -98,7 +99,7 @@ export default defineNuxtPlugin(async () => {
   return {
     provide: {
       // provide global auth instance
-      'connectAuth': keycloak
+      connectAuth: keycloak
     }
   }
 })
