@@ -17,8 +17,8 @@
   --ui-lineDark: #6F7780;
   --ui-lineLight: var(--color-gray-300);
   --ui-lineSpecial: #899EB2;
-  --ui-markBlue: #1A5A96;
-  --ui-markBlueHover: #0000EE;
+  --ui-mark: #1A5A96;
+  --ui-markHover: #0000EE;
   --ui-neutral: var(--color-gray-700);
   --ui-neutralDark: var(--color-gray-900);
   --ui-neutralLight: #757575;
@@ -45,8 +45,8 @@
   --ui-lineDark: #6F7780;
   --ui-lineLight: var(--color-gray-300);
   --ui-lineSpecial: #899EB2;
-  --ui-markBlue: #1A5A96;
-  --ui-markBlueHover: #0000EE;
+  --ui-mark: #1A5A96;
+  --ui-markHover: #0000EE;
   --ui-neutral: var(--color-gray-700);
   --ui-neutralDark: var(--color-gray-900);
   --ui-neutralLight: #757575;
@@ -67,14 +67,16 @@
   /* widths */
   --container-bcGovMd: 1020px;
   --container-bcGovLg: 1360px;
-  --container-bcGovInput: 600px;
+  --container-input: 600px;
 
   /* list style types */
   --marker-alpha: lower-alpha;
   --marker-upper-alpha: upper-alpha;
 
   /* box shadow */
-  --shadow-bcGovInput: inset 0 -2px 0 0px #1669bb;
+  --shadow-input: inset 0 -1px 0 0px var(--ui-neutral);
+  --shadow-inputFocus: inset 0 -2px 0 0px var(--ui-primary);
+  --shadow-inputError: inset 0 -2px 0 0px var(--ui-error);
 
   /* GRAY */
   --color-gray-50: #f8f9fa;
@@ -250,10 +252,10 @@ body {
 
   /* floating labels */
   .floating-label-input {
-    @apply pointer-events-none absolute left-0 top-1 text-neutralDark text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-focus:translate-none peer-focus:text-primary;
+    @apply pointer-events-none absolute left-0 top-3 text-neutralDark transition-all motion-reduce:transition-none duration-200 text-xs font-medium px-2.5 peer-focus:top-3 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-1/2 -translate-y-1/2 peer-focus:text-primary;
   }
   
   .floating-label-textarea {
-    @apply pointer-events-none absolute left-0 top-1 text-neutralDark text-xs font-medium px-2.5 transition-all peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-primary;
+    @apply pointer-events-none absolute left-0 top-1 text-neutralDark text-xs font-medium px-2.5 transition-all duration-200 peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-primary;
   }
 }

@@ -55,7 +55,7 @@ defineProps<{
 <!-- must style globally for vhtml style to work  -->
 <style>
 .vhtml a {
-  color: var(--ui-markBlue);
+  color: var(--ui-mark);
   text-decoration: underline;
 }
 </style>
