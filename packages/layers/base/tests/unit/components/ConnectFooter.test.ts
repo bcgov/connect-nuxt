@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import { i18nMock } from '../mocks/i18n'
 import { ConnectFooter, UApp } from '#components'
 
 describe('<ConnectFooter />', () => {
@@ -12,10 +11,6 @@ describe('<ConnectFooter />', () => {
           <ConnectFooter />
         </UApp>
       `
-    }, {
-      global: {
-        plugins: [i18nMock]
-      }
     })
 
     const linkTexts = ['Home', 'Release Notes', 'Fees', 'Disclaimer', 'Privacy', 'Accessibility', 'Copyright']

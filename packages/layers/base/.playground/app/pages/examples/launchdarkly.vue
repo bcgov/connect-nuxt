@@ -44,7 +44,7 @@ watchEffect(async () => {
 <template>
   <div class="p-8 space-y-6">
     <h1 class="text-2xl font-bold">
-      LaunchDarkly Test Page
+      LaunchDarkly Example Page
     </h1>
 
     <div class="p-4 border rounded-lg space-y-2">

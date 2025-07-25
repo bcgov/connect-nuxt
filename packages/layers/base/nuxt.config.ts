@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-10',
 
   imports: {
-    dirs: ['interfaces']
+    dirs: ['interfaces', 'types']
   },
 
   modules: [
@@ -85,10 +85,28 @@ export default defineNuxtConfig({
     clientBundle: {
       icons: [
         'mdi:arrow-left',
+        'mdi:arrow-right',
         'mdi:info-outline',
         'mdi:information',
         'mdi:web',
-        'mdi:check'
+        'mdi:check',
+        'mdi:chevron-double-left',
+        'mdi:chevron-double-right',
+        'mdi:menu-down',
+        'mdi:menu-left',
+        'mdi:menu-right',
+        'mdi:menu-up',
+        'mdi:close',
+        'mdi:dots-horizontal',
+        'mdi:open-in-new',
+        'mdi:file',
+        'mdi:folder',
+        'mdi:folder-open',
+        'mdi:loading',
+        'mdi:minus',
+        'mdi:plus',
+        'mdi:magnify',
+        'mdi:upload'
       ]
     }
   },

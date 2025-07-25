@@ -15,7 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-brandLight px-2">
+  <div class="bg-brandLight">
     <UAlert
       v-show="!!message && !close"
       class="py-0"
@@ -23,7 +23,7 @@ onMounted(async () => {
       :close="dismissible"
       close-icon="i-mdi-close"
       :ui="{
-        root: 'rounded-none bg-brandLight p-0 app-inner-container',
+        root: 'rounded-none bg-brandLight p-2 sm:px-4 app-inner-container',
         wrapper: 'bg-brandLight',
         close: 'mt-2 text-neutralDark',
       }"

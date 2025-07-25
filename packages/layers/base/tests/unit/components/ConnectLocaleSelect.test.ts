@@ -1,8 +1,8 @@
 import { vi, describe, expect, it } from 'vitest'
+import { ref } from 'vue'
 import { mountSuspended, renderSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { fireEvent, screen } from '@testing-library/vue'
 
-import { i18nMock } from '../mocks/i18n'
 import ConnectLocaleSelect from '../../../app/components/Connect/LocaleSelect.vue'
 
 const setLocaleMock = vi.fn()
@@ -35,21 +35,13 @@ mockNuxtImport('useI18n', () => {
 
 describe('<ConnectLocaleSelect />', () => {
   it('mounts', async () => {
-    const wrapper = await renderSuspended(ConnectLocaleSelect, {
-      global: {
-        plugins: [i18nMock]
-      }
-    })
+    const wrapper = await renderSuspended(ConnectLocaleSelect)
 
     expect(wrapper).toBeTruthy()
   })
 
   it('can open the dropdown', async () => {
-    const wrapper = await renderSuspended(ConnectLocaleSelect, {
-      global: {
-        plugins: [i18nMock]
-      }
-    })
+    const wrapper = await renderSuspended(ConnectLocaleSelect)
 
     // menuitem hidden by default
     const menuitemStart = wrapper.queryByRole('menuitem')
@@ -65,11 +57,7 @@ describe('<ConnectLocaleSelect />', () => {
   })
 
   it('can change the locale value', async () => {
-    await renderSuspended(ConnectLocaleSelect, {
-      global: {
-        plugins: [i18nMock]
-      }
-    })
+    await renderSuspended(ConnectLocaleSelect)
 
     // click buttton to open menu
     const button = screen.getByLabelText('Select a Language, current language: English')
@@ -94,11 +82,7 @@ describe('<ConnectLocaleSelect />', () => {
   })
 
   it('computed returns correct items for dropdown', async () => {
-    const wrapper = await mountSuspended(ConnectLocaleSelect, {
-      global: {
-        plugins: [i18nMock]
-      }
-    })
+    const wrapper = await mountSuspended(ConnectLocaleSelect)
 
     // @ts-expect-error - cant find items in wrapper instance
     const computedItems = wrapper.vm.items

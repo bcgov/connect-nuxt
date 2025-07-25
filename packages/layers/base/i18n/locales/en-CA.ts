@@ -54,10 +54,11 @@ export default {
     }
   },
   test: {
-    i18nBold: {
+    i18n: {
       strong: 'This should have {boldStart} bold {boldEnd} text',
       strongWithProps: 'This should have {boldStart} bold {boldEnd} text and allow a {prop}',
-      italic: 'Italic test {italicStart} goes here {italicEnd}.'
+      italic: 'Italic test {italicStart} goes here {italicEnd}.',
+      computed: 'This text will be updated. Updated {boldStart}{count}{boldEnd} times.'
     }
   }
 }

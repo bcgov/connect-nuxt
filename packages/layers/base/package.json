@@ -30,7 +30,8 @@
     "launchdarkly-vue-client-sdk": "^2.4.1",
     "@vueuse/nuxt": "^13.5.0",
     "@vueuse/core": "^13.5.0",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "maska": "^3.1.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",

@@ -14,7 +14,7 @@ defineProps<{
     :close="{
       color: 'neutral',
       variant: 'ghost',
-      class: 'cursor-pointer hover:bg-gray-100/50 focus-visible:bg-transparent focus-visible:ring-2 rounded-full',
+      class: 'cursor-pointer hover:bg-shadePrimary/50 focus-visible:bg-transparent focus-visible:ring-2 rounded-full',
     }"
     :ui="{
       header: 'bg-brandLight',
@@ -55,7 +55,7 @@ defineProps<{
 <!-- must style globally for vhtml style to work  -->
 <style>
 .vhtml a {
-  color: var(--ui-markBlue);
+  color: var(--ui-mark);
   text-decoration: underline;
 }
 </style>
