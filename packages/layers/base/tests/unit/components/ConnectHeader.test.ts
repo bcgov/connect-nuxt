@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import { ref } from 'vue'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import ConnectHeader from '../../../app/components/Connect/Header/index.vue'
 import { i18nMock } from '../mocks/i18n'
@@ -32,11 +33,7 @@ mockNuxtImport('useI18n', () => {
 
 describe('<ConnectHeader />', () => {
   it('renders when authenticated', async () => {
-    const wrapper = await mountSuspended(ConnectHeader, {
-      global: {
-        plugins: [i18nMock]
-      }
-    })
+    const wrapper = await mountSuspended(ConnectHeader)
 
     expect(wrapper).toBeDefined()
 

@@ -1,6 +1,5 @@
 import { describe, test, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
+import { mountSuspended } from '@nuxt/test-utils/runtime'
 import ConnectInput from './../../../app/components/Connect/Input.vue'
 
 const MockUInput = {
