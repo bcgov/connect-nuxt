@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectI18nHelper  from '../../../app/components/Connect/I18n/Helper.vue'
+import ConnectI18nHelper from '../../../app/components/Connect/I18n/Helper.vue'
 import { i18nMock } from '../mocks/i18n'
 
 describe('<ConnectI18nHelper />', () => {
@@ -28,6 +28,8 @@ describe('<ConnectI18nHelper />', () => {
       }
     })
 
-    expect(wrapper.html()).toContain('<span prop="prop to be added">This should have <strong> bold </strong> text and allow a prop to be added</span>')
+    expect(wrapper.html()).toContain(
+      '<span prop="prop to be added">This should have <strong> bold </strong> text and allow a prop to be added</span>'
+    )
   })
 })

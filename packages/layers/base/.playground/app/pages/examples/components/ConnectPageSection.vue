@@ -47,7 +47,7 @@ const actions = ref([
     <ConnectPageSection
       :heading="{
         label: 'Section with Icon & Actions',
-        icon: 'i-mdi-cogs'
+        icon: 'i-mdi-cogs',
       }"
       :actions="actions"
     >
@@ -67,7 +67,8 @@ const actions = ref([
       </template>
       <div class="p-4">
         <p>
-          The default header is replaced by the content provided in the `header` slot. The `heading` and `actions` props are ignored.
+          The default header is replaced by the content provided in the `header` slot.
+          The `heading` and `actions` props are ignored.
         </p>
       </div>
     </ConnectPageSection>
@@ -75,13 +76,14 @@ const actions = ref([
     <ConnectPageSection
       :heading="{
         label: 'Section with Custom UI',
-        ui: 'bg-green-100 p-4 border-b-2 border-green-300'
+        ui: 'bg-green-100 p-4 border-b-2 border-green-300',
       }"
       ui-body="p-6 bg-green-50"
     >
       <div class="p-4">
         <p class="text-green-800">
-          This example uses the `heading.ui` and `uiBody` props to pass custom Tailwind classes to the underlying UCard component, completely overriding the default styles.
+          This example uses the `heading.ui` and `uiBody` props to pass custom
+          Tailwind classes to the underlying UCard component, completely overriding the default styles.
         </p>
       </div>
     </ConnectPageSection>
@@ -89,7 +91,8 @@ const actions = ref([
     <ConnectPageSection>
       <div class="p-4">
         <p>
-          This example has no `heading` prop or `header` slot, so the header section is not rendered. The body content is still present.
+          This example has no `heading` prop or `header` slot, so the header section is not rendered.
+          The body content is still present.
         </p>
       </div>
     </ConnectPageSection>

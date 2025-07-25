@@ -36,7 +36,7 @@ describe('ConnectPageSection Component', () => {
     const wrapper = await mountSuspended(ConnectPageSection, {
       global: { stubs },
       slots: {
-        default: '<p>This is the body content</p>' 
+        default: '<p>This is the body content</p>'
       }
     })
 

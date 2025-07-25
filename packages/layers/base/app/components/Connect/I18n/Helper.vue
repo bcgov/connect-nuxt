@@ -17,6 +17,7 @@ const textToDisplay = computed(() => {
   return t(props.translationPath, translationProps)
 })
 </script>
+
 <template>
   <!-- eslint-disable-next-line vue/no-v-html -->
   <span v-html="textToDisplay" />
