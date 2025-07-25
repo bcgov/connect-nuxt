@@ -1,83 +1,88 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'connect-base'
+})
+
 const standardValue = ref('')
-const prefilledValue = ref('Some pre-filled text')
+const prefilledValue = ref('Some pre-filled text for the textarea.')
 const invalidValue = ref('')
-const invalidAndFilledValue = ref('Invalid input')
+const invalidAndFilledValue = ref('This is an invalid input with some text.')
+const extraAttrsValue = ref('')
 </script>
 
 <template>
-  <div class="p-8 space-y-6">
+  <div class="py-8 space-y-6">
     <h1>
-      ConnectInput Example Page
+      ConnectTextarea
     </h1>
 
-    <div class="space-y-4">
-      <h2 class="text-xl font-semibold text-gray-700">
-        Standard State
-      </h2>
-      <p class="text-gray-600">
-        The label floats up when the input is focused or filled.
-      </p>
-      <div class="p-6 bg-white rounded-lg shadow-sm max-w-sm">
-        <ConnectInput
-          id="standard-input"
-          v-model="standardValue"
-          label="Standard Label"
-        />
-      </div>
-    </div>
+    <ConnectPageSection :heading="{ label: 'Props' }" ui-body="p-4 space-y-4">
+      <ul>
+        <li>`v-model` - string - required</li>
+        <li>`label` - string - required</li>
+        <li>`id` - string - required</li>
+        <li>`invalid` - boolean - optional</li>
+      </ul>
+    </ConnectPageSection>
 
-    <!-- Pre-filled State -->
-    <div class="space-y-4">
-      <h2 class="text-xl font-semibold text-gray-700">
-        Pre-filled State
-      </h2>
-      <p class="text-gray-600">
-        The label starts in the floated-up position because the input already has a value.
+    <ConnectPageSection :heading="{ label: 'Standard State' }" ui-body="p-4 space-y-4">
+      <p>
+        The label floats up when the textarea is focused or filled.
       </p>
-      <div class="p-6 bg-white rounded-lg shadow-sm max-w-sm">
-        <ConnectInput
-          id="prefilled-input"
-          v-model="prefilledValue"
-          label="Pre-filled Label"
-        />
-      </div>
-    </div>
+      <ConnectTextarea
+        id="standard-textarea"
+        v-model="standardValue"
+        label="Standard Label"
+      />
+    </ConnectPageSection>
 
-    <!-- Invalid State -->
-    <div class="space-y-4">
-      <h2 class="text-xl font-semibold text-gray-700">
-        Invalid State
-      </h2>
-      <p class="text-gray-600">
-        The `invalid` prop is set to `true`. The label and input border should be red.
+    <ConnectPageSection :heading="{ label: 'Pre-filled State' }" ui-body="p-4 space-y-4">
+      <p>
+        The label starts in the floated-up position because the textarea already has a value.
       </p>
-      <div class="p-6 bg-white rounded-lg shadow-sm max-w-sm">
-        <ConnectInput
-          id="invalid-input"
-          v-model="invalidValue"
-          label="Invalid Label"
-          :invalid="true"
-        />
-      </div>
-    </div>
+      <ConnectTextarea
+        id="prefilled-textarea"
+        v-model="prefilledValue"
+        label="Pre-filled Label"
+      />
+    </ConnectPageSection>
 
-    <!-- Invalid and Pre-filled State -->
-    <div class="space-y-4">
-      <h2 class="text-xl font-semibold text-gray-700">
-        Invalid & Pre-filled State
-      </h2>
-      <p class="text-gray-600">
+    <ConnectPageSection :heading="{ label: 'Invalid State' }" ui-body="p-4 space-y-4">
+      <p>
+        The `invalid` prop is set to `true`. The label and textarea border should be red.
+      </p>
+      <ConnectTextarea
+        id="invalid-textarea"
+        v-model="invalidValue"
+        label="Invalid Label"
+        :invalid="true"
+      />
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'Invalid & Pre-filled State' }" ui-body="p-4 space-y-4">
+      <p>
         The component is both invalid and has a value.
       </p>
-      <div class="p-6 bg-white rounded-lg shadow-sm max-w-sm">
-        <ConnectInput
-          id="invalid-filled-input"
-          v-model="invalidAndFilledValue"
-          label="Invalid & Filled Label"
-          :invalid="true"
-        />
-      </div>
-    </div>
+      <ConnectTextarea
+        id="invalid-filled-textarea"
+        v-model="invalidAndFilledValue"
+        label="Invalid & Filled Label"
+        :invalid="true"
+      />
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'Extra Attributes' }" ui-body="p-4 space-y-4">
+      <p>
+        Any attributes not defined as props (like `name` or `rows`) are
+        automatically passed down to the underlying UTextarea element.
+      </p>
+      <ConnectTextarea
+        id="extra-attrs-textarea"
+        v-model="extraAttrsValue"
+        label="Description"
+        name="description"
+        rows="5"
+      />
+    </ConnectPageSection>
   </div>
 </template>

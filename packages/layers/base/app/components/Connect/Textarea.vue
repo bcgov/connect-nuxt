@@ -16,7 +16,7 @@ defineProps<{
     placeholder="&nbsp;"
     class="w-full grow"
     :ui="{
-      base: invalid ? 'ring-0 shadow-inputError focus:shadow-inputError resize-none' : 'resize-none'
+      base: invalid ? 'ring-0 shadow-inputError focus:shadow-inputError resize-none' : 'resize-none',
     }"
   >
     <label

@@ -4,7 +4,7 @@ import { vMaska } from 'maska/vue'
 export default defineNuxtPlugin({
   name: 'core-maska-plugin',
   parallel: true,
-  setup (nuxtApp) {
+  setup(nuxtApp) {
     nuxtApp.vueApp.directive('maska', vMaska)
   }
 })

@@ -14,7 +14,7 @@ defineProps<{
     :close="{
       color: 'neutral',
       variant: 'ghost',
-      class: 'cursor-pointer hover:bg-gray-100/50 focus-visible:bg-transparent focus-visible:ring-2 rounded-full',
+      class: 'cursor-pointer hover:bg-shadePrimary/50 focus-visible:bg-transparent focus-visible:ring-2 rounded-full',
     }"
     :ui="{
       header: 'bg-brandLight',

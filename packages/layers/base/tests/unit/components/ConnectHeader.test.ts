@@ -2,7 +2,6 @@ import { describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import ConnectHeader from '../../../app/components/Connect/Header/index.vue'
-import { i18nMock } from '../mocks/i18n'
 
 const setLocaleMock = vi.fn()
 mockNuxtImport('useI18n', () => {

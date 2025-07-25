@@ -9,11 +9,12 @@ defineProps<{
     icon?: string
     iconClass?: string
     ui?: string
-  },
+  }
   uiBody?: string
   actions?: ButtonProps[]
 }>()
 </script>
+
 <template>
   <UCard
     as="section"
@@ -22,7 +23,7 @@ defineProps<{
     :ui="{
       header: heading?.ui ?? 'bg-shadeSecondary px-4 py-4 sm:px-4 rounded-t-md',
       body: uiBody ?? 'p-0 sm:p-0',
-      footer: 'p-0 sm:p-0'
+      footer: 'p-0 sm:p-0',
     }"
   >
     <template v-if="heading?.label || $slots.header" #header>
@@ -35,7 +36,9 @@ defineProps<{
                 :name="heading.icon"
                 :class="heading?.iconClass || 'size-6 shrink-0 text-primary'"
               />
-              <span :class="heading?.labelClass || 'font-semibold text-neutralDark text-base'">{{ heading?.label }}</span>
+              <span :class="heading?.labelClass || 'font-semibold text-neutralDark text-base'">
+                {{ heading?.label }}
+              </span>
             </div>
           </component>
 
