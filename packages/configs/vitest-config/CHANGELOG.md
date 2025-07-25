@@ -1,5 +1,31 @@
 # @sbc-connect/vitest-config
 
+## 0.0.5
+
+### Patch Changes
+
+- [#15](https://github.com/bcgov/connect-nuxt/pull/15) [`0fb8c54`](https://github.com/bcgov/connect-nuxt/commit/0fb8c54e059d78b246b80a03f049d075b7bbcf72) Thanks [@deetz99](https://github.com/deetz99)! - - add spa-loading-template
+
+  - add error.vue
+  - add html attrs to app.vue
+  - add launch darkly composable & start tests
+  - add Banner component
+  - add iconify dep and icons to client bundle
+  - add test:unit:watch command to run vitest in watch mode
+  - update vitest config to search nested folders
+  - update --ui-radius var so rounded-md is 0.25rem
+  - remove core main css file causing duplicate fonts
+  - add html sanitizer plugin
+
+  issue: bcgov/entity#29334
+
+- [#16](https://github.com/bcgov/connect-nuxt/pull/16) [`9b8c225`](https://github.com/bcgov/connect-nuxt/commit/9b8c225a011e3c89c9b490e93a554f55a4e29b78) Thanks [@kialj876](https://github.com/kialj876)! - - add base header components (logo, localeSelect, wrapper)
+
+  - add footer component
+  - appendUrlParam util
+
+  issue: bcgov/entity#29334
+
 ## 0.0.4
 
 ### Patch Changes

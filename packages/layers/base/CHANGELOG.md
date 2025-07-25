@@ -1,5 +1,42 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.4
+
+### Patch Changes
+
+- [#18](https://github.com/bcgov/connect-nuxt/pull/18) [`90f240f`](https://github.com/bcgov/connect-nuxt/commit/90f240fd789a5286ded5df710bddd6dc953bcba5) Thanks [@deetz99](https://github.com/deetz99)! - **Feat: Whats New**
+
+  - fetch whats new inside a plugin
+  - whats new header button
+  - whats new slideover component
+  - whats new plugin tests
+  - fix eslint to ignore playwright reports
+  - whats new items tracked in local storage to display button chip or not
+
+  issue: bcgov/entity#29334
+
+- [#15](https://github.com/bcgov/connect-nuxt/pull/15) [`0fb8c54`](https://github.com/bcgov/connect-nuxt/commit/0fb8c54e059d78b246b80a03f049d075b7bbcf72) Thanks [@deetz99](https://github.com/deetz99)! - - add spa-loading-template
+
+  - add error.vue
+  - add html attrs to app.vue
+  - add launch darkly composable & start tests
+  - add Banner component
+  - add iconify dep and icons to client bundle
+  - add test:unit:watch command to run vitest in watch mode
+  - update vitest config to search nested folders
+  - update --ui-radius var so rounded-md is 0.25rem
+  - remove core main css file causing duplicate fonts
+  - add html sanitizer plugin
+
+  issue: bcgov/entity#29334
+
+- [#16](https://github.com/bcgov/connect-nuxt/pull/16) [`9b8c225`](https://github.com/bcgov/connect-nuxt/commit/9b8c225a011e3c89c9b490e93a554f55a4e29b78) Thanks [@kialj876](https://github.com/kialj876)! - - add base header components (logo, localeSelect, wrapper)
+
+  - add footer component
+  - appendUrlParam util
+
+  issue: bcgov/entity#29334
+
 ## 0.1.3
 
 ### Patch Changes

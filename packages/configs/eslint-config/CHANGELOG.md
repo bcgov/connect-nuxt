@@ -1,5 +1,20 @@
 # @sbc-connect/eslint-config
 
+## 0.0.5
+
+### Patch Changes
+
+- [#18](https://github.com/bcgov/connect-nuxt/pull/18) [`90f240f`](https://github.com/bcgov/connect-nuxt/commit/90f240fd789a5286ded5df710bddd6dc953bcba5) Thanks [@deetz99](https://github.com/deetz99)! - **Feat: Whats New**
+
+  - fetch whats new inside a plugin
+  - whats new header button
+  - whats new slideover component
+  - whats new plugin tests
+  - fix eslint to ignore playwright reports
+  - whats new items tracked in local storage to display button chip or not
+
+  issue: bcgov/entity#29334
+
 ## 0.0.4
 
 ### Patch Changes
