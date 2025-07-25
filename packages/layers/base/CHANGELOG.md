@@ -1,5 +1,22 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.5
+
+### Patch Changes
+
+- [#19](https://github.com/bcgov/connect-nuxt/pull/19) [`4231254`](https://github.com/bcgov/connect-nuxt/commit/42312540f5eec65f5d3979d5492bdfaa9bb0b079) Thanks [@deetz99](https://github.com/deetz99)! - Several components and utils
+
+  - ConnectInput
+  - ConnectTextarea
+  - ConnectI18nHelper
+  - ConnectSpinner
+  - ConnectPageSection
+  - parseSpecialCharacters util
+  - setBreadcrumbs util
+  - set nuxt ui default icons to use mdi instead of lucide icons
+
+  issue: bcgov/entity#29334
+
 ## 0.1.4
 
 ### Patch Changes

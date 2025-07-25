@@ -2,7 +2,7 @@
   "name": "nuxt-pay-demo-app",
   "private": true,
   "type": "module",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build-check": "nuxt build",
