@@ -5,9 +5,9 @@ export default defineNuxtPlugin(async () => {
 
   // define new keycloak
   const keycloak = new Keycloak({
-    url: rtc.keycloakAuthUrl,
-    realm: rtc.keycloakRealm,
-    clientId: rtc.keycloakClientId
+    url: rtc.idpUrl,
+    realm: rtc.idpRealm,
+    clientId: rtc.idpClientid
   })
 
   try {
@@ -35,20 +35,23 @@ export default defineNuxtPlugin(async () => {
     console.error('[Auth] Failed to initialize Keycloak adapter: ', error)
   }
 
-  const refreshIntervalTimeout = rtc.tokenRefreshInterval as number
-  const minValidity = toValue((rtc.tokenMinValidity as number) / 1000) // convert to seconds
-  const idleTimeout = rtc.sessionIdleTimeout as number
+  // TODO: add to env
+  const refreshIntervalTimeout = 30000 // rtc.tokenRefreshInterval as number
+  const minValidity = 120 // toValue((rtc.tokenMinValidity as number) / 1000) // convert to seconds
+  const idleTimeout = 1800000 // rtc.sessionIdleTimeout as number
 
-  const route = useRoute()
+  // const route = useRoute()
   const { idle } = useIdle(idleTimeout)
 
   // executed when user is authenticated and idle = true
+  // TODO: manage session expiry
   async function sessionExpired () {
-    if (route.meta.sessionExpiredFn) { // if route meta provided, override default behaviour
-      await route.meta.sessionExpiredFn()
-    } else { // open expiry modal
-      await useConnectModals().openSessionExpiringModal()
-    }
+    // if (route.meta.sessionExpiredFn) { // if route meta provided, override default behaviour
+    //   await route.meta.sessionExpiredFn()
+    // } else { // open expiry modal
+    //   await useConnectModals().openSessionExpiringModal()
+    // }
+    console.info('TODO - MANAGE SESSION EXPIRY')
   }
 
   // refresh token if expiring within <minValidity> - checks every <refreshIntervalTimeout>
@@ -78,7 +81,8 @@ export default defineNuxtPlugin(async () => {
     [() => keycloak.authenticated, () => idle.value],
     async ([isAuth, isIdle]) => {
       if (isAuth) {
-        sessionStorage.removeItem(ConnectStorageKeys.CONNECT_SESSION_EXPIRED)
+        // TODO: add storage keys
+        // sessionStorage.removeItem(ConnectStorageKeys.CONNECT_SESSION_EXPIRED)
         if (!isIdle) {
           console.info('[Auth] Starting token refresh schedule.')
           scheduleRefreshToken()
