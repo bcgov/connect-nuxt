@@ -2,7 +2,7 @@ import { describe, test, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setBreadcrumbs } from '../../../app/utils/setBreadcrumbs'
 
-let mockRoute = {
+const mockRoute = {
   meta: {
     breadcrumbs: []
   }
@@ -27,7 +27,7 @@ describe('setBreadcrumbs', () => {
   })
 
   test('should overwrite any existing breadcrumbs on route.meta', () => {
-    // @ts-expect-error
+    // @ts-expect-error - ignore breadcrumb type
     mockRoute.meta.breadcrumbs = [{ label: 'Old Crumb' }]
 
     const newBreadcrumbs = [
@@ -41,7 +41,7 @@ describe('setBreadcrumbs', () => {
   })
 
   test('should handle an empty breadcrumbs array', () => {
-    // @ts-expect-error
+    // @ts-expect-error - ignore breadcrumb type
     mockRoute.meta.breadcrumbs = [{ label: 'Existing Crumb' }]
 
     setBreadcrumbs([])

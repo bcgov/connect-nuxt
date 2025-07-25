@@ -1,9 +1,5 @@
-import unescape from 'lodash-es/unescape'
-
 /**
  * Parses a string to decode HTML entities and remove HTML tags.
- * This version uses a robust method that works in modern browsers and
- * attempts to work around limitations in Node.js-based test environments.
  *
  * @param text The string to parse.
  * @param fallback The fallback text to return if the input is null or undefined.

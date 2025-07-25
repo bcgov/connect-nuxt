@@ -51,12 +51,12 @@ describe('parseSpecialCharacters', () => {
     // ['&copy; &reg;', '© ®'], // doesnt work in happydom but works in vue template
     ['😊', '😊'],
     ['@#$%^&*()', '@#$%^&*()'],
-    ['&lt; &gt; &amp;', '< > &'], 
-    ['&#955;UG&#695;AL&#601;S', 'λUGʷALəS'], 
+    ['&lt; &gt; &amp;', '< > &'],
+    ['&#955;UG&#695;AL&#601;S', 'λUGʷALəS'],
     ['&#247; &#215; &#162;', '÷ × ¢'],
     ['&#171; &#8220;Hello&#8221; &#187;', '« “Hello” »']
   ])('handles special character strings', (value, expected) => {
-      const result = parseSpecialCharacters(value)
-      expect(result).toEqual(expected)
-    })
+    const result = parseSpecialCharacters(value)
+    expect(result).toEqual(expected)
+  })
 })
