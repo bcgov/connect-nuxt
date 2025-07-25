@@ -51,6 +51,28 @@ export default defineAppConfig({
         group: 'p-0'
       }
     },
+    icons: {
+      arrowLeft: 'i-mdi-arrow-left',
+      arrowRight: 'i-mdi-arrow-right',
+      check: 'i-mdi-check',
+      chevronDoubleLeft: 'i-mdi-chevron-double-left',
+      chevronDoubleRight: 'i-mdi-chevron-double-right',
+      chevronDown: 'i-mdi-menu-down',
+      chevronLeft: 'i-mdi-menu-left',
+      chevronRight: 'i-mdi-menu-right',
+      chevronUp: 'i-mdi-menu-up',
+      close: 'i-mdi-close',
+      ellipsis: 'i-mdi-dots-horizontal',
+      external: 'i-mdi-open-in-new',
+      file: 'i-mdi-file',
+      folder: 'i-mdi-folder',
+      folderOpen: 'i-mdi-folder-open',
+      loading: 'i-mdi-loading',
+      minus: 'i-mdi-minus',
+      plus: 'i-mdi-plus',
+      search: 'i-mdi-magnify',
+      upload: 'i-mdi-upload'
+    },
     input: {
       variants: {
         size: {
