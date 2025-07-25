@@ -22,7 +22,10 @@ export default defineNuxtConfig({
     dirs: ['interfaces']
   },
 
-  modules: ['@nuxtjs/i18n'],
+  modules: [
+    '@nuxtjs/i18n',
+    '@vueuse/nuxt'
+  ],
 
   // For more details on i18n in layers: https://i18n.nuxtjs.org/docs/guide/layers
   // For more details on config: https://i18n.nuxtjs.org/docs/api/options
@@ -50,6 +53,7 @@ export default defineNuxtConfig({
   },
 
   ui: {
+    colorMode: false,
     theme: {
       colors: [
         'primary',
@@ -93,10 +97,12 @@ export default defineNuxtConfig({
     public: {
       // Should in alphabetical order
       appName: process.env.npm_package_name || '',
-      baseUrl: process.env.NUXT_BASE_URL,
-      registryHomeURL: process.env.NUXT_REGISTRY_HOME_URL,
       version: `Connect Base Layer v${process.env.npm_package_version || ''}`,
-      ldClientId: ''
+      baseUrl: '',
+      registryHomeUrl: '',
+      ldClientId: '',
+      statusApiUrl: '',
+      statusApiVersion: ''
     }
   }
 })

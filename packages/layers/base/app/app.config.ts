@@ -1,7 +1,8 @@
 export default defineAppConfig({
   connect: {
     header: {
-      localeSelect: true
+      localeSelect: true,
+      whatsNew: true
     },
     footer: {
       versions: []
@@ -33,6 +34,11 @@ export default defineAppConfig({
         }
       ]
     },
+    button: {
+      slots: {
+        base: 'cursor-pointer'
+      }
+    },
     dropdownMenu: {
       slots: {
         content: 'bg-secondary ring-0',
@@ -50,13 +56,10 @@ export default defineAppConfig({
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
-    myLayer?: {
-      /** Project name */
-      name?: string
-    }
     connect?: {
       header?: {
         localeSelect?: boolean
+        whatsNew?: boolean
       }
       footer?: {
         versions?: string[]

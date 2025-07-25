@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const uiVersion = useRuntimeConfig().public.version as string
+const rtc = useRuntimeConfig().public
+const uiVersion = rtc.version
+const feesUrl = `${rtc.registryHomeUrl}product-fees`
 const dependencyVersions: string[] = useAppConfig().connect?.footer?.versions || []
 const localePath = useLocalePath()
 const links = [
@@ -14,7 +16,7 @@ const links = [
   },
   {
     label: 'connect.label.fees',
-    to: `${useRuntimeConfig().public.registryHomeURL}product-fees`,
+    to: feesUrl,
     target: '_blank'
   },
   {

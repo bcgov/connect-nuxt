@@ -27,7 +27,10 @@
     "@nuxt/ui": "^3.3.0",
     "@nuxtjs/i18n": "^10.0.2",
     "dompurify": "^3.2.6",
-    "launchdarkly-vue-client-sdk": "^2.4.1"
+    "launchdarkly-vue-client-sdk": "^2.4.1",
+    "@vueuse/nuxt": "^13.5.0",
+    "@vueuse/core": "^13.5.0",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
@@ -38,6 +41,7 @@
     "dotenv": "catalog:",
     "nuxt": "catalog:",
     "typescript": "catalog:",
-    "vue-tsc": "catalog:"
+    "vue-tsc": "catalog:",
+    "@types/lodash-es": "catalog:"
   }
 }

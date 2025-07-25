@@ -38,4 +38,8 @@ export default createConfigForNuxt({
     '@stylistic/comma-dangle': ['error', 'never'],
     '@stylistic/semi': ['error', 'never']
   }
+}).prepend({
+  ignores: [
+    '**playwright-report**'
+  ]
 })

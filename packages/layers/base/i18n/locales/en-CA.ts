@@ -29,7 +29,10 @@ export default {
       home: 'Home',
       localeSelect: 'Select a Language, current language: English',
       privacy: 'Privacy',
-      releaseNotes: 'Release Notes'
+      releaseNotes: 'Release Notes',
+      whatsNew: "What's New",
+      whatsNewAria: "What's New, {count} unread",
+      whatsNewSlideover: "What's New at BC Registries"
     },
     page: {
       error: {
@@ -45,7 +48,10 @@ export default {
         }
       }
     },
-    text: {}
+    text: {
+      whatsNewSlideoverDescription: ' ',
+      whatsNewSlideoverEmpty: 'No new items.'
+    }
   },
   test: {
     i18nBold: {
