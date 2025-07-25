@@ -12,6 +12,8 @@ export default defineNuxtConfig({
 
   extends: ['@sbc-connect/nuxt-base'],
 
+  modules: ['@pinia/nuxt'],
+
   alias: {
     '#auth': resolve('./')
   },
