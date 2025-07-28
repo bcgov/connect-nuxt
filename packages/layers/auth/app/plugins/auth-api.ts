@@ -3,7 +3,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const authApiUrl = rtc.authApiUrl + rtc.authApiVersion
   const appName = rtc.appName
   const xApiKey = rtc.xApiKey
-  
+
   const api = $fetch.create({
     baseURL: authApiUrl,
     async onRequest({ options }) {

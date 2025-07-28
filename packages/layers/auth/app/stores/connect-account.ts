@@ -14,7 +14,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const errors = ref<ConnectApiError[]>([])
 
   const isStaffOrSbcStaff = computed<boolean>(() => {
-    if (!isAuthenticated.value) { return false }
+    if (!isAuthenticated.value) {
+      return false
+    }
     const currentAccountIsStaff = [AccountType.STAFF, AccountType.SBC_STAFF].includes(currentAccount.value.accountType)
     return currentAccountIsStaff || authUser.value.roles.includes(UserRole.Staff)
   })
@@ -30,7 +32,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
    * const rolesToCheck = ['admin', 'superadmin'];
    * const hasRequiredRole = hasRoles(rolesToCheck); // true
   */
-  function hasRoles (roles: string[]): boolean {
+  function hasRoles(roles: string[]): boolean {
     const currentAccountHasRoles = roles.includes(currentAccount.value.accountType)
     const authUserHasRoles = roles.some(role => authUser.value.roles.includes(role))
     return currentAccountHasRoles || authUserHasRoles
@@ -42,16 +44,16 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
    * @param accountId - The account ID to check.
    * @returns True if the given account ID matches the current account ID, false otherwise.
   */
-  function isCurrentAccount (accountId: number): boolean {
+  function isCurrentAccount(accountId: number): boolean {
     return accountId === currentAccount.value.id
   }
 
   /** Get user information from AUTH */
-  async function getAuthUserProfile (identifier: string): Promise<{ firstname: string, lastname: string } | undefined> {
+  async function getAuthUserProfile(identifier: string): Promise<{ firstname: string, lastname: string } | undefined> {
     try {
       return $authApi<{ firstname: string, lastname: string }>(`/users/${identifier}`, {
         parseResponse: JSON.parse,
-        onResponseError ({ response }) {
+        onResponseError({ response }) {
           errors.value.push({
             statusCode: response.status || 500,
             message: response._data?.message || response._data?.description || 'Error fetching user info.',
@@ -61,13 +63,13 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         }
       })
     } catch (e) {
-      console.error('Error fetching user info.')
+      console.error('Error fetching user info.', e)
       // logFetchError(e, 'Error fetching user info.')
     }
   }
 
   /** Update user information in AUTH with current token info */
-  async function updateAuthUserInfo (): Promise<void> {
+  async function updateAuthUserInfo(): Promise<void> {
     try {
       await $authApi('/users', {
         method: 'POST',
@@ -80,7 +82,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Set user name information */
-  async function setUserName () {
+  async function setUserName() {
     const authUserInfo = await getAuthUserProfile('@me')
     if (authUserInfo?.firstname && authUserInfo?.lastname) {
       userFirstName.value = authUserInfo.firstname
@@ -92,14 +94,14 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Get the user's account list */
-  async function getUserAccounts (): Promise<ConnectAccount[] | undefined> {
+  async function getUserAccounts(): Promise<ConnectAccount[] | undefined> {
     if (!authUser.value?.keycloakGuid) {
       return undefined
     }
     try {
       // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
       const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`, {
-        onResponseError ({ response }) {
+        onResponseError({ response }) {
           errors.value.push({
             statusCode: response.status || 500,
             message: response._data?.message || 'Error retrieving user accounts.',
@@ -111,14 +113,14 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
       return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
     } catch (e) {
-      console.error('Error retrieving user accounts')
+      console.error('Error retrieving user accounts', e)
       // logFetchError(e, 'Error retrieving user accounts')
       return undefined
     }
   }
 
   /** Set the user account list and current account */
-  async function setAccountInfo (): Promise<void> {
+  async function setAccountInfo(): Promise<void> {
     const accounts = await getUserAccounts()
     if (accounts && accounts[0]) {
       userAccounts.value = accounts
@@ -129,14 +131,14 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Switch the current account to the given account ID if it exists in the user's account list */
-  function switchCurrentAccount (accountId: number) {
+  function switchCurrentAccount(accountId: number) {
     const account = userAccounts.value.find(account => account.id === accountId)
     if (account) {
       currentAccount.value = account
     }
   }
 
-  async function getPendingApprovalCount (): Promise<void> {
+  async function getPendingApprovalCount(): Promise<void> {
     const accountId = currentAccount.value?.id
     const keycloakGuid = authUser.value?.keycloakGuid
     if (!accountId || !keycloakGuid) {
@@ -144,7 +146,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
     try {
       const response = await $authApi<{ count: number }>(`/users/${keycloakGuid}/org/${accountId}/notifications`, {
-        onResponseError ({ response }) {
+        onResponseError({ response }) {
           errors.value.push({
             statusCode: response.status || 500,
             message: response._data.message || 'Error retrieving pending approvals.',
@@ -156,12 +158,12 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
       pendingApprovalCount.value = response?.count || 0
     } catch (e) {
-      console.error('Error retrieving pending approvals')
+      console.error('Error retrieving pending approvals', e)
       // logFetchError(e, 'Error retrieving pending approvals')
     }
   }
 
-  async function checkAccountStatus () {
+  async function checkAccountStatus() {
     // redirect if account status is suspended or in review
     if ([AccountStatus.NSF_SUSPENDED, AccountStatus.SUSPENDED].includes(currentAccount.value?.accountStatus)) {
       // Avoid redirecting when navigating back from PAYBC for NSF or signout.
@@ -208,8 +210,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-
-  function $reset () {
+  function $reset() {
     sessionStorage.removeItem('connect-auth-account-store')
     currentAccount.value = {} as ConnectAccount
     userAccounts.value = []

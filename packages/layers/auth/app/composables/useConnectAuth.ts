@@ -8,7 +8,7 @@ export const useConnectAuth = () => {
    * @param redirect - An optional URL to redirect to after login. Defaults to location.origin + the current locale
    * @returns A promise that resolves when login is complete.
    */
-  function login (idpHint: ConnectIdpHint, redirect?: string): Promise<void> {
+  function login(idpHint: ConnectIdpHint, redirect?: string): Promise<void> {
     const loginRedirectUrl = sessionStorage.getItem(ConnectAuthStorageKeys.LOGIN_REDIRECT_URL)
     const redirectUri = redirect ?? loginRedirectUrl ?? window.location.href
 
@@ -25,7 +25,7 @@ export const useConnectAuth = () => {
    * @param redirect - An optional URL to redirect to after logout. Defaults to location.origin + the current locale
    * @returns A promise that resolves when logout is complete.
    */
-  function logout (redirect?: string): Promise<void> {
+  function logout(redirect?: string): Promise<void> {
     const siteminderUrl = rtc.siteminderLogoutUrl
     const logoutRedirectUrl = sessionStorage.getItem(ConnectAuthStorageKeys.LOGOUT_REDIRECT_URL)
     let redirectUri = redirect ?? logoutRedirectUrl ?? window.location.href
@@ -68,7 +68,7 @@ export const useConnectAuth = () => {
    * @param forceRefresh - A boolean to force a token refresh.
    * @returns The session token or undefined if the token can't be retrieved.
    */
-  async function getToken (forceRefresh = false): Promise<string | undefined> {
+  async function getToken(forceRefresh = false): Promise<string | undefined> {
     const minValidity = forceRefresh ? -1 : 30
     return await $connectAuth
       .updateToken(minValidity)
@@ -81,19 +81,19 @@ export const useConnectAuth = () => {
       })
   }
 
-  function setLoginRedirectUrl (url: string) {
+  function setLoginRedirectUrl(url: string) {
     sessionStorage.setItem(ConnectAuthStorageKeys.LOGIN_REDIRECT_URL, url)
   }
 
-  function setLogoutRedirectUrl (url: string) {
+  function setLogoutRedirectUrl(url: string) {
     sessionStorage.setItem(ConnectAuthStorageKeys.LOGOUT_REDIRECT_URL, url)
   }
 
-  function clearLoginRedirectUrl () {
+  function clearLoginRedirectUrl() {
     sessionStorage.removeItem(ConnectAuthStorageKeys.LOGIN_REDIRECT_URL)
   }
 
-  function clearLogoutRedirectUrl () {
+  function clearLogoutRedirectUrl() {
     sessionStorage.removeItem(ConnectAuthStorageKeys.LOGOUT_REDIRECT_URL)
   }
 
