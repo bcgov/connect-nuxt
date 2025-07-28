@@ -1,7 +1,7 @@
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public
-  const { authUser, isAuthenticated } = useConnectAuth()
+  const { authUser } = useConnectAuth()
   // selected user account
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
