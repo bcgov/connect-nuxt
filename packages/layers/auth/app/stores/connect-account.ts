@@ -1,5 +1,3 @@
-// import { addToHeaders } from '~/plugins/auth-api'
-/** Manages connect account data */
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public
@@ -34,8 +32,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   */
   function hasRoles (roles: string[]): boolean {
     const currentAccountHasRoles = roles.includes(currentAccount.value.accountType)
-    const kcUserHasRoles = roles.some(role => authUser.value.roles.includes(role))
-    return currentAccountHasRoles || kcUserHasRoles
+    const authUserHasRoles = roles.some(role => authUser.value.roles.includes(role))
+    return currentAccountHasRoles || authUserHasRoles
   }
 
   /**
@@ -49,31 +47,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Get user information from AUTH */
-  // TODO: confirm data returned from auth
-  // {
-  //   "contacts": [],
-  //   "created": "2024-12-11T20:23:08+00:00",
-  //   "email": "test@gmail.com",
-  //   "id": 6089,
-  //   "idpUserid": "stuff",
-  //   "keycloakGuid": "stuff",
-  //   "loginSource": "BCEID",
-  //   "loginTime": "2024-12-11T20:28:53+00:00",
-  //   "modified": "2024-12-11T20:28:53+00:00",
-  //   "modifiedBy": "None None",
-  //   "type": "PUBLIC_USER",
-  //   "userStatus": 1,
-  //   "userTerms": {
-  //       "isTermsOfUseAccepted": false,
-  //       "termsOfUseAcceptedVersion": null
-  //   },
-  //   "username": "stuff",
-  //   "verified": false
-  // }
-  async function getAuthUserProfile (identifier: string) {
-    // const authApiURL = rtc.authApiURL
+  async function getAuthUserProfile (identifier: string): Promise<{ firstname: string, lastname: string } | undefined> {
     try {
-      return $authApi(`/users/${identifier}`, { // native fetch doesnt break app
+      return $authApi<{ firstname: string, lastname: string }>(`/users/${identifier}`, {
         parseResponse: JSON.parse,
         onResponseError ({ response }) {
           errors.value.push({
@@ -83,7 +59,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
             category: ConnectErrorCategory.USER_INFO
           })
         }
-        // headers: addToHeaders({})
       })
     } catch (e) {
       console.error('Error fetching user info.')
@@ -92,14 +67,12 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Update user information in AUTH with current token info */
-  async function updateAuthUserInfo (): Promise<void | ConnectAuthUser> {
+  async function updateAuthUserInfo (): Promise<void> {
     try {
-      const response = await $authApi<ConnectAuthUser>('/users', {
+      await $authApi('/users', {
         method: 'POST',
         body: { isLogin: true }
       })
-
-      return response
     } catch (e) {
       console.error('Error updating auth user info', e)
       // logFetchError(e, 'Error updating auth user info')
@@ -108,14 +81,10 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Set user name information */
   async function setUserName () {
-    if (user.value?.loginSource === ConnectLoginSource.BCEID) {
-      // get from auth
-      const authUserInfo = await getAuthUserProfile('@me')
-      // firstName and lastName dont always exist it seems ?, also response isn't camelcase eg. firstname
-      if (authUserInfo.firstName !== undefined && authUserInfo.lastName !== undefined) {
-        userFirstName.value = authUserInfo.firstName
-        userLastName.value = authUserInfo.lastName
-      }
+    const authUserInfo = await getAuthUserProfile('@me')
+    if (authUserInfo?.firstname && authUserInfo?.lastname) {
+      userFirstName.value = authUserInfo.firstname
+      userLastName.value = authUserInfo.lastname
       return
     }
     userFirstName.value = user.value?.firstName || '-'
@@ -123,10 +92,13 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Get the user's account list */
-  async function getUserAccounts (keycloakGuid: string): Promise<ConnectAccount[] | undefined> {
+  async function getUserAccounts (): Promise<ConnectAccount[] | undefined> {
+    if (!authUser.value?.keycloakGuid) {
+      return undefined
+    }
     try {
       // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
-      const response = await $authApi<ConnectUserSettings[]>(`/users/${keycloakGuid}/settings`, {
+      const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`, {
         onResponseError ({ response }) {
           errors.value.push({
             statusCode: response.status || 500,
@@ -137,11 +109,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         }
       })
 
-      if (response) {
-        return response.filter(userSettings => (userSettings.type === UserSettingsType.ACCOUNT)) as ConnectAccount[]
-      } else {
-        return undefined
-      }
+      return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
     } catch (e) {
       console.error('Error retrieving user accounts')
       // logFetchError(e, 'Error retrieving user accounts')
@@ -150,14 +118,12 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Set the user account list and current account */
-  async function setAccountInfo () {
-    if (authUser.value?.keycloakGuid) {
-      const response = await getUserAccounts(authUser.value?.keycloakGuid)
-      if (response && response[0] !== undefined) {
-        userAccounts.value = response
-        if (!currentAccount.value.id || !userAccounts.value.some(account => account.id === currentAccount.value.id)) {
-          currentAccount.value = response[0]
-        }
+  async function setAccountInfo (): Promise<void> {
+    const accounts = await getUserAccounts()
+    if (accounts && accounts[0]) {
+      userAccounts.value = accounts
+      if (!currentAccount.value.id || !userAccounts.value.some(account => account.id === currentAccount.value.id)) {
+        currentAccount.value = accounts[0]
       }
     }
   }
@@ -170,7 +136,12 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-  async function getPendingApprovalCount (accountId: number, keycloakGuid: string): Promise<void> {
+  async function getPendingApprovalCount (): Promise<void> {
+    const accountId = currentAccount.value?.id
+    const keycloakGuid = authUser.value?.keycloakGuid
+    if (!accountId || !keycloakGuid) {
+      return
+    }
     try {
       const response = await $authApi<{ count: number }>(`/users/${keycloakGuid}/org/${accountId}/notifications`, {
         onResponseError ({ response }) {
@@ -183,9 +154,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         }
       })
 
-      if (response) {
-        pendingApprovalCount.value = response.count
-      }
+      pendingApprovalCount.value = response?.count || 0
     } catch (e) {
       console.error('Error retrieving pending approvals')
       // logFetchError(e, 'Error retrieving pending approvals')
@@ -224,15 +193,21 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-  async function initAccountStore (): Promise<void> {
-    await setAccountInfo() // load user accounts
-    await updateAuthUserInfo()
-    await setUserName() // set local name refs from auth api fetch result
-    await checkAccountStatus() // redirect user if account status is nsf suspended/suspended/pending review
-    if (currentAccount.value.id && authUser.value.keycloakGuid) { // check for pending approvals
-      await getPendingApprovalCount(currentAccount.value.id, authUser.value.keycloakGuid)
+  async function initAccountStore(): Promise<void> {
+    await Promise.all([
+      setAccountInfo(),
+      updateAuthUserInfo(),
+      setUserName()
+    ])
+
+    if (currentAccount.value.id) {
+      await Promise.all([
+        checkAccountStatus(),
+        getPendingApprovalCount()
+      ])
     }
   }
+
 
   function $reset () {
     sessionStorage.removeItem('connect-auth-account-store')
@@ -240,6 +215,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     userAccounts.value = []
     pendingApprovalCount.value = 0
     errors.value = []
+    userFirstName.value = user.value?.firstName || '-'
+    userLastName.value = user.value?.lastName || ''
   }
 
   return {
@@ -251,7 +228,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     userFullName,
     isStaffOrSbcStaff,
     checkAccountStatus,
-    updateAuthUserInfo,
     setUserName,
     hasRoles,
     isCurrentAccount,
