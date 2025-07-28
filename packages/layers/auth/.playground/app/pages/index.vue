@@ -4,6 +4,13 @@ definePageMeta({
 })
 
 const { $connectAuth: auth } = useNuxtApp()
+
+onMounted(async () => {
+  const { getToken } = useConnectAuth()
+
+  const token = await getToken()
+  console.log(token)
+})
 </script>
 
 <template>

@@ -12,6 +12,10 @@ export default defineNuxtConfig({
 
   extends: ['@sbc-connect/nuxt-base'],
 
+  imports: {
+    dirs: ['interfaces', 'types', 'enums']
+  },
+
   modules: ['@pinia/nuxt'],
 
   alias: {
@@ -26,7 +30,8 @@ export default defineNuxtConfig({
     public: {
       idpUrl: '',
       idpRealm: '',
-      idpClientid: ''
+      idpClientid: '',
+      siteminderLogoutUrl: '',
     }
   }
 })

@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-10',
 
   imports: {
-    dirs: ['interfaces', 'types']
+    dirs: ['interfaces', 'types', 'enums']
   },
 
   modules: [
