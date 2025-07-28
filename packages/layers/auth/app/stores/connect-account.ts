@@ -13,14 +13,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
   const errors = ref<ConnectApiError[]>([])
 
-  const isStaffOrSbcStaff = computed<boolean>(() => {
-    if (!isAuthenticated.value) {
-      return false
-    }
-    const currentAccountIsStaff = [AccountType.STAFF, AccountType.SBC_STAFF].includes(currentAccount.value.accountType)
-    return currentAccountIsStaff || authUser.value.roles.includes(UserRole.Staff)
-  })
-
   /**
    * Checks if the current account or the Keycloak user has any of the specified roles.
    *
@@ -227,7 +219,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     pendingApprovalCount,
     errors,
     userFullName,
-    isStaffOrSbcStaff,
     checkAccountStatus,
     setUserName,
     hasRoles,
