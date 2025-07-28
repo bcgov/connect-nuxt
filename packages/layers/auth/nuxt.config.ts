@@ -12,6 +12,8 @@ export default defineNuxtConfig({
 
   extends: ['@sbc-connect/nuxt-base'],
 
+  modules: ['@pinia/nuxt'],
+
   alias: {
     '#auth': resolve('./')
   },
@@ -22,9 +24,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      // Should in alphabetical order
-      appName: process.env.npm_package_name || '',
-      version: `Connect Auth Layer v${process.env.npm_package_version || ''}`
+      idpUrl: '',
+      idpRealm: '',
+      idpClientid: ''
     }
   }
 })
