@@ -37,9 +37,6 @@ jobs:
     - name: Set basic env
       run: |
         cp .env.example .env
-        echo "--- Checking contents of new .env file ---"
-        cat .env
-        echo "-------------------------------------------"
     - name: ${{ matrix.job }}
       run: pnpm ${{ matrix.job }}
 
@@ -75,6 +72,9 @@ jobs:
     - name: Set basic env
       run: |
         cp .env.example .env
+        echo "--- Checking contents of new .env file ---"
+        cat .env
+        echo "-------------------------------------------"
     - name: Run Playwright tests
       run: HOME=/root pnpm test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
     - name: Upload blob report to GitHub Actions Artifacts
