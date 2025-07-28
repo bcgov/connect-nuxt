@@ -24,9 +24,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      idpUrl: '',
-      idpRealm: '',
-      idpClientid: ''
+      idpUrl: 'https://dev.loginproxy.gov.bc.ca/auth',
+      idpRealm: 'bcregistry',
+      idpClientid: 'connect-web'
     }
   }
 })
