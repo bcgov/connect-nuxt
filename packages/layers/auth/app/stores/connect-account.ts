@@ -101,7 +101,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
       return response
     } catch (e) {
-      console.error('Error updating auth user info')
+      console.error('Error updating auth user info', e)
       // logFetchError(e, 'Error updating auth user info')
     }
   }
