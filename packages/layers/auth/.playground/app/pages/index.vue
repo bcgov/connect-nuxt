@@ -20,7 +20,6 @@ const { isAuthenticated, login, logout } = useConnectAuth()
     <HelloWorldAuth />
     <!-- temporary -->
     <div class="flex flex-col gap-4 my-10">
-      <p>Might need to refresh the page for the authenticated text to update</p>
       <ClientOnly>
       <UButton v-if="!isAuthenticated" label="Login" @click="login(ConnectIdpHint.BCSC)" />
       <UButton v-else-if="isAuthenticated" label="Logout" @click="logout()" />
