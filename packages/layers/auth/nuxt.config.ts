@@ -32,6 +32,9 @@ export default defineNuxtConfig({
       idpRealm: '',
       idpClientid: '',
       siteminderLogoutUrl: '',
+      authApiUrl: '',
+      authApiVersion: '',
+      xApiKey: ''
     }
   }
 })

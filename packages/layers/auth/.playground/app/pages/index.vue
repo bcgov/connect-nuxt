@@ -3,14 +3,16 @@ definePageMeta({
   layout: 'connect-base'
 })
 
-const { $connectAuth: auth } = useNuxtApp()
+const { isAuthenticated, login, logout } = useConnectAuth()
 
-onMounted(async () => {
-  const { getToken } = useConnectAuth()
+// onMounted(async () => {
+//   const { getToken } = useConnectAuth()
 
-  const token = await getToken()
-  console.log(token)
-})
+//   const token = await getToken()
+//   console.log(token)
+// })
+
+// console.log('AUTHENTICATED: ', auth.authenticated)
 </script>
 
 <template>
@@ -18,12 +20,12 @@ onMounted(async () => {
     <HelloWorldAuth />
     <!-- temporary -->
     <div class="flex flex-col gap-4 my-10">
-      <UButton label="Login BCSC" @click="auth.login({ idpHint: 'bcsc' })" />
-      <UButton label="Logout" @click="auth.logout()" />
       <p>Might need to refresh the page for the authenticated text to update</p>
-      <p class="font-bold text-3xl">
-        Authenticated: {{ auth.authenticated }}
-      </p>
+      <ClientOnly>
+      <UButton v-if="!isAuthenticated" label="Login" @click="login(ConnectIdpHint.BCSC)" />
+      <UButton v-else-if="isAuthenticated" label="Logout" @click="logout()" />
+      <div>AUTHENTICATED: {{ isAuthenticated }} </div>
+    </ClientOnly>
     </div>
   </div>
 </template>
