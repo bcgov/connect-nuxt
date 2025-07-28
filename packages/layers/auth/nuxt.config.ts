@@ -13,10 +13,13 @@ export default defineNuxtConfig({
   extends: ['@sbc-connect/nuxt-base'],
 
   imports: {
-    dirs: ['interfaces', 'types', 'enums']
+    dirs: ['interfaces', 'types', 'enums', 'stores']
   },
 
-  modules: ['@pinia/nuxt'],
+  modules: [
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
+  ],
 
   alias: {
     '#auth': resolve('./')
@@ -25,6 +28,10 @@ export default defineNuxtConfig({
   css: [
     resolve('./app/assets/css/tw-auth.css')
   ],
+
+  piniaPluginPersistedstate: {
+    storage: 'sessionStorage'
+  },
 
   runtimeConfig: {
     public: {

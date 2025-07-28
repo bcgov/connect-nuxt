@@ -5,8 +5,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const xApiKey = rtc.xApiKey
   const { getToken } = useConnectAuth()
 
-  const accountId = 1
-  //useConnectAccountStore().currentAccount.id
+  const accountId = useConnectAccountStore().currentAccount.id
 
   const api = $fetch.create({
     baseURL: authApiUrl,
@@ -16,13 +15,13 @@ export default defineNuxtPlugin((nuxtApp) => {
       if (Array.isArray(headers)) {
         headers.push(['Authorization', `Bearer ${token}`])
         headers.push(['App-Name', appName])
-        // headers.push(['Account-Id', accountId])
+        headers.push(['Account-Id', accountId])
         headers.push(['X-Apikey', xApiKey])
       } else if (headers instanceof Headers) {
         headers.set('Authorization', `Bearer ${token}`)
         headers.set('App-Name', appName)
-        // headers.set('Account-Id', String(accountId))
-        headers.set('X-Apikey', String(xApiKey))
+        headers.set('Account-Id', String(accountId))
+        headers.set('X-Apikey', xApiKey)
       } else {
         // @ts-expect-error - 'Authorization' doesnt exist on type Headers
         headers.Authorization = `Bearer ${token}`
