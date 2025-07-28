@@ -37,6 +37,9 @@ jobs:
     - name: Set basic env
       run: |
         cp .env.example .env
+        echo "--- Checking contents of new .env file ---"
+        cat .env
+        echo "-------------------------------------------"
     - name: ${{ matrix.job }}
       run: pnpm ${{ matrix.job }}
 
