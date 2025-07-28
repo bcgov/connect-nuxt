@@ -1,5 +1,5 @@
-export default defineNuxtPlugin(() => {
-  const rtc = useRuntimeConfig().public
+export default defineNuxtPlugin((nuxtApp) => {
+  const rtc = nuxtApp.$config.public
   const authApiUrl = rtc.authApiUrl + rtc.authApiVersion
   const appName = rtc.appName
   const xApiKey = rtc.xApiKey
@@ -7,10 +7,10 @@ export default defineNuxtPlugin(() => {
   const api = $fetch.create({
     baseURL: authApiUrl,
     async onRequest({ options }) {
-      const { getToken } = useConnectAuth()
+      const auth = useConnectAuth()
       const accountStore = useConnectAccountStore()
 
-      const token = await getToken()
+      const token = await auth.getToken()
       const accountId = accountStore.currentAccount.id
 
       options.headers.set('Authorization', `Bearer ${token}`)
