@@ -1,12 +1,13 @@
 <script setup lang="ts">
 const ac = useAppConfig().connect.header
-const isLargeScreen = useMediaQuery('(min-width: 1024px)')
+const { isAuthenticated } = useConnectAuth()
 </script>
 
 <template>
   <ConnectHeader>
     <div class="flex gap-4">
-      <ConnectHeaderUnauthenticatedOptions />
+      <ConnectHeaderAuthenticatedOptions v-if="isAuthenticated" />
+      <ConnectHeaderUnauthenticatedOptions v-else />
       <ConnectLocaleSelect v-if="ac.localeSelect" />
     </div>
   </ConnectHeader>

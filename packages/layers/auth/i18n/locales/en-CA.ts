@@ -12,17 +12,19 @@ export default {
       idir: 'IDIR',
       logout: 'Log out',
       login: 'Log in',
-      notifications: {
-        main: 'Notifications',
-        aria: 'Notifications, {count} unread'
-      },
+      mainMenu: 'Main Menu',
+      notifications: 'Notifications',
+      notificationsAria: 'Notifications, {count} unread',
       selectLoginMethod: 'Select log in method',
       switchAccount: 'Switch Account',
       teamMembers: 'Team Members',
       transactions: 'Transactions',
     },
     text: {
-
+      notifications: {
+        none: 'No Notifications',
+        teamMemberApproval: '{count} team member requires approval to access this account. | {count} team members require approval to access this account.'
+      }
     }
   }
 }

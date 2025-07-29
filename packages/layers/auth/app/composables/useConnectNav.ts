@@ -5,12 +5,11 @@ import { ConnectSlideoverWhatsNew } from '#components'
 // handle navigation items and functionality
 export function useConnectNav () {
   const rtc = useRuntimeConfig().public
-  const authWebUrl = rtc.authWebURL
+  const authWebUrl = rtc.authWebUrl
   const appBaseUrl = rtc.baseUrl
   const ac = useAppConfig().connect
   const route = useRoute()
   const overlay = useOverlay()
-  const localePath = useLocalePath()
   const { t, locale: { value: locale } } = useNuxtApp().$i18n
   const { login, logout, isAuthenticated, authUser } = useConnectAuth()
   const accountStore = useConnectAccountStore()
@@ -99,7 +98,11 @@ export function useConnectNav () {
           },
           slot: 'account-item',
           icon: isActive ? 'i-mdi-check' : '',
-          class: isActive ? 'bg-shadePrimary text-primary' : ''
+          class: isActive ? 'bg-shadePrimary text-primary' : '',
+          ui: {
+            itemLabel: isActive ? '' : 'pl-6',
+            itemLeadingIcon: isActive ? 'size-5 text-primary shrink-0' : ''
+          }
         })
       })
     }
@@ -198,12 +201,14 @@ export function useConnectNav () {
     const options = []
     if (count > 0) {
       options.push([{
-        label: 'n/a',
         to: authWebUrl + `account/${accountStore.currentAccount.id}/settings/team-members`,
-        slot: 'notifications'
+        label: t('connect.text.notifications.teamMemberApproval', { 
+          count: accountStore.pendingApprovalCount
+          }, accountStore.pendingApprovalCount
+        )
       }])
     } else {
-      options.push([{ label: t('connect.text.notificationsEmpty') }])
+      options.push([{ label: t('connect.text.notifications.none') }])
     }
     return options
   })

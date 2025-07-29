@@ -28,11 +28,5 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
         </template>
       </UButton>
     </UChip>
-    <!-- notifications slot for info -->
-    <template #notifications>
-      <p>
-        {{ $t('connect.text.teamMemberApproval', { count: accountStore.pendingApprovalCount }, accountStore.pendingApprovalCount) }}
-      </p>
-    </template>
   </UDropdownMenu>
 </template>

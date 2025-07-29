@@ -19,7 +19,7 @@ const whatsNew = useStorage<ConnectWhatsNewState>('connect-whats-new', { viewed:
       class="px-2 py-1 text-sm"
     />
     <template #whatsnew-trailing>
-      <span v-if="!whatsNew.viewed && whatsNew.items.length > 0" class="size-2 rounded-full bg-red-500" />
+      <span v-if="!whatsNew.viewed && whatsNew.items.length > 0" class="size-2 rounded-full bg-error" />
     </template>
   </UDropdownMenu>
 </template>
