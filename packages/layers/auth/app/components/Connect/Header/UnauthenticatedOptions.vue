@@ -9,9 +9,7 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
   >
     <!-- whats new slideover -->
     <ConnectHeaderWhatsNew v-if="ac.whatsNew && isLargeScreen" />
-    <!-- login options dropdown or main menu on small screens -->
     <ConnectHeaderLoginMenu v-if="ac.loginMenu" />
-    <!-- create account button, hidden on small screens -->
     <ConnectHeaderCreateAccountButton v-if="ac.createAccount && isLargeScreen" />
   </div>
 </template>

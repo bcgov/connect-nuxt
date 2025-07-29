@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core'
 const { loggedOutUserOptions, loggedOutUserOptionsMobile } = useConnectNav()
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
+const whatsNew = useStorage<ConnectWhatsNewState>('connect-whats-new', { viewed: false, items: [] })
 </script>
 <template>
   <UDropdownMenu
@@ -16,12 +18,8 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
       trailing
       class="px-2 py-1 text-sm"
     />
-
-    <!-- whats new slot, only shows on small screens -->
-    <!-- <template #whats-new="{ item }">
-      <UIcon v-if="item.icon" :name="item.icon" class="size-6 shrink-0 text-bcGovColor-midGray" />
-      <span class="truncate">{{ item.label }}</span>
-      <span v-if="!whatsNewStore.hasViewedWhatsNew && !!whatsNewStore.whatsNewItems.length" class="size-2 rounded-full bg-red-500" />
-    </template> -->
+    <template #whatsnew-trailing>
+      <span v-if="!whatsNew.viewed && whatsNew.items.length > 0" class="size-2 rounded-full bg-red-500" />
+    </template>
   </UDropdownMenu>
 </template>

@@ -47,9 +47,52 @@ export default defineAppConfig({
     },
     dropdownMenu: {
       slots: {
-        content: 'bg-secondary ring-0',
-        group: 'p-0'
-      }
+        content: 'bg-secondary min-w-32 max-h-[75dvh] bg-(--ui-bg) shadow-lg rounded-sm ring ring-(--ui-border) divide-y divide-(--ui-border) overflow-y-auto scroll-py-1 data-[state=open]:animate-[scale-in_100ms_ease-out] data-[state=closed]:animate-[scale-out_100ms_ease-in]',
+        group: 'p-0 isolate',
+        item: 'group relative w-full flex items-center select-none outline-none before:absolute before:z-[-1] before:inset-px before:rounded-none data-disabled:cursor-not-allowed data-disabled:opacity-75 cursor-pointer',
+        separator: '-mx-0 my-0 h-px bg-(--ui-border)'
+      },
+      variants: {
+        active: {
+          true: {
+            item: 'text-primary before:bg-shadePrimary',
+            itemLeadingIcon: 'text-(--ui-text)'
+          },
+          false: {
+            item: 'text-(--ui-text) data-highlighted:text-primary data-[state=open]:text-(--ui-text-highlighted) data-highlighted:before:bg-shadePrimary data-[state=open]:before:bg-(--ui-bg-elevated)/50 transition-colors before:transition-colors',
+            itemLeadingIcon: 'text-neutral group-data-highlighted:text-primary group-data-[state=open]:text-(--ui-text) transition-colors'
+          }
+        },
+        size: {
+          md: {
+            label: 'px-4 py-3 text-sm gap-1.5',
+            item: 'px-4 py-3 text-sm gap-1.5',
+            itemLeadingIcon: 'size-5',
+            itemLeadingAvatarSize: '2xs',
+            itemTrailingIcon: 'size-5',
+            itemTrailingKbds: 'gap-0.5',
+            itemTrailingKbdsSize: 'md'
+          }
+        }
+      },
+      compoundVariants: [
+        {
+          color: 'primary',
+          active: false,
+          class: {
+            item: 'text-(--ui-primary) data-highlighted:text-(--ui-primary) data-highlighted:before:bg-(--ui-primary)/10 data-[state=open]:before:bg-(--ui-primary)/10',
+            itemLeadingIcon: 'text-(--ui-primary) group-data-highlighted:text-(--ui-primary) group-data-[state=open]:text-(--ui-primary)'
+          }
+        },
+        {
+          color: 'primary',
+          active: true,
+          class: {
+            item: 'text-(--ui-primary) before:bg-(--ui-primary)/10',
+            itemLeadingIcon: 'text-(--ui-primary)'
+          }
+        }
+      ]
     },
     icons: {
       arrowLeft: 'i-mdi-arrow-left',

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-base'
+  layout: 'connect-auth'
 })
 
 const { isAuthenticated, login, logout } = useConnectAuth()
@@ -32,10 +32,6 @@ const { isAuthenticated, login, logout } = useConnectAuth()
           @click="logout()"
         />
         <div>AUTHENTICATED: {{ isAuthenticated }} </div>
-
-        <div class="bg-brandDark p-10">
-          <ConnectHeaderUnauthenticatedOptions />
-        </div>
       </ClientOnly>
     </div>
   </div>

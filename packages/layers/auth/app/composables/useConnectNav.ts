@@ -1,5 +1,6 @@
 import type { DropdownMenuItem } from '@nuxt/ui'
-// import type { ConnectAppConfig } from '~/types/core-app-config'
+import { useStorage } from '@vueuse/core'
+import { ConnectSlideoverWhatsNew } from '#components'
 
 // handle navigation items and functionality
 export function useConnectNav () {
@@ -8,10 +9,14 @@ export function useConnectNav () {
   const appBaseUrl = rtc.baseUrl
   const ac = useAppConfig().connect
   const route = useRoute()
+  const overlay = useOverlay()
   const localePath = useLocalePath()
   const { t, locale: { value: locale } } = useNuxtApp().$i18n
   const { login, logout, isAuthenticated, authUser } = useConnectAuth()
   const accountStore = useConnectAccountStore()
+
+  const whatsNew = useStorage<ConnectWhatsNewState>('connect-whats-new', { viewed: false, items: [] })
+  const slideover = overlay.create(ConnectSlideoverWhatsNew)
 
   /** return the correct account creation link based on auth state */
   function createAccountUrl (): string {
@@ -151,7 +156,7 @@ export function useConnectNav () {
   const loggedOutUserOptions = computed<DropdownMenuItem[][]>(() => {
     const options: DropdownMenuItem[][] = [[{ label: t('connect.label.selectLoginMethod'), type: 'label' }]]
 
-    const idps = ac.login.idps.map(key => loginOptionsMap[key])
+    const idps = ac.login.idps.map(key => loginOptionsMap[key as keyof typeof loginOptionsMap])
 
     options.push(idps)
 
@@ -166,7 +171,20 @@ export function useConnectNav () {
       options.push(...loggedOutUserOptions.value)
     }
     if (config.whatsNew) {
-      options.push([{ label: t('connect.label.whatsNew'), slot: 'whats-new', icon: 'i-mdi-new-box', onSelect: () => console.log('OPEN WHATS NEW SLIDEOVER') }])
+      options.push([
+        {
+          label: t('connect.label.whatsNew'),
+          'aria-label': t('connect.label.whatsNewAria', { count: whatsNew.value.viewed ? 0 : whatsNew.value.items.length }),
+          slot: 'whatsnew' as const,
+          icon: 'i-mdi-new-box',
+          onSelect: () => {
+            slideover.open({
+              items: whatsNew.value.items
+            })
+            whatsNew.value.viewed = true
+          }
+        }
+      ])
     }
     if (config.createAccount) {
       options.push([{ label: t('connect.label.createAccount'), icon: 'i-mdi-plus', to: createAccountUrl() }])

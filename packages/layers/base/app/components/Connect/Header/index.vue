@@ -6,13 +6,12 @@ const headerConfig = useAppConfig().connect.header
   <ConnectHeaderWrapper>
     <div class="flex items-center justify-between">
       <ConnectHeaderLogoHomeLink />
-      <ClientOnly>
-        <div class="flex gap-4">
-          <slot />
+      <div class="flex gap-4">
+        <slot>
           <ConnectHeaderWhatsNew v-if="headerConfig.whatsNew" />
           <ConnectLocaleSelect v-if="headerConfig.localeSelect" />
-        </div>
-      </ClientOnly>
+        </slot>
+      </div>
     </div>
   </ConnectHeaderWrapper>
 </template>
