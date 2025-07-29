@@ -26,11 +26,34 @@ export default defineNuxtConfig({
   },
 
   css: [
-    resolve('./app/assets/css/tw-auth.css')
+    resolve('./app/assets/css/connect-tw-auth.css')
   ],
 
   piniaPluginPersistedstate: {
     storage: 'sessionStorage'
+  },
+
+  i18n: {
+    defaultLocale: 'en-CA',
+    detectBrowserLanguage: false,
+    langDir: 'locales',
+    locales: [
+      {
+        name: 'English',
+        code: 'en-CA',
+        language: 'en-CA',
+        dir: 'ltr',
+        file: 'en-CA.ts'
+      },
+      {
+        name: 'Français',
+        code: 'fr-CA',
+        language: 'fr-CA',
+        dir: 'ltr',
+        file: 'fr-CA.ts'
+      }
+    ],
+    strategy: 'prefix'
   },
 
   runtimeConfig: {
