@@ -5,10 +5,7 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
 
 <template>
-  <UDropdownMenu
-    :items="notificationsOptions"
-  >
-    <!-- chip/badge displays only if pendingApprovalCount > 0 -->
+  <UDropdownMenu :items="notificationsOptions">
     <UChip
       color="error"
       position="top-left"
