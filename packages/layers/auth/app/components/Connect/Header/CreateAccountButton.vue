@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const { createAccountUrl } = useConnectNav()
+const { createAccountUrl } = useConnectHeaderOptions()
 </script>
+
 <template>
   <UButton
     variant="ghost"

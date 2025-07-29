@@ -1,15 +1,16 @@
 <script setup lang="ts">
-const { loggedInUserOptions } = useConnectNav()
+const { loggedInUserOptions } = useConnectHeaderOptions()
 const { authUser } = useConnectAuth()
 const accountStore = useConnectAccountStore()
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
+
 <template>
   <UDropdownMenu
     id="account-options-menu"
     :items="loggedInUserOptions"
     :ui="{
-      content: 'max-w-[90dvw]'
+      content: 'max-w-[90dvw]',
     }"
   >
     <UButton
@@ -24,7 +25,10 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
       <ConnectHeaderAccountLabel
         v-if="isLargeScreen"
         :username="parseSpecialCharacters(authUser.fullName, 'USER')"
-        :account-name="accountStore.currentAccount.label ? parseSpecialCharacters(accountStore.currentAccount.label, 'ACCOUNT') : ''"
+        :account-name="accountStore.currentAccount.label
+          ? parseSpecialCharacters(accountStore.currentAccount.label, 'ACCOUNT')
+          : ''
+        "
       />
 
       <UAvatar
@@ -34,11 +38,13 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
         :ui="{ root: 'bg-blue-300 rounded-none text-lg', fallback: 'text-inverted font-bold' }"
       />
     </UButton>
-    <!-- account label slot -->
     <template #account>
       <ConnectHeaderAccountLabel
         :username="parseSpecialCharacters(authUser.fullName, 'USER')"
-        :account-name="accountStore.currentAccount.label ? parseSpecialCharacters(accountStore.currentAccount.label, 'ACCOUNT') : ''"
+        :account-name="accountStore.currentAccount.label
+          ? parseSpecialCharacters(accountStore.currentAccount.label, 'ACCOUNT')
+          : ''
+        "
         theme="dropdown"
       />
     </template>

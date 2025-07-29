@@ -3,7 +3,7 @@ import { useStorage } from '@vueuse/core'
 import { ConnectSlideoverWhatsNew } from '#components'
 
 // handle navigation items and functionality
-export function useConnectNav () {
+export function useConnectHeaderOptions() {
   const rtc = useRuntimeConfig().public
   const authWebUrl = rtc.authWebUrl
   const appBaseUrl = rtc.baseUrl
@@ -18,7 +18,7 @@ export function useConnectNav () {
   const slideover = overlay.create(ConnectSlideoverWhatsNew)
 
   /** return the correct account creation link based on auth state */
-  function createAccountUrl (): string {
+  function createAccountUrl(): string {
     if (isAuthenticated.value) {
       return authWebUrl + 'setup-account'
     } else {
@@ -62,7 +62,9 @@ export function useConnectNav () {
       }
     ]
     // TODO: remove staff checks?
-    if ([AccountType.PREMIUM, AccountType.SBC_STAFF, AccountType.STAFF].includes(accountStore.currentAccount.accountType)) {
+    if (
+      [AccountType.PREMIUM, AccountType.SBC_STAFF, AccountType.STAFF].includes(accountStore.currentAccount.accountType)
+    ) {
       options.push({
         label: t('connect.label.transactions'),
         icon: 'i-mdi-file-document-outline',
@@ -138,7 +140,9 @@ export function useConnectNav () {
     ? appBaseUrl + locale + ac.login.redirectPath
     : undefined
 
-  const loginOptionsMap: Record<'bcsc' | 'bceid' | 'idir', { label: string; icon: string; onSelect: () => Promise<void> }> = {
+  const loginOptionsMap: Record<'bcsc' | 'bceid' | 'idir',
+    { label: string, icon: string, onSelect: () => Promise<void> }
+  > = {
     bcsc: {
       label: t('connect.label.bcsc'),
       icon: 'i-mdi-account-card-details-outline',
@@ -176,11 +180,13 @@ export function useConnectNav () {
     if (config.whatsNew) {
       options.push([
         {
-          label: t('connect.label.whatsNew'),
-          'aria-label': t('connect.label.whatsNewAria', { count: whatsNew.value.viewed ? 0 : whatsNew.value.items.length }),
-          slot: 'whatsnew' as const,
-          icon: 'i-mdi-new-box',
-          onSelect: () => {
+          'label': t('connect.label.whatsNew'),
+          'aria-label': t('connect.label.whatsNewAria', {
+            count: whatsNew.value.viewed ? 0 : whatsNew.value.items.length }
+          ),
+          'slot': 'whatsnew' as const,
+          'icon': 'i-mdi-new-box',
+          'onSelect': () => {
             slideover.open({
               items: whatsNew.value.items
             })
@@ -202,9 +208,9 @@ export function useConnectNav () {
     if (count > 0) {
       options.push([{
         to: authWebUrl + `account/${accountStore.currentAccount.id}/settings/team-members`,
-        label: t('connect.text.notifications.teamMemberApproval', { 
+        label: t('connect.text.notifications.teamMemberApproval', {
           count: accountStore.pendingApprovalCount
-          }, accountStore.pendingApprovalCount
+        }, accountStore.pendingApprovalCount
         )
       }])
     } else {

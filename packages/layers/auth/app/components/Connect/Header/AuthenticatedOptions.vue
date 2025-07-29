@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const ac = useAppConfig().connect.header
 </script>
+
 <template>
   <div
     id="connect-header-authenticated-options"

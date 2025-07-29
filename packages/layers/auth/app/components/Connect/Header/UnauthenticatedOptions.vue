@@ -2,6 +2,7 @@
 const ac = useAppConfig().connect.header
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
+
 <template>
   <div
     id="connect-header-unauthenticated-options"

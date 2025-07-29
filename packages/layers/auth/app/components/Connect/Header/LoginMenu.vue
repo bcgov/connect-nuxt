@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
-const { loggedOutUserOptions, loggedOutUserOptionsMobile } = useConnectNav()
+
+const { loggedOutUserOptions, loggedOutUserOptionsMobile } = useConnectHeaderOptions()
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const whatsNew = useStorage<ConnectWhatsNewState>('connect-whats-new', { viewed: false, items: [] })
 </script>
+
 <template>
   <UDropdownMenu
     id="login-menu"

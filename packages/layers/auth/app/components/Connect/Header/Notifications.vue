@@ -1,8 +1,9 @@
 <script setup lang="ts">
-const { notificationsOptions } = useConnectNav()
+const { notificationsOptions } = useConnectHeaderOptions()
 const accountStore = useConnectAccountStore()
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
+
 <template>
   <UDropdownMenu
     :items="notificationsOptions"

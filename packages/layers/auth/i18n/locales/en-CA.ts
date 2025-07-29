@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default {
   /* Ordering should be alphabetical unless otherwise specified */
   connect: {
@@ -18,7 +19,7 @@ export default {
       selectLoginMethod: 'Select log in method',
       switchAccount: 'Switch Account',
       teamMembers: 'Team Members',
-      transactions: 'Transactions',
+      transactions: 'Transactions'
     },
     text: {
       notifications: {
