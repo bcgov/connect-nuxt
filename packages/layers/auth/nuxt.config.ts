@@ -12,7 +12,14 @@ export default defineNuxtConfig({
 
   extends: ['@sbc-connect/nuxt-base'],
 
-  modules: ['@pinia/nuxt'],
+  imports: {
+    dirs: ['interfaces', 'types', 'enums', 'stores']
+  },
+
+  modules: [
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt'
+  ],
 
   alias: {
     '#auth': resolve('./')
@@ -22,11 +29,19 @@ export default defineNuxtConfig({
     resolve('./app/assets/css/tw-auth.css')
   ],
 
+  piniaPluginPersistedstate: {
+    storage: 'sessionStorage'
+  },
+
   runtimeConfig: {
     public: {
       idpUrl: '',
       idpRealm: '',
-      idpClientid: ''
+      idpClientid: '',
+      siteminderLogoutUrl: '',
+      authApiUrl: '',
+      authApiVersion: '',
+      xApiKey: ''
     }
   }
 })
