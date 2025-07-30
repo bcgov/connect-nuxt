@@ -8,12 +8,12 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   alias: {
-    'BCGovFonts': resolve('./public/fonts/BCSans'),
     'BCGovLogoSmEn': resolve('./public/BCGovLogo/gov_bc_logo_vert_en.png'),
     'BCGovLogoSmFr': resolve('./public/BCGovLogo/gov_bc_logo_vert_fr.png'),
     'BCGovLogoLgEn': resolve('./public/BCGovLogo/gov_bc_logo_horiz_en.png'),
     'BCGovLogoLgFr': resolve('./public/BCGovLogo/gov_bc_logo_horiz_fr.png'),
-    '#base': resolve('./')
+    '#base': resolve('./'),
+    '#connect-theme': resolve('./modules/assets/runtime/assets/connect-base-tw.css')
   },
 
   compatibilityDate: '2025-07-10',
