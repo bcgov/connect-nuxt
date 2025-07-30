@@ -50,7 +50,7 @@ function resolveBackHref() {
           leadingIcon: 'text-blue-500',
         }"
       />
-      <div class="w-[1px] bg-shadePrimary h-[24px]" />
+      <div class="w-[1px] bg-shade h-[24px]" />
       <UBreadcrumb
         :items="breadcrumbs"
         :aria-label="$t('connect.breadcrumb.arialabel')"

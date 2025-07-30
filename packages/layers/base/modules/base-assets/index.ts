@@ -14,7 +14,7 @@ export default defineNuxtModule({
       nitroConfig.publicAssets ||= []
       nitroConfig.publicAssets.push({
         dir: resolver.resolve('./runtime/public'),
-        maxAge: 60 * 60 * 24 * 365,
+        maxAge: 60 * 60 * 24 * 365
       })
     })
 

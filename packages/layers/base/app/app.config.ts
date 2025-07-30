@@ -55,11 +55,11 @@ export default defineAppConfig({
       variants: {
         active: {
           true: {
-            item: 'text-primary before:bg-shadePrimary',
+            item: 'text-primary before:bg-shade',
             itemLeadingIcon: 'text-(--ui-text)'
           },
           false: {
-            item: 'text-(--ui-text) data-highlighted:text-primary data-[state=open]:text-(--ui-text-highlighted) data-highlighted:before:bg-shadePrimary data-[state=open]:before:bg-(--ui-bg-elevated)/50 transition-colors before:transition-colors',
+            item: 'text-(--ui-text) data-highlighted:text-primary data-[state=open]:text-(--ui-text-highlighted) data-highlighted:before:bg-shade data-[state=open]:before:bg-(--ui-bg-elevated)/50 transition-colors before:transition-colors',
             itemLeadingIcon: 'text-neutral group-data-highlighted:text-primary group-data-[state=open]:text-(--ui-text) transition-colors'
           }
         },
@@ -129,7 +129,7 @@ export default defineAppConfig({
           }
         },
         variant: {
-          bcGov: 'ring-0 ring-transparent peer rounded-t-sm rounded-b-none bg-shadePrimary shadow-input focus:ring-0 focus:outline-none focus:shadow-inputFocus text-neutralDark'
+          bcGov: 'ring-0 ring-transparent peer rounded-t-sm rounded-b-none bg-shade shadow-input focus:ring-0 focus:outline-none focus:shadow-input-focus text-neutral-highlighted'
         }
       },
       defaultVariants: {
@@ -151,7 +151,7 @@ export default defineAppConfig({
           }
         },
         variant: {
-          bcGov: 'peer rounded-t-sm rounded-b-none bg-shadePrimary focus:ring-0 focus:outline-none shadow-input focus:shadow-inputFocus text-neutralDark'
+          bcGov: 'peer rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input focus:shadow-input-focus text-neutral-highlighted'
         }
       },
       defaultVariants: {

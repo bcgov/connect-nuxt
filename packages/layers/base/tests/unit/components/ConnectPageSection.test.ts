@@ -159,7 +159,7 @@ describe('ConnectPageSection Component', () => {
       })
 
       const card = wrapper.findComponent(MockUCard)
-      expect(card.props('ui').header).toContain('bg-shadeSecondary')
+      expect(card.props('ui').header).toContain('bg-shade-secondary')
       expect(card.props('ui').body).toBe('p-0 sm:p-0')
     })
 

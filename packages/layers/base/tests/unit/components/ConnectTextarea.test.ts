@@ -65,7 +65,7 @@ describe('ConnectTextarea Component', () => {
     const label = wrapper.find('label')
 
     expect(label.classes()).toContain('text-error')
-    expect(uTextarea.props('ui').base).toContain('shadow-inputError')
+    expect(uTextarea.props('ui').base).toContain('shadow-input-error')
   })
 
   test('does not apply invalid state classes when the invalid prop is false', async () => {
@@ -86,7 +86,7 @@ describe('ConnectTextarea Component', () => {
     const uTextarea = wrapper.findComponent(MockUTextarea)
     const label = wrapper.find('label')
     expect(label.classes()).not.toContain('text-error')
-    expect(uTextarea.props('ui').base).not.toContain('shadow-inputError')
+    expect(uTextarea.props('ui').base).not.toContain('shadow-input-error')
   })
 
   test('passes down extra attributes to the UTextarea component', async () => {

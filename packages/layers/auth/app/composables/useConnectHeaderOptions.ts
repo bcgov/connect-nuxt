@@ -100,7 +100,7 @@ export function useConnectHeaderOptions() {
           },
           slot: 'account-item',
           icon: isActive ? 'i-mdi-check' : '',
-          class: isActive ? 'bg-shadePrimary text-primary' : '',
+          class: isActive ? 'bg-shade text-primary' : '',
           ui: {
             itemLabel: isActive ? '' : 'pl-6',
             itemLeadingIcon: isActive ? 'size-5 text-primary shrink-0' : ''

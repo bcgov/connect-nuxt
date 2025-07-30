@@ -19,14 +19,14 @@ defineProps({
         class="text-sm"
         :class="{
           'line-clamp-1 overflow-hidden text-ellipsis text-inverted max-w-64': theme === 'header',
-          'text-neutralDark max-w-80': theme === 'dropdown',
+          'text-neutral-highlighted max-w-80': theme === 'dropdown',
         }"
       >
         {{ username }}
       </span>
       <span
         class="line-clamp-1 overflow-hidden text-ellipsis text-xs opacity-75"
-        :class="{ 'text-lineLight': theme === 'header', 'text-neutral': theme === 'dropdown' }"
+        :class="{ 'text-line': theme === 'header', 'text-neutral': theme === 'dropdown' }"
       >
         {{ accountName }}
       </span>

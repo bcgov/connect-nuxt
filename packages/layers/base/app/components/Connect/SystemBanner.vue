@@ -15,7 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-brandLight">
+  <div class="bg-brand-inverted">
     <UAlert
       v-show="!!message && !close"
       class="py-0"
@@ -23,18 +23,18 @@ onMounted(async () => {
       :close="dismissible"
       close-icon="i-mdi-close"
       :ui="{
-        root: 'rounded-none bg-brandLight p-2 sm:px-4 app-inner-container',
-        wrapper: 'bg-brandLight',
-        close: 'mt-2 text-neutralDark',
+        root: 'rounded-none bg-brand-inverted p-2 sm:px-4 app-inner-container',
+        wrapper: 'bg-brand-inverted',
+        close: 'mt-2 text-neutral-highlighted',
       }"
       @update:open="close = true"
     >
-      <!-- dismissible ? { class: 'pr-2 text-neutralDark' } : null -->
+      <!-- dismissible ? { class: 'pr-2 text-neutral-highlighted' } : null -->
       <template #description>
         <div class="flex gap-2 items-center py-2">
-          <UIcon class="size-7 shrink-0 text-neutralDark self-start" :name="icon" />
+          <UIcon class="size-7 shrink-0 text-neutral-highlighted self-start" :name="icon" />
           <!-- eslint-disable vue/no-v-html tailwindcss/no-custom-classname -->
-          <p class="vhtml text-neutralDark" v-html="message" />
+          <p class="vhtml text-neutral-highlighted" v-html="message" />
         </div>
       </template>
     </UAlert>
@@ -44,7 +44,7 @@ onMounted(async () => {
 <!-- must style globally for vhtml style to work  -->
 <style>
 .vhtml > a {
-  color: var(--ui-neutralDark);
+  color: var(--ui-neutral-highlighted);
   text-decoration: underline;
 }
 </style>
