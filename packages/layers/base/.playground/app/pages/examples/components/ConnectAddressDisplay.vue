@@ -2,10 +2,6 @@
 definePageMeta({
   layout: 'connect-base'
 })
-const standardValue = ref('')
-const invalidValue = ref('')
-const maskedValue = ref('')
-const extraAttrsValue = ref('')
 </script>
 
 <template>
@@ -24,7 +20,7 @@ const extraAttrsValue = ref('')
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'Standard State' }" ui-body="p-4 space-y-4">
-      <ConnectAddressDisplay 
+      <ConnectAddressDisplay
         :address="{
           street: '123 Street Ave',
           streetAdditional: 'Line 2',
@@ -32,16 +28,16 @@ const extraAttrsValue = ref('')
           region: 'XY',
           postalCode: 'V1X 1X1',
           country: 'CA',
-          locationDescription: 'Some extra location info'
+          locationDescription: 'Some extra location info',
           // streetName?: string
           // streetNumber?: string
           // unitNumber?: string
         }"
       />
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Omit Country' }" ui-body="p-4 space-y-4">
-      <ConnectAddressDisplay 
+      <ConnectAddressDisplay
         :address="{
           street: '123 Street Ave',
           streetAdditional: 'Line 2',
@@ -49,7 +45,7 @@ const extraAttrsValue = ref('')
           region: 'XY',
           postalCode: 'V1X 1X1',
           country: 'CA',
-          locationDescription: 'Some extra location info'
+          locationDescription: 'Some extra location info',
           // streetName?: string
           // streetNumber?: string
           // unitNumber?: string
@@ -57,9 +53,9 @@ const extraAttrsValue = ref('')
         :omit-country="true"
       />
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Separated Street Name, Number and Unit Number' }" ui-body="p-4 space-y-4">
-      <ConnectAddressDisplay 
+      <ConnectAddressDisplay
         :address="{
           // street: '123 Street Ave',
           streetAdditional: 'Line 2',
@@ -70,18 +66,18 @@ const extraAttrsValue = ref('')
           locationDescription: 'Some extra location info',
           streetName: 'Street Ave',
           streetNumber: '123',
-          unitNumber: '101'
+          unitNumber: '101',
         }"
       />
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'Partial Fields' }" ui-body="p-4 space-y-4">
-      <ConnectAddressDisplay 
+      <ConnectAddressDisplay
         :address="{
           street: '123 Street Ave',
           city: 'Townsville',
           region: 'XY',
-          country: 'CA'
+          country: 'CA',
         }"
       />
     </ConnectPageSection>

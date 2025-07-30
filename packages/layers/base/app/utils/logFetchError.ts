@@ -1,4 +1,5 @@
-export function logFetchError (error: unknown, message: string) {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function logFetchError(error: unknown, message: string) {
   let status = 'Unknown Status'
   let statusText = 'Unknown Status Text'
   let hasMessage = false
@@ -15,10 +16,10 @@ export function logFetchError (error: unknown, message: string) {
     }
 
     if (
-      'data' in error &&
-      (error as any).data &&
-      typeof (error as any).data === 'object' &&
-      'message' in (error as any).data
+      'data' in error
+      && (error as any).data
+      && typeof (error as any).data === 'object'
+      && 'message' in (error as any).data
     ) {
       statusText = statusText || (error as any).data.message
       hasMessage = (error as any).data.message !== undefined

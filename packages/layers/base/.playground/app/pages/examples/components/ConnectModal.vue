@@ -5,7 +5,7 @@ definePageMeta({
 
 const { baseModal } = useConnectModal()
 
-function openBasicExample () {
+function openBasicExample() {
   baseModal.open({
     title: 'Modal Title',
     description: 'Modal description',
@@ -15,13 +15,13 @@ function openBasicExample () {
         label: 'Close', variant: 'outline', shouldClose: true
       },
       {
-        label: 'Trigger Alert', onClick: ()=> window.alert('Alert from modal!')
+        label: 'Trigger Alert', onClick: () => window.alert('Alert from modal!')
       }
     ]
   })
 }
 
-function openButtonExample () {
+function openButtonExample() {
   baseModal.open({
     title: 'Modal Title',
     description: 'Modal description',
@@ -31,7 +31,7 @@ function openButtonExample () {
         size: 'xl', label: 'Close', variant: 'outline', shouldClose: true, icon: 'i-mdi-home'
       },
       {
-        size: 'xs',label: 'With Link', to: 'https://dev.bcregistry.gov.bc.ca', target: '_blank', external: true
+        size: 'xs', label: 'With Link', to: 'https://dev.bcregistry.gov.bc.ca', target: '_blank', external: true
       }
     ]
   })
@@ -56,7 +56,7 @@ function openButtonExample () {
     <ConnectPageSection :heading="{ label: 'Usage' }" ui-body="p-4 space-y-4">
       <code>
         const { baseModal } = useConnectModal()
-        <br />
+        <br>
         baseModal.open({...props})
       </code>
     </ConnectPageSection>
@@ -64,7 +64,7 @@ function openButtonExample () {
     <ConnectPageSection :heading="{ label: 'Basic Props' }" ui-body="p-4 space-y-4">
       <UButton label="Open with basic props" @click="openBasicExample" />
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Button Props' }" ui-body="p-4 space-y-4">
       <p>Pass any UButton props to :buttons</p>
       <UButton label="Open with Button Props" @click="openButtonExample" />

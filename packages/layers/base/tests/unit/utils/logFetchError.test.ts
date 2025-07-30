@@ -25,8 +25,8 @@ describe('logFetchError', () => {
     const error = {
       response: {
         status: 404,
-        statusText: 'Not Found',
-      },
+        statusText: 'Not Found'
+      }
     }
     logFetchError(error, message)
     expect(consoleSpy).toHaveBeenCalledTimes(1)
@@ -38,11 +38,11 @@ describe('logFetchError', () => {
     const error = {
       response: {
         status: 401,
-        statusText: '',
+        statusText: ''
       },
       data: {
-        message: 'Invalid credentials',
-      },
+        message: 'Invalid credentials'
+      }
     }
     logFetchError(error, message)
     expect(consoleSpy).toHaveBeenCalledTimes(1)
@@ -56,12 +56,12 @@ describe('logFetchError', () => {
     const error = {
       response: {
         status: 400,
-        statusText: 'Bad Request',
+        statusText: 'Bad Request'
       },
       data: {
         message: 'Validation error',
-        errors: { name: 'Name is required' },
-      },
+        errors: { name: 'Name is required' }
+      }
     }
     logFetchError(error, message)
     expect(consoleSpy).toHaveBeenCalledTimes(1)

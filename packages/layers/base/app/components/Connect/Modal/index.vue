@@ -23,7 +23,9 @@ defineEmits<{ close: [] }>()
           <h2>
             {{ title }}
           </h2>
-          <p class="-mt-2">{{ description }}</p>
+          <p class="-mt-2">
+            {{ description }}
+          </p>
         </div>
         <div v-if="buttons && buttons.length" class="flex flex-wrap items-center justify-center gap-4">
           <template

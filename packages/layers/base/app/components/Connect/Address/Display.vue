@@ -51,6 +51,7 @@ const getAddressDisplayParts = (
 
 const addressDisplay = getAddressDisplayParts(props.address, false, true, props.omitCountry)
 </script>
+
 <template>
   <div
     data-testid="address-display"
