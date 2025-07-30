@@ -25,13 +25,13 @@
   "dependencies": {
     "@iconify-json/mdi": "^1.2.3",
     "@nuxt/ui": "^3.3.0",
-    "@nuxtjs/i18n": "^10.0.2",
+    "@nuxtjs/i18n": "^10.0.3",
+    "@vueuse/core": "^13.6.0",
+    "@vueuse/nuxt": "^13.6.0",
     "dompurify": "^3.2.6",
-    "launchdarkly-vue-client-sdk": "^2.4.1",
-    "@vueuse/nuxt": "^13.5.0",
-    "@vueuse/core": "^13.5.0",
     "es-toolkit": "^1.39.8",
-    "maska": "^3.1.1"
+    "launchdarkly-vue-client-sdk": "^2.4.1",
+    "maska": "^3.2.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
