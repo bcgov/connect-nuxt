@@ -92,6 +92,8 @@ export default defineNuxtConfig({
         'mdi:check',
         'mdi:chevron-double-left',
         'mdi:chevron-double-right',
+        'mdi:chevron-left',
+        'mdi:chevron-right',
         'mdi:menu-down',
         'mdi:menu-left',
         'mdi:menu-right',
@@ -106,7 +108,12 @@ export default defineNuxtConfig({
         'mdi:minus',
         'mdi:plus',
         'mdi:magnify',
-        'mdi:upload'
+        'mdi:upload',
+        'mdi:caret-down',
+        'mdi:menu',
+        'mdi:file-document-outline',
+        'mdi:home',
+        'mdi:web'
       ]
     }
   },

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-base'
+  layout: 'connect-auth'
 })
 
 const { isAuthenticated, login, logout } = useConnectAuth()

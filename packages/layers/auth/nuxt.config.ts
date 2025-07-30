@@ -26,11 +26,44 @@ export default defineNuxtConfig({
   },
 
   css: [
-    resolve('./app/assets/css/tw-auth.css')
+    resolve('./app/assets/css/connect-tw-auth.css')
   ],
+
+  icon: {
+    clientBundle: {
+      icons: [
+        'mdi:bell-outline',
+        'mdi:account-outline',
+        'mdi:logout-variant',
+        'mdi:account-group-outline',
+        'mdi:account-card-details-outline',
+        'mdi:two-factor-authentication',
+        'mdi:new-box'
+      ]
+    }
+  },
 
   piniaPluginPersistedstate: {
     storage: 'sessionStorage'
+  },
+
+  i18n: {
+    locales: [
+      {
+        name: 'English',
+        code: 'en-CA',
+        language: 'en-CA',
+        dir: 'ltr',
+        file: 'en-CA.ts'
+      },
+      {
+        name: 'Français',
+        code: 'fr-CA',
+        language: 'fr-CA',
+        dir: 'ltr',
+        file: 'fr-CA.ts'
+      }
+    ]
   },
 
   runtimeConfig: {
@@ -41,7 +74,8 @@ export default defineNuxtConfig({
       siteminderLogoutUrl: '',
       authApiUrl: '',
       authApiVersion: '',
-      xApiKey: ''
+      xApiKey: '',
+      authWebUrl: ''
     }
   }
 })

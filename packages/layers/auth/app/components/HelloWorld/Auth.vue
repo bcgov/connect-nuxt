@@ -5,7 +5,7 @@
     <h3 class="text-red-700">
       Auth - should be red-700
     </h3>
-    <p class="text-brandLight">
+    <p class="text-brandLight text-xl lg:text-3xl">
       Auth - should be brandLight
     </p>
   </div>
