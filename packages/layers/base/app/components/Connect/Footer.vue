@@ -54,7 +54,7 @@ const appVersions = computed<string[]>(() => {
   <footer
     id="connect-main-footer"
     data-testid="connect-main-footer"
-    class="border-t-2 border-brandLight bg-brandDark"
+    class="border-t-2 border-brand-inverted bg-brand"
   >
     <div class="app-inner-container flex items-center justify-between p-2">
       <nav :aria-label="$t('connect.footer.navLabel')" class="flex grow">
@@ -65,7 +65,7 @@ const appVersions = computed<string[]>(() => {
             :class="[
               'flex-col gap-2 border-r-0 pr-2 last:mr-0',
               'last:border-r-0 sm:mr-2 sm:inline-block sm:flex-none',
-              'sm:border-r sm:first:ml-2 border-lineLight',
+              'sm:border-r sm:first:ml-2 border-line',
             ]"
           >
             <NuxtLink
@@ -83,7 +83,7 @@ const appVersions = computed<string[]>(() => {
         </ul>
       </nav>
       <div class="-mb-1 flex items-center">
-        <span class="italic text-brandLight">{{ $t('connect.label.bcApp') }}</span>
+        <span class="italic text-brand-inverted">{{ $t('connect.label.bcApp') }}</span>
         <UTooltip arrow :delay-duration="200">
           <UButton
             :aria-label="$t('connect.label.appVersion')"

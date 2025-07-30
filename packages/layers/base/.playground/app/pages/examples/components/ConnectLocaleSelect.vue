@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-brandDark">
+  <div class="bg-brand">
     <ConnectLocaleSelect />
   </div>
 </template>

@@ -58,7 +58,7 @@ describe('ConnectInput Component', () => {
     const uInput = wrapper.findComponent(MockUInput)
     const label = wrapper.find('label')
     expect(label.classes()).toContain('text-error')
-    expect(uInput.props('ui').base).toContain('shadow-inputError')
+    expect(uInput.props('ui').base).toContain('shadow-input-error')
   })
 
   test('does not apply invalid state classes when the invalid prop is false', async () => {
@@ -80,7 +80,7 @@ describe('ConnectInput Component', () => {
     const label = wrapper.find('label')
 
     expect(label.classes()).not.toContain('text-error')
-    expect(uInput.props('ui').base).not.toContain('shadow-inputError')
+    expect(uInput.props('ui').base).not.toContain('shadow-input-error')
   })
 
   test('applies the mask when the mask prop is provided', async () => {

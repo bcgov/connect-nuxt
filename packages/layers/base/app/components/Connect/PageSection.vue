@@ -21,7 +21,7 @@ defineProps<{
     class="w-full"
     variant="outline"
     :ui="{
-      header: heading?.ui ?? 'bg-shadeSecondary px-4 py-4 sm:px-4 rounded-t-md',
+      header: heading?.ui ?? 'bg-shade-secondary px-4 py-4 sm:px-4 rounded-t-md',
       body: uiBody ?? 'p-0 sm:p-0',
       footer: 'p-0 sm:p-0',
     }"
@@ -36,7 +36,7 @@ defineProps<{
                 :name="heading.icon"
                 :class="heading?.iconClass || 'size-6 shrink-0 text-primary'"
               />
-              <span :class="heading?.labelClass || 'font-semibold text-neutralDark text-base'">
+              <span :class="heading?.labelClass || 'font-semibold text-neutral-highlighted text-base'">
                 {{ heading?.label }}
               </span>
             </div>
