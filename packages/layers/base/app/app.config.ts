@@ -38,6 +38,56 @@ export default defineAppConfig({
     button: {
       slots: {
         base: 'cursor-pointer'
+      },
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: 'solid',
+          class: 'font-bold text-(--ui-bg) bg-(--ui-primary) hover:bg-(--ui-primary)/75 disabled:bg-(--ui-primary) aria-disabled:bg-(--ui-primary) focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--ui-primary)'
+        },
+        {
+          color: 'primary',
+          variant: 'ghost',
+          class: 'text-(--ui-primary) hover:bg-(--ui-primary)/10 active:bg-(--ui-primary)/25 focus:outline-none focus-visible:bg-(--ui-primary)/10 disabled:bg-transparent aria-disabled:bg-transparent dark:disabled:bg-transparent dark:aria-disabled:bg-transparent'
+        },
+        {
+          color: 'primary',
+          variant: 'outline',
+          class: 'ring ring-inset ring-primary text-primary hover:bg-primary/10 active:bg-primary/10 disabled:bg-transparent aria-disabled:bg-transparent dark:disabled:bg-transparent dark:aria-disabled:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-primary'
+        }
+      ],
+      variants: {
+        size: {
+          sm: {
+            base: 'px-7 py-0.5 text-sm gap-2.5',
+            leadingIcon: 'size-4',
+            leadingAvatarSize: '3xs',
+            trailingIcon: 'size-4'
+          },
+          md: {
+            base: 'px-7 py-1.5 text-sm gap-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5'
+          },
+          lg: {
+            base: 'px-7 py-2.25 text-sm gap-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5'
+          },
+          xl: {
+            base: 'px-7 py-2.5 text-base gap-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5'
+          }
+        }
+      },
+      defaultVariants: {
+        color: 'primary',
+        variant: 'solid',
+        size: 'lg'
       }
     },
     card: {
