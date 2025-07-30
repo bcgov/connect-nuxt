@@ -48,9 +48,6 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    defaultLocale: 'en-CA',
-    detectBrowserLanguage: false,
-    langDir: 'locales',
     locales: [
       {
         name: 'English',
@@ -66,8 +63,7 @@ export default defineNuxtConfig({
         dir: 'ltr',
         file: 'fr-CA.ts'
       }
-    ],
-    strategy: 'prefix'
+    ]
   },
 
   runtimeConfig: {
