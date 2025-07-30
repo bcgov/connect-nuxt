@@ -2,8 +2,8 @@ import { defineNuxtModule, createResolver, installModule } from 'nuxt/kit'
 
 export default defineNuxtModule({
   meta: {
-    name: 'assets',
-    configKey: 'assets'
+    name: 'base-assets',
+    configKey: 'baseAssets'
   },
   defaults: {},
   async setup(_options, _nuxt) {
