@@ -12,8 +12,7 @@ export default defineNuxtConfig({
     'BCGovLogoSmFr': resolve('./public/BCGovLogo/gov_bc_logo_vert_fr.png'),
     'BCGovLogoLgEn': resolve('./public/BCGovLogo/gov_bc_logo_horiz_en.png'),
     'BCGovLogoLgFr': resolve('./public/BCGovLogo/gov_bc_logo_horiz_fr.png'),
-    '#base': resolve('./'),
-    '#connect-theme': resolve('./modules/assets/runtime/assets/connect-base-tw.css')
+    '#base': resolve('./')
   },
 
   compatibilityDate: '2025-07-10',

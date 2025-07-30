@@ -25,10 +25,6 @@ export default defineNuxtConfig({
     '#auth': resolve('./')
   },
 
-  css: [
-    resolve('./app/assets/css/connect-tw-auth.css')
-  ],
-
   icon: {
     clientBundle: {
       icons: [

@@ -7,7 +7,7 @@ export default defineNuxtModule({
   },
   defaults: {},
   async setup(_options, _nuxt) {
-    console.info('Setting up assets module')
+    console.info('Setting up **base** assets module')
     const resolver = createResolver(import.meta.url)
 
     _nuxt.hook('nitro:config', async (nitroConfig) => {
@@ -21,5 +21,10 @@ export default defineNuxtModule({
     _nuxt.options.css.push(resolver.resolve('./runtime/assets/connect-base-tw.css'))
     _nuxt.options.css.push(resolver.resolve('./runtime/assets/connect-base-layout.css'))
     await installModule('@nuxt/ui')
+
+    _nuxt.options.alias = {
+      ..._nuxt.options.alias,
+      '#connect-theme': resolver.resolve('./runtime/assets/connect-base-tw.css')
+    }
   }
 })
