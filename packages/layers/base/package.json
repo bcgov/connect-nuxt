@@ -30,7 +30,7 @@
     "launchdarkly-vue-client-sdk": "^2.4.1",
     "@vueuse/nuxt": "^13.5.0",
     "@vueuse/core": "^13.5.0",
-    "lodash-es": "^4.17.21",
+    "es-toolkit": "^1.39.8",
     "maska": "^3.1.1"
   },
   "devDependencies": {
@@ -42,7 +42,6 @@
     "dotenv": "catalog:",
     "nuxt": "catalog:",
     "typescript": "catalog:",
-    "vue-tsc": "catalog:",
-    "@types/lodash-es": "catalog:"
+    "vue-tsc": "catalog:"
   }
 }
