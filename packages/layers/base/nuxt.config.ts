@@ -67,7 +67,7 @@ export default defineNuxtConfig({
         'line-muted',
         'line-highlighted',
         'mark',
-        'mark-hover',
+        'mark-highlighted',
         'neutral',
         'neutral-highlighted',
         'neutral-toned',

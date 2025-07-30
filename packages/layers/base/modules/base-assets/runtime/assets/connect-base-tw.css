@@ -18,7 +18,7 @@
   --ui-line-muted: var(--color-gray-300);
   --ui-line-highlighted: #899EB2;
   --ui-mark: #1A5A96;
-  --ui-mark-hover: #0000EE;
+  --ui-mark-highlighted: #0000EE;
   --ui-neutral: var(--color-gray-700);
   --ui-neutral-highlighted: var(--color-gray-900);
   --ui-neutral-toned: #757575;
@@ -46,7 +46,7 @@
   --ui-line-muted: var(--color-gray-300);
   --ui-line-highlighted: #899EB2;
   --ui-mark: #1A5A96;
-  --ui-mark-hover: #0000EE;
+  --ui-mark-highlighted: #0000EE;
   --ui-neutral: var(--color-gray-700);
   --ui-neutral-highlighted: var(--color-gray-900);
   --ui-neutral-toned: #757575;
