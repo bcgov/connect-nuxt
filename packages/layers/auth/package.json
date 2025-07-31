@@ -5,6 +5,11 @@
   "repository": "github:bcgov/connect-nuxt",
   "license": "BSD-3-Clause",
   "main": "./nuxt.config.ts",
+  "files": [
+    "./app/interfaces",
+    "./app/types",
+    "./app/enums"
+  ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "nuxi dev .playground --dotenv ../.env",
