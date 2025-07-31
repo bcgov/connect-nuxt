@@ -1,5 +1,32 @@
 # @sbc-connect/nuxt-auth
 
+## 0.1.6
+
+### Patch Changes
+
+- [#21](https://github.com/bcgov/connect-nuxt/pull/21) [`db2159e`](https://github.com/bcgov/connect-nuxt/commit/db2159ebc4b310c1c24986ca8ef85b5435fd50c8) Thanks [@deetz99](https://github.com/deetz99)! - Init auth plugin
+
+- [#26](https://github.com/bcgov/connect-nuxt/pull/26) [`65ae301`](https://github.com/bcgov/connect-nuxt/commit/65ae301972b39cfed8550e49c1209133674528a4) Thanks [@deetz99](https://github.com/deetz99)! - Update CSS variables to match Nuxt UI naming convention. Issue: bcgov/entity#29335
+
+- [#23](https://github.com/bcgov/connect-nuxt/pull/23) [`b257d0c`](https://github.com/bcgov/connect-nuxt/commit/b257d0c874138e56ae0b5d79ec6e5a7b30acec8b) Thanks [@deetz99](https://github.com/deetz99)! - - begin initial account store
+
+  - auth composable
+  - clear keycloak params in url
+  - init account in middleware
+  - several enums/types to support accounts
+  - update nuxt config with auto imports and pinia plugin module
+
+  issue: bcgov/entity#29335
+
+- [#25](https://github.com/bcgov/connect-nuxt/pull/25) [`aba11d1`](https://github.com/bcgov/connect-nuxt/commit/aba11d1303ab1b19b3a51c27959766c4ee0cd5d8) Thanks [@deetz99](https://github.com/deetz99)! - - create auth header components
+
+  - connect-auth layout
+
+  issue: bcgov/entity#29335
+
+- Updated dependencies [[`65ae301`](https://github.com/bcgov/connect-nuxt/commit/65ae301972b39cfed8550e49c1209133674528a4), [`09fa4f1`](https://github.com/bcgov/connect-nuxt/commit/09fa4f1b4b2c65d189a6477c9c5f2d44607b543d), [`aba11d1`](https://github.com/bcgov/connect-nuxt/commit/aba11d1303ab1b19b3a51c27959766c4ee0cd5d8)]:
+  - @sbc-connect/nuxt-base@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes
