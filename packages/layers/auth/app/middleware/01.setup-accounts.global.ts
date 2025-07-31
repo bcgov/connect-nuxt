@@ -1,3 +1,5 @@
+import { useConnectAuth } from '#imports'
+
 export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.client) { // only run on client
     const { isAuthenticated } = useConnectAuth()

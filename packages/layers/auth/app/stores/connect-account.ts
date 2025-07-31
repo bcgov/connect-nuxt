@@ -1,3 +1,5 @@
+import { useConnectAuth } from '#imports'
+
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public

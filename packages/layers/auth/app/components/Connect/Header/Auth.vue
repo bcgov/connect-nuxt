@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useConnectAuth } from '#imports'
+
 const ac = useAppConfig().connect.header
 const { isAuthenticated } = useConnectAuth()
 </script>
