@@ -49,8 +49,9 @@ For local development, you will need credentials for the interacting with the Pa
 
 ```
 # .env
-NUXT_PUBLIC_PAY_API_URL="https://pay-api-dev.pathfinder.gov.bc.ca/api/v1"
-NUXT_PUBLIC_PAY_API_KEY="your-dev-api-key"
+NUXT_PUBLIC_PAY_API_URL="https://test.api.connect.gov.bc.ca/pay-dev"
+NUXT_PUBLIC_PAY_API_VERSION="/api/v1"
+NUXT_PUBLIC_X_API_KEY="your-dev-api-key"
 ```
 
 ### Production Environments
