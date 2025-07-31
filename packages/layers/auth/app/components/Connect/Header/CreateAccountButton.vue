@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useConnectHeaderOptions } from '#auth-composables'
 const { createAccountUrl } = useConnectHeaderOptions()
 </script>
 

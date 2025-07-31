@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   extends: ['@sbc-connect/nuxt-base'],
 
   imports: {
-    dirs: [resolve('./app/interfaces'), resolve('./app/types'), resolve('./app/enums'), resolve('./app/stores'), resolve('./app/composables')]
+    dirs: ['interfaces', 'types', 'enums', 'stores']
   },
 
   modules: [
@@ -22,7 +22,9 @@ export default defineNuxtConfig({
   ],
 
   alias: {
-    '#auth': resolve('./')
+    '#auth': resolve('./'),
+    '#auth-stores': resolve('./app/stores'),
+    '#auth-composables': resolve('./app/composables'),
   },
 
   icon: {

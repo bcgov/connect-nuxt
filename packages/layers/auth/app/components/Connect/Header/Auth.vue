@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
+import { useConnectAuth } from '#auth/app/composables'
 const ac = useAppConfig().connect.header
 const { isAuthenticated } = useConnectAuth()
 </script>
