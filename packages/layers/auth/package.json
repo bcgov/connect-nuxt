@@ -6,9 +6,10 @@
   "license": "BSD-3-Clause",
   "main": "./nuxt.config.ts",
   "files": [
-    "./app/interfaces",
-    "./app/types",
-    "./app/enums"
+    "./app/**/*",
+    "./i18n/**/*",
+    "./modules/**/*",
+    "./nuxt.config.ts"
   ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
