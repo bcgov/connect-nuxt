@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   extends: ['@sbc-connect/nuxt-base'],
 
   imports: {
-    dirs: ['interfaces', 'types', 'enums', 'stores']
+    dirs: [resolve('./app/interfaces'), resolve('./app/types'), resolve('./app/enums'), resolve('./app/stores'), resolve('./app/composables')]
   },
 
   modules: [
