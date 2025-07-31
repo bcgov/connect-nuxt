@@ -1,5 +1,9 @@
 <template>
   <ConnectLayout>
+    <template #header>
+      <ConnectHeaderAuth />
+    </template>
+
     <template #body>
       <div class="grow max-w-full overflow-hidden">
         <slot />
