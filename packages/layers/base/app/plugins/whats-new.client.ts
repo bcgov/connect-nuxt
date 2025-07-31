@@ -1,5 +1,5 @@
 import { useStorage } from '@vueuse/core'
-import isEqual from 'lodash-es/isEqual'
+import { isEqual } from 'es-toolkit'
 
 export default defineNuxtPlugin({
   name: 'connect-whats-new-plugin',

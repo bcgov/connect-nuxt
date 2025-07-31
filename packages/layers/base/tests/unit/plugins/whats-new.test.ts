@@ -3,10 +3,10 @@ import { ref } from 'vue'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import whatsNewPlugin from '../../../app/plugins/whats-new.client'
 import { useStorage } from '@vueuse/core'
-import isEqual from 'lodash-es/isEqual'
+import { isEqual } from 'es-toolkit'
 
 vi.mock('@vueuse/core')
-vi.mock('lodash-es/isEqual')
+vi.mock('es-toolkit')
 
 let mockAppConfig = true
 mockNuxtImport('useAppConfig', () => () => ({
@@ -35,7 +35,7 @@ describe("What's New Plugin", () => {
     // @ts-expect-error - Type '{ id: number; title: string; }' is not assignable to type 'never'
     mockStorageRef.value = { viewed: false, items: [{ id: 1, title: 'Old Item' }] }
 
-    // mock vueuse and lodash
+    // mock vueuse and es toolkit
     vi.mocked(useStorage).mockReturnValue(mockStorageRef)
     vi.mocked(isEqual).mockClear()
 
