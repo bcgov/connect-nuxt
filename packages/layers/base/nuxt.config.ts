@@ -123,7 +123,7 @@ export default defineNuxtConfig({
     public: {
       // Should in alphabetical order
       appName: process.env.npm_package_name || '',
-      version: `Connect Base Layer v${process.env.npm_package_version || ''}`,
+      version: `${process.env.npm_package_name} v${process.env.npm_package_version || ''}`,
       baseUrl: '',
       registryHomeUrl: '',
       ldClientId: '',

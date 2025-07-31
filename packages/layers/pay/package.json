@@ -7,11 +7,11 @@
   "main": "./nuxt.config.ts",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "nuxi dev .playground",
+    "dev": "nuxi dev .playground --dotenv ../.env",
     "prepare": "nuxt prepare .playground",
     "build": "nuxt build .playground",
     "build:test": "pnpm generate && npx serve .playground/.output/public",
-    "generate": "nuxt generate .playground",
+    "generate": "nuxt generate .playground --dotenv ../.env",
     "preview": "npx serve .playground/.output/public",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

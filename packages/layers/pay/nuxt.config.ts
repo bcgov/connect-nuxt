@@ -12,9 +12,37 @@ export default defineNuxtConfig({
 
   extends: ['@sbc-connect/nuxt-auth'],
 
+  imports: {
+    dirs: ['interfaces', 'types', 'enums', 'stores']
+  },
+
   alias: {
     '#pay': resolve('./')
   },
 
-  css: [resolve('./app/assets/css/tw-pay.css')]
+  i18n: {
+    locales: [
+      {
+        name: 'English',
+        code: 'en-CA',
+        language: 'en-CA',
+        dir: 'ltr',
+        file: 'en-CA.ts'
+      },
+      {
+        name: 'Français',
+        code: 'fr-CA',
+        language: 'fr-CA',
+        dir: 'ltr',
+        file: 'fr-CA.ts'
+      }
+    ]
+  },
+
+  runtimeConfig: {
+    public: {
+      payApiUrl: '',
+      payApiVersion: ''
+    }
+  }
 })
