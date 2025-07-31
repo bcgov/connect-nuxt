@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useConnectAuth } from '#imports'
-
+import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
 const { loggedInUserOptions } = useConnectHeaderOptions()
 const { authUser } = useConnectAuth()
 const accountStore = useConnectAccountStore()

@@ -1,4 +1,4 @@
-import { useConnectAuth } from '#imports'
+import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
 import type { DropdownMenuItem } from '@nuxt/ui'
 import { useStorage } from '@vueuse/core'
 import { ConnectSlideoverWhatsNew } from '#components'

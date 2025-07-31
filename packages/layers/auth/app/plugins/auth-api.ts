@@ -1,4 +1,4 @@
-import { useConnectAuth } from '#imports'
+import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const rtc = nuxtApp.$config.public

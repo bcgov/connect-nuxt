@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useConnectAuth } from '#imports'
-
+import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
 definePageMeta({
   layout: 'connect-auth'
 })

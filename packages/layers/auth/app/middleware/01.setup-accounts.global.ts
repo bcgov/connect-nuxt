@@ -1,4 +1,4 @@
-import { useConnectAuth } from '#imports'
+import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.client) { // only run on client

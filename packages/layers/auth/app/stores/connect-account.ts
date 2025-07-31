@@ -1,4 +1,4 @@
-import { useConnectAuth } from '#imports'
+import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
 
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
