@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useConnectAccountStore } from '#auth-stores'
+import { useConnectHeaderOptions } from '#auth-composables'
 const { notificationsOptions } = useConnectHeaderOptions()
 const accountStore = useConnectAccountStore()
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')

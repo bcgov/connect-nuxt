@@ -22,7 +22,9 @@ export default defineNuxtConfig({
   ],
 
   alias: {
-    '#auth': resolve('./')
+    '#auth': resolve('./'),
+    '#auth-stores': resolve('./app/stores'),
+    '#auth-composables': resolve('./app/composables'),
   },
 
   icon: {

@@ -1,3 +1,6 @@
+import { useConnectAuth } from '#auth-composables'
+import { useConnectAccountStore } from '#auth-stores'
+
 export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.client) { // only run on client
     const { isAuthenticated } = useConnectAuth()

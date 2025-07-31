@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useConnectAuth, useConnectHeaderOptions } from '#auth-composables'
+import { useConnectAccountStore } from '#auth-stores'
 const { loggedInUserOptions } = useConnectHeaderOptions()
 const { authUser } = useConnectAuth()
 const accountStore = useConnectAccountStore()

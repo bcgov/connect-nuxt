@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useConnectHeaderOptions } from '#auth-composables'
 import { useStorage } from '@vueuse/core'
 
 const { loggedOutUserOptions, loggedOutUserOptionsMobile } = useConnectHeaderOptions()

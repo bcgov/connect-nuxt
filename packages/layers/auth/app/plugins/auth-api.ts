@@ -1,3 +1,6 @@
+import { useConnectAuth } from '#auth-composables'
+import { useConnectAccountStore } from '#auth-stores'
+
 export default defineNuxtPlugin((nuxtApp) => {
   const rtc = nuxtApp.$config.public
   const authApiUrl = rtc.authApiUrl + rtc.authApiVersion
