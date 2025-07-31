@@ -1,5 +1,14 @@
 # nuxt-forms-demo-app
 
+## 0.1.7
+
+### Patch Changes
+
+- [#28](https://github.com/bcgov/connect-nuxt/pull/28) [`68af125`](https://github.com/bcgov/connect-nuxt/commit/68af1259b87846f42010026977411481e53ca8fb) Thanks [@kialj876](https://github.com/kialj876)! - Filling out the pay layer. Ticket bcgov/entity#29337
+
+- Updated dependencies [[`68af125`](https://github.com/bcgov/connect-nuxt/commit/68af1259b87846f42010026977411481e53ca8fb)]:
+  - @sbc-connect/nuxt-forms@0.1.7
+
 ## 0.1.6
 
 ### Patch Changes
