@@ -7,7 +7,8 @@ definePageMeta({
     console.info('Old Account: ', oldAccount.label)
     console.info('New Account: ', newAccount.label)
     return true
-  }
+  },
+  breadcrumbs: [{ label: 'test1', to: '/test1', appendAccountId: true }, { label: 'test2', to: '/test2' }]
 })
 
 setOnBeforeSessionExpired(async () => {

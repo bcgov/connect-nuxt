@@ -34,7 +34,7 @@ export const useConnectAuth = () => {
       redirectUri = `${siteminderUrl}?returl=${redirectUri.replace(/(https?:\/\/)|(\/)+/g, '$1$2')}&retnow=1`
     }
 
-    // resetPiniaStores()
+    resetPiniaStores()
     return $connectAuth.logout({
       redirectUri
     })
