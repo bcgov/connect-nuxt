@@ -1,4 +1,5 @@
 import Keycloak from 'keycloak-js'
+import { ConnectModalSessionExpired } from '#components'
 
 export default defineNuxtPlugin(async () => {
   const rtc = useRuntimeConfig().public
@@ -10,6 +11,14 @@ export default defineNuxtPlugin(async () => {
     clientId: rtc.idpClientid
   })
 
+  const tokenRefreshInterval = rtc.tokenRefreshInterval ? Number(rtc.tokenRefreshInterval) : 30000
+  const tokenMinValidity = rtc.tokenMinValidity ? Number(rtc.tokenMinValidity) / 1000 : 120
+  const sessionInactivityTimeout = 10000 // rtc.sessionInactivityTimeout ? Number(rtc.sessionInactivityTimeout) : 1800000
+
+  console.log('tokenRefreshInterval: ', tokenRefreshInterval)
+  console.log('tokenMinValidity: ', tokenMinValidity)
+  console.log('sessionInactivityTimeout: ', sessionInactivityTimeout)
+
   try {
     // default behaviour when keycloak session expires
     // try to update token - log out if token update fails
@@ -18,7 +27,7 @@ export default defineNuxtPlugin(async () => {
     keycloak.onTokenExpired = async () => {
       try {
         console.info('[Auth] Token expired, refreshing token...')
-        await keycloak.updateToken(minValidity)
+        await keycloak.updateToken(tokenMinValidity)
         console.info('[Auth] Token refreshed.')
       } catch (error) {
         console.error('[Auth] Failed to refresh token on expiration; logging out.', error)
@@ -36,13 +45,8 @@ export default defineNuxtPlugin(async () => {
     console.error('[Auth] Failed to initialize Keycloak adapter: ', error)
   }
 
-  // TODO: add to env
-  const refreshIntervalTimeout = 30000 // rtc.tokenRefreshInterval as number
-  const minValidity = 120 // toValue((rtc.tokenMinValidity as number) / 1000) // convert to seconds
-  const idleTimeout = 1800000 // rtc.sessionIdleTimeout as number
-
-  // const route = useRoute()
-  const { idle } = useIdle(idleTimeout)
+  const route = useRoute()
+  const { idle } = useIdle(sessionInactivityTimeout)
 
   // executed when user is authenticated and idle = true
   // TODO: manage session expiry
@@ -52,18 +56,21 @@ export default defineNuxtPlugin(async () => {
     // } else { // open expiry modal
     //   await useConnectModals().openSessionExpiringModal()
     // }
+    const overlay = useOverlay()
+    const modal = overlay.create(ConnectModalSessionExpired)
+    modal.open()
     console.info('TODO - MANAGE SESSION EXPIRY')
   }
 
-  // refresh token if expiring within <minValidity> - checks every <refreshIntervalTimeout>
+  // refresh token if expiring within <tokenMinValidity> - checks every <tokenRefreshInterval>
   function scheduleRefreshToken() {
     console.info('[Auth] Verifying token validity.')
 
     setTimeout(async () => {
-      if (keycloak.isTokenExpired(minValidity)) {
+      if (keycloak.isTokenExpired(tokenMinValidity)) {
         console.info('[Auth] Token set to expire soon. Refreshing token...')
         try {
-          await keycloak.updateToken(minValidity)
+          await keycloak.updateToken(tokenMinValidity)
           console.info('[Auth] Token refreshed.')
         } catch (error) {
           console.error('[Auth] Failed to refresh token; logging out.', error)
@@ -72,7 +79,7 @@ export default defineNuxtPlugin(async () => {
       }
 
       scheduleRefreshToken()
-    }, refreshIntervalTimeout)
+    }, tokenRefreshInterval)
   }
 
   // Watch for changes in authentication and idle state
@@ -82,8 +89,7 @@ export default defineNuxtPlugin(async () => {
     [() => keycloak.authenticated, () => idle.value],
     async ([isAuth, isIdle]) => {
       if (isAuth) {
-        // TODO: add storage keys
-        // sessionStorage.removeItem(ConnectStorageKeys.CONNECT_SESSION_EXPIRED)
+        sessionStorage.removeItem(ConnectAuthStorageKey.CONNECT_SESSION_EXPIRED)
         if (!isIdle) {
           console.info('[Auth] Starting token refresh schedule.')
           scheduleRefreshToken()
