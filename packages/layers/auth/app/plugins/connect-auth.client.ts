@@ -15,10 +15,6 @@ export default defineNuxtPlugin(async () => {
   const tokenMinValidity = rtc.tokenMinValidity ? Number(rtc.tokenMinValidity) / 1000 : 120
   const sessionInactivityTimeout = 10000 // rtc.sessionInactivityTimeout ? Number(rtc.sessionInactivityTimeout) : 1800000
 
-  console.log('tokenRefreshInterval: ', tokenRefreshInterval)
-  console.log('tokenMinValidity: ', tokenMinValidity)
-  console.log('sessionInactivityTimeout: ', sessionInactivityTimeout)
-
   try {
     // default behaviour when keycloak session expires
     // try to update token - log out if token update fails
@@ -49,17 +45,10 @@ export default defineNuxtPlugin(async () => {
   const { idle } = useIdle(sessionInactivityTimeout)
 
   // executed when user is authenticated and idle = true
-  // TODO: manage session expiry
   async function sessionExpired() {
-    // if (route.meta.sessionExpiredFn) { // if route meta provided, override default behaviour
-    //   await route.meta.sessionExpiredFn()
-    // } else { // open expiry modal
-    //   await useConnectModals().openSessionExpiringModal()
-    // }
     const overlay = useOverlay()
     const modal = overlay.create(ConnectModalSessionExpired)
     modal.open()
-    console.info('TODO - MANAGE SESSION EXPIRY')
   }
 
   // refresh token if expiring within <tokenMinValidity> - checks every <tokenRefreshInterval>

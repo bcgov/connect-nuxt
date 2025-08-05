@@ -14,9 +14,9 @@ const intervalId = setInterval(async () => {
   timeRemaining.value = value < 0 ? 0 : value
 
   if (value === 0) {
-    // if (route.meta.onBeforeSessionExpired) {
-    //   await route.meta.onBeforeSessionExpired()
-    // }
+    if (route.meta.onBeforeSessionExpired) {
+      await route.meta.onBeforeSessionExpired()
+    }
     sessionStorage.setItem(ConnectAuthStorageKey.CONNECT_SESSION_EXPIRED, 'true')
     await useConnectAuth().logout()
   }
