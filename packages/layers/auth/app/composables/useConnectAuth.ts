@@ -9,7 +9,7 @@ export const useConnectAuth = () => {
    * @returns A promise that resolves when login is complete.
    */
   function login(idpHint: ConnectIdpHint, redirect?: string): Promise<void> {
-    const loginRedirectUrl = sessionStorage.getItem(ConnectAuthStorageKeys.LOGIN_REDIRECT_URL)
+    const loginRedirectUrl = sessionStorage.getItem(ConnectAuthStorageKey.LOGIN_REDIRECT_URL)
     const redirectUri = redirect ?? loginRedirectUrl ?? window.location.href
 
     return $connectAuth.login(
@@ -27,14 +27,14 @@ export const useConnectAuth = () => {
    */
   function logout(redirect?: string): Promise<void> {
     const siteminderUrl = rtc.siteminderLogoutUrl
-    const logoutRedirectUrl = sessionStorage.getItem(ConnectAuthStorageKeys.LOGOUT_REDIRECT_URL)
+    const logoutRedirectUrl = sessionStorage.getItem(ConnectAuthStorageKey.LOGOUT_REDIRECT_URL)
     let redirectUri = redirect ?? logoutRedirectUrl ?? window.location.href
 
     if (siteminderUrl) {
       redirectUri = `${siteminderUrl}?returl=${redirectUri.replace(/(https?:\/\/)|(\/)+/g, '$1$2')}&retnow=1`
     }
 
-    // resetPiniaStores()
+    resetPiniaStores()
     return $connectAuth.logout({
       redirectUri
     })
@@ -82,19 +82,19 @@ export const useConnectAuth = () => {
   }
 
   function setLoginRedirectUrl(url: string) {
-    sessionStorage.setItem(ConnectAuthStorageKeys.LOGIN_REDIRECT_URL, url)
+    sessionStorage.setItem(ConnectAuthStorageKey.LOGIN_REDIRECT_URL, url)
   }
 
   function setLogoutRedirectUrl(url: string) {
-    sessionStorage.setItem(ConnectAuthStorageKeys.LOGOUT_REDIRECT_URL, url)
+    sessionStorage.setItem(ConnectAuthStorageKey.LOGOUT_REDIRECT_URL, url)
   }
 
   function clearLoginRedirectUrl() {
-    sessionStorage.removeItem(ConnectAuthStorageKeys.LOGIN_REDIRECT_URL)
+    sessionStorage.removeItem(ConnectAuthStorageKey.LOGIN_REDIRECT_URL)
   }
 
   function clearLogoutRedirectUrl() {
-    sessionStorage.removeItem(ConnectAuthStorageKeys.LOGOUT_REDIRECT_URL)
+    sessionStorage.removeItem(ConnectAuthStorageKey.LOGOUT_REDIRECT_URL)
   }
 
   return {

@@ -71,7 +71,11 @@ export default defineNuxtConfig({
       authApiUrl: '',
       authApiVersion: '',
       xApiKey: '',
-      authWebUrl: ''
+      authWebUrl: '',
+      tokenRefreshInterval: '',
+      tokenMinValidity: '',
+      sessionInactivityTimeout: '',
+      sessionModalTimeout: ''
     }
   }
 })

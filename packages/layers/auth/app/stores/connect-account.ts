@@ -11,7 +11,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const userFirstName = ref<string>(user.value?.firstName || '-')
   const userLastName = ref<string>(user.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
-  const errors = ref<ConnectApiError[]>([])
 
   /**
    * Checks if the current account or the Keycloak user has any of the specified roles.
@@ -42,35 +41,17 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Get user information from AUTH */
   async function getAuthUserProfile(identifier: string): Promise<{ firstname: string, lastname: string } | undefined> {
-    try {
-      return $authApi<{ firstname: string, lastname: string }>(`/users/${identifier}`, {
-        parseResponse: JSON.parse,
-        onResponseError({ response }) {
-          errors.value.push({
-            statusCode: response.status || 500,
-            message: response._data?.message || response._data?.description || 'Error fetching user info.',
-            detail: response._data.detail || '',
-            category: ConnectErrorCategory.USER_INFO
-          })
-        }
-      })
-    } catch (e) {
-      console.error('Error fetching user info.', e)
-      // logFetchError(e, 'Error fetching user info.')
-    }
+    return $authApi<{ firstname: string, lastname: string }>(`/users/${identifier}`, {
+      parseResponse: JSON.parse
+    })
   }
 
   /** Update user information in AUTH with current token info */
   async function updateAuthUserInfo(): Promise<void> {
-    try {
-      await $authApi('/users', {
-        method: 'POST',
-        body: { isLogin: true }
-      })
-    } catch (e) {
-      console.error('Error updating auth user info', e)
-      // logFetchError(e, 'Error updating auth user info')
-    }
+    await $authApi('/users', {
+      method: 'POST',
+      body: { isLogin: true }
+    })
   }
 
   /** Set user name information */
@@ -90,25 +71,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     if (!authUser.value?.keycloakGuid) {
       return undefined
     }
-    try {
-      // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
-      const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`, {
-        onResponseError({ response }) {
-          errors.value.push({
-            statusCode: response.status || 500,
-            message: response._data?.message || 'Error retrieving user accounts.',
-            detail: response._data.detail || '',
-            category: ConnectErrorCategory.ACCOUNT_LIST
-          })
-        }
-      })
-
-      return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
-    } catch (e) {
-      console.error('Error retrieving user accounts', e)
-      // logFetchError(e, 'Error retrieving user accounts')
-      return undefined
-    }
+    // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
+    const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`)
+    return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
   }
 
   /** Set the user account list and current account */
@@ -136,23 +101,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     if (!accountId || !keycloakGuid) {
       return
     }
-    try {
-      const response = await $authApi<{ count: number }>(`/users/${keycloakGuid}/org/${accountId}/notifications`, {
-        onResponseError({ response }) {
-          errors.value.push({
-            statusCode: response.status || 500,
-            message: response._data.message || 'Error retrieving pending approvals.',
-            detail: response._data.detail || '',
-            category: ConnectErrorCategory.PENDING_APPROVAL_COUNT
-          })
-        }
-      })
-
-      pendingApprovalCount.value = response?.count || 0
-    } catch (e) {
-      console.error('Error retrieving pending approvals', e)
-      // logFetchError(e, 'Error retrieving pending approvals')
-    }
+    const response = await $authApi<{ count: number }>(`/users/${keycloakGuid}/org/${accountId}/notifications`)
+    pendingApprovalCount.value = response?.count || 0
   }
 
   async function checkAccountStatus() {
@@ -188,17 +138,21 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   async function initAccountStore(): Promise<void> {
-    await Promise.all([
-      setAccountInfo(),
-      updateAuthUserInfo(),
-      setUserName()
-    ])
-
-    if (currentAccount.value.id) {
+    try {
       await Promise.all([
-        checkAccountStatus(),
-        getPendingApprovalCount()
+        setAccountInfo(),
+        updateAuthUserInfo(),
+        setUserName()
       ])
+
+      if (currentAccount.value.id) {
+        await Promise.all([
+          checkAccountStatus(),
+          getPendingApprovalCount()
+        ])
+      }
+    } catch (e) {
+      logFetchError(e, '[Account Store] - Error during initialization')
     }
   }
 
@@ -207,7 +161,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     currentAccount.value = {} as ConnectAccount
     userAccounts.value = []
     pendingApprovalCount.value = 0
-    errors.value = []
     userFirstName.value = user.value?.firstName || '-'
     userLastName.value = user.value?.lastName || ''
   }
@@ -217,7 +170,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     currentAccountName,
     userAccounts,
     pendingApprovalCount,
-    errors,
     userFullName,
     checkAccountStatus,
     setUserName,

@@ -20,6 +20,18 @@ Components for BC Government branding and styling:
 - **Tailwind Presets:** Includes Tailwind CSS presets aligned with BC Gov design.
 - **Branding:** Includes BC Gov logos, favicon, and BCSans font family with @font-face rules.
 
+### Dependencies
+
+- [Iconify MDI Icons](https://www.npmjs.com/package/@iconify/icons-mdi)
+- [Nuxt UI](https://ui.nuxt.com/)
+- [Nuxt I18n](https://i18n.nuxtjs.org/)
+- [Vueuse Core](https://vueuse.org/)
+- [Vueuse Nuxt](https://nuxt.com/modules/vueuse)
+- [Dompurify](https://github.com/cure53/DOMPurify)
+- [ES Toolkit](https://es-toolkit.dev/)
+- [LaunchDarkly SDK](https://launchdarkly.com/docs/sdk/client-side/vue)
+- [Maska](https://beholdr.github.io/maska/v3/#/vue)
+
 ### Components
 
 - ConnectHeader

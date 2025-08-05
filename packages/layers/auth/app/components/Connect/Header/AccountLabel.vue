@@ -26,7 +26,7 @@ defineProps({
       </span>
       <span
         class="line-clamp-1 overflow-hidden text-ellipsis text-xs opacity-75"
-        :class="{ 'text-line': theme === 'header', 'text-neutral': theme === 'dropdown' }"
+        :class="{ 'text-line-muted': theme === 'header', 'text-neutral': theme === 'dropdown' }"
       >
         {{ accountName }}
       </span>

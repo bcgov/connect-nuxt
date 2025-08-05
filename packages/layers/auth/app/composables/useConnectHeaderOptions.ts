@@ -87,9 +87,7 @@ export function useConnectHeaderOptions() {
           onSelect: () => {
             if (!isActive && account.id) {
               if (route.meta.onAccountChange) {
-                // TODO: add route meta option
-                const allowAccountChange = true
-                // const allowAccountChange = route.meta.onAccountChange(accountStore.currentAccount, account)
+                const allowAccountChange = route.meta.onAccountChange(accountStore.currentAccount, account)
                 if (allowAccountChange) {
                   accountStore.switchCurrentAccount(account.id)
                 }
