@@ -1,7 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'connect-auth',
-  onBeforeSessionExpired: () => console.log('Session expired')
+  onBeforeSessionExpired: () => console.log('Session expired'),
+  onAccountChange: (oldAccount, newAccount) => {
+    console.log('Old Account: ', oldAccount.label)
+    console.log('New Account: ', newAccount.label)
+    return true
+  }
 })
 
 const { isAuthenticated, login, logout } = useConnectAuth()
