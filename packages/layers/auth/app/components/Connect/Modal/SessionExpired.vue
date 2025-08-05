@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const isSmallScreen = useMediaQuery('(max-width: 640px)')
-const modalTimeout = 10000 // Number(useRuntimeConfig().public.sessionModalTimeout) || 120000
+const rtc = useRuntimeConfig().public
+const modalTimeout = rtc.sessionModalTimeout ? Number(rtc.sessionModalTimeout) : 120000
 const { t } = useI18n()
 const route = useRoute()
 
@@ -55,11 +56,11 @@ onUnmounted(() => {
     @after:leave="closeModal"
   >
     <template #content>
-      <div class="px-6 py-6 flex flex-col gap-6">
+      <div class="p-10 flex flex-col gap-6">
         <div role="alert">
           <h2
             id="session-expired-dialog-title"
-            class="text-xl font-semibold text-bcGovColor-darkGray"
+            class="text-xl font-bold text-neutral-highlighted"
           >
             {{ $t('connect.sessionExpiry.title') }}
           </h2>
