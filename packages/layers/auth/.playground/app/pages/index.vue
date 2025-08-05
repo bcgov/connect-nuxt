@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { delay } from 'es-toolkit'
+
 definePageMeta({
   layout: 'connect-auth',
-  onBeforeSessionExpired: () => console.log('Session expired'),
+  // onBeforeSessionExpired: () => console.log('Session expired'),
   onAccountChange: (oldAccount, newAccount) => {
     console.log('Old Account: ', oldAccount.label)
     console.log('New Account: ', newAccount.label)
     return true
   }
+})
+
+setOnBeforeSessionExpired(async () => {
+  console.log('Starting onBeforeSessionExpired promise')
+  await delay(3000)
+  console.log('onBeforeSessionExpired promise fulfilled')
 })
 
 const { isAuthenticated, login, logout } = useConnectAuth()
