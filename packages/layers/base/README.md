@@ -18,7 +18,7 @@ This package contains the core UI components, styling, and utilities for the Con
 - Standard utility functions
 - Pre-configured for Internationalization (i18n)
 
-For detailed usage and documentation, please see the [Base Layer Docs](../../../docs/packages/layers/base/intro.md)
+For detailed usage and documentation, please see the [Base Layer Docs](../../../docs/packages/layers/base/overview.md)
 
 ## Usage
 
@@ -41,15 +41,8 @@ This project requires certain environment variables to be set to run correctly.
 
 Create a file named .env in the root of the project.
 
-Copy the contents of the .env.example file into your new .env file.
-
 #### Local Development
-For local development, the following variables are required. The default values are suitable for running the application on your local machine:
-
-```
-# .env
-NUXT_PUBLIC_BASE_URL="http://localhost:3000/"
-```
+Copy the contents of the **.env.example** file into your new .env file.
 
 #### Production Environments
 > [!IMPORTANT]
