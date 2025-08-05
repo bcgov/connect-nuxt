@@ -14,7 +14,8 @@ export function resetPiniaStores(storeIds: string[] = []): void {
   const pinia = getActivePinia() as ExtendedPinia
 
   if (!pinia && import.meta.env.DEV === true) {
-    console.error('There are no stores')
+    console.warn('No pinia stores found.')
+    return
   }
 
   // null check still fails so must catch error instead
