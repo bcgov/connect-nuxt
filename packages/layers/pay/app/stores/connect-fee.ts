@@ -2,18 +2,20 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const { $payApi } = useNuxtApp()
   const { t } = useI18n()
 
-  const feeOptions = ref<ConnectFeeOptions>({
+  const defaultFeeOptions = {
     showFutureEffectiveFee: false,
     showPriorityFee: false,
     showProcessingFee: false,
     showGst: false,
     showPst: false,
     showServiceFee: true
-  })
+  }
+  const feeOptions = ref<ConnectFeeOptions>(defaultFeeOptions)
 
   const fees = ref<ConnectFees>({})
   const feesCached = ref<ConnectFees>({})
-  const placeholderFeeItem = ref<ConnectFeeItem>({
+
+  const defaultPlaceholder = {
     isPlaceholder: true,
     filingFees: 0,
     filingType: 'placeholder',
@@ -28,7 +30,8 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
       pst: 0
     },
     total: 0
-  })
+  }
+  const placeholderFeeItem = ref<ConnectFeeItem>(defaultPlaceholder)
 
   const initFees = async (
     feeCodes: { code: string, entityType: string, label: string, quantityDesc?: string }[],
@@ -235,6 +238,13 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     }
   }
 
+  const $reset = () => {
+    feeOptions.value = defaultFeeOptions
+    fees.value = {}
+    placeholderFeeItem.value = defaultPlaceholder
+    $resetAlternatePayOptions()
+  }
+
   return {
     feeOptions,
     fees,
@@ -254,6 +264,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     userPaymentAccount,
     userSelectedPaymentMethod,
     allowedPaymentMethods,
-    allowAlternatePaymentMethod
+    allowAlternatePaymentMethod,
+    $reset
   }
 })

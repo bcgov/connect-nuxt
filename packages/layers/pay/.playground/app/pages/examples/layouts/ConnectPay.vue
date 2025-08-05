@@ -1,6 +1,10 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-pay'
+  layout: 'connect-pay',
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Pay Layout' }
+  ]
 })
 
 const feeStore = useConnectFeeStore()
@@ -17,6 +21,6 @@ feeStore.addReplaceFee(exampleFeeCode)
 
 <template>
   <div>
-    Layout
+    Connect Pay Layout
   </div>
 </template>
