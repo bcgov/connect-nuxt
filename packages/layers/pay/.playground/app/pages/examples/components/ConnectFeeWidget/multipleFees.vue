@@ -32,7 +32,7 @@ feeStore.addReplaceFee(exampleFeeCode4)
 
 <template>
   <div class="my-10">
-    <ConnectPageSection :heading="{ label: 'Connect Fee Widget (Basic Example)' }">
+    <ConnectPageSection :heading="{ label: 'Connect Fee Widget (Multiple Fees Example)' }">
       <div class="p-10 space-y-5">
         <div class="lg:w-[300px]">
           <ConnectFeeWidget />

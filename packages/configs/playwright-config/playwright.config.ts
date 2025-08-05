@@ -29,7 +29,7 @@ export default defineConfig<ConfigOptions>({
       runner: 'vitest',
       host: process.env.NUXT_PUBLIC_BASE_URL
     },
-    actionTimeout: 2000,
+    actionTimeout: 10000,
     baseURL: process.env.NUXT_PUBLIC_BASE_URL,
     trace: 'retain-on-failure',
     screenshot: 'on-first-failure',

@@ -22,7 +22,7 @@ await feeStore.initAlternatePaymentMethod()
 
 <template>
   <div class="my-10">
-    <ConnectPageSection :heading="{ label: 'Connect Fee Widget (Basic Example)' }">
+    <ConnectPageSection :heading="{ label: 'Connect Fee Widget (Payment Override Example)' }">
       <div class="p-10 space-y-5">
         <div class="lg:w-[300px]">
           <ConnectFeeWidget />

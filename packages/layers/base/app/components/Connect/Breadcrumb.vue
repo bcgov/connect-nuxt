@@ -36,6 +36,7 @@ function resolveBackHref() {
 <template>
   <div
     v-if="$route.meta.hideBreadcrumbs !== true"
+    data-testid="connect-breadcrumb-wrapper"
     class="bg-blue-350"
   >
     <div class="app-inner-container flex items-center p-2 sm:px-4 py-2 gap-3">
