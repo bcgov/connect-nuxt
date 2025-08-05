@@ -10,7 +10,7 @@ export interface ConnectPayAccount {
     cfsPartyNumber: string
     cfsSiteNumber: string
     paymentMethod: ConnectPayMethod
-    status: string // enum ??
+    status: ConnectPayCfsStatus
   }
   credit: number
   id: number

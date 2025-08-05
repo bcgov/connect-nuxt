@@ -1,7 +1,6 @@
 export default defineNuxtPlugin((nuxtApp) => {
   const rtc = nuxtApp.$config.public
   const payApiUrl = rtc.payApiUrl + rtc.payApiVersion
-  console.info('Pay api url:', payApiUrl)
   const appName = rtc.appName
   const xApiKey = rtc.xApiKey
 
@@ -22,8 +21,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     async onResponseError({ response }) {
       const localePath = useLocalePath()
       const errorRedirects = useAppConfig().connect.payApi.errorRedirect || {}
-      if (errorRedirects?.[response.status]) {
-        await navigateTo(localePath(errorRedirects[response.status]))
+      if (response.status === 401 && errorRedirects?.[response.status]) {
+        await nuxtApp.runWithContext(() => navigateTo(localePath(errorRedirects[401])))
       }
     }
   })

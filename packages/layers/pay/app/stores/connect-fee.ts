@@ -180,13 +180,12 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const allowedPaymentMethods = ref<{ label: string, value: ConnectPayMethod }[]>([])
 
   watch(userSelectedPaymentMethod, () => {
-    // @ts-expect-error - cant assign string
     // if pad in confirmation period then set selected payment to CC
     if (PAD_PENDING_STATES.includes(userPaymentAccount.value?.cfsAccount?.status)) {
       userSelectedPaymentMethod.value = ConnectPayMethod.DIRECT_PAY
       // show modal for user
       console.warn('User in pad confirmation period')
-      // TODO: needs modal composable
+      // TODO: need to decide how we're using the connect modal in this layer
       // useModal().openBaseErrorModal(undefined, 'modal.padConfirmationPeriod')
     }
   })
@@ -221,9 +220,8 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
             label: t(`connect.payMethod.label.${ConnectPayMethod.DIRECT_PAY}`),
             value: ConnectPayMethod.DIRECT_PAY
           })
-          // @ts-expect-error - string !== enum
           // if pad in confirmation period then set default payment to CC
-          if (PAD_PENDING_STATES.includes(res.cfsAccount.status)) {
+          if (PAD_PENDING_STATES.includes(res.cfsAccount?.status)) {
             defaultMethod = ConnectPayMethod.DIRECT_PAY
           }
         }
@@ -233,9 +231,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
       // only set allowed flag to true if previous steps didnt cause an error
       allowAlternatePaymentMethod.value = true
     } catch (e) {
-      // TODO: needs logFetchError util
-      console.warn(e, 'Error initializing user payment account')
-      // logFetchError(e, 'Error initializing user payment account')
+      logFetchError(e, 'Error initializing user payment account')
     }
   }
 
