@@ -32,7 +32,7 @@ const ariaCountdownText = computed(() => {
   }
 })
 
-function closeModal () {
+function closeModal() {
   clearInterval(intervalId)
   emit('close')
 }
@@ -47,6 +47,7 @@ onUnmounted(() => {
   window.removeEventListener('keydown', closeModal)
 })
 </script>
+
 <template>
   <UModal
     id="session-expired-dialog"

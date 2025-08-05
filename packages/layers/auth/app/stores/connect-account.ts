@@ -71,7 +71,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     if (!authUser.value?.keycloakGuid) {
       return undefined
     }
-      // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
+    // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
     const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`)
     return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
   }
@@ -144,7 +144,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         updateAuthUserInfo(),
         setUserName()
       ])
-  
+
       if (currentAccount.value.id) {
         await Promise.all([
           checkAccountStatus(),

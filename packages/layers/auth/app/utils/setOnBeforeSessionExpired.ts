@@ -5,7 +5,7 @@
  * This function allows you to provide a callback (`cb`) that will be called before the session expires.
  * The callback can either be synchronous (returning `void`) or asynchronous (returning a `Promise`).
  *
- * @param {() => any | Promise<any>} cb - The callback function to execute before session expiry.
+ * @param {() => T | Promise<T>} cb - The callback function to execute before session expiry.
  *
  * @example
  * setOnBeforeSessionExpired(() => {
@@ -15,7 +15,7 @@
  * @example
  * setOnBeforeSessionExpired(() => submitApplication());
  */
-export function setOnBeforeSessionExpired (cb: () => any | Promise<any>) {
+export function setOnBeforeSessionExpired<T>(cb: () => T | Promise<T>) {
   const route = useRoute()
   route.meta.onBeforeSessionExpired = async () => {
     await cb()

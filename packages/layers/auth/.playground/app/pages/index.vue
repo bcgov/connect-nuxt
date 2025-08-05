@@ -3,20 +3,17 @@ import { delay } from 'es-toolkit'
 
 definePageMeta({
   layout: 'connect-auth',
-  // onBeforeSessionExpired: () => console.log('Session expired'),
   onAccountChange: (oldAccount, newAccount) => {
-    console.log('Old Account: ', oldAccount.label)
-    console.log('New Account: ', newAccount.label)
+    console.info('Old Account: ', oldAccount.label)
+    console.info('New Account: ', newAccount.label)
     return true
   }
 })
 
-console.log(import.meta.env)
-
 setOnBeforeSessionExpired(async () => {
-  console.log('Starting onBeforeSessionExpired promise')
+  console.info('Starting onBeforeSessionExpired promise')
   await delay(3000)
-  console.log('onBeforeSessionExpired promise fulfilled')
+  console.info('onBeforeSessionExpired promise fulfilled')
 })
 
 const { isAuthenticated, login, logout } = useConnectAuth()
@@ -25,10 +22,10 @@ const { isAuthenticated, login, logout } = useConnectAuth()
 //   const { getToken } = useConnectAuth()
 
 //   const token = await getToken()
-//   console.log(token)
+//   console.info(token)
 // })
 
-// console.log('AUTHENTICATED: ', auth.authenticated)
+// console.info('AUTHENTICATED: ', auth.authenticated)
 </script>
 
 <template>
