@@ -11,6 +11,8 @@ definePageMeta({
   }
 })
 
+console.log(import.meta.env)
+
 setOnBeforeSessionExpired(async () => {
   console.log('Starting onBeforeSessionExpired promise')
   await delay(3000)
