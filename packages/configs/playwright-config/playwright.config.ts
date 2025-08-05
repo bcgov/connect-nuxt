@@ -6,15 +6,15 @@ const { resolve } = createResolver(import.meta.url)
 
 const deviceNames = [
   'Desktop Chrome',
-  'Desktop Firefox',
-  'Desktop Edge',
-  'Desktop Safari',
-  'iPad (gen 11) landscape',
-  'Blackberry PlayBook landscape',
-  'Nexus 10 landscape',
-  'iPhone 15 Pro',
-  'Pixel 7',
-  'iPhone 6'
+  // 'Desktop Firefox',
+  // 'Desktop Edge',
+  // 'Desktop Safari',
+  // 'iPad (gen 11) landscape',
+  // 'Blackberry PlayBook landscape',
+  // 'Nexus 10 landscape',
+  // 'iPhone 15 Pro',
+  // 'Pixel 7',
+  // 'iPhone 6'
 ]
 
 export default defineConfig<ConfigOptions>({

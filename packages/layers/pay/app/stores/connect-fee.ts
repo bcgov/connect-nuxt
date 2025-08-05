@@ -1,6 +1,7 @@
 export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const { $payApi } = useNuxtApp()
   const { t } = useI18n()
+  const { baseModal } = useConnectModal()
 
   const defaultFeeOptions = {
     showFutureEffectiveFee: false,
@@ -187,9 +188,14 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     if (PAD_PENDING_STATES.includes(userPaymentAccount.value?.cfsAccount?.status)) {
       userSelectedPaymentMethod.value = ConnectPayMethod.DIRECT_PAY
       // show modal for user
-      console.warn('User in pad confirmation period')
-      // TODO: need to decide how we're using the connect modal in this layer
-      // useModal().openBaseErrorModal(undefined, 'modal.padConfirmationPeriod')
+      baseModal.open({
+        title: t('connect.label.padAccountInConfirmationPeriod'),
+        description: t('connect.text.padAccountInConfirmationPeriod'),
+        dismissible: true,
+        buttons: [
+          { label: t('connect.label.close'), variant: 'outline', shouldClose: true }
+        ]
+      })
     }
   })
 
@@ -257,7 +263,6 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     totalServiceFees,
     total,
     initFees,
-    getFee,
     addReplaceFee,
     removeFee,
     initAlternatePaymentMethod,

@@ -9,36 +9,35 @@ definePageMeta({
 })
 
 const localePath = useLocalePath()
-const goToExample = async (path: string) => await navigateTo(localePath(path))
 const { isAuthenticated } = useConnectAuth()
 
 const layoutExamples: DropdownMenuItem[] = [
   {
     label: 'Connect Pay Layout',
-    onSelect: async () => await goToExample('/examples/layouts/ConnectPay')
+    to: localePath('/examples/layouts/ConnectPay')
   }
 ]
 
 const componentExamples: DropdownMenuItem[] = [
   {
     label: 'Connect Fee (default)',
-    onSelect: async () => await goToExample('/examples/components/ConnectFeeWidget/default')
-  },
-  {
-    label: 'Connect Fee (extra fees)',
-    onSelect: async () => await goToExample('/examples/components/ConnectFeeWidget/extraFees')
+    to: localePath('/examples/components/ConnectFeeWidget/default')
   },
   {
     label: 'Connect Fee (multiple fees)',
-    onSelect: async () => await goToExample('/examples/components/ConnectFeeWidget/multipleFees')
+    to: localePath('/examples/components/ConnectFeeWidget/multipleFees')
   },
   {
     label: 'Connect Fee (quantity)',
-    onSelect: async () => await goToExample('/examples/components/ConnectFeeWidget/quantity')
+    to: localePath('/examples/components/ConnectFeeWidget/quantity')
+  },
+  {
+    label: 'Connect Fee (extra fees)',
+    to: localePath('/examples/components/ConnectFeeWidget/extraFees')
   },
   {
     label: 'Connect Fee (payment override)',
-    onSelect: async () => await goToExample('/examples/components/ConnectFeeWidget/paymentOverride')
+    to: localePath('/examples/components/ConnectFeeWidget/paymentOverride')
   }
 ]
 

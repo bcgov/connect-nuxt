@@ -150,7 +150,10 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
             show-fee-value
           />
         </div>
-        <div class="flex flex-row items-end justify-between border-t border-line-muted p-3">
+        <div
+          data-testid="total-fee"
+          class="flex flex-row items-end justify-between border-t border-line-muted p-3"
+        >
           <p class="mb-1 font-bold">
             {{ $t("connect.label.totalFees") }}
           </p>

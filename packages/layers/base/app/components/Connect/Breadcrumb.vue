@@ -48,7 +48,7 @@ function resolveBackHref() {
         :aria-label="$t('connect.label.goBack')"
         :to="resolveBackHref()"
         :ui="{
-          leadingIcon: 'text-blue-500',
+          leadingIcon: 'text-primary',
         }"
       />
       <div class="w-[1px] bg-shade h-[24px]" />

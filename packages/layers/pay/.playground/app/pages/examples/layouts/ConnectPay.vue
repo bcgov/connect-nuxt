@@ -20,7 +20,7 @@ feeStore.addReplaceFee(exampleFeeCode)
 </script>
 
 <template>
-  <div>
-    Connect Pay Layout
+  <div class="py-10 text-center bg-shade-secondary h-[1200px]">
+    Content wrapped by pay layout
   </div>
 </template>

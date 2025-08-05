@@ -10,6 +10,7 @@ test.describe('Example', () => {
   test('Example page loads with expected visuals', async ({ page }) => {
     await page.goto('./examples/layouts/ConnectPay')
     await page.waitForURL('*/**/examples/layouts/ConnectPay')
+    await expect(page.getByText('Content wrapped by pay layout')).toBeVisible()
     await expect(page.getByTestId('fee-widget')).toBeVisible()
     await expect(page.getByTestId('connect-header-wrapper')).toBeVisible()
     await expect(page.getByTestId('connect-breadcrumb-wrapper')).toBeVisible()
