@@ -13,7 +13,7 @@ export default defineNuxtPlugin(async () => {
 
   const tokenRefreshInterval = rtc.tokenRefreshInterval ? Number(rtc.tokenRefreshInterval) : 30000
   const tokenMinValidity = rtc.tokenMinValidity ? Number(rtc.tokenMinValidity) / 1000 : 120
-  const sessionInactivityTimeout = 10000 // rtc.sessionInactivityTimeout ? Number(rtc.sessionInactivityTimeout) : 1800000
+  const sessionInactivityTimeout = rtc.sessionInactivityTimeout ? Number(rtc.sessionInactivityTimeout) : 1800000
 
   try {
     // default behaviour when keycloak session expires
@@ -41,7 +41,6 @@ export default defineNuxtPlugin(async () => {
     console.error('[Auth] Failed to initialize Keycloak adapter: ', error)
   }
 
-  const route = useRoute()
   const { idle } = useIdle(sessionInactivityTimeout)
 
   // executed when user is authenticated and idle = true

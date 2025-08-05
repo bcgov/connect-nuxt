@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-auth'
+  layout: 'connect-auth',
+  onBeforeSessionExpired: () => console.log('Session expired')
 })
 
 const { isAuthenticated, login, logout } = useConnectAuth()
