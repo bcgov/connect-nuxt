@@ -1,5 +1,11 @@
 # @sbc-connect/playwright-config
 
+## 0.0.6
+
+### Patch Changes
+
+- [#32](https://github.com/bcgov/connect-nuxt/pull/32) [`66d83d1`](https://github.com/bcgov/connect-nuxt/commit/66d83d14b2ec7950057dd39a4d876a8c4096923f) Thanks [@kialj876](https://github.com/kialj876)! - Pay layer cleanup bcgov/entity#29337
+
 ## 0.0.5
 
 ### Patch Changes
