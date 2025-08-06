@@ -6,3 +6,6 @@
 Pay Layer fee options update
 Pay Layer documentation
 bcgov/entity#29337
+
+Playwright config update
+- only run tests over multiple devices in CI
