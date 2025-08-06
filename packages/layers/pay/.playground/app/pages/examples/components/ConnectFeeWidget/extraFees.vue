@@ -26,12 +26,12 @@ feeStore.addReplaceFee(examplePriorityFeeCode, { priority: true })
 feeStore.addReplaceFee(exampleFutureEffectiveFeeCode, { futureEffective: true })
 
 const togglePriorityFee = () => {
-  feeStore.addReplaceFee(examplePriorityFeeCode, { priority: !!fees.value[examplePriorityFeeCode]?.priorityFees })
+  feeStore.addReplaceFee(examplePriorityFeeCode, { priority: !fees.value[examplePriorityFeeCode]?.priorityFees })
 }
 const toggleFutureEffectiveFee = () => {
   feeStore.addReplaceFee(
     exampleFutureEffectiveFeeCode,
-    { futureEffective: !!fees.value[exampleFutureEffectiveFeeCode]?.futureEffectiveFees })
+    { futureEffective: !fees.value[exampleFutureEffectiveFeeCode]?.futureEffectiveFees })
 }
 </script>
 
