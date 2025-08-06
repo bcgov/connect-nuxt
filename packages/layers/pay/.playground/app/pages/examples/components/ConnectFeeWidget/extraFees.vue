@@ -8,7 +8,7 @@ definePageMeta({
 })
 
 const feeStore = useConnectFeeStore()
-const { feeOptions } = storeToRefs(feeStore)
+const { fees } = storeToRefs(feeStore)
 
 const examplePriorityFeeCode = 'NM620'
 const exampleFutureEffectiveFeeCode = 'BCINC'
@@ -19,20 +19,19 @@ await feeStore.initFees(
     { code: examplePriorityFeeCode, entityType: 'NRO', label: t('connect.label.exampleFeePriority') },
     { code: exampleFutureEffectiveFeeCode, entityType: 'BC', label: t('connect.label.exampleFeeFutureEffective') }
   ],
-  { label: t('connect.label.examplePlaceholder'), matchServiceFeeToCode: examplePriorityFeeCode },
-  { showFutureEffectiveFee: true, showPriorityFee: true }
+  { label: t('connect.label.examplePlaceholder'), matchServiceFeeToCode: examplePriorityFeeCode }
 )
 
 feeStore.addReplaceFee(examplePriorityFeeCode, { priority: true })
 feeStore.addReplaceFee(exampleFutureEffectiveFeeCode, { futureEffective: true })
 
 const togglePriorityFee = () => {
-  feeStore.addReplaceFee(examplePriorityFeeCode, { priority: !feeOptions.value.showPriorityFee })
-  feeOptions.value.showPriorityFee = !feeOptions.value.showPriorityFee
+  feeStore.addReplaceFee(examplePriorityFeeCode, { priority: !fees.value[examplePriorityFeeCode]?.priorityFees })
 }
 const toggleFutureEffectiveFee = () => {
-  feeStore.addReplaceFee(exampleFutureEffectiveFeeCode, { futureEffective: !feeOptions.value.showFutureEffectiveFee })
-  feeOptions.value.showFutureEffectiveFee = !feeOptions.value.showFutureEffectiveFee
+  feeStore.addReplaceFee(
+    exampleFutureEffectiveFeeCode,
+    { futureEffective: !fees.value[exampleFutureEffectiveFeeCode]?.futureEffectiveFees })
 }
 </script>
 

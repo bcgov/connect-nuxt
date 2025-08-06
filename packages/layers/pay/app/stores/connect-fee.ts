@@ -4,12 +4,13 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const { baseModal } = useConnectModal()
 
   const defaultFeeOptions = {
+    showAllActiveFees: true,
     showFutureEffectiveFee: false,
     showPriorityFee: false,
     showProcessingFee: false,
     showGst: false,
     showPst: false,
-    showServiceFee: true
+    showServiceFee: false
   }
   const feeOptions = ref<ConnectFeeOptions>(defaultFeeOptions)
 
