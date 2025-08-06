@@ -1,5 +1,14 @@
 # nuxt-auth-demo-app
 
+## 0.1.8
+
+### Patch Changes
+
+- [#32](https://github.com/bcgov/connect-nuxt/pull/32) [`66d83d1`](https://github.com/bcgov/connect-nuxt/commit/66d83d14b2ec7950057dd39a4d876a8c4096923f) Thanks [@kialj876](https://github.com/kialj876)! - Pay layer cleanup bcgov/entity#29337
+
+- Updated dependencies [[`b2a0458`](https://github.com/bcgov/connect-nuxt/commit/b2a04587d5408d213d463ef6161b701ca597ef86), [`66d83d1`](https://github.com/bcgov/connect-nuxt/commit/66d83d14b2ec7950057dd39a4d876a8c4096923f)]:
+  - @sbc-connect/nuxt-auth@0.1.8
+
 ## 0.1.7
 
 ### Patch Changes
