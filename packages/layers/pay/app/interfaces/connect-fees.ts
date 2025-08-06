@@ -21,6 +21,7 @@ export interface ConnectFeeItem {
 }
 
 export interface ConnectFeeOptions {
+  showAllActiveFees?: boolean
   showFutureEffectiveFee?: boolean
   showPriorityFee?: boolean
   showProcessingFee?: boolean

@@ -17,13 +17,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       options.headers.set('App-Name', appName)
       options.headers.set('X-Apikey', xApiKey)
       options.headers.set('Account-Id', String(accountId))
-    },
-    async onResponseError({ response }) {
-      const localePath = useLocalePath()
-      const errorRedirects = useAppConfig().connect.payApi.errorRedirect || {}
-      if (response.status === 401 && errorRedirects?.[response.status]) {
-        await nuxtApp.runWithContext(() => navigateTo(localePath(errorRedirects[401])))
-      }
     }
   })
 

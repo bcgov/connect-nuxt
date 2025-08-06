@@ -15,7 +15,7 @@ This package provides the necessary components, composables, and service integra
 - Composables for interacting with the payment API.
 - Pre-configured for handling different payment methods (Credit Card, PAD, etc.).
 
-For detailed usage and documentation, please see the [Pay Layer Docs](../../../docs/packages/layers/pay/intro.md).
+For detailed usage and documentation, please see the [Pay Layer Docs](../../../docs/packages/layers/pay/overview.md).
 
 ## Usage
 

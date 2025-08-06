@@ -34,6 +34,12 @@ const feeItems = computed<ConnectFeeItem[]>(() => {
   return [placeholderFeeItem.value]
 })
 
+const serviceFee = computed(() => {
+  return isPlaceholderActive.value
+    ? placeholderFeeItem.value.serviceFees
+    : totalServiceFees.value
+})
+
 // folding stuff
 const folded = ref(false)
 
@@ -108,42 +114,42 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
             <p>{{ getItemFee(feeItem) }}</p>
           </div>
           <ConnectFeeExtraFee
-            v-if="!!feeOptions.showFutureEffectiveFee"
+            v-if="!!feeOptions.showFutureEffectiveFee || (!!feeOptions.showAllActiveFees && totalFutureEffectiveFees)"
             data-testid="future-effective-fee"
             :description="$t('connect.label.futureEffectiveFee')"
             :fee="totalFutureEffectiveFees"
             show-fee-value
           />
           <ConnectFeeExtraFee
-            v-if="!!feeOptions.showPriorityFee"
+            v-if="!!feeOptions.showPriorityFee || (!!feeOptions.showAllActiveFees && totalPriorityFees)"
             data-testid="priority-fee"
             :description="$t('connect.label.priorityFee')"
             :fee="totalPriorityFees"
             show-fee-value
           />
           <ConnectFeeExtraFee
-            v-if="!!feeOptions.showProcessingFee"
+            v-if="!!feeOptions.showProcessingFee || (!!feeOptions.showAllActiveFees && totalProcessingFees)"
             data-testid="processing-fee"
             :description="$t('connect.label.processingFee')"
             :fee="totalProcessingFees"
             show-fee-value
           />
           <ConnectFeeExtraFee
-            v-if="!!feeOptions.showServiceFee"
+            v-if="!!feeOptions.showServiceFee || (!!feeOptions.showAllActiveFees && serviceFee)"
             data-testid="service-fee"
             :description="$t('connect.label.serviceFee')"
-            :fee="isPlaceholderActive ? placeholderFeeItem.serviceFees : totalServiceFees"
+            :fee="serviceFee"
             show-fee-value
           />
           <ConnectFeeExtraFee
-            v-if="!!feeOptions.showPst"
+            v-if="!!feeOptions.showPst || (!!feeOptions.showAllActiveFees && totalPst)"
             data-testid="pst-fee"
             :description="$t('connect.label.pst')"
             :fee="totalPst"
             show-fee-value
           />
           <ConnectFeeExtraFee
-            v-if="!!feeOptions.showGst"
+            v-if="!!feeOptions.showGst || (!!feeOptions.showAllActiveFees && totalGst)"
             data-testid="gst-fee"
             :description="$t('connect.label.gst')"
             :fee="totalGst"
