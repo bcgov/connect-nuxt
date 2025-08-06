@@ -1,19 +1,22 @@
 export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const { $payApi } = useNuxtApp()
   const { t } = useI18n()
+  const { baseModal } = useConnectModal()
 
-  const feeOptions = ref<ConnectFeeOptions>({
+  const defaultFeeOptions = {
     showFutureEffectiveFee: false,
     showPriorityFee: false,
     showProcessingFee: false,
     showGst: false,
     showPst: false,
     showServiceFee: true
-  })
+  }
+  const feeOptions = ref<ConnectFeeOptions>(defaultFeeOptions)
 
   const fees = ref<ConnectFees>({})
   const feesCached = ref<ConnectFees>({})
-  const placeholderFeeItem = ref<ConnectFeeItem>({
+
+  const defaultPlaceholder = {
     isPlaceholder: true,
     filingFees: 0,
     filingType: 'placeholder',
@@ -28,7 +31,8 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
       pst: 0
     },
     total: 0
-  })
+  }
+  const placeholderFeeItem = ref<ConnectFeeItem>(defaultPlaceholder)
 
   const initFees = async (
     feeCodes: { code: string, entityType: string, label: string, quantityDesc?: string }[],
@@ -180,14 +184,18 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const allowedPaymentMethods = ref<{ label: string, value: ConnectPayMethod }[]>([])
 
   watch(userSelectedPaymentMethod, () => {
-    // @ts-expect-error - cant assign string
     // if pad in confirmation period then set selected payment to CC
     if (PAD_PENDING_STATES.includes(userPaymentAccount.value?.cfsAccount?.status)) {
       userSelectedPaymentMethod.value = ConnectPayMethod.DIRECT_PAY
       // show modal for user
-      console.warn('User in pad confirmation period')
-      // TODO: needs modal composable
-      // useModal().openBaseErrorModal(undefined, 'modal.padConfirmationPeriod')
+      baseModal.open({
+        title: t('connect.label.padAccountInConfirmationPeriod'),
+        description: t('connect.text.padAccountInConfirmationPeriod'),
+        dismissible: true,
+        buttons: [
+          { label: t('connect.label.close'), variant: 'outline', shouldClose: true }
+        ]
+      })
     }
   })
 
@@ -221,9 +229,8 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
             label: t(`connect.payMethod.label.${ConnectPayMethod.DIRECT_PAY}`),
             value: ConnectPayMethod.DIRECT_PAY
           })
-          // @ts-expect-error - string !== enum
           // if pad in confirmation period then set default payment to CC
-          if (PAD_PENDING_STATES.includes(res.cfsAccount.status)) {
+          if (PAD_PENDING_STATES.includes(res.cfsAccount?.status)) {
             defaultMethod = ConnectPayMethod.DIRECT_PAY
           }
         }
@@ -233,10 +240,15 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
       // only set allowed flag to true if previous steps didnt cause an error
       allowAlternatePaymentMethod.value = true
     } catch (e) {
-      // TODO: needs logFetchError util
-      console.warn(e, 'Error initializing user payment account')
-      // logFetchError(e, 'Error initializing user payment account')
+      logFetchError(e, 'Error initializing user payment account')
     }
+  }
+
+  const $reset = () => {
+    feeOptions.value = defaultFeeOptions
+    fees.value = {}
+    placeholderFeeItem.value = defaultPlaceholder
+    $resetAlternatePayOptions()
   }
 
   return {
@@ -251,13 +263,13 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     totalServiceFees,
     total,
     initFees,
-    getFee,
     addReplaceFee,
     removeFee,
     initAlternatePaymentMethod,
     userPaymentAccount,
     userSelectedPaymentMethod,
     allowedPaymentMethods,
-    allowAlternatePaymentMethod
+    allowAlternatePaymentMethod,
+    $reset
   }
 })

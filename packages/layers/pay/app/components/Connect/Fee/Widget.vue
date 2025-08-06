@@ -91,6 +91,7 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
           <div
             v-for="feeItem in feeItems"
             :key="feeItem.filingTypeCode"
+            data-testid="fee-item"
             class="flex justify-between px-4 py-3"
           >
             <div>
@@ -108,42 +109,51 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
           </div>
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showFutureEffectiveFee"
+            data-testid="future-effective-fee"
             :description="$t('connect.label.futureEffectiveFee')"
             :fee="totalFutureEffectiveFees"
             show-fee-value
           />
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showPriorityFee"
+            data-testid="priority-fee"
             :description="$t('connect.label.priorityFee')"
             :fee="totalPriorityFees"
             show-fee-value
           />
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showProcessingFee"
+            data-testid="processing-fee"
             :description="$t('connect.label.processingFee')"
             :fee="totalProcessingFees"
             show-fee-value
           />
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showServiceFee"
+            data-testid="service-fee"
             :description="$t('connect.label.serviceFee')"
             :fee="isPlaceholderActive ? placeholderFeeItem.serviceFees : totalServiceFees"
             show-fee-value
           />
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showPst"
+            data-testid="pst-fee"
             :description="$t('connect.label.pst')"
             :fee="totalPst"
             show-fee-value
           />
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showGst"
+            data-testid="gst-fee"
             :description="$t('connect.label.gst')"
             :fee="totalGst"
             show-fee-value
           />
         </div>
-        <div class="flex flex-row items-end justify-between border-t border-line-muted p-3">
+        <div
+          data-testid="total-fee"
+          class="flex flex-row items-end justify-between border-t border-line-muted p-3"
+        >
           <p class="mb-1 font-bold">
             {{ $t("connect.label.totalFees") }}
           </p>

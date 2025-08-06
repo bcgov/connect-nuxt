@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   extends: ['@sbc-connect/nuxt-auth'],
 
   imports: {
-    dirs: ['interfaces', 'types', 'enums', 'stores']
+    dirs: ['interfaces', 'enums', 'stores']
   },
 
   alias: {

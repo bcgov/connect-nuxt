@@ -1,6 +1,10 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-auth'
+  layout: 'connect-auth',
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Fee Component (extra fees)' }
+  ]
 })
 
 const feeStore = useConnectFeeStore()
