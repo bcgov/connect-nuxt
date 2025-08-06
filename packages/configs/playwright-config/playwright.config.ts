@@ -6,22 +6,24 @@ const { resolve } = createResolver(import.meta.url)
 
 const deviceNames = [
   'Desktop Chrome',
-  'Desktop Firefox',
-  'Desktop Edge',
-  'Desktop Safari',
-  'iPad (gen 11) landscape',
-  'Blackberry PlayBook landscape',
-  'Nexus 10 landscape',
-  'iPhone 15 Pro',
-  'Pixel 7',
-  'iPhone 6'
+  ...(process.env.CI ? [
+    'Desktop Firefox',
+    'Desktop Edge',
+    'Desktop Safari',
+    'iPad (gen 11) landscape',
+    'Blackberry PlayBook landscape',
+    'Nexus 10 landscape',
+    'iPhone 15 Pro',
+    'Pixel 7',
+    'iPhone 6'
+  ] : [])
 ]
 
 export default defineConfig<ConfigOptions>({
   globalSetup: './tests/e2e/setup',
   testDir: './tests/e2e',
   testMatch: '*.spec.ts',
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 2 : undefined,
   reporter: [['list'], [process.env.CI ? 'blob' : 'html']],
   use: {
     nuxt: {
