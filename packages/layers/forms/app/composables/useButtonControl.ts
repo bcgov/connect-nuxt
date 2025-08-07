@@ -2,6 +2,7 @@ export const useButtonControl = () => {
   const route = useRoute()
 
   function setButtonControl(buttonControl: ConnectButtonControl) {
+    // @ts-expect-error; typescript complains about the object type being too large
     route.meta.buttonControl = buttonControl
   }
 
@@ -24,9 +25,9 @@ export const useButtonControl = () => {
     }
     const buttonControl = getButtonControl()
     // update left buttons with loading / disabled as required
-    updateButtonGrp(buttonControl.leftButtons, 'left')
+    updateButtonGrp(buttonControl.leftGroup.buttons, 'left')
     // update right buttons with loading / disabled as required
-    updateButtonGrp(buttonControl.rightButtons, 'right')
+    updateButtonGrp(buttonControl.rightGroup.buttons, 'right')
   }
 
   async function setAlertText(reset: boolean, grp?: 'left' | 'right', index?: number, text?: string) {
@@ -37,10 +38,10 @@ export const useButtonControl = () => {
     }
     // clear existing text
     if (route.meta.buttonControl) {
-      route.meta.buttonControl.leftAlertText = undefined
-      route.meta.buttonControl.rightAlertText = undefined
-      resetButtonGrp(route.meta.buttonControl.leftButtons)
-      resetButtonGrp(route.meta.buttonControl.rightButtons)
+      route.meta.buttonControl.leftGroup.alertText = undefined
+      route.meta.buttonControl.rightGroup.alertText = undefined
+      resetButtonGrp(route.meta.buttonControl.leftGroup.buttons)
+      resetButtonGrp(route.meta.buttonControl.rightGroup.buttons)
     }
 
     // only continue if not resetting
@@ -51,12 +52,12 @@ export const useButtonControl = () => {
       // set content
       if (route.meta.buttonControl) {
         if (index === undefined) {
-          route.meta.buttonControl.leftAlertText = (grp === 'left') ? text : undefined
-          route.meta.buttonControl.rightAlertText = (grp === 'right') ? text : undefined
-        } else if (grp === 'left') {
-          route.meta.buttonControl.leftButtons[index].alertText = text
-        } else if (grp === 'right') {
-          route.meta.buttonControl.rightButtons[index].alertText = text
+          route.meta.buttonControl.leftGroup.alertText = (grp === 'left') ? text : undefined
+          route.meta.buttonControl.rightGroup.alertText = (grp === 'right') ? text : undefined
+        } else if (grp === 'left' && route.meta.buttonControl.leftGroup.buttons[index]) {
+          route.meta.buttonControl.leftGroup.buttons[index].alertText = text
+        } else if (grp === 'right' && route.meta.buttonControl.rightGroup.buttons[index]) {
+          route.meta.buttonControl.rightGroup.buttons[index].alertText = text
         }
       }
     }

@@ -22,19 +22,23 @@ const handleClick = (position: 'left' | 'right', index: number) => {
   }
 }
 setButtonControl({
-  leftButtons: [
-    { label: 'Left Button 1', onClick: () => handleClick('left', 0) },
-    { label: 'Left Button 2', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 1) }
-  ],
-  rightButtons: [
-    { label: 'Right Button 1', color: 'error', variant: 'outline', onClick: () => handleClick('right', 0) },
-    {
-      label: 'Right Button 2',
-      color: 'success',
-      trailingIcon: 'i-mdi-chevron-right',
-      onClick: () => handleClick('right', 1)
-    }
-  ]
+  leftGroup: {
+    buttons: [
+      { label: 'Left Button 1', onClick: () => handleClick('left', 0) },
+      { label: 'Left Button 2', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 1) }
+    ]
+  },
+  rightGroup: {
+    buttons: [
+      { label: 'Right Button 1', color: 'error', variant: 'outline', onClick: () => handleClick('right', 0) },
+      {
+        label: 'Right Button 2',
+        color: 'success',
+        trailingIcon: 'i-mdi-chevron-right',
+        onClick: () => handleClick('right', 1)
+      }
+    ]
+  }
 })
 </script>
 

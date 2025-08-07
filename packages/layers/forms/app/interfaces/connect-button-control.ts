@@ -5,9 +5,13 @@ export interface ConnectButton extends ButtonProps {
   removeAlertSpacing?: boolean
 }
 
+export interface ConnectButtonGroup {
+  alertText?: string
+  buttons: ConnectButton[]
+  stacked?: boolean
+}
+
 export interface ConnectButtonControl {
-  leftButtons: ConnectButton[]
-  rightButtons: ConnectButton[]
-  leftAlertText?: string
-  rightAlertText?: string
+  leftGroup: ConnectButtonGroup
+  rightGroup: ConnectButtonGroup
 }

@@ -23,12 +23,8 @@ const componentExamples: DropdownMenuItem[] = [
     to: localePath('/examples/components/ConnectButtonControl/Default')
   },
   {
-    label: 'Connect Button Control (partial stacked buttons)',
-    to: localePath('/examples/components/ConnectButtonControl/PartialStacked')
-  },
-  {
-    label: 'Connect Button Control (full stacked buttons)',
-    to: localePath('/examples/components/ConnectButtonControl/FullStacked')
+    label: 'Connect Button Control (stacked buttons)',
+    to: localePath('/examples/components/ConnectButtonControl/Stacked')
   }
 ]
 </script>

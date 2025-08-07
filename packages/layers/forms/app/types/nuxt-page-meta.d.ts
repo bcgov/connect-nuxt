@@ -1,6 +1,6 @@
 declare module '#app' {
   interface PageMeta {
-    buttonControl?: ConnectBtnControl
+    buttonControl?: ConnectButtonControl
   }
 }
 
