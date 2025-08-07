@@ -156,14 +156,19 @@ export const useConnectLaunchDarkly = () => {
   ): Promise<T>
   function getFeatureFlag<T>(
     name: string,
-    defaultValue?: T,
+    defaultValue: T,
     mode?: 'reactive'
   ): Readonly<Ref<T>>
   function getFeatureFlag<T>(
     name: string,
-    defaultValue: T,
+    defaultValue?: T,
+    mode?: 'reactive'
+  ): Readonly<Ref<T | undefined>>
+  function getFeatureFlag<T>(
+    name: string,
+    defaultValue?: T,
     mode: 'reactive' | 'await' = 'reactive'
-  ): Readonly<Ref<T>> | Promise<T> {
+  ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
     if (mode === 'await') {
       if (!ldClient.value) {
         return Promise.resolve(defaultValue)
