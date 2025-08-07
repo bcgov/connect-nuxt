@@ -21,7 +21,7 @@ onMounted(async () => {
 
 const loading = ref(false)
 const resolvedValue = ref('')
-async function doSomething () {
+async function doSomething() {
   loading.value = true
   try {
     await delay(1000) // simulate delay
@@ -31,8 +31,9 @@ async function doSomething () {
   } finally {
     loading.value = false
   }
-} 
+}
 </script>
+
 <template>
   <div class="my-10 flex flex-col gap-10">
     <div class="space-y-4">
@@ -48,7 +49,7 @@ async function doSomething () {
         <span>Flag value: {{ flagSystemBanner }}</span>
       </div>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Await in onMounted with Default Value' }">
       <div class="p-10 flex flex-col gap-4">
         <p>Add a default value to return while LaunchDarkly is initializing. Defaults to undefined.</p>
@@ -63,7 +64,7 @@ async function doSomething () {
         <span>Ref set by awaited flag: {{ message }}</span>
       </div>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Await in function' }">
       <div class="p-10 flex flex-col gap-4">
         <p>Access a flag inside a function</p>
@@ -80,9 +81,13 @@ async function doSomething () {
             } finally {
               loading.value = false
             }
-          } 
+          }
         </pre>
-        <UButton label="Trigger" @click="doSomething" :loading />
+        <UButton
+          label="Trigger"
+          :loading
+          @click="doSomething"
+        />
         <span>Resolved Value: {{ resolvedValue }}</span>
       </div>
     </ConnectPageSection>

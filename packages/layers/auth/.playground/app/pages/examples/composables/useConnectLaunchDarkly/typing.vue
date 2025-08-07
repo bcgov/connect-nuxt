@@ -11,6 +11,7 @@ const ld = useConnectLaunchDarkly()
 const flagTypeInfered = ld.getFeatureFlag('flag-type-infered', { hello: 'world', foo: 'bar' })
 const flagWithGeneric = ld.getFeatureFlag<{ hello: 'world', foo: 'bar' }>('flag-with-generic')
 </script>
+
 <template>
   <div class="my-10 flex flex-col gap-10">
     <div class="space-y-4">
@@ -26,7 +27,7 @@ const flagWithGeneric = ld.getFeatureFlag<{ hello: 'world', foo: 'bar' }>('flag-
         <span class="inline-flex"><pre class="font-bold text-black">flagTypeInfered.foo:</pre> {{ flagTypeInfered.foo }}</span>
       </div>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Provide Type by Generic' }">
       <div class="p-10 flex flex-col gap-4">
         <p>Without a default value, your flag or flag properties may be undefined.</p>

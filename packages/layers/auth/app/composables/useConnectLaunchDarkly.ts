@@ -17,7 +17,7 @@ const ldContext = shallowRef<LDMultiKindContext>(anonymousContext)
 const ldInitialized = ref(false)
 const isInitializing = ref(false)
 
-function _createLdContext (): LDMultiKindContext {
+function _createLdContext(): LDMultiKindContext {
   const appName = useRuntimeConfig().public.appName
   const { authUser, isAuthenticated } = useConnectAuth()
   const account = useConnectAccountStore().currentAccount
@@ -59,7 +59,7 @@ function _updateLdContext() {
   if (!ldClient.value) {
     return
   }
-  
+
   const newContext = _createLdContext()
   if (isEqual(ldContext.value, newContext)) {
     return
@@ -132,14 +132,12 @@ export const useConnectLaunchDarkly = () => {
   const accountStore = useConnectAccountStore()
 
   watch(
-    [isAuthenticated, () => accountStore.currentAccount.id],
+    [isAuthenticated, () => accountStore.currentAccount],
     () => {
       _updateLdContext()
     },
     { immediate: true }
   )
-
-  watch(ldContext, (newVal) => console.log('NEW CONTEXT: ', newVal))
 
   /**
    * Returns a flag's value. Can operate in two modes.
@@ -218,7 +216,7 @@ export const useConnectLaunchDarkly = () => {
 
     // reactive mode
     return readonly(computed(() => {
-      if (!ldInitialized.value  || !ldFlagSet.value) {
+      if (!ldInitialized.value || !ldFlagSet.value) {
         return defaultValue
       }
       return ldFlagSet.value[name] ?? defaultValue
