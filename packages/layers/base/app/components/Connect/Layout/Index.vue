@@ -11,7 +11,7 @@
     </slot>
     <main class="app-inner-container app-body">
       <slot name="body">
-        <div class="grow max-w-full overflow-hidden">
+        <div class="grow max-w-full flex flex-col overflow-hidden">
           <slot />
         </div>
       </slot>

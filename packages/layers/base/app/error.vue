@@ -36,7 +36,7 @@ onMounted(() => {
 <template>
   <UApp :toaster="{ position: 'bottom-center' }">
     <NuxtLayout name="connect-base">
-      <div class="m-auto flex flex-col items-center gap-4 h-full justify-center">
+      <div class="m-auto flex flex-col items-center gap-4">
         <h1>
           {{ $t(`connect.page.error.${errorKey}.h1`) }}
         </h1>
