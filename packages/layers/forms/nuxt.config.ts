@@ -8,7 +8,11 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
-  compatibilityDate: '2025-06-10',
+  compatibilityDate: '2025-07-10',
+
+  imports: {
+    dirs: ['enums', 'interfaces', 'types']
+  },
 
   extends: ['@sbc-connect/nuxt-base'],
 
@@ -16,5 +20,22 @@ export default defineNuxtConfig({
     '#forms': resolve('./')
   },
 
-  css: [resolve('./app/assets/css/tw-forms.css')]
+  i18n: {
+    locales: [
+      {
+        name: 'English',
+        code: 'en-CA',
+        language: 'en-CA',
+        dir: 'ltr',
+        file: 'en-CA.ts'
+      },
+      {
+        name: 'Français',
+        code: 'fr-CA',
+        language: 'fr-CA',
+        dir: 'ltr',
+        file: 'fr-CA.ts'
+      }
+    ]
+  }
 })
