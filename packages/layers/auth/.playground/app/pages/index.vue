@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { delay } from 'es-toolkit'
+import type { DropdownMenuItem } from '@nuxt/ui'
 
 definePageMeta({
   layout: 'connect-auth',
@@ -8,8 +9,12 @@ definePageMeta({
     console.info('New Account: ', newAccount.label)
     return true
   },
-  breadcrumbs: [{ label: 'test1', to: '/test1', appendAccountId: true }, { label: 'test2', to: '/test2' }]
+  breadcrumbs: [
+    { label: 'Examples' }
+  ]
 })
+
+const localePath = useLocalePath()
 
 setOnBeforeSessionExpired(async () => {
   console.info('Starting onBeforeSessionExpired promise')
@@ -19,34 +24,37 @@ setOnBeforeSessionExpired(async () => {
 
 const { isAuthenticated, login, logout } = useConnectAuth()
 
-// onMounted(async () => {
-//   const { getToken } = useConnectAuth()
-
-//   const token = await getToken()
-//   console.info(token)
-// })
-
-// console.info('AUTHENTICATED: ', auth.authenticated)
+const composableExamples: DropdownMenuItem[] = [
+  {
+    label: 'LaunchDarkly (typing)',
+    to: localePath('/examples/composables/useConnectLaunchDarkly/typing')
+  },
+  {
+    label: 'LaunchDarkly (reactive-mode)',
+    to: localePath('/examples/composables/useConnectLaunchDarkly/reactive-mode')
+  },
+  {
+    label: 'LaunchDarkly (await-mode)',
+    to: localePath('/examples/composables/useConnectLaunchDarkly/await-mode')
+  }
+]
 </script>
 
 <template>
-  <div>
-    <HelloWorldAuth />
-    <!-- temporary -->
-    <div class="flex flex-col gap-4 my-10">
-      <ClientOnly>
+  <div class="my-10 space-y-5">
+    <h1>Connect Auth Layer Examples</h1>
+    <div class="flex gap-3 max-w-[300px]">
+      <UDropdownMenu
+        :items="composableExamples"
+        :content="{ align: 'start' }"
+      >
         <UButton
-          v-if="!isAuthenticated"
-          label="Login"
-          @click="login(ConnectIdpHint.BCSC)"
+          label="Composable Examples"
+          icon="i-lucide-menu"
+          color="neutral"
+          variant="outline"
         />
-        <UButton
-          v-else-if="isAuthenticated"
-          label="Logout"
-          @click="logout()"
-        />
-        <div>AUTHENTICATED: {{ isAuthenticated }} </div>
-      </ClientOnly>
+      </UDropdownMenu>
     </div>
   </div>
 </template>

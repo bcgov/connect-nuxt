@@ -24,7 +24,7 @@ const resolvedValue = ref('')
 async function doSomething () {
   loading.value = true
   try {
-    await delay(1000)
+    await delay(1000) // simulate delay
     resolvedValue.value = await ld.getFeatureFlag('in-function-flag', `${Math.random().toFixed(5)}`, 'await')
   } catch {
     // do something
@@ -52,15 +52,13 @@ async function doSomething () {
     <ConnectPageSection :heading="{ label: 'Await in onMounted with Default Value' }">
       <div class="p-10 flex flex-col gap-4">
         <p>Add a default value to return while LaunchDarkly is initializing. Defaults to undefined.</p>
-        <pre>
-          <code>
-            const message = ref('Loading...')
-            onMounted(async () => {
-              setTimeout(async () => {
-                message.value = await ld.getFeatureFlag('onmounted-flag', 'Updated!', 'await')
-              }, 5000)
-            })
-          </code>
+        <pre class="-ml-20">
+          const message = ref('Loading...')
+          onMounted(async () => {
+            setTimeout(async () => {
+              message.value = await ld.getFeatureFlag('onmounted-flag', 'Updated!', 'await')
+            }, 5000)
+          })
         </pre>
         <span>Ref set by awaited flag: {{ message }}</span>
       </div>
@@ -69,22 +67,20 @@ async function doSomething () {
     <ConnectPageSection :heading="{ label: 'Await in function' }">
       <div class="p-10 flex flex-col gap-4">
         <p>Access a flag inside a function</p>
-        <pre>
-          <code>
-            const loading = ref(false)
-            const resolvedValue = ref('')
-            async function doSomething () {
-              loading.value = true
-              try {
-                await delay(1000)
-                resolvedValue.value = await ld.getFeatureFlag('in-function-flag', `Resolved Value: ${Math.random().toFixed(5)}`, 'await')
-              } catch {
-                // do something
-              } finally {
-                loading.value = false
-              }
-            } 
-          </code>
+        <pre class="-ml-20">
+          const loading = ref(false)
+          const resolvedValue = ref('')
+          async function doSomething () {
+            loading.value = true
+            try {
+              await delay(1000) // simulate delay
+              resolvedValue.value = await ld.getFeatureFlag('in-function-flag', `Resolved Value: ${Math.random().toFixed(5)}`, 'await')
+            } catch {
+              // do something
+            } finally {
+              loading.value = false
+            }
+          } 
         </pre>
         <UButton label="Trigger" @click="doSomething" :loading />
         <span>Resolved Value: {{ resolvedValue }}</span>
