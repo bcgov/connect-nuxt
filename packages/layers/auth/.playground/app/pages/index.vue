@@ -22,8 +22,6 @@ setOnBeforeSessionExpired(async () => {
   console.info('onBeforeSessionExpired promise fulfilled')
 })
 
-const { isAuthenticated, login, logout } = useConnectAuth()
-
 const composableExamples: DropdownMenuItem[] = [
   {
     label: 'LaunchDarkly (typing)',

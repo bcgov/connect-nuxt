@@ -4,7 +4,6 @@ import { initialize } from 'launchdarkly-js-client-sdk'
 import { nextTick, ref } from 'vue'
 import type { LDClient } from 'launchdarkly-js-client-sdk'
 import type { ConnectAuthUser } from '../../../app/interfaces/connect-auth-user'
-import type { ConnectAccount } from '../../../app/interfaces/connect-account'
 import type {
   useConnectLaunchDarkly as UseConnectLaunchdarklyType
 } from '../../../app/composables/useConnectLaunchDarkly'
@@ -120,7 +119,7 @@ describe('useConnectLaunchdarkly', () => {
       useLd()
       await nextTick()
 
-      expect(mockLdClient.identify).not.toHaveBeenCalled() 
+      expect(mockLdClient.identify).not.toHaveBeenCalled()
 
       mockCurrentAccount.value = { id: 123 }
       await nextTick()
@@ -131,7 +130,7 @@ describe('useConnectLaunchdarkly', () => {
           org: expect.objectContaining({ key: 123 })
         })
       )
- 
+
       mockIsAuthenticated.value = false
       await nextTick()
 

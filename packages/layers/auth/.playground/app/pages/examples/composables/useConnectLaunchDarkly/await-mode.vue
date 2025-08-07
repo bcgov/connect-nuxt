@@ -75,7 +75,8 @@ async function doSomething() {
             loading.value = true
             try {
               await delay(1000) // simulate delay
-              resolvedValue.value = await ld.getFeatureFlag('in-function-flag', `Resolved Value: ${Math.random().toFixed(5)}`, 'await')
+              resolvedValue.value =
+                await ld.getFeatureFlag('in-function-flag', `Resolved Value: ${Math.random().toFixed(5)}`, 'await')
             } catch {
               // do something
             } finally {

@@ -19,7 +19,10 @@ const flagNonExistentWithoutDefault = ld.getFeatureFlag('non-existent-flag')
       <h1>LaunchDarkly Composable (reactive mode)</h1>
       <p>The composable in this layer overwrites the one from base with user and account context.</p>
       <p>Reactive mode returns a computed value that will update when the flags change.</p>
-      <p>You can test this by adding your user or account to the `test-user-context-switching` flag rules in the `entity-ui` project.</p>
+      <p>
+        You can test this by adding your user or account to the `test-user-context-switching`
+        flag rules in the `entity-ui` project.
+      </p>
     </div>
     <ConnectPageSection :heading="{ label: 'User Context Changes' }">
       <div class="p-10 flex flex-col gap-4">

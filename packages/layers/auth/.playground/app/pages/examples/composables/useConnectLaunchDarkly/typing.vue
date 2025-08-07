@@ -23,17 +23,26 @@ const flagWithGeneric = ld.getFeatureFlag<{ hello: 'world', foo: 'bar' }>('flag-
       <div class="p-10 flex flex-col gap-4">
         <p>The flag type will be infered from the default value provided.</p>
         <pre>const flagTypeInfered = ld.getFeatureFlag('flag-type-infered', { hello: 'world', foo: 'bar' })</pre>
-        <span class="inline-flex"><pre class="font-bold text-black">flagTypeInfered.hello:</pre> {{ flagTypeInfered.hello }}</span>
-        <span class="inline-flex"><pre class="font-bold text-black">flagTypeInfered.foo:</pre> {{ flagTypeInfered.foo }}</span>
+        <span class="inline-flex">
+          <pre class="font-bold text-black">flagTypeInfered.hello:</pre> {{ flagTypeInfered.hello }}</span>
+        <span class="inline-flex">
+          <pre class="font-bold text-black">flagTypeInfered.foo:</pre> {{ flagTypeInfered.foo }}
+        </span>
       </div>
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'Provide Type by Generic' }">
       <div class="p-10 flex flex-col gap-4">
         <p>Without a default value, your flag or flag properties may be undefined.</p>
-        <pre>const flagWithGeneric = ld.getFeatureFlag<{ hello: 'world', foo: 'bar' }>('flag-with-generic')</pre>
-        <span class="inline-flex"><pre class="font-bold text-black">flagWithGeneric?.hello:</pre> {{ flagWithGeneric?.hello ?? 'undefined' }}</span>
-        <span class="inline-flex"><pre class="font-bold text-black">flagWithGeneric?.foo:</pre> {{ flagWithGeneric?.foo ?? 'undefined' }}</span>
+        <code>
+          const flagWithGeneric = ld.getFeatureFlag&lt;{ hello: 'world', foo: 'bar' }&gt;('flag-with-generic')
+        </code>
+        <span class="inline-flex">
+          <pre class="font-bold text-black">flagWithGeneric?.hello:</pre> {{ flagWithGeneric?.hello ?? 'undefined' }}
+        </span>
+        <span class="inline-flex">
+          <pre class="font-bold text-black">flagWithGeneric?.foo:</pre> {{ flagWithGeneric?.foo ?? 'undefined' }}
+        </span>
       </div>
     </ConnectPageSection>
   </div>
