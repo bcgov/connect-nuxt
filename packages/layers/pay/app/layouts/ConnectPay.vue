@@ -5,11 +5,9 @@
     </template>
 
     <template #body>
-      <div class="flex flex-col lg:flex-row lg:gap-6 grow">
-        <ConnectLayoutPayBody>
-          <slot />
-        </ConnectLayoutPayBody>
-      </div>
+      <ConnectLayoutPayBody>
+        <slot />
+      </ConnectLayoutPayBody>
     </template>
   </ConnectLayout>
 </template>
