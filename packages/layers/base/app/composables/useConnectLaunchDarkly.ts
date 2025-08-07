@@ -148,13 +148,6 @@ export const useConnectLaunchDarkly = () => {
     }))
   }
 
-  // TODO: or do we do this and then everytime the fn is called its required to use await?
-  // TODO: returning the computed means we dont need to add LD to middleware
-  // async function getStoredFlag(name: string): Promise<unknown> {
-  //   await ldClient.value?.waitUntilReady()
-  //   return ldFlagSet.value[name]
-  // }
-
   /**
    * Resets the LaunchDarkly state and closes the client connection.
    */
