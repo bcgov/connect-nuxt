@@ -21,6 +21,19 @@ export default {
       teamMembers: 'Team Members',
       transactions: 'Transactions'
     },
+    page: {
+      login: {
+        h1: 'SBC Connect Account Login',
+        title: 'Log in - SBC Connect',
+        loginBCSC: 'Login with BC Services Card',
+        loginBCEID: 'Login with BCeID',
+        loginIDIR: 'Login with IDIR',
+        sessionExpiredAlert: {
+          title: 'Session Expired',
+          description: 'Your session has expired. Please log in again to continue.'
+        }
+      }
+    },
     sessionExpiry: {
       title: 'Session Expiring Soon',
       content: 'Your session is about to expire due to inactivity. You will be logged out in {boldStart}0{boldEnd} seconds. Press any key to continue your session. | Your session is about to expire due to inactivity. You will be logged out in {boldStart}1{boldEnd} second. Press any key to continue your session. | Your session is about to expire due to inactivity. You will be logged out in {boldStart}{count}{boldEnd} seconds. Press any key to continue your session.',
@@ -31,6 +44,7 @@ export default {
       }
     },
     text: {
+      imageAltGenericLogin: 'Generic Login Image',
       notifications: {
         none: 'No Notifications',
         teamMemberApproval: '{count} team member requires approval to access this account. | {count} team members require approval to access this account.'

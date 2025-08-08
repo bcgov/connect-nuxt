@@ -11,8 +11,9 @@ export function useConnectHeaderOptions() {
   const route = useRoute()
   const overlay = useOverlay()
   const { t, locale: { value: locale } } = useNuxtApp().$i18n
-  const { login, logout, isAuthenticated, authUser } = useConnectAuth()
+  const { login, isAuthenticated, authUser } = useConnectAuth()
   const accountStore = useConnectAccountStore()
+  const localePath = useLocalePath()
 
   const whatsNew = useStorage<ConnectWhatsNewState>('connect-whats-new', { viewed: false, items: [] })
   const slideover = overlay.create(ConnectSlideoverWhatsNew)
@@ -38,7 +39,7 @@ export function useConnectHeaderOptions() {
     options.push({
       label: t('connect.label.logout'),
       icon: 'i-mdi-logout-variant',
-      onSelect: () => logout()
+      onSelect: () => navigateTo(localePath('/auth/logout'))
     })
     return options
   })
@@ -134,8 +135,8 @@ export function useConnectHeaderOptions() {
     return options
   })
 
-  const loginRedirectUrl = ac.login.redirectPath
-    ? appBaseUrl + locale + ac.login.redirectPath
+  const loginRedirectUrl = ac.login.redirect
+    ? appBaseUrl + locale + ac.login.redirect
     : undefined
 
   const loginOptionsMap: Record<'bcsc' | 'bceid' | 'idir',

@@ -4,7 +4,8 @@ definePageMeta({
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'LaunchDarkly Composable (typing)' }
-  ]
+  ],
+  middleware: 'connect-auth'
 })
 
 const ld = useConnectLaunchDarkly()

@@ -2,8 +2,11 @@ declare module '@nuxt/schema' {
   interface AppConfigInput {
     connect?: {
       login?: {
-        redirectPath?: string
+        redirect?: string
         idps?: Array<'bcsc' | 'bceid' | 'idir'>
+      }
+      logout?: {
+        redirect?: string
       }
       header?: {
         loginMenu?: boolean
