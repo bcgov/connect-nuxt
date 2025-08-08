@@ -4,7 +4,7 @@ declare module '@nuxt/schema' {
       login?: {
         redirect?: string
         idps?: Array<'bcsc' | 'bceid' | 'idir'>
-      },
+      }
       logout?: {
         redirect?: string
       }

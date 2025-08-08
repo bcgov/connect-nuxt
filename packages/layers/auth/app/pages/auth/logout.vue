@@ -11,12 +11,13 @@ const redirectUrl = computed(() => {
     ? urlReturn as string
     : `${rtc.baseUrl}${locale.value}${ac.login.redirect}`
   return url
-}) 
+})
 
 onMounted(async () => {
   await logout(redirectUrl.value)
 })
 </script>
+
 <template>
   <ConnectSpinner fullscreen />
 </template>
