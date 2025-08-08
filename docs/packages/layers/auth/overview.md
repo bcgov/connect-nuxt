@@ -87,14 +87,14 @@ While mainly an internal composable. This can be used to create a custom authent
 
 ### Standardized Pages
 
-- **/auth/login:**: Standard Connect login page with `return` query option.
+- **/auth/login:** Standard Connect login page with `return` query option.
 - **/auth/logout:** Navigating here will log the user out.
 
 ### Middleware
 
-**connect-auth:**: Protect your pages from unauthenticated users with the `connect-auth` middleware.
-**setup-accounts (global):**: Accounts will be fetched and the store updated if authenticated.
-**keycloak-params (global):**: Keycloak adds url params which are removed.
+**connect-auth:** Protect your pages from unauthenticated users with the `connect-auth` middleware.
+**setup-accounts (global):** Accounts will be fetched and the store updated if authenticated.
+**keycloak-params (global):** Keycloak adds url params which are removed.
 
 #### connect-auth
 
