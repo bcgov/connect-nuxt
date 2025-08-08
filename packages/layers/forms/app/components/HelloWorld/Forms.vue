@@ -5,8 +5,8 @@
     <h3 class="text-green-900">
       Forms - should be green-900
     </h3>
-    <p class="text-connect-darkGray">
-      Forms - should be connnect-darkGray
+    <p class="text-neutral-highlighted">
+      Forms - should be neutral-highlighted
     </p>
   </div>
 </template>
