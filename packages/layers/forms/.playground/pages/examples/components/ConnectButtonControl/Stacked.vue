@@ -22,17 +22,26 @@ setButtonControl({
     buttons: [
       {
         label: 'Left 1',
-        icon: 'i-mdi-chevron-left',
-        class: 'min-w-[142px] justify-center',
-        variant: 'outline',
-        onClick: () => showLoading('left', 0)
+        icon: 'i-mdi-chevron-up',
+        class: 'min-w-[300px] justify-center',
+        color: 'success',
+        onClick: () => showAlertText('left', 0, 'Alert text no jump')
       },
       {
         label: 'Left 2',
+        icon: 'i-mdi-chevron-left',
+        class: 'min-w-[142px] justify-center',
+        variant: 'outline',
+        removeAlertSpacing: true,
+        onClick: () => showLoading('left', 1)
+      },
+      {
+        label: 'Left 3',
         icon: 'i-mdi-world',
         class: 'min-w-[142px] justify-center',
         variant: 'ghost',
-        onClick: () => showAlertText('left', 1, 'Alert text')
+        removeAlertSpacing: true,
+        onClick: () => showAlertText('right', 2, 'Left 3 alert text')
       }
     ]
   },

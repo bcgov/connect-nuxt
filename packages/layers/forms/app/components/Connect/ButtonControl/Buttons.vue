@@ -6,6 +6,7 @@ defineProps<{ buttons: ConnectButton[], position: 'left' | 'right' }>()
   <div
     v-for="(button, i) in buttons"
     :key="`${position}-button-` + i"
+    data-testid="button-wrapper"
   >
     <UButton
       class="max-w-fit px-7 py-3 mb-1"

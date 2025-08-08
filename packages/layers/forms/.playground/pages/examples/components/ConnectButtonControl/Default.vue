@@ -10,22 +10,24 @@ const { setButtonControl, handleButtonLoading, setAlertText } = useButtonControl
 const handleClick = (position: 'left' | 'right', index: number) => {
   if (position === 'right') {
     if (index === 0) {
-      setAlertText(false, 'right', undefined, 'Alert text side')
+      setAlertText(false, 'right', undefined, 'Alert text right side')
     } else {
       setAlertText(false, 'right', index, 'Alert text underneath')
     }
+  } else if (index === 1) {
+    setAlertText(false, 'left', undefined, 'Alert text left side')
   } else {
     handleButtonLoading(false, position, index)
     setTimeout(() => {
       handleButtonLoading(true)
-    }, 1000)
+    }, 3000)
   }
 }
 setButtonControl({
   leftGroup: {
     buttons: [
-      { label: 'Left Button 1', onClick: () => handleClick('left', 0) },
-      { label: 'Left Button 2', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 1) }
+      { label: 'Left Button 1', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 0) },
+      { label: 'Left Button 2', onClick: () => handleClick('left', 1) }
     ]
   },
   rightGroup: {
