@@ -16,7 +16,7 @@ This package provides the necessary composables, plugins, and logic to integrate
 - login() and logout() helper functions.
 - Automatic token refreshing and session validation.
 
-For detailed usage and documentation, please see the [Auth Layer Docs](../../../docs/packages/layers/auth/intro.md).
+For detailed usage and documentation, please see the [Auth Layer Docs](../../../docs/packages/layers/auth/overview.md).
 
 ## Usage
 
@@ -46,14 +46,7 @@ Create a file named .env in the root of the project.
 Copy the contents of the .env.example file into your new .env file.
 
 ### Local Development
-For local development, you will need credentials for the development instance of the authentication provider.
-
-```
-# .env
-NUXT_PUBLIC_AUTH_PROVIDER_URL="https://dev.oidc.gov.bc.ca/auth"
-NUXT_PUBLIC_AUTH_PROVIDER_REALM="your-realm-name"
-NUXT_PUBLIC_AUTH_PROVIDER_CLIENT_ID="your-client-id"
-```
+Copy the contents of the **.env.example** file into your new .env file.
 
 ### Production Environments
 > [!IMPORTANT]
