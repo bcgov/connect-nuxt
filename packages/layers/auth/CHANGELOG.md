@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.1.9
+
+### Patch Changes
+
+- [#38](https://github.com/bcgov/connect-nuxt/pull/38) [`8b8f067`](https://github.com/bcgov/connect-nuxt/commit/8b8f067aba4cda2cd2cd8de5c6f74ccc24eaf822) Thanks [@deetz99](https://github.com/deetz99)! - Add LaunchDarkly composable with user context. issue: bcgov/entity#29335
+
 ## 0.1.8
 
 ### Patch Changes

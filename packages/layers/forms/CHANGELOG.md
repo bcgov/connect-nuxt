@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.9
+
+### Patch Changes
+
+- [#37](https://github.com/bcgov/connect-nuxt/pull/37) [`216dff5`](https://github.com/bcgov/connect-nuxt/commit/216dff5eea1cf8459fc516dc8a1985f922e84533) Thanks [@kialj876](https://github.com/kialj876)! - Button Control Component and Form Layout bcgov/entity/29338
+
 ## 0.1.8
 
 ### Patch Changes
