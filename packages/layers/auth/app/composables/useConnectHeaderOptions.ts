@@ -134,8 +134,8 @@ export function useConnectHeaderOptions() {
     return options
   })
 
-  const loginRedirectUrl = ac.login.redirectPath
-    ? appBaseUrl + locale + ac.login.redirectPath
+  const loginRedirectUrl = ac.login.redirect
+    ? appBaseUrl + locale + ac.login.redirect
     : undefined
 
   const loginOptionsMap: Record<'bcsc' | 'bceid' | 'idir',

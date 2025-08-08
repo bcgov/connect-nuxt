@@ -1,7 +1,7 @@
 export default defineAppConfig({
   connect: {
     login: {
-      redirectPath: '',
+      redirect: '',
       idps: ['bcsc', 'bceid', 'idir']
     },
     header: {
