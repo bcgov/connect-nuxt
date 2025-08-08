@@ -1,17 +1,82 @@
 import { initialize } from 'launchdarkly-js-client-sdk'
-import type { LDClient, LDFlagSet, LDOptions, LDContext } from 'launchdarkly-js-client-sdk'
+import type { LDClient, LDFlagSet, LDOptions, LDMultiKindContext } from 'launchdarkly-js-client-sdk'
+import { isEqual } from 'es-toolkit'
+
+// default anon context
+const anonymousContext: LDMultiKindContext = {
+  kind: 'multi',
+  org: { key: 'anonymous' },
+  user: { key: 'anonymous' }
+}
 
 // state
 // Defined outside of composable, so they are created only once and shared
 const ldClient = shallowRef<LDClient | null>(null)
 const ldFlagSet = shallowRef<LDFlagSet>({})
+const ldContext = shallowRef<LDMultiKindContext>(anonymousContext)
 const ldInitialized = ref(false)
 const isInitializing = ref(false)
 
+function _createLdContext(): LDMultiKindContext {
+  const appName = useRuntimeConfig().public.appName
+  const { authUser, isAuthenticated } = useConnectAuth()
+  const account = useConnectAccountStore().currentAccount
+
+  if (!isAuthenticated.value) {
+    return anonymousContext
+  }
+
+  // Create user context
+  const user = {
+    key: authUser.value.keycloakGuid,
+    firstName: authUser.value.firstName,
+    lastName: authUser.value.lastName,
+    email: authUser.value.email,
+    roles: authUser.value.roles,
+    loginSource: authUser.value.loginSource,
+    appSource: appName
+  }
+
+  // Default org to user key if no account
+  let org: Partial<ConnectAccount & { key: string, appSource: string }> = { key: user.key, appSource: appName }
+
+  // Use account info if available
+  if (account.id) {
+    org = {
+      key: String(account.id),
+      accountType: account.accountType,
+      accountStatus: account.accountStatus,
+      type: account.type,
+      label: account.label,
+      appSource: appName
+    }
+  }
+
+  return { kind: 'multi', org, user }
+}
+
+function _updateLdContext() {
+  if (!ldClient.value) {
+    return
+  }
+
+  const newContext = _createLdContext()
+  if (isEqual(ldContext.value, newContext)) {
+    return
+  }
+
+  ldContext.value = newContext
+  ldClient.value.identify(newContext).then(() => {
+    ldFlagSet.value = ldClient.value?.allFlags() || {}
+  }).catch((error) => {
+    console.error('LaunchDarkly: Failed to update context.', error)
+  })
+}
+
 /**
- * Initializes the LaunchDarkly client with an anonymous context.
+ * Initializes the LaunchDarkly client.
 */
-function init(): void {
+function _init(): void {
   const rtc = useRuntimeConfig().public
 
   // Prevent re-initialization
@@ -26,12 +91,7 @@ function init(): void {
 
   isInitializing.value = true
 
-  const ldContext: LDContext = {
-    kind: 'user',
-    key: 'anonymous',
-    anonymous: true,
-    appSource: rtc.appName
-  }
+  ldContext.value = _createLdContext()
 
   const options: LDOptions = {
     streaming: false,
@@ -40,12 +100,12 @@ function init(): void {
   }
 
   try {
-    ldClient.value = initialize(rtc.ldClientId, ldContext, options)
+    ldClient.value = initialize(rtc.ldClientId, ldContext.value, options)
 
     ldClient.value.on('initialized', () => {
-      ldFlagSet.value = ldClient.value?.allFlags() || {}
       ldInitialized.value = true
       isInitializing.value = false
+      ldFlagSet.value = ldClient.value?.allFlags() || {}
       console.info('LaunchDarkly: Anonymous initialization complete.')
     })
 
@@ -65,8 +125,19 @@ function init(): void {
 export const useConnectLaunchDarkly = () => {
   // initialize only once
   if (!ldInitialized.value && !isInitializing.value && import.meta.client) {
-    init()
+    _init()
   }
+
+  const { isAuthenticated } = useConnectAuth()
+  const accountStore = useConnectAccountStore()
+
+  watch(
+    [isAuthenticated, () => accountStore.currentAccount],
+    () => {
+      _updateLdContext()
+    },
+    { immediate: true }
+  )
 
   /**
    * Returns a flag's value. Can operate in two modes.
@@ -83,14 +154,19 @@ export const useConnectLaunchDarkly = () => {
   ): Promise<T>
   function getFeatureFlag<T>(
     name: string,
-    defaultValue?: T,
+    defaultValue: T,
     mode?: 'reactive'
   ): Readonly<Ref<T>>
   function getFeatureFlag<T>(
     name: string,
-    defaultValue: T,
+    defaultValue?: T,
+    mode?: 'reactive'
+  ): Readonly<Ref<T | undefined>>
+  function getFeatureFlag<T>(
+    name: string,
+    defaultValue?: T,
     mode: 'reactive' | 'await' = 'reactive'
-  ): Readonly<Ref<T>> | Promise<T> {
+  ): Readonly<Ref<T | undefined>> | Promise<T | undefined> {
     if (mode === 'await') {
       if (!ldClient.value) {
         return Promise.resolve(defaultValue)
@@ -103,9 +179,8 @@ export const useConnectLaunchDarkly = () => {
         })
     }
 
-    // reactive mode
     return readonly(computed(() => {
-      if (!ldClient.value || !ldInitialized.value) {
+      if (!ldClient.value || !ldInitialized.value || !ldFlagSet.value) {
         return defaultValue
       }
       return ldClient.value.variation(name, defaultValue)
@@ -141,7 +216,7 @@ export const useConnectLaunchDarkly = () => {
 
     // reactive mode
     return readonly(computed(() => {
-      if (!ldInitialized.value) {
+      if (!ldInitialized.value || !ldFlagSet.value) {
         return defaultValue
       }
       return ldFlagSet.value[name] ?? defaultValue
