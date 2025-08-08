@@ -20,7 +20,7 @@ test.describe('Connect Button Control (stacked)', () => {
   })
   test('Error text works as expected', async ({ page }) => {
     await page.goto('./examples/components/ConnectButtonControl/stacked')
-    await page.waitForURL('*/**/examples/components/ConnectButtonControl/Stacked')
+    await page.waitForURL('*/**/examples/components/ConnectButtonControl/stacked')
     await expect(page.getByRole('heading', { name: 'Connect Button Control (stacked example)' })).toBeVisible()
     const buttonControl = page.getByTestId('connect-button-control')
     const leftButtons = buttonControl.getByTestId('left-buttons')
