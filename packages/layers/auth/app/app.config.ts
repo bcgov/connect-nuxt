@@ -4,6 +4,9 @@ export default defineAppConfig({
       redirect: '',
       idps: ['bcsc', 'bceid', 'idir']
     },
+    logout: {
+      redirect: ''
+    },
     header: {
       loginMenu: true,
       createAccount: true,
