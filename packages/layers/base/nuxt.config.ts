@@ -114,7 +114,8 @@ export default defineNuxtConfig({
         'mdi:menu',
         'mdi:file-document-outline',
         'mdi:home',
-        'mdi:web'
+        'mdi:web',
+        'mdi:alert'
       ]
     }
   },
