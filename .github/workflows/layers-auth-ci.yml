@@ -72,6 +72,8 @@ jobs:
     - name: Set basic env
       run: |
         cp .env.example .env
+        sed -i 's/^PLAYWRIGHT_TEST_BCSC_USERNAME=.*/PLAYWRIGHT_TEST_BCSC_USERNAME=${{ secrets.PLAYWRIGHT_2036_USERNAME }}/' .env
+        sed -i 's/^PLAYWRIGHT_TEST_BCSC_PASSWORD=.*/PLAYWRIGHT_TEST_BCSC_PASSWORD=${{ secrets.PLAYWRIGHT_2036_PASSWORD }}/' .env
     - name: Run Playwright tests
       run: HOME=/root pnpm test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
     - name: Upload blob report to GitHub Actions Artifacts

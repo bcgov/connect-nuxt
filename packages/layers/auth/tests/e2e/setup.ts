@@ -39,21 +39,27 @@ async function globalSetup() {
   // complete login steps
   await page.goto(baseUrl)
 
-  // const username = process.env.PLAYWRIGHT_TEST_BCSC_USERNAME!
-  // const password = process.env.PLAYWRIGHT_TEST_BCSC_PASSWORD!
+  const username = process.env.PLAYWRIGHT_TEST_BCSC_USERNAME!
+  const password = process.env.PLAYWRIGHT_TEST_BCSC_PASSWORD!
 
-  // await page.getByRole('button', { name: 'Select log in method' }).click()
-  // await page.getByRole('menuitem', { name: 'BC Services Card' }).click()
-  // await page.getByLabel('Log in with Test with').click()
-  // await page.getByLabel('Email or username').fill(username)
-  // await page.getByLabel('Password').fill(password)
-  // await page.getByRole('button', { name: 'Continue' }).click()
+  await page.getByRole('button', { name: 'Select log in method' }).click()
+  await page.getByRole('menuitem', { name: 'BC Services Card' }).click()
+  await page.getByLabel('Log in with Test with').click()
+  await page.getByLabel('Email or username').fill(username)
+  await page.getByLabel('Password').fill(password)
+  await page.getByRole('button', { name: 'Continue' }).click()
+  // necessary after sign in change
+  const agreeToTerms = page.getByText('I agree to the BC Login')
+  if (agreeToTerms) {
+    await agreeToTerms.click()
+    await page.getByRole('button', { name: 'Continue' }).click()
+  }
 
-  // // should be redirected back to baseUrl after successful login
-  // await page.waitForURL(baseUrl + '**')
+  // should be redirected back to baseUrl after successful login
+  await page.waitForURL(baseUrl + '**')
 
-  // // save auth state and close browser
-  // await page.context().storageState({ path: 'tests/e2e/.auth/bcsc-user.json' })
+  // save auth state and close browser
+  await page.context().storageState({ path: 'tests/e2e/.auth/bcsc-user.json' })
   await browser.close()
   console.info('Test setup completed.')
 }
