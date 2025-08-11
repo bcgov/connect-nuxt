@@ -92,9 +92,9 @@ While mainly an internal composable. This can be used to create a custom authent
 
 ### Middleware
 
-**connect-auth:** Protect your pages from unauthenticated users with the `connect-auth` middleware.
-**setup-accounts (global):** Accounts will be fetched and the store updated if authenticated.
-**keycloak-params (global):** Keycloak adds url params which are removed.
+- **connect-auth:** Protect your pages from unauthenticated users with the `connect-auth` middleware.
+- **setup-accounts (global):** Accounts will be fetched and the store updated if authenticated.
+- **keycloak-params (global):** Keycloak adds url params which are removed.
 
 #### connect-auth
 
