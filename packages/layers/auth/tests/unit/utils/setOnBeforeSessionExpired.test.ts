@@ -19,7 +19,7 @@ describe('setOnBeforeSessionExpired', () => {
     // @ts-expect-error - onBeforeSessionExpired does not exist on {}
     expect(mockRoute.meta.onBeforeSessionExpired).toBeInstanceOf(Function)
     // @ts-expect-error - onBeforeSessionExpired does not exist on {}
-    const result = (mockRoute.meta.onBeforeSessionExpired as any)()
+    const result = (mockRoute.meta.onBeforeSessionExpired)()
     expect(result).toBeInstanceOf(Promise)
 
     await result
