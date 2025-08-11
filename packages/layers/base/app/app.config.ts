@@ -10,6 +10,23 @@ export default defineAppConfig({
     }
   },
   ui: {
+    alert: {
+      slots: {
+        root: 'rounded'
+      },
+      compoundVariants: [
+        {
+          color: 'warning',
+          variant: 'subtle',
+          class: {
+            root: 'text-highlighted bg-yellow-400/25 ring-2 ring-yellow-400',
+            icon: 'text-warning',
+            title: 'font-bold text-nuetral-highlighted',
+            description: 'text-nuetral-highlighted'
+          }
+        }
+      ]
+    },
     breadcrumb: {
       slots: {
         separatorIcon: 'text-secondary'
