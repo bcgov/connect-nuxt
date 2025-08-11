@@ -113,9 +113,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
       const isAllowedPath = ['return-cc-payment', 'signout'].includes(endPath)
       if (!isAllowedPath) {
         // URL not allowed so redirect
-        const redirectUrl = `${rtc.authWebURL}/account-freeze`
+        const redirectUrl = `${rtc.authWebUrl}account-freeze`
         // TODO: should probably change this to check 'appName' when auth starts using the core layer
-        const external = rtc.authWebURL !== rtc.baseUrl
+        const external = rtc.authWebUrl !== rtc.baseUrl
         await navigateTo(redirectUrl, { external })
       }
     } else if (currentAccount.value?.accountStatus === AccountStatus.PENDING_STAFF_REVIEW) {
@@ -129,9 +129,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         // const accountNameEncoded = encodeURIComponent(btoa(currentAccount.value?.id))
         // Temporary: remove spaces and it shows something legible at least
         const accountNameEncoded = currentAccount.value?.label?.replaceAll(' ', '')
-        const redirectUrl = `${rtc.authWebURL}/pendingapproval/${accountNameEncoded}/true`
+        const redirectUrl = `${rtc.authWebUrl}pendingapproval/${accountNameEncoded}/true`
         // TODO: should probably change this to check 'appName' when auth starts using the core layer
-        const external = rtc.authWebURL !== rtc.baseUrl
+        const external = rtc.authWebUrl !== rtc.baseUrl
         await navigateTo(redirectUrl, { external })
       }
     }
