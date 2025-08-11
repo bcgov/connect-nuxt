@@ -32,7 +32,9 @@ mockNuxtImport('useNuxtApp', () => () => ({
 let mockSiteminderUrl = 'https://siteminder.example.com/logout'
 mockNuxtImport('useRuntimeConfig', () => () => ({
   public: {
-    siteminderLogoutUrl: mockSiteminderUrl
+    get siteminderLogoutUrl() {
+      return mockSiteminderUrl
+    }
   }
 }))
 
@@ -85,14 +87,13 @@ describe('useConnectAuth', () => {
       })
     })
 
-    it.skip('should call $connectAuth.logout with default URL if no siteminder URL', () => {
+    it('should call $connectAuth.logout with default URL if no siteminder URL', () => {
       mockSiteminderUrl = ''
       composable.logout()
       expect(mockResetPiniaStores).toHaveBeenCalled()
       expect(mockConnectAuth.logout).toHaveBeenCalledWith({
         redirectUri: expect.stringContaining('http://localhost:3000/test')
       })
-      // TODO: unset siteminder url here
       expect(mockConnectAuth.logout).toHaveBeenCalledWith({
         redirectUri: expect.not.stringContaining('siteminder.example.com')
       })
@@ -126,10 +127,14 @@ describe('useConnectAuth', () => {
   })
 
   describe('computed properties', () => {
-    // TODO: why cant mockAuthenticated be changed
-    it.skip('isAuthenticated should be true when $connectAuth.authenticated is true', async () => {
+    it('isAuthenticated should be true when $connectAuth.authenticated is true', () => {
+      mockConnectAuth.authenticated = false
+      let composable = useConnectAuth()
       expect(composable.isAuthenticated.value).toBe(false)
+
       mockConnectAuth.authenticated = true
+      composable = useConnectAuth()
+
       expect(composable.isAuthenticated.value).toBe(true)
     })
 
