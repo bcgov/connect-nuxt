@@ -1,8 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { ref, nextTick } from 'vue'
-
-// The composable under test
 import { useConnectHeaderOptions } from '../../../app/composables/useConnectHeaderOptions'
 
 const mockLogin = vi.fn()
@@ -13,7 +11,6 @@ const mockAuthUser = ref({
 })
 const mockIsAuthenticated = ref(true)
 
-// Mocks for useConnectAuth
 mockNuxtImport('useConnectAuth', () => () => ({
   login: mockLogin,
   logout: mockLogout,
@@ -21,7 +18,6 @@ mockNuxtImport('useConnectAuth', () => () => ({
   authUser: mockAuthUser
 }))
 
-// Mock for useRuntimeConfig
 mockNuxtImport('useRuntimeConfig', () => () => ({
   public: {
     authWebUrl: 'https://auth.example.com/',
@@ -29,7 +25,6 @@ mockNuxtImport('useRuntimeConfig', () => () => ({
   }
 }))
 
-// Mock for useConnectAccountStore
 const mockCurrentAccount = ref({
   id: 'account1',
   label: 'Account 1',
@@ -52,10 +47,8 @@ mockNuxtImport('useConnectAccountStore', () => () => (
   }
 ))
 
-// Mock for useLocalePath
 mockNuxtImport('useLocalePath', () => () => (path: string) => `/en-CA${path}`)
 
-// Mock for useStorage
 const mockWhatsNew = ref({ viewed: false, items: [{}] })
 vi.mock('@vueuse/core', async (importOriginal) => {
   const original = await importOriginal()
@@ -66,17 +59,14 @@ vi.mock('@vueuse/core', async (importOriginal) => {
   }
 })
 
-// Mock for useRoute
 const mockRoute = ref({ meta: {} })
 mockNuxtImport('useRoute', () => () => mockRoute.value)
 
-// Mock for useOverlay
 const mockSlideoverOpen = vi.fn()
 mockNuxtImport('useOverlay', () => () => ({
   create: vi.fn(() => ({ open: mockSlideoverOpen }))
 }))
 
-// Mock for useAppConfig
 mockNuxtImport('useAppConfig', () => () => ({
   connect: {
     login: { idps: ['bcsc', 'bceid', 'idir'], redirect: '/dashboard' },
