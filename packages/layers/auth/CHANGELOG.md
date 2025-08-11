@@ -1,5 +1,13 @@
 # @sbc-connect/nuxt-auth
 
+## 0.1.9
+
+### Patch Changes
+
+- [#40](https://github.com/bcgov/connect-nuxt/pull/40) [`f4b62e1`](https://github.com/bcgov/connect-nuxt/commit/f4b62e19570ed062399ce7d23ce07abcf682285f) Thanks [@deetz99](https://github.com/deetz99)! - Add login page and auth middleware issue: bcgov/entity#29335
+
+- [#38](https://github.com/bcgov/connect-nuxt/pull/38) [`8b8f067`](https://github.com/bcgov/connect-nuxt/commit/8b8f067aba4cda2cd2cd8de5c6f74ccc24eaf822) Thanks [@deetz99](https://github.com/deetz99)! - Add LaunchDarkly composable with user context. issue: bcgov/entity#29335
+
 ## 0.1.8
 
 ### Patch Changes
