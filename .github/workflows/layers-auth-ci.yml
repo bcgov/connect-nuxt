@@ -70,13 +70,10 @@ jobs:
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
     - name: Set basic env
-      env:
-        PLAYWRIGHT_BCSC_USERNAME: ${{ secrets.PLAYWRIGHT_2036_USERNAME }}
-        PLAYWRIGHT_BCSC_PASSWORD: ${{ secrets.PLAYWRIGHT_2036_PASSWORD }}
       run: |
         cp .env.example .env
-        sed -i "s|^PLAYWRIGHT_TEST_BCSC_USERNAME=.*|PLAYWRIGHT_TEST_BCSC_USERNAME=\"$PLAYWRIGHT_BCSC_USERNAME\"|" .env
-        sed -i "s|^PLAYWRIGHT_TEST_BCSC_PASSWORD=.*|PLAYWRIGHT_TEST_BCSC_PASSWORD=\"$PLAYWRIGHT_BCSC_PASSWORD\"|" .env
+        sed -i "s|^PLAYWRIGHT_TEST_BCSC_USERNAME=.*|PLAYWRIGHT_TEST_BCSC_USERNAME=\"${{ secrets.PLAYWRIGHT_2036_USERNAME }}\"|" .env
+        sed -i "s|^PLAYWRIGHT_TEST_BCSC_PASSWORD=.*|PLAYWRIGHT_TEST_BCSC_PASSWORD=\"${{ secrets.PLAYWRIGHT_2036_PASSWORD }}\"|" .env
     - name: Verify .env file TEMPORARY
       run: |
         echo "--- env file start ---"
