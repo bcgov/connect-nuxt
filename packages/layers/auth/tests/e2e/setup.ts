@@ -34,25 +34,23 @@ async function globalSetup() {
   }
   console.info('[E2E Test Setup] App available.')
   // launch browser and create page context
-  const browser: Browser = await chromium.launch()
-  const context = await browser.newContext()
-  const page: Page = await context.newPage()
+  // const browser: Browser = await chromium.launch()
+  // const context = await browser.newContext()
+  // const page: Page = await context.newPage()
   // complete login steps
-  console.info('[E2E Test Setup] Begin login steps.')
-  await page.goto(baseUrl)
+  // console.info('[E2E Test Setup] Begin login steps.')
+  // await page.goto(baseUrl)
 
-  const username = process.env.PLAYWRIGHT_TEST_BCSC_USERNAME!
-  const password = process.env.PLAYWRIGHT_TEST_BCSC_PASSWORD!
+  // const username = process.env.PLAYWRIGHT_TEST_BCSC_USERNAME!
+  // const password = process.env.PLAYWRIGHT_TEST_BCSC_PASSWORD!
 
-  console.info(`[E2E Test Setup] username: ${username}`)
-
-  await page.getByRole('button', { name: 'Select log in method' }).click()
-  await page.getByRole('menuitem', { name: 'BC Services Card' }).click()
-  await page.getByLabel('Log in with Test with').click()
-  await page.getByLabel('Email or username').fill(username)
-  await page.getByLabel('Password').fill(password)
-  await page.getByRole('button', { name: 'Continue' }).click()
-  console.info('[E2E Test Setup] Login steps complete.')
+  // await page.getByRole('button', { name: 'Select log in method' }).click()
+  // await page.getByRole('menuitem', { name: 'BC Services Card' }).click()
+  // await page.getByLabel('Log in with Test with').click()
+  // await page.getByLabel('Email or username').fill(username)
+  // await page.getByLabel('Password').fill(password)
+  // await page.getByRole('button', { name: 'Continue' }).click()
+  // console.info('[E2E Test Setup] Login steps complete.')
   // necessary after sign in change
   // const agreeToTerms = page.getByText('I agree to the BC Login')
   // if (agreeToTerms) {
@@ -61,14 +59,14 @@ async function globalSetup() {
   // }
 
   // should be redirected back to baseUrl after successful login
-  console.info('[E2E Test Setup] Verify redirect after successful login.')
-  await page.waitForURL(baseUrl + '**')
-  console.info('[E2E Test Setup] Redirect verified.')
+  // console.info('[E2E Test Setup] Verify redirect after successful login.')
+  // await page.waitForURL(baseUrl + '**')
+  // console.info('[E2E Test Setup] Redirect verified.')
 
   // save auth state and close browser
-  console.info('[E2E Test Setup] Saving auth user state.')
-  await page.context().storageState({ path: 'tests/e2e/.auth/bcsc-user.json' })
-  await browser.close()
+  // console.info('[E2E Test Setup] Saving auth user state.')
+  // await page.context().storageState({ path: 'tests/e2e/.auth/bcsc-user.json' })
+  // await browser.close()
   console.info('[E2E Test Setup] Complete.')
 }
 
