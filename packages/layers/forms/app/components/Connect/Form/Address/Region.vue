@@ -93,10 +93,9 @@ const inputId = id + '-region'
         v-else
         :id="inputId"
         v-model="model"
-        required
         :invalid="!!error"
         :disabled
-        :label="$t('label.regionOpt')"
+        :label="$t('connect.label.regionOpt')"
         :maxlength
       />
       <div
