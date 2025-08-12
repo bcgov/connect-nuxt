@@ -161,6 +161,46 @@ export default defineAppConfig({
         }
       ]
     },
+    formField: {
+      slots: {
+        root: '',
+        wrapper: 'space-y-1',
+        labelWrapper: 'flex content-center items-center justify-between',
+        label: 'block font-bold text-base text-neutral-highlighted',
+        container: 'mt-1 relative',
+        description: 'text-(--ui-text) text-base text-neutral-toned mb-4 whitespace-normal',
+        error: 'pl-4.5 mt-1 text-(--ui-error) text-xs',
+        hint: 'text-(--ui-text)',
+        help: 'pl-4.5 mt-1 text-(--ui-text) text-xs'
+      },
+      variants: {
+        size: {
+          xs: {
+            root: 'text-xs'
+          },
+          sm: {
+            root: 'text-xs'
+          },
+          md: {
+            root: 'text-sm'
+          },
+          lg: {
+            root: 'text-sm'
+          },
+          xl: {
+            root: 'text-base'
+          }
+        },
+        required: {
+          true: {
+            label: 'after:content-[\'*\'] after:ms-0.5 after:text-(--ui-error)'
+          }
+        }
+      },
+      defaultVariants: {
+        size: 'md'
+      }
+    },
     icons: {
       arrowLeft: 'i-mdi-arrow-left',
       arrowRight: 'i-mdi-arrow-right',
@@ -201,6 +241,42 @@ export default defineAppConfig({
       },
       defaultVariants: {
         size: 'bcGovLg',
+        color: 'primary',
+        variant: 'bcGov'
+      }
+    },
+    select: {
+      slots: {
+        content: 'rounded-sm',
+        group: 'px-0 py-2',
+        trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-data-[state=open]:text-primary group-focus:text-primary',
+        item: 'my-0.75 text-neutral-highlighted before:rounded-none data-highlighted:not-data-disabled:text-primary data-highlighted:not-data-disabled:before:bg-shade data-[state=checked]:text-primary data-[state=checked]:bg-blue-50',
+        itemLeadingIcon: 'group-data-[state=checked]:text-primary group-data-highlighted:not-data-disabled:text-primary text-neutral-highlighted'
+      },
+      variants: {
+        size: {
+          bcGov: {
+            base: 'px-0 py-0 text-base gap-1.5',
+            leading: 'ps-2.5',
+            trailing: 'pe-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5',
+            label: 'p-1.5 text-xs gap-1.5',
+            item: 'py-3 px-4 text-sm gap-3',
+            itemLeadingIcon: 'size-5',
+            itemLeadingAvatarSize: '2xs',
+            itemLeadingChip: 'size-5',
+            itemLeadingChipSize: 'md',
+            itemTrailingIcon: 'size-5'
+          }
+        },
+        variant: {
+          bcGov: 'peer rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input data-[state=open]:shadow-input-focus focus:shadow-input-focus text-neutral-highlighted'
+        }
+      },
+      defaultVariants: {
+        size: 'bcGov' as TVDefaultVariants,
         color: 'primary',
         variant: 'bcGov'
       }
