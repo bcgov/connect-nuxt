@@ -1,9 +1,13 @@
 <script setup lang="ts">
-defineProps({
-  accountName: { default: 'N/A', type: String },
-  username: { default: 'N/A', type: String },
-  theme: { default: 'header', type: String } // header or dropdown
-})
+const {
+  accountName = 'N/A',
+  username = 'N/A',
+  theme = 'header'
+} = defineProps<{
+  accountName?: string
+  username?: string
+  theme?: 'header' | 'dropdown'
+}>()
 </script>
 
 <template>
