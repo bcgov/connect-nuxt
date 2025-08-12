@@ -3,7 +3,7 @@ definePageMeta({
   layout: 'connect-base',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
-    { label: 'Connect Form Address Component (no address complete)' }
+    { label: 'ConnectFormAddress' }
   ]
 })
 
@@ -46,7 +46,7 @@ const state = reactive({
       </ul>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'Connect Form Address (default)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormAddress (default)' }" ui-body="sm:p-6 space-y-4">
       <p>Default requires the id, v-model and schema-prefix.</p>
       <p>`id` will add the id to the wrapper div, and also cascade down to the child components (e.g., `id="mailing-address"` will become `mailing-address-street` on the street input.).</p>
       <p>`id` will also be set as the inputs `data-testid` attribute.</p>
@@ -57,7 +57,7 @@ const state = reactive({
       />
     </ConnectPageSection>
     
-    <ConnectPageSection :heading="{ label: 'Connect Form Address (disabledFields)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormAddress (disabledFields)' }" ui-body="sm:p-6 space-y-4">
       <p>Disable certain inputs.</p>
       <p>:disabled-fields="['country', 'locationDescription', 'streetAdditional']"</p>
       <ConnectFormAddress
@@ -68,7 +68,7 @@ const state = reactive({
       />
     </ConnectPageSection>
     
-    <ConnectPageSection :heading="{ label: 'Connect Form Address (excludedFields)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormAddress (excludedFields)' }" ui-body="sm:p-6 space-y-4">
       <p>Exclude certain inputs from rendering and address complete populating.</p>
       <p>:excluded-fields="['locationDescription', 'streetAdditional']"</p>
       <ConnectFormAddress
@@ -79,7 +79,7 @@ const state = reactive({
       />
     </ConnectPageSection>
     
-    <ConnectPageSection :heading="{ label: 'Connect Form Address (disableAddressComplete)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormAddress (disableAddressComplete)' }" ui-body="sm:p-6 space-y-4">
       <ConnectFormAddress
         id="mailing-address"
         v-model="state"
@@ -88,7 +88,7 @@ const state = reactive({
       />
     </ConnectPageSection>
     
-    <ConnectPageSection :heading="{ label: 'Connect Form Address (streetHelpText - none)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormAddress (streetHelpText - none)' }" ui-body="sm:p-6 space-y-4">
       <ConnectFormAddress
         id="mailing-address"
         v-model="state"
@@ -107,7 +107,7 @@ const state = reactive({
       />
     </ConnectPageSection>
     
-    <ConnectPageSection :heading="{ label: 'Connect Form Address (streetHelpText - no-po)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormAddress (streetHelpText - no-po)' }" ui-body="sm:p-6 space-y-4">
       <ConnectFormAddress
         id="mailing-address"
         v-model="state"
@@ -127,7 +127,7 @@ const state = reactive({
       />
     </ConnectPageSection>
     
-    <ConnectPageSection :heading="{ label: 'Connect Form Address (streetHelpText - allow-po)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormAddress (streetHelpText - allow-po)' }" ui-body="sm:p-6 space-y-4">
       <ConnectFormAddress
         id="mailing-address"
         v-model="state"

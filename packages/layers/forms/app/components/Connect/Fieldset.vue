@@ -9,33 +9,23 @@ const {
   showErrorMsg?: boolean
   orientation?: 'vertical' | 'horizontal'
 }>()
-
-const baseId = useId()
-const legendId = baseId + '-legend'
-const errorId = baseId + '-error'
+// TODO: figure out why text-error doesnt work on the legend text
 </script>
 
 <template>
   <fieldset
     class="flex"
     :class="[orientation === 'horizontal' ? 'flex-col gap-6 sm:flex-row sm:gap-4' : 'flex-col gap-6']"
-    :aria-invalid="!!error"
-    :aria-labelledby="showErrorMsg ? `${legendId} ${errorId}` : `${legendId}`"
   >
-    <div
-      :class="{
-        'w-full sm:w-1/4': orientation === 'horizontal',
-      }"
-    >
+    <div  :class="{ 'w-full sm:w-1/4': orientation === 'horizontal' }">
       <legend
-        class="text-base text-nuetral-highlighted font-bold"
-        :class="{ 'text-error': !!error }"
+        class="text-base text-neutral-highlighted font-bold"
+        :class="{ 'text-red-600': !!error }"
       >
-        <div class="flex gap-4">
-          <span :id="legendId">{{ label }}</span>
+        <div class="flex flex-wrap gap-4">
+          <span>{{ label }}</span>
           <span
             v-if="!!error && showErrorMsg"
-            :id="errorId"
             class="font-normal"
           >
             {{ error.message }}
