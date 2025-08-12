@@ -1,5 +1,5 @@
-import { chromium } from '@playwright/test'
-import type { Browser, Page } from '@playwright/test'
+// import { chromium } from '@playwright/test'
+// import type { Browser, Page } from '@playwright/test'
 import { config as dotenvConfig } from 'dotenv'
 
 // load default env
