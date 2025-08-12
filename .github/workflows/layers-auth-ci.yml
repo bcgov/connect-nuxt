@@ -88,7 +88,7 @@ jobs:
         NUXT_PUBLIC_SITEMINDER_LOGOUT_URL: "https://logontest7.gov.bc.ca/clp-cgi/logoff.cgi"
         PLAYWRIGHT_TEST_BCSC_USERNAME: ${{ secrets.PLAYWRIGHT_2036_USERNAME }}
         PLAYWRIGHT_TEST_BCSC_PASSWORD: ${{ secrets.PLAYWRIGHT_2036_PASSWORD }}
-        CI: true
+        CI: true 
     - name: Upload blob report to GitHub Actions Artifacts
       if: ${{ !cancelled() }}
       uses: actions/upload-artifact@v4
