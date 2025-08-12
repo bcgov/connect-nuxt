@@ -26,7 +26,6 @@ async function isServerReady(url: string, timeout: number = 30000): Promise<bool
 async function globalSetup() {
   console.info('[E2E Test Setup] Test setup starting...')
   const baseUrl = process.env.NUXT_PUBLIC_BASE_URL!
-  console.info(`[E2E Test Setup] base url: ${baseUrl}`)
   // make sure app is available
   console.info('[E2E Test Setup] Checking app availability.')
   const serverReady = await isServerReady(baseUrl)
@@ -44,6 +43,8 @@ async function globalSetup() {
 
   const username = process.env.PLAYWRIGHT_TEST_BCSC_USERNAME!
   const password = process.env.PLAYWRIGHT_TEST_BCSC_PASSWORD!
+
+  console.info(`[E2E Test Setup] username: ${username}`)
 
   await page.getByRole('button', { name: 'Select log in method' }).click()
   await page.getByRole('menuitem', { name: 'BC Services Card' }).click()
