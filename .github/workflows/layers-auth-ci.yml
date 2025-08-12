@@ -70,8 +70,9 @@ jobs:
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: HOME=/root pnpm test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      run: pnpm test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       env:
+        HOME: /root
         NUXT_PUBLIC_BASE_URL: "http://localhost:3000/"
         NUXT_PUBLIC_REGISTRY_HOME_URL: "https://dev.bcregistry.gov.bc.ca/"
         NUXT_PUBLIC_AUTH_WEB_URL: "https://dev.account.bcregistry.gov.bc.ca/"

@@ -26,6 +26,7 @@ async function isServerReady(url: string, timeout: number = 30000): Promise<bool
 async function globalSetup() {
   console.info('[E2E Test Setup] Test setup starting...')
   const baseUrl = process.env.NUXT_PUBLIC_BASE_URL!
+  console.info(`[E2E Test Setup] base url: ${baseUrl}`)
   // make sure app is available
   console.info('[E2E Test Setup] Checking app availability.')
   const serverReady = await isServerReady(baseUrl)
