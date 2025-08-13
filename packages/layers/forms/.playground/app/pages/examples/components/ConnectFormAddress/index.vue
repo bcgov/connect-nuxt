@@ -19,7 +19,7 @@ const defaultAddress = {
 
 const state = ref({ ...defaultAddress })
 
-function resetAddress () {
+function resetAddress() {
   state.value = { ...defaultAddress }
 }
 </script>
@@ -53,7 +53,7 @@ function resetAddress () {
     </ConnectPageSection>
 
     <ConnectPageSection
-      :heading="{ label: 'ConnectFormAddress (default)' }" 
+      :heading="{ label: 'ConnectFormAddress (default)' }"
       ui-body="sm:p-6 space-y-4"
       :actions="[{ label: 'Reset', onClick: () => resetAddress() }]"
     >
@@ -63,14 +63,16 @@ function resetAddress () {
         (e.g., `id="mailing-address"` will become `mailing-address-street` on the street input.).
       </p>
       <p>`id` will also be set as the inputs `data-testid` attribute.</p>
-      <p class="font-bold">Default state includes address complete.</p>
+      <p class="font-bold">
+        Default state includes address complete.
+      </p>
       <ConnectFormAddress
         id="default"
         v-model="state"
         schema-prefix="mailingAddress"
       />
     </ConnectPageSection>
-    
+
     <ConnectPageSection
       :heading="{ label: 'ConnectFormAddress (disableAddressComplete)' }"
       ui-body="sm:p-6 space-y-4"
