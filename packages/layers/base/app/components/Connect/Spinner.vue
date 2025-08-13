@@ -1,18 +1,15 @@
 <script setup lang="ts">
-const props = defineProps({
-  fullscreen: {
-    type: Boolean,
-    default: false
-  },
-  size: {
-    type: Number,
-    default: 75
-  }
-})
+const {
+  fullscreen = false,
+  size = 75
+} = defineProps<{
+  fullscreen?: boolean
+  size?: number
+}>()
 
 const spinnerStyle = computed(() => ({
-  '--spinner-size': `${props.size}px`,
-  '--spinner-margin': `${props.size / -2}px`
+  '--spinner-size': `${size}px`,
+  '--spinner-margin': `${size / -2}px`
 }))
 </script>
 
