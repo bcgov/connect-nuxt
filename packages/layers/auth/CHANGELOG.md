@@ -1,5 +1,21 @@
 # @sbc-connect/nuxt-auth
 
+## 0.1.10
+
+### Patch Changes
+
+- [#43](https://github.com/bcgov/connect-nuxt/pull/43) [`3b521b7`](https://github.com/bcgov/connect-nuxt/commit/3b521b70bf1a0cc5a0feea63a825ef5544347aa8) Thanks [@deetz99](https://github.com/deetz99)! - Form components and new lint rules
+
+  - Forms layer address components
+  - Lint rules and fixes to prevent rule collision and promote best practices
+
+  issue: bcgov/entity#29338
+
+- [#42](https://github.com/bcgov/connect-nuxt/pull/42) [`be3f9d2`](https://github.com/bcgov/connect-nuxt/commit/be3f9d2eb93e8bd6da134e69ff1de4676b8c21f9) Thanks [@deetz99](https://github.com/deetz99)! - Auth Layer - Auth layer tests
+  Fix auth web url var name in account store issue: bcgov/entity#29335
+- Updated dependencies [[`3b521b7`](https://github.com/bcgov/connect-nuxt/commit/3b521b70bf1a0cc5a0feea63a825ef5544347aa8)]:
+  - @sbc-connect/nuxt-base@0.1.9
+
 ## 0.1.9
 
 ### Patch Changes

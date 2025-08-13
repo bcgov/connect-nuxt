@@ -1,5 +1,19 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.10
+
+### Patch Changes
+
+- [#43](https://github.com/bcgov/connect-nuxt/pull/43) [`3b521b7`](https://github.com/bcgov/connect-nuxt/commit/3b521b70bf1a0cc5a0feea63a825ef5544347aa8) Thanks [@deetz99](https://github.com/deetz99)! - Form components and new lint rules
+
+  - Forms layer address components
+  - Lint rules and fixes to prevent rule collision and promote best practices
+
+  issue: bcgov/entity#29338
+
+- Updated dependencies [[`3b521b7`](https://github.com/bcgov/connect-nuxt/commit/3b521b70bf1a0cc5a0feea63a825ef5544347aa8)]:
+  - @sbc-connect/nuxt-base@0.1.9
+
 ## 0.1.9
 
 ### Patch Changes
