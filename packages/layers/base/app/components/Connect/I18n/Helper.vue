@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const props = defineProps({
-  translationPath: { type: String, required: true }
-})
+const props = defineProps<{
+  translationPath: string
+}>()
 
 const attrs = useAttrs()
 const { t } = useI18n()

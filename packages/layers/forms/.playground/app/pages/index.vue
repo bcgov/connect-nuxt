@@ -25,6 +25,14 @@ const componentExamples: DropdownMenuItem[] = [
   {
     label: 'Connect Button Control (stacked buttons)',
     to: localePath('/examples/components/ConnectButtonControl/Stacked')
+  },
+  {
+    label: 'ConnectFormAddress',
+    to: localePath('/examples/components/ConnectFormAddress')
+  },
+  {
+    label: 'ConnectFieldset',
+    to: localePath('/examples/components/ConnectFieldset')
   }
 ]
 </script>

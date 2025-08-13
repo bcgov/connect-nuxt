@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/* eslint-disable vue/define-props-declaration */
 import type { NuxtError } from '#app'
 
 const { t } = useI18n()

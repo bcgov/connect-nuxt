@@ -1,0 +1,112 @@
+<script setup lang="ts">
+const {
+  disabledFields,
+  excludedFields = ['streetName', 'streetNumber', 'unitNumber'],
+  schemaPrefix,
+  streetHelpText = 'none'
+} = defineProps<{
+  id: string
+  schemaPrefix: string
+  disabledFields?: Array<keyof ConnectAddress>
+  excludedFields?: Array<keyof ConnectAddress>
+  disableAddressComplete?: boolean
+  streetHelpText?: 'allow-po' | 'no-po' | 'none'
+}>()
+
+const emit = defineEmits<{
+  shouldValidate: [keys: Array<keyof ConnectAddress>]
+}>()
+
+const state = defineModel<Partial<ConnectAddress>>({ required: true })
+
+async function populateAddressComplete(e: ConnectAddress) {
+  // get disabled/excluded fields
+  const disabledSet = new Set(disabledFields)
+  const excludedSet = new Set(excludedFields)
+
+  // get array of valid keys
+  const validKeys = (Object.keys(e) as Array<keyof ConnectAddress>).filter(key =>
+    !disabledSet.has(key) && !excludedSet.has(key)
+  )
+
+  // set state for each valid key
+  validKeys.forEach((key) => {
+    state.value[key] = e[key]
+  })
+
+  // wait for dom to populate inputs
+  await nextTick()
+
+  // emit valid keys to be validated by parent UForm
+  emit('shouldValidate', validKeys.map(k => schemaPrefix + k) as Array<keyof ConnectAddress>)
+}
+</script>
+
+<template>
+  <div class="space-y-2" :data-testid="id">
+    <ConnectFormAddressCountry
+      v-if="!excludedFields.includes('country')"
+      :id
+      v-model="state.country"
+      :schema-prefix="schemaPrefix"
+      :disabled="disabledFields?.includes('country')"
+      @change="state.region = ''"
+    />
+
+    <ConnectFormAddressStreet
+      v-if="!excludedFields.includes('street')"
+      :id
+      v-model="state.street"
+      :schema-prefix="schemaPrefix"
+      :country="state.country"
+      :disable-address-complete="disableAddressComplete"
+      :disabled="disabledFields?.includes('street')"
+      :help-text="streetHelpText"
+      @address-complete="populateAddressComplete"
+    />
+
+    <ConnectFormAddressStreetAdditional
+      v-if="!excludedFields.includes('streetAdditional')"
+      :id
+      v-model="state.streetAdditional"
+      :schema-prefix="schemaPrefix"
+      :disabled="disabledFields?.includes('streetAdditional')"
+    />
+
+    <div class="flex flex-col gap-2 sm:gap-4 sm:flex-row">
+      <ConnectFormAddressCity
+        v-if="!excludedFields.includes('city')"
+        :id
+        v-model="state.city"
+        :schema-prefix="schemaPrefix"
+        :disabled="disabledFields?.includes('city')"
+      />
+
+      <ConnectFormAddressRegion
+        v-if="!excludedFields.includes('region')"
+        :id
+        v-model="state.region"
+        :schema-prefix="schemaPrefix"
+        :country="state.country"
+        :disabled="disabledFields?.includes('region')"
+      />
+
+      <ConnectFormAddressPostalCode
+        v-if="!excludedFields.includes('postalCode')"
+        :id
+        v-model="state.postalCode"
+        :schema-prefix="schemaPrefix"
+        :country="state.country"
+        :disabled="disabledFields?.includes('postalCode')"
+      />
+    </div>
+
+    <ConnectFormAddressDeliveryInstructions
+      v-if="!excludedFields.includes('locationDescription')"
+      :id
+      v-model="state.locationDescription"
+      :schema-prefix="schemaPrefix"
+      :disabled="disabledFields?.includes('locationDescription')"
+    />
+  </div>
+</template>

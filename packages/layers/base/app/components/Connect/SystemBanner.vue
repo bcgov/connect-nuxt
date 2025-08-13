@@ -2,10 +2,13 @@
 const ld = useConnectLaunchDarkly()
 const { $sanitize } = useNuxtApp()
 
-defineProps({
-  dismissible: { type: Boolean, default: false },
-  icon: { type: String, default: 'i-mdi-information' }
-})
+const {
+  dismissible = false,
+  icon = 'i-mdi-information'
+} = defineProps<{
+  dismissible?: boolean
+  icon?: string
+}>()
 
 const close = ref(false)
 const message = ref('')

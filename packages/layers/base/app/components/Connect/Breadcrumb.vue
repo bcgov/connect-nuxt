@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const props = defineProps({ accountId: { type: String, required: false } })
+const props = defineProps<{
+  accountId?: string
+}>()
 
 const { t } = useI18n()
 
