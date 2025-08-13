@@ -41,7 +41,10 @@ function resolveBackHref() {
     data-testid="connect-breadcrumb-wrapper"
     class="bg-blue-350"
   >
-    <nav :aria-label="$t('connect.breadcrumb.arialabel')" class="app-inner-container flex items-center p-2 sm:px-4 py-2 gap-3">
+    <nav
+      :aria-label="$t('connect.breadcrumb.arialabel')"
+      class="app-inner-container flex items-center p-2 sm:px-4 py-2 gap-3"
+    >
       <UButton
         class="size-[28px] rounded-full px-1 bg-secondary hover:bg-secondary/75"
         :disabled="breadcrumbs.length < 2"
@@ -60,6 +63,6 @@ function resolveBackHref() {
         :items="breadcrumbs"
         separator-icon="i-mdi-chevron-right"
       />
-      </nav>
+    </nav>
   </div>
 </template>

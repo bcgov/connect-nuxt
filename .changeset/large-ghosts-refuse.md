@@ -4,4 +4,4 @@
 "@sbc-connect/nuxt-base": patch
 ---
 
-Add a11y check, fix base a11y, add tests for forms'
+Add a11y check, fix base a11y, add tests for forms' bcgov/entity#29335
