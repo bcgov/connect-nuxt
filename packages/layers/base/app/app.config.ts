@@ -276,7 +276,7 @@ export default defineAppConfig({
         }
       },
       defaultVariants: {
-        size: 'bcGov' as TVDefaultVariants,
+        size: 'bcGov',
         color: 'primary',
         variant: 'bcGov'
       }
