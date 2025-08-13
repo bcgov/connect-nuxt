@@ -1,5 +1,11 @@
 # @sbc-connect/playwright-config
 
+## 0.0.7
+
+### Patch Changes
+
+- [#45](https://github.com/bcgov/connect-nuxt/pull/45) [`8eb83d3`](https://github.com/bcgov/connect-nuxt/commit/8eb83d3e4d0af392f3e7ca8661020e6ae3f4cc7d) Thanks [@deetz99](https://github.com/deetz99)! - Add a11y check, fix base a11y, add tests for forms - bcgov/entity#29335
+
 ## 0.0.6
 
 ### Patch Changes
