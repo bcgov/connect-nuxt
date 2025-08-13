@@ -1,4 +1,8 @@
 <script setup lang="ts">
+useHead({
+  title: 'ConnectFormAddress - Forms Layer Examples'
+})
+
 definePageMeta({
   layout: 'connect-base',
   breadcrumbs: [
