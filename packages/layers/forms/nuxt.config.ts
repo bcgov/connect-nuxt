@@ -20,6 +20,17 @@ export default defineNuxtConfig({
     '#forms': resolve('./')
   },
 
+  app: {
+    head: {
+      link: [
+        { rel: 'stylesheet', href: '/css/addresscomplete-2.50.min.css' }
+      ],
+      script: [
+        { src: '/js/addresscomplete-2.50.min.js', type: 'text/javascript', defer: true }
+      ]
+    }
+  },
+
   i18n: {
     locales: [
       {
@@ -37,5 +48,11 @@ export default defineNuxtConfig({
         file: 'fr-CA.ts'
       }
     ]
+  },
+
+  runtimeConfig: {
+    public: {
+      addressCompleteKey: ''
+    }
   }
 })

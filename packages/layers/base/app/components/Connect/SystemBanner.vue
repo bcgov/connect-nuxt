@@ -18,7 +18,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-brand-inverted">
+  <div id="connect-system-banner" class="bg-brand-inverted">
     <UAlert
       v-show="!!message && !close"
       class="py-0"
