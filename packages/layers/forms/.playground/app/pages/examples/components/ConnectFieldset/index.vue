@@ -33,7 +33,7 @@ definePageMeta({
         </div>
       </ConnectFieldset>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'ConnectFieldset (with error)' }" ui-body="sm:p-6 space-y-4">
       <ConnectFieldset label="Fieldset Label" :error="{ name: 'some-formfield', message: 'Error' }">
         <div class="border border-black p-10">
@@ -41,15 +41,19 @@ definePageMeta({
         </div>
       </ConnectFieldset>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'ConnectFieldset (display error message)' }" ui-body="sm:p-6 space-y-4">
-      <ConnectFieldset label="Fieldset Label" :error="{ name: 'some-formfield', message: 'Field Required' }" :show-error-msg="true">
+      <ConnectFieldset
+        label="Fieldset Label"
+        :error="{ name: 'some-formfield', message: 'Field Required' }"
+        :show-error-msg="true"
+      >
         <div class="border border-black p-10">
           Slot Content
         </div>
       </ConnectFieldset>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'ConnectFieldset (horizontal)' }" ui-body="sm:p-6 space-y-4">
       <p>When horizontal, the label takes up 1/4 of the space.</p>
       <ConnectFieldset label="Fieldset Label" orientation="horizontal">
@@ -58,9 +62,14 @@ definePageMeta({
         </div>
       </ConnectFieldset>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'ConnectFieldset (horizontal and error)' }" ui-body="sm:p-6 space-y-4">
-      <ConnectFieldset label="Fieldset Label" :error="{ name: 'some-formfield', message: 'Field Required' }" :show-error-msg="true" orientation="horizontal">
+      <ConnectFieldset
+        label="Fieldset Label"
+        :error="{ name: 'some-formfield', message: 'Field Required' }"
+        :show-error-msg="true"
+        orientation="horizontal"
+      >
         <div class="border border-black p-10">
           Slot Content
         </div>

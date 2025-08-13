@@ -21,8 +21,8 @@ const model = defineModel<string>({ required: true })
     <template #default="{ error }">
       <ConnectTextarea
         :id="inputId"
-        :data-testid="inputId"
         v-model="model"
+        :data-testid="inputId"
         :required
         :invalid="!!error"
         :label

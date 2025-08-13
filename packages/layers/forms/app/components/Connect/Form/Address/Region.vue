@@ -45,8 +45,8 @@ const inputId = id + '-region'
       <USelect
         v-if="country === 'US' || country === 'CA'"
         :id="inputId"
-        :data-testid="inputId"
         v-model="model"
+        :data-testid="inputId"
         :items="regions"
         :aria-label="country === 'CA' ? $t('connect.label.province') : $t('connect.label.state')"
         value-key="code"

@@ -37,9 +37,9 @@ const options = [
   >
     <template #default="{ error }">
       <USelect
+        :id="inputId"
         v-model="model"
         :data-testid="inputId"
-        :id="inputId"
         :items="options"
         value-key="alpha_2"
         label-key="name"
