@@ -14,6 +14,7 @@ definePageMeta({
       <h1>
         ConnectFieldset
       </h1>
+      <p>Use the fieldset component to group related form inputs (e.g., Addresses).</p>
     </div>
 
     <ConnectPageSection :heading="{ label: 'Props' }" ui-body="sm:p-6 space-y-4">
