@@ -77,7 +77,7 @@ jobs:
         CI: true
         NUXT_PUBLIC_BASE_URL: "http://localhost:3000/"
         NUXT_PUBLIC_REGISTRY_HOME_URL: "https://dev.bcregistry.gov.bc.ca/"
-        NUXT_PUBLIC_ADDRESS_COMPLETE_KEY: "${{ secrets.ADDRESS_COMPLETE_KEY }}"
+        NUXT_PUBLIC_ADDRESS_COMPLETE_KEY: "123"
     - name: Upload blob report to GitHub Actions Artifacts
       if: ${{ !cancelled() }}
       uses: actions/upload-artifact@v4
