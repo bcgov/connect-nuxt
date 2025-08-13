@@ -42,6 +42,7 @@ jobs:
 
   e2e-tests:
     runs-on: ubuntu-latest
+    environment: e2e-tests
     strategy:
       fail-fast: false
       matrix:
@@ -69,11 +70,14 @@ jobs:
       run: pnpm install
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
-    - name: Set basic env
-      run: |
-        cp .env.example .env
     - name: Run Playwright tests
-      run: HOME=/root pnpm test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      run: pnpm test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      env:
+        HOME: "/root"
+        CI: true
+        NUXT_PUBLIC_BASE_URL: "http://localhost:3000/"
+        NUXT_PUBLIC_REGISTRY_HOME_URL: "https://dev.bcregistry.gov.bc.ca/"
+        NUXT_PUBLIC_ADDRESS_COMPLETE_KEY: "${{ secrets.ADDRESS_COMPLETE_KEY }}"
     - name: Upload blob report to GitHub Actions Artifacts
       if: ${{ !cancelled() }}
       uses: actions/upload-artifact@v4
