@@ -9,9 +9,9 @@ const model = defineModel<string>({ default: '' })
 
 <template>
   <ConnectFormInput
+    v-model="model"
     :data-testid="`${parentId}-field-city`"
     :input-id="`${parentId}-input-city`"
-    v-model="model"
     :name="schemaPrefix + '.city'"
     required
     :label="$t('connect.label.city')"

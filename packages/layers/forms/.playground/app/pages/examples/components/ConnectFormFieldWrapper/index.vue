@@ -16,11 +16,11 @@ definePageMeta({
       </h1>
       <p>Use the wrapper component to wrap UFormField components.</p>
       <p>
-        <span class="font-bold text-black">Important:</span>This component is meant to wrap single inputs only, 
+        <span class="font-bold text-black">Important: </span>This component is meant to wrap single inputs only,
         if grouping related inputs (e.g., Addresses), please use the ConnectFormFieldWrapper component.
       </p>
       <p>
-        <span class="font-bold text-black">Important:</span>This component is purely presentational/structural
+        <span class="font-bold text-black">Important: </span>This component is purely presentational/structural
         please provide meaningful labels to the child elements.
       </p>
     </div>
@@ -50,7 +50,10 @@ definePageMeta({
       </ConnectFormFieldWrapper>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (display error message)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection
+      :heading="{ label: 'ConnectFormFieldWrapper (display error message)' }"
+      ui-body="sm:p-6 space-y-4"
+    >
       <ConnectFormFieldWrapper
         label="Wrapper Label"
         :error="{ name: 'some-formfield', message: 'Field Required' }"
@@ -71,7 +74,10 @@ definePageMeta({
       </ConnectFormFieldWrapper>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (horizontal and error)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection
+      :heading="{ label: 'ConnectFormFieldWrapper (horizontal and error)' }"
+      ui-body="sm:p-6 space-y-4"
+    >
       <ConnectFormFieldWrapper
         label="Wrapper Label"
         :error="{ name: 'some-formfield', message: 'Field Required' }"

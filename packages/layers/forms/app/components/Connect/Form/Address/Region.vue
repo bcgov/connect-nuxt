@@ -41,8 +41,8 @@ const displayedRegionName = computed(() => {
     <template #default="{ error }">
       <USelect
         v-if="country === 'US' || country === 'CA'"
-        v-model="model"
         :id="`${parentId}-input-region`"
+        v-model="model"
         :data-testid="`${parentId}-input-region`"
         :items="regions"
         :aria-label="country === 'CA' ? $t('connect.label.province') : $t('connect.label.state')"
@@ -92,8 +92,8 @@ const displayedRegionName = computed(() => {
       <ConnectInput
         v-else
         :id="`${parentId}-input-region`"
-        :data-testid="`${parentId}-input-region`"
         v-model="model"
+        :data-testid="`${parentId}-input-region`"
         :disabled
         :label="$t('connect.label.regionOpt')"
         :maxlength

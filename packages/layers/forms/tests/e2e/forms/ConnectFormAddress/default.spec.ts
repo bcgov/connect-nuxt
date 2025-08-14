@@ -27,11 +27,11 @@ test.describe('ConnectFormAddress', () => {
     const cityField = container.getByTestId('delivery-address-field-city')
     const regionField = container.getByTestId('delivery-address-field-region')
     const postalCodeField = container.getByTestId('delivery-address-field-postalCode')
-    
+
     const streetError = streetField.locator('[id$="-error"]')
     await expect(streetError).toBeVisible()
     await expect(streetError).toContainText('This field is required')
-    
+
     const cityError = cityField.locator('[id$="-error"]')
     await expect(cityError).toBeVisible()
     await expect(cityError).toContainText('This field is required')
@@ -43,7 +43,7 @@ test.describe('ConnectFormAddress', () => {
     const postalCodeError = postalCodeField.locator('[id$="-error"]')
     await expect(postalCodeError).toBeVisible()
     await expect(postalCodeError).toContainText('This field is required')
-    
+
     await expect(page.locator('#form-title')).toHaveClass(/text-red-600/)
     await expect(page.locator('form')).toHaveClass(/border-error/)
     await expect(page.locator('#delivery-address-input-street')).toBeFocused()
