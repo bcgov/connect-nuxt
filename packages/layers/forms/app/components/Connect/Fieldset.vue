@@ -21,7 +21,7 @@ const {
       class="text-base text-neutral-highlighted font-bold pb-6"
       :class="[
         { 'text-red-600': !!error },
-        { 'w-full sm:w-1/4': orientation === 'horizontal' },
+        { 'w-full sm:w-1/4 pb-0': orientation === 'horizontal' },
       ]"
     >
       <div class="flex flex-wrap gap-4">

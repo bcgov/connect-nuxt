@@ -60,6 +60,7 @@ const formErrors = computed<{
     delivery: errors?.find(e => e.name?.startsWith('deliveryAddress'))
   }
 })
+const hasErrors = computed(() => Object.values(formErrors.value).some(v => v !== undefined))
 
 function resetForm() {
   state.deliveryAddress = {
@@ -135,7 +136,7 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
       :schema
       class="bg-white p-6 shadow max-w-full sm:max-w-2/3 mx-auto rounded space-y-6"
       :class="{
-        'border-l-3 border-error': Object.values(formErrors).some(v => v !== undefined),
+        'border-l-3 border-error': hasErrors,
       }"
       aria-labelledby="form-title"
       @error="onError"
@@ -145,7 +146,7 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
         id="form-title"
         class="font-bold text-xl text-neutral-highlighted"
         :class="{
-          'text-red-600': Object.values(formErrors).some(v => v !== undefined),
+          'text-red-600': hasErrors,
         }"
       >
         Address Form
