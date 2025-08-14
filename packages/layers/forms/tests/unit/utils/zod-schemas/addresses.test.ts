@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { getRequiredAddressSchema } from '../../../../app/utils'
-import { getNonRequiredAddressSchema } from '../../../../app/utils'
+import { getRequiredAddressSchema, getNonRequiredAddressSchema } from '../../../../app/utils'
 
 describe('zod schemas - address validation', () => {
   describe('getRequiredAddressSchema', () => {
@@ -60,6 +59,18 @@ describe('zod schemas - address validation', () => {
       const regionError = result.error?.issues.find(i => i.path[0] === 'region')
       expect(regionError?.message).toBe('Maximum 2 characters')
     })
+
+    it('should fail if street exceeds max length', () => {
+      const longStreet = 'a'.repeat(51)
+      const invalidAddress = { ...validAddress, street: longStreet }
+
+      const result = schema.safeParse(invalidAddress)
+
+      expect(result.success).toBe(false)
+
+      const streetError = result.error?.issues.find(i => i.path[0] === 'street')
+      expect(streetError?.message).toBe('Maximum 50 characters')
+    })
   })
 
   describe('getNonRequiredAddressSchema', () => {
@@ -98,6 +109,18 @@ describe('zod schemas - address validation', () => {
         postalCode: 'V8V 1A1',
         country: 'CA',
         region: ''
+      }
+      const result = schema.safeParse(partialAddress)
+      expect(result.success).toBe(true)
+    })
+
+    it('should pass if the address is partially filled', () => {
+      const partialAddress = {
+        street: '123 Main St',
+        city: '',
+        region: '',
+        postalCode: '',
+        country: ''
       }
       const result = schema.safeParse(partialAddress)
       expect(result.success).toBe(true)

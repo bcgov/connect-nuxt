@@ -52,8 +52,6 @@ export function getRequiredAddressSchema() {
         path: ['region']
       })
     }
-
-    return z.NEVER
   })
 }
 
@@ -109,7 +107,5 @@ export function getNonRequiredAddressSchema() {
         path: ['region']
       })
     }
-
-    return z.NEVER
   })
 }
