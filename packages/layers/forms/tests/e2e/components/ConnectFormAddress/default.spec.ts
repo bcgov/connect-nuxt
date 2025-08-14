@@ -53,7 +53,7 @@ test.describe('ConnectFormAddress', () => {
 
   // TODO: get secrets working in CI
   test('disableAddressComplete prop prevents lookup', async ({ page }) => {
-    const streetInput = page.getByTestId('disable-address-complete-street')
+    const streetInput = page.getByTestId('disable-address-complete-input-street')
     await streetInput.pressSequentially('123 Main St', { delay: 100 })
     // address options shouldnt be there
     const listbox = page.locator('[role="listbox"]')
@@ -61,33 +61,33 @@ test.describe('ConnectFormAddress', () => {
   })
 
   test('disabledFields prop disables the correct inputs', async ({ page }) => {
-    const container = page.getByTestId('disabled-fields')
+    const container = page.getByTestId('disabled-fields-container')
 
     // should be disabled
-    await expect(container.locator('[data-testid="disabled-fields-country"]')).toBeDisabled()
-    await expect(container.locator('[data-testid="disabled-fields-locationDescription"]')).toBeDisabled()
-    await expect(container.locator('[data-testid="disabled-fields-streetAdditional"]')).toBeDisabled()
+    await expect(container.locator('[data-testid="disabled-fields-input-country"]')).toBeDisabled()
+    await expect(container.locator('[data-testid="disabled-fields-input-locationDescription"]')).toBeDisabled()
+    await expect(container.locator('[data-testid="disabled-fields-input-streetAdditional"]')).toBeDisabled()
 
     // should still be enabled
-    await expect(container.locator('[data-testid="disabled-fields-street"]')).toBeEnabled()
+    await expect(container.locator('[data-testid="disabled-fields-input-street"]')).toBeEnabled()
   })
 
   test('excludedFields prop removes inputs from the DOM', async ({ page }) => {
-    const container = page.getByTestId('excluded-fields')
+    const container = page.getByTestId('excluded-fields-container')
 
     // shouldnt render these
-    await expect(container.locator('[data-testid="excluded-fields-locationDescription"]')).not.toBeVisible()
-    await expect(container.locator('[data-testid="excluded-fields-streetAdditional"]')).not.toBeVisible()
+    await expect(container.locator('[data-testid="excluded-fields-input-locationDescription"]')).not.toBeVisible()
+    await expect(container.locator('[data-testid="excluded-fields-input-streetAdditional"]')).not.toBeVisible()
   })
 
   test('streetHelpText prop shows "no-po" message', async ({ page }) => {
-    const container = page.getByTestId('no-po-box')
+    const container = page.getByTestId('no-po-box-container')
     await expect(container).toBeVisible()
     await expect(container).toContainText('Address cannot be a PO Box.')
   })
 
   test('streetHelpText prop shows "allow-po" message', async ({ page }) => {
-    const container = page.getByTestId('allow-po-box')
+    const container = page.getByTestId('allow-po-box-container')
     await expect(container).toBeVisible()
     await expect(container).toContainText('Street address, PO box, rural route, or general delivery address.')
   })
