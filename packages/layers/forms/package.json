@@ -32,6 +32,7 @@
     "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@sbc-connect/nuxt-base": "workspace:*"
+    "@sbc-connect/nuxt-base": "workspace:*",
+    "zod": "^4.0.17"
   }
 }

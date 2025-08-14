@@ -17,22 +17,23 @@ const {
     class="flex"
     :class="[orientation === 'horizontal' ? 'flex-col gap-6 sm:flex-row sm:gap-4' : 'flex-col gap-6']"
   >
-    <div :class="{ 'w-full sm:w-1/4': orientation === 'horizontal' }">
-      <legend
-        class="text-base text-neutral-highlighted font-bold"
-        :class="{ 'text-red-600': !!error }"
-      >
-        <div class="flex flex-wrap gap-4">
-          <span>{{ label }}</span>
-          <span
-            v-if="!!error && showErrorMsg"
-            class="font-normal"
-          >
-            {{ error.message }}
-          </span>
-        </div>
-      </legend>
-    </div>
+    <legend
+      class="text-base text-neutral-highlighted font-bold pb-6"
+      :class="[
+        { 'text-red-600': !!error },
+        { 'w-full sm:w-1/4': orientation === 'horizontal' },
+      ]"
+    >
+      <div class="flex flex-wrap gap-4">
+        <span>{{ label }}</span>
+        <span
+          v-if="!!error && showErrorMsg"
+          class="font-normal"
+        >
+          {{ error.message }}
+        </span>
+      </div>
+    </legend>
 
     <div class="flex-1">
       <slot />

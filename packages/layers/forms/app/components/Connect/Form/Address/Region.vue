@@ -51,12 +51,15 @@ const inputId = id + '-region'
         :aria-label="country === 'CA' ? $t('connect.label.province') : $t('connect.label.state')"
         value-key="code"
         label-key="name"
-        :aria-required="true"
+        :aria-required="country === 'US' || country === 'CA'"
         :disabled
         class="w-full grow ring-0"
         :ui="{
           base: error
             ? 'shadow-input-error focus:shadow-input-error data-[state=open]:shadow-input-error'
+            : '',
+          trailingIcon: error
+            ? 'text-error group-data-[state=open]:text-error group-focus:text-error'
             : '',
         }"
       >
@@ -70,10 +73,10 @@ const inputId = id + '-region'
                   ? 'top-1/2 -translate-y-1/2'
                   : 'top-1 -translate-y-none text-xs',
                 error
-                  ? 'text-error'
-                  : '',
+                  ? 'text-error group-data-[state=open]:text-error group-focus:text-error'
+                  : 'group-data-[state=open]:text-primary group-focus:text-primary',
                 'absolute left-0 px-2.5 text-sm transition-all',
-                'group-data-[state=open]:text-primary group-focus:text-primary',
+                '',
               ]"
             >
               {{ country === 'CA' ? $t('connect.label.province') : $t('connect.label.state') }}

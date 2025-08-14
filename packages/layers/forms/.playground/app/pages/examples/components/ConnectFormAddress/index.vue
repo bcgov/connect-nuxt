@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'ConnectFormAddress - Forms Layer Examples'
+  title: 'ConnectFormAddress - Components - Forms Layer Examples'
 })
 
 definePageMeta({
@@ -47,12 +47,6 @@ function resetAddress() {
         <li>`excludedFields` - Array keyof ConnectAddress - optional</li>
         <li>`disableAddressComplete` - boolean - optional</li>
         <li>`streetHelpText` - 'allow-po' | 'no-po' | 'none' - default: 'none'</li>
-      </ul>
-    </ConnectPageSection>
-
-    <ConnectPageSection :heading="{ label: 'Emits' }" ui-body="sm:p-6 space-y-4">
-      <ul>
-        <li>`shouldValidate` - keys: Array keyof ConnectAddress - emits the keys that were set by address complete</li>
       </ul>
     </ConnectPageSection>
 
