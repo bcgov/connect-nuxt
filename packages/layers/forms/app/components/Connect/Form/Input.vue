@@ -23,7 +23,6 @@ const model = defineModel<string>({ required: true })
         v-model="model"
         :mask
         :aria-required="required"
-        :invalid="!!error"
         :label
         :autofocus
         :disabled

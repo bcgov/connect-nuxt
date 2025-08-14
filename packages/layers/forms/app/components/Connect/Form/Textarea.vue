@@ -22,7 +22,6 @@ const model = defineModel<string>({ required: true })
         v-model="model"
         :data-testid="inputId"
         :required
-        :invalid="!!error"
         :label
         :autofocus
         :disabled

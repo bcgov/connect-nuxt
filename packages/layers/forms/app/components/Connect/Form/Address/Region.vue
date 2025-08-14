@@ -94,7 +94,6 @@ const displayedRegionName = computed(() => {
         :id="`${parentId}-input-region`"
         :data-testid="`${parentId}-input-region`"
         v-model="model"
-        :invalid="!!error"
         :disabled
         :label="$t('connect.label.regionOpt')"
         :maxlength
