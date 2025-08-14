@@ -19,7 +19,6 @@ const extraAttrsValue = ref('')
         <li>`v-model` - string - required</li>
         <li>`label` - string - required</li>
         <li>`mask` - string - optional</li>
-        <li>`invalid` - boolean - optional</li>
       </ul>
     </ConnectPageSection>
 
@@ -33,13 +32,16 @@ const extraAttrsValue = ref('')
 
     <ConnectPageSection :heading="{ label: 'Invalid State' }" ui-body="p-4 space-y-4">
       <p>
-        The `invalid` prop can be used to show an error state on the input.
+        The `aria-invalid` attribute can be used to show an error state on the input.
+      </p>
+      <p>
+        Note: If using NuxtUI UFormField, aria-invalid will be set on the input by the wrapper component.
       </p>
       <ConnectInput
         id="invalid-input"
         v-model="invalidValue"
         label="Invalid Label"
-        :invalid="true"
+        aria-invalid="true"
       />
     </ConnectPageSection>
 
