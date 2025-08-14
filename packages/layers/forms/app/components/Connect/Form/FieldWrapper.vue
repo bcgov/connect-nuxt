@@ -35,6 +35,8 @@ const {
         </span>
       </div>
     </span>
-    <slot />
+    <div class="flex-1">
+      <slot />
+    </div>
   </div>
 </template>

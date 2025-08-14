@@ -33,6 +33,10 @@ const componentExamples: DropdownMenuItem[] = [
   {
     label: 'ConnectFieldset',
     to: localePath('/examples/components/ConnectFieldset')
+  },
+  {
+    label: 'ConnectFormFieldWrapper',
+    to: localePath('/examples/components/ConnectFormFieldWrapper')
   }
 ]
 
