@@ -47,10 +47,10 @@ async function populateAddressComplete(e: ConnectAddress) {
 </script>
 
 <template>
-  <div class="space-y-2" :data-testid="id">
+  <div class="space-y-2" :data-testid="id + '-container'">
     <ConnectFormAddressCountry
       v-if="!excludedFields.includes('country')"
-      :id
+      :parent-id="id"
       v-model="state.country"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('country')"
@@ -59,7 +59,7 @@ async function populateAddressComplete(e: ConnectAddress) {
 
     <ConnectFormAddressStreet
       v-if="!excludedFields.includes('street')"
-      :id
+      :parent-id="id"
       v-model="state.street"
       :schema-prefix="schemaPrefix"
       :country="state.country"
@@ -71,7 +71,7 @@ async function populateAddressComplete(e: ConnectAddress) {
 
     <ConnectFormAddressStreetAdditional
       v-if="!excludedFields.includes('streetAdditional')"
-      :id
+      :parent-id="id"
       v-model="state.streetAdditional"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('streetAdditional')"
@@ -80,7 +80,7 @@ async function populateAddressComplete(e: ConnectAddress) {
     <div class="flex flex-col gap-2 sm:gap-4 sm:flex-row">
       <ConnectFormAddressCity
         v-if="!excludedFields.includes('city')"
-        :id
+        :parent-id="id"
         v-model="state.city"
         :schema-prefix="schemaPrefix"
         :disabled="disabledFields?.includes('city')"
@@ -88,7 +88,7 @@ async function populateAddressComplete(e: ConnectAddress) {
 
       <ConnectFormAddressRegion
         v-if="!excludedFields.includes('region')"
-        :id
+        :parent-id="id"
         v-model="state.region"
         :schema-prefix="schemaPrefix"
         :country="state.country"
@@ -97,7 +97,7 @@ async function populateAddressComplete(e: ConnectAddress) {
 
       <ConnectFormAddressPostalCode
         v-if="!excludedFields.includes('postalCode')"
-        :id
+        :parent-id="id"
         v-model="state.postalCode"
         :schema-prefix="schemaPrefix"
         :country="state.country"
@@ -107,7 +107,7 @@ async function populateAddressComplete(e: ConnectAddress) {
 
     <ConnectFormAddressDeliveryInstructions
       v-if="!excludedFields.includes('locationDescription')"
-      :id
+      :parent-id="id"
       v-model="state.locationDescription"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('locationDescription')"

@@ -1,15 +1,13 @@
 <script setup lang="ts">
 const {
   maxlength = '1000',
-  country,
-  id
+  country
 } = defineProps<{
-  id: string
+  parentId: string
   country?: string
   schemaPrefix: string
   disabled?: boolean
   maxlength?: string
-  help?: string
 }>()
 
 const model = defineModel<string>({ default: '' })
@@ -32,21 +30,20 @@ const displayedRegionName = computed(() => {
   }
   return ''
 })
-
-const inputId = id + '-region'
 </script>
 
 <template>
   <UFormField
     :name="schemaPrefix + '.region'"
     class="grow flex-1"
+    :data-testid="`${parentId}-field-region`"
   >
     <template #default="{ error }">
       <USelect
         v-if="country === 'US' || country === 'CA'"
-        :id="inputId"
         v-model="model"
-        :data-testid="inputId"
+        :id="`${parentId}-input-region`"
+        :data-testid="`${parentId}-input-region`"
         :items="regions"
         :aria-label="country === 'CA' ? $t('connect.label.province') : $t('connect.label.state')"
         value-key="code"
@@ -94,7 +91,8 @@ const inputId = id + '-region'
       </USelect>
       <ConnectInput
         v-else
-        :id="inputId"
+        :id="`${parentId}-input-region`"
+        :data-testid="`${parentId}-input-region`"
         v-model="model"
         :invalid="!!error"
         :disabled
@@ -102,7 +100,7 @@ const inputId = id + '-region'
         :maxlength
       />
       <div
-        v-if="!help && !error"
+        v-if="!$slots.help && !error"
         class="h-4 mt-1"
       />
     </template>

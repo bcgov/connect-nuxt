@@ -1,12 +1,11 @@
 <script setup lang="ts">
 const {
-  id,
   schemaPrefix,
   helpText = 'none',
   country,
   disableAddressComplete
 } = defineProps<{
-  id: string
+  parentId: string
   country?: string
   schemaPrefix: string
   disableAddressComplete?: boolean
@@ -18,8 +17,6 @@ const model = defineModel<string>({ default: '' })
 const emit = defineEmits<{
   addressComplete: [value: ConnectAddress]
 }>()
-
-const inputId = id + '-street'
 
 const { address: canadaPostAddress, enableAddressComplete } = useCanadaPost()
 
@@ -37,7 +34,8 @@ watch(canadaPostAddress, (newAddress) => {
 <template>
   <ConnectFormInput
     v-model="model"
-    :input-id="inputId"
+    :data-testid="`${parentId}-field-street`"
+    :input-id="`${parentId}-input-street`"
     :name="schemaPrefix + '.street'"
     :help="helpText === 'none'
       ? undefined
@@ -47,7 +45,7 @@ watch(canadaPostAddress, (newAddress) => {
     "
     :label="$t('connect.label.street')"
     required
-    @keypress.once="addressComplete(inputId)"
-    @click="addressComplete(inputId)"
+    @keypress.once="addressComplete(`${parentId}-input-street`)"
+    @click="addressComplete(`${parentId}-input-street`)"
   />
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { iscCountriesListSortedByName as countries } from '#forms/app/utils/isoCountriesList'
+import { isoCountriesListSortedByName as countries } from '#forms/app/utils/isoCountriesList'
 
-const props = defineProps<{
-  id: string
+defineProps<{
+  parentId: string
   schemaPrefix: string
   disabled?: boolean
 }>()
@@ -12,8 +12,6 @@ defineEmits<{
 }>()
 
 const model = defineModel<string>({ default: '' })
-
-const inputId = props.id + '-country'
 
 const displayedCountryName = computed(() => {
   if (model.value) {
@@ -32,14 +30,15 @@ const options = [
 
 <template>
   <UFormField
+    :data-testid="`${parentId}-field-country`"
     :name="schemaPrefix + '.country'"
     class="grow"
   >
     <template #default="{ error }">
       <USelect
-        :id="inputId"
+        :id="`${parentId}-input-country`"
         v-model="model"
-        :data-testid="inputId"
+        :data-testid="`${parentId}-input-country`"
         :items="options"
         value-key="alpha_2"
         label-key="name"
