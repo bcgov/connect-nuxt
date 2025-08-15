@@ -15,7 +15,7 @@ This package provides a library of reusable form components, integrated validati
 - Pre-built components for common inputs like addresses, postal codes, names, emails and phone numbers.
 - Reusable Zod schemas to manage the input validations.
 
-For detailed usage and API documentation, please see the [Forms Layer Docs](../../../docs/packages/layers/forms/intro.md).
+For detailed usage and API documentation, please see the [Forms Layer Docs](../../../docs/packages/layers/forms/overview.md).
 
 ## Usage
 
@@ -38,7 +38,20 @@ defineNuxtConfig({
 ```
 
 ## Environment Variables
-This layer does not require any specific environment variables to be set.
+This project requires certain environment variables to be set to run correctly.
+
+Create a file named .env in the root of the project.
+
+Copy the contents of the .env.example file into your new .env file.
+
+### Local Development
+Copy the contents of the **.env.example** file into your new .env file.
+
+### Production Environments
+> [!IMPORTANT]
+> The values for staging and production environments are managed securely and should not be stored in this file.
+
+To obtain the correct values for a production build or deployment, please contact the Connect Platform Team.
 
 ## Contributing
-We welcome contributions to this package! Please see the main [suspicious link removed] for information on our branching strategy, commit conventions, and pull request process.
+We welcome contributions to this package! Please see the main [Contribution Guidelines](../../../CONTRIBUTING.md) for information on our branching strategy, commit conventions, and pull request process.

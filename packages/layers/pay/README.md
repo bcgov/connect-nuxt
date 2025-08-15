@@ -61,4 +61,4 @@ NUXT_PUBLIC_X_API_KEY="your-dev-api-key"
 To obtain the correct values for a production build or deployment, please contact the Connect Platform Team.
 
 ## Contributing
-We welcome contributions to this package! Please see the main [suspicious link removed] for information on our branching strategy, commit conventions, and pull request process.
+We welcome contributions to this package! Please see the main [Contribution Guidelines](../../../CONTRIBUTING.md) for information on our branching strategy, commit conventions, and pull request process.
