@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.12
+
+### Patch Changes
+
+- [#47](https://github.com/bcgov/connect-nuxt/pull/47) [`9edf5ab`](https://github.com/bcgov/connect-nuxt/commit/9edf5ab6c4c7598f661e8ea713e6a60b390105c1) Thanks [@deetz99](https://github.com/deetz99)! - Add zod and address validations. issue: bcgov/entity#29338
+
+- Updated dependencies [[`9edf5ab`](https://github.com/bcgov/connect-nuxt/commit/9edf5ab6c4c7598f661e8ea713e6a60b390105c1)]:
+  - @sbc-connect/nuxt-base@0.1.11
+
 ## 0.1.11
 
 ### Patch Changes
