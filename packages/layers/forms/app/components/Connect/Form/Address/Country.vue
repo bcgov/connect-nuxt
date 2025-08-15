@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { iscCountriesListSortedByName as countries } from '#forms/app/utils/isoCountriesList'
+import { isoCountriesListSortedByName as countries } from '#forms/app/utils/isoCountriesList'
 
-const props = defineProps<{
-  id: string
+defineProps<{
+  parentId: string
   schemaPrefix: string
   disabled?: boolean
 }>()
@@ -12,8 +12,6 @@ defineEmits<{
 }>()
 
 const model = defineModel<string>({ default: '' })
-
-const inputId = props.id + '-country'
 
 const displayedCountryName = computed(() => {
   if (model.value) {
@@ -32,14 +30,15 @@ const options = [
 
 <template>
   <UFormField
+    :data-testid="`${parentId}-field-country`"
     :name="schemaPrefix + '.country'"
     class="grow"
   >
     <template #default="{ error }">
       <USelect
-        :id="inputId"
+        :id="`${parentId}-input-country`"
         v-model="model"
-        :data-testid="inputId"
+        :data-testid="`${parentId}-input-country`"
         :items="options"
         value-key="alpha_2"
         label-key="name"
@@ -51,6 +50,9 @@ const options = [
         :ui="{
           base: error
             ? 'shadow-input-error focus:shadow-input-error data-[state=open]:shadow-input-error'
+            : '',
+          trailingIcon: error
+            ? 'text-error group-data-[state=open]:text-error group-focus:text-error'
             : '',
           item: 'nth-2:border-b nth-2:border-gray-200',
           itemTrailingIcon: 'hidden',
@@ -66,7 +68,7 @@ const options = [
                   ? 'top-1/2 -translate-y-1/2'
                   : 'top-1 -translate-y-none text-xs',
                 error
-                  ? 'text-red-600'
+                  ? 'text-red-600 group-data-[state=open]:text-red-600 group-focus:text-red-600'
                   : '',
                 'absolute left-0 px-2.5 text-sm transition-all',
                 'group-data-[state=open]:text-primary group-focus:text-primary',

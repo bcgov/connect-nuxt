@@ -14,8 +14,6 @@ definePageMeta({
       <ul>
         <li>`address` - ConnectAddress - required</li>
         <li>`omitCountry` - boolean - optional</li>
-        <li>`mask` - string - optional</li>
-        <li>`invalid` - boolean - optional</li>
       </ul>
     </ConnectPageSection>
 

@@ -13,15 +13,16 @@ const {
 </script>
 
 <template>
-  <fieldset
+  <div
     class="flex"
     :class="[orientation === 'horizontal' ? 'flex-col gap-6 sm:flex-row sm:gap-4' : 'flex-col gap-6']"
   >
-    <legend
-      class="text-base text-neutral-highlighted font-bold pb-6"
+    <span
+      aria-hidden="true"
+      class="text-base text-neutral-highlighted font-bold"
       :class="[
         { 'text-red-600': !!error },
-        { 'w-full sm:w-1/4 pb-0': orientation === 'horizontal' },
+        { 'w-full sm:w-1/4': orientation === 'horizontal' },
       ]"
     >
       <div class="flex flex-wrap gap-4">
@@ -33,10 +34,9 @@ const {
           {{ error.message }}
         </span>
       </div>
-    </legend>
-
+    </span>
     <div class="flex-1">
       <slot />
     </div>
-  </fieldset>
+  </div>
 </template>

@@ -236,7 +236,7 @@ export default defineAppConfig({
           }
         },
         variant: {
-          bcGov: 'ring-0 ring-transparent peer rounded-t-sm rounded-b-none bg-shade shadow-input focus:ring-0 focus:outline-none focus:shadow-input-focus text-neutral-highlighted'
+          bcGov: 'ring-0 ring-transparent peer rounded-t-sm rounded-b-none bg-shade shadow-input focus:ring-0 focus:outline-none focus:shadow-input-focus text-neutral-highlighted aria-invalid:shadow-input-error aria-invalid:focus:shadow-input-error aria-invalid:ring-0'
         }
       },
       defaultVariants: {
@@ -285,7 +285,7 @@ export default defineAppConfig({
       variants: {
         size: {
           bcGovLg: {
-            base: 'px-2.5 pb-1.5 pt-5 text-base gap-1.5',
+            base: 'px-2.5 pb-1.5 pt-5 text-base gap-1.5 resize-none',
             leading: 'ps-2.5',
             trailing: 'pe-2.5',
             leadingIcon: 'size-5',
@@ -294,7 +294,7 @@ export default defineAppConfig({
           }
         },
         variant: {
-          bcGov: 'peer rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input focus:shadow-input-focus text-neutral-highlighted'
+          bcGov: 'peer rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input focus:shadow-input-focus text-neutral-highlighted aria-invalid:shadow-input-error aria-invalid:focus:shadow-input-error aria-invalid:ring-0'
         }
       },
       defaultVariants: {

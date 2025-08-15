@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const props = defineProps<{
-  id: string
+defineProps<{
+  parentId: string
   schemaPrefix: string
   disabled?: boolean
   country?: string
@@ -13,15 +13,14 @@ const model = defineModel({
   type: String,
   default: ''
 })
-
-const inputId = props.id + '-postalCode'
 </script>
 
 <template>
   <ConnectFormInput
     v-model="model"
     :name="schemaPrefix + '.postalCode'"
-    :input-id="inputId"
+    :data-testid="`${parentId}-field-postalCode`"
+    :input-id="`${parentId}-input-postalCode`"
     :disabled
     required
     :label="country === 'US'

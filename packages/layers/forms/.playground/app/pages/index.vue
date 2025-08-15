@@ -33,6 +33,17 @@ const componentExamples: DropdownMenuItem[] = [
   {
     label: 'ConnectFieldset',
     to: localePath('/examples/components/ConnectFieldset')
+  },
+  {
+    label: 'ConnectFormFieldWrapper',
+    to: localePath('/examples/components/ConnectFormFieldWrapper')
+  }
+]
+
+const formExamples: DropdownMenuItem[] = [
+  {
+    label: 'ConnectFormAddress',
+    to: localePath('/examples/forms/ConnectFormAddress')
   }
 ]
 </script>
@@ -58,6 +69,17 @@ const componentExamples: DropdownMenuItem[] = [
       >
         <UButton
           label="Component Examples"
+          icon="i-lucide-menu"
+          color="neutral"
+          variant="outline"
+        />
+      </UDropdownMenu>
+      <UDropdownMenu
+        :items="formExamples"
+        :content="{ align: 'start' }"
+      >
+        <UButton
+          label="Form Examples"
           icon="i-lucide-menu"
           color="neutral"
           variant="outline"

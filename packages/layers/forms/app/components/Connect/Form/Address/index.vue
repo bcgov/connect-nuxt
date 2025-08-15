@@ -1,20 +1,21 @@
 <script setup lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */ // allow any for form ref type
+import type { Form } from '@nuxt/ui'
+
 const {
   disabledFields,
   excludedFields = ['streetName', 'streetNumber', 'unitNumber'],
   schemaPrefix,
-  streetHelpText = 'none'
+  streetHelpText = 'none',
+  formRef
 } = defineProps<{
   id: string
   schemaPrefix: string
+  formRef?: Form<any> | null
   disabledFields?: Array<keyof ConnectAddress>
   excludedFields?: Array<keyof ConnectAddress>
   disableAddressComplete?: boolean
   streetHelpText?: 'allow-po' | 'no-po' | 'none'
-}>()
-
-const emit = defineEmits<{
-  shouldValidate: [keys: Array<keyof ConnectAddress>]
 }>()
 
 const state = defineModel<Partial<ConnectAddress>>({ required: true })
@@ -37,17 +38,20 @@ async function populateAddressComplete(e: ConnectAddress) {
   // wait for dom to populate inputs
   await nextTick()
 
-  // emit valid keys to be validated by parent UForm
-  emit('shouldValidate', validKeys.map(k => schemaPrefix + k) as Array<keyof ConnectAddress>)
+  // validate populated fields if formRef provided
+  if (formRef) {
+    const fields = validKeys.map(k => `${schemaPrefix}.${k}`)
+    await formRef.validate({ name: fields, silent: true })
+  }
 }
 </script>
 
 <template>
-  <div class="space-y-2" :data-testid="id">
+  <div class="space-y-2" :data-testid="id + '-container'">
     <ConnectFormAddressCountry
       v-if="!excludedFields.includes('country')"
-      :id
       v-model="state.country"
+      :parent-id="id"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('country')"
       @change="state.region = ''"
@@ -55,8 +59,8 @@ async function populateAddressComplete(e: ConnectAddress) {
 
     <ConnectFormAddressStreet
       v-if="!excludedFields.includes('street')"
-      :id
       v-model="state.street"
+      :parent-id="id"
       :schema-prefix="schemaPrefix"
       :country="state.country"
       :disable-address-complete="disableAddressComplete"
@@ -67,8 +71,8 @@ async function populateAddressComplete(e: ConnectAddress) {
 
     <ConnectFormAddressStreetAdditional
       v-if="!excludedFields.includes('streetAdditional')"
-      :id
       v-model="state.streetAdditional"
+      :parent-id="id"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('streetAdditional')"
     />
@@ -76,16 +80,16 @@ async function populateAddressComplete(e: ConnectAddress) {
     <div class="flex flex-col gap-2 sm:gap-4 sm:flex-row">
       <ConnectFormAddressCity
         v-if="!excludedFields.includes('city')"
-        :id
         v-model="state.city"
+        :parent-id="id"
         :schema-prefix="schemaPrefix"
         :disabled="disabledFields?.includes('city')"
       />
 
       <ConnectFormAddressRegion
         v-if="!excludedFields.includes('region')"
-        :id
         v-model="state.region"
+        :parent-id="id"
         :schema-prefix="schemaPrefix"
         :country="state.country"
         :disabled="disabledFields?.includes('region')"
@@ -93,8 +97,8 @@ async function populateAddressComplete(e: ConnectAddress) {
 
       <ConnectFormAddressPostalCode
         v-if="!excludedFields.includes('postalCode')"
-        :id
         v-model="state.postalCode"
+        :parent-id="id"
         :schema-prefix="schemaPrefix"
         :country="state.country"
         :disabled="disabledFields?.includes('postalCode')"
@@ -103,8 +107,8 @@ async function populateAddressComplete(e: ConnectAddress) {
 
     <ConnectFormAddressDeliveryInstructions
       v-if="!excludedFields.includes('locationDescription')"
-      :id
       v-model="state.locationDescription"
+      :parent-id="id"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('locationDescription')"
     />

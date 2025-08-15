@@ -1,19 +1,18 @@
 <script setup lang="ts">
-const props = defineProps<{
-  id: string
+defineProps<{
+  parentId: string
   schemaPrefix: string
 }>()
 
 const model = defineModel<string>({ default: '' })
-
-const inputId = props.id + '-streetAdditional'
 </script>
 
 <template>
   <ConnectFormInput
     v-model="model"
     :name="schemaPrefix + '.streetAdditional'"
-    :input-id="inputId"
+    :data-testid="`${parentId}-field-streetAdditional`"
+    :input-id="`${parentId}-input-streetAdditional`"
     :label="$t('connect.label.streetAdditional')"
   />
 </template>

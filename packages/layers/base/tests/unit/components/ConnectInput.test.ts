@@ -40,49 +40,6 @@ describe('ConnectInput Component', () => {
     expect(wrapper.emitted('update:modelValue')![0]).toEqual(['new value'])
   })
 
-  test('applies invalid state classes when the invalid prop is true', async () => {
-    const wrapper = await mountSuspended(ConnectInput, {
-      props: {
-        id: 'invalid-input',
-        label: 'Invalid Label',
-        modelValue: '',
-        invalid: true
-      },
-      global: {
-        stubs: {
-          UInput: MockUInput
-        }
-      }
-    })
-
-    const uInput = wrapper.findComponent(MockUInput)
-    const label = wrapper.find('label')
-    expect(label.classes()).toContain('text-error')
-    expect(uInput.props('ui').base).toContain('shadow-input-error')
-  })
-
-  test('does not apply invalid state classes when the invalid prop is false', async () => {
-    const wrapper = await mountSuspended(ConnectInput, {
-      props: {
-        id: 'valid-input',
-        label: 'Valid Label',
-        modelValue: '',
-        invalid: false
-      },
-      global: {
-        stubs: {
-          UInput: MockUInput
-        }
-      }
-    })
-
-    const uInput = wrapper.findComponent(MockUInput)
-    const label = wrapper.find('label')
-
-    expect(label.classes()).not.toContain('text-error')
-    expect(uInput.props('ui').base).not.toContain('shadow-input-error')
-  })
-
   test('applies the mask when the mask prop is provided', async () => {
     const vMaska = vi.fn()
 

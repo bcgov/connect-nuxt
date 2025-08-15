@@ -1,19 +1,18 @@
 <script setup lang="ts">
-const props = defineProps<{
-  id: string
+defineProps<{
+  parentId: string
   schemaPrefix: string
   disabled?: boolean
 }>()
 
 const model = defineModel<string>({ default: '' })
-
-const inputId = props.id + '-locationDescription'
 </script>
 
 <template>
   <ConnectFormTextarea
     v-model="model"
-    :input-id="inputId"
+    :data-testid="`${parentId}-field-locationDescription`"
+    :input-id="`${parentId}-input-locationDescription`"
     :name="schemaPrefix + '.locationDescription'"
     :disabled
     :label="$t('connect.label.deliveryInstructionsOpt')"

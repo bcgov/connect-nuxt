@@ -2023,7 +2023,7 @@ export const countrySubdivisions = {
   ca: subdivisionsCa,
   us: subdivisionsUs
 }
-export const iscCountriesListSortedByName = isoCountriesList.toSorted(
+export const isoCountriesListSortedByName = isoCountriesList.toSorted(
   (c1, c2) => {
     if (c1.name < c2.name) {
       return -1

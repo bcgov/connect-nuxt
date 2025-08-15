@@ -16,8 +16,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "pnpm run test:unit; pnpm run test:e2e",
-    "test:unit": "vitest run",
+    "test:unit": "vitest run --passWithNoTests",
+    "test:unit:watch": "vitest",
     "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
     "typecheck": "npx nuxt typecheck"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@sbc-connect/nuxt-base": "workspace:*"
+    "@sbc-connect/nuxt-base": "workspace:*",
+    "zod": "^4.0.17"
   }
 }

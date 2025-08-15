@@ -33,6 +33,12 @@ export default {
     text: {
       addressCanBePOBox: 'Street address, PO box, rural route, or general delivery address.',
       addressCannotBePOBox: 'Address cannot be a PO Box.'
+    },
+    validation: {
+      fieldRequired: 'This field is required',
+      maxChars: 'Maximum 0 characters | Maximum 1 character | Maximum {count} characters', // 0/1 most likely will never be used but required for pluralization
+      minChars: 'Minimum 0 characters | Minimum 1 character | Minimum {count} characters', // 0/1 most likely will never be used but required for pluralization
+      required: 'Required'
     }
   }
 }
