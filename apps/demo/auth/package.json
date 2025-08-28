@@ -2,7 +2,7 @@
   "name": "nuxt-auth-demo-app",
   "private": true,
   "type": "module",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build-check": "nuxt build",

@@ -1,5 +1,20 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.13
+
+### Patch Changes
+
+- [#50](https://github.com/bcgov/connect-nuxt/pull/50) [`19e3a00`](https://github.com/bcgov/connect-nuxt/commit/19e3a00a8350f8f02f674d10e1d572c909ad90c5) Thanks [@deetz99](https://github.com/deetz99)! - Minor CSS updates
+
+  - update footer link divider colour
+  - update formfield help/error placeholder spacer
+  - fix fieldset orientation
+
+  issue: bcgov/entity#30434
+
+- Updated dependencies [[`19e3a00`](https://github.com/bcgov/connect-nuxt/commit/19e3a00a8350f8f02f674d10e1d572c909ad90c5)]:
+  - @sbc-connect/nuxt-base@0.1.12
+
 ## 0.1.12
 
 ### Patch Changes
