@@ -17,7 +17,7 @@ definePageMeta({
       <p>Use the wrapper component to wrap UFormField components.</p>
       <p>
         <span class="font-bold text-black">Important: </span>This component is meant to wrap single inputs only,
-        if grouping related inputs (e.g., Addresses), please use the ConnectFormFieldWrapper component.
+        if grouping related inputs (e.g., Addresses), please use the ConnectFieldset component.
       </p>
       <p>
         <span class="font-bold text-black">Important: </span>This component is purely presentational/structural

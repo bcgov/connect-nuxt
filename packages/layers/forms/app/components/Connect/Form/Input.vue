@@ -7,6 +7,7 @@ defineProps<{
   autofocus?: boolean
   mask?: string
   disabled?: boolean
+  help?: string
 }>()
 
 const model = defineModel<string>({ required: true })
@@ -15,6 +16,7 @@ const model = defineModel<string>({ required: true })
 <template>
   <UFormField
     :name
+    :help
     class="grow flex-1"
   >
     <template #default="{ error }">
@@ -28,7 +30,7 @@ const model = defineModel<string>({ required: true })
         :disabled
       />
       <div
-        v-if="!$slots.help && !error"
+        v-if="!help && !error"
         class="h-4 mt-1"
       />
     </template>
