@@ -65,7 +65,7 @@ const appVersions = computed<string[]>(() => {
             :class="[
               'flex-col gap-2 border-r-0 pr-2 last:mr-0',
               'last:border-r-0 sm:mr-2 sm:inline-block sm:flex-none',
-              'sm:border-r sm:first:ml-2 border-line',
+              'sm:border-r sm:first:ml-2 border-line-muted',
             ]"
           >
             <NuxtLink
