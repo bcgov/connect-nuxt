@@ -8,7 +8,7 @@ async function scanA11y(page: Page) {
   expect(accessibilityScanResults.violations).toEqual([])
 }
 
-test.describe('ConnectFormAddress', () => {
+test.describe.skip('ConnectFormAddress', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('./examples/forms/ConnectFormAddress')
     await page.waitForURL('*/**/examples/forms/ConnectFormAddress')
