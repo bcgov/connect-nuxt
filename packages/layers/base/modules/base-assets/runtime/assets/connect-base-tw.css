@@ -7,9 +7,9 @@
 /* Follows https://sites.google.com/bcdevexchange.org/designsystem/foundation-styles/colours */
 :root {
   /* Nuxt UI Default Text Colours */
-  --ui-text-dimmed: var(--ui-color-gray-400);
-  --ui-text-muted: var(--ui-color-gray-500);
-  --ui-text-toned: var(--ui-color-gray-600);
+  --ui-text-dimmed: var(--color-gray-400);
+  --ui-text-muted: var(--color-gray-500);
+  --ui-text-toned: var(--color-gray-600);
   --ui-text: var(--ui-neutral);
   --ui-text-highlighted: var(--ui-neutral-highlighted);
   --ui-text-inverted: var(--color-white);
