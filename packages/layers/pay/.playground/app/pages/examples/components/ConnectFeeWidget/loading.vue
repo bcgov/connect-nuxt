@@ -15,10 +15,10 @@ const { t } = useI18n()
 
 const loadFees = async () => {
   await feeStore.initFees(
-  [{ code: exampleFeeCode, entityType: 'BUS', label: t('connect.label.exampleFee') }],
-  { label: t('connect.label.examplePlaceholder'), matchServiceFeeToCode: exampleFeeCode }
-)
-feeStore.addReplaceFee(exampleFeeCode)
+    [{ code: exampleFeeCode, entityType: 'BUS', label: t('connect.label.exampleFee') }],
+    { label: t('connect.label.examplePlaceholder'), matchServiceFeeToCode: exampleFeeCode }
+  )
+  feeStore.addReplaceFee(exampleFeeCode)
 }
 </script>
 

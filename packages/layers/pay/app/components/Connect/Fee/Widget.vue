@@ -98,71 +98,69 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
           <USkeleton class="h-5 w-1/2" />
           <USkeleton class="h-5 w-1/4" />
         </div>
-        <template v-else>
-          <div class="divide-y divide-line-muted text-sm">
-            <div
-              v-for="feeItem in feeItems"
-              :key="feeItem.filingTypeCode"
-              data-testid="fee-item"
-              class="flex justify-between p-3"
-            >
-              <div>
-                <p class="flex items-center gap-1 font-bold">
-                  <span>{{ feeItem.label }}</span>
-                </p>
-                <p
-                  v-if="feeItem.quantity !== undefined && feeItem.quantityDesc"
-                  class="pl-4 text-neutral-toned"
-                >
-                  x {{ feeItem.quantity }} {{ feeItem.quantityDesc }}
-                </p>
-              </div>
-              <p>{{ getItemFee(feeItem) }}</p>
+        <div v-else class="divide-y divide-line-muted text-sm">
+          <div
+            v-for="feeItem in feeItems"
+            :key="feeItem.filingTypeCode"
+            data-testid="fee-item"
+            class="flex justify-between p-3"
+          >
+            <div>
+              <p class="flex items-center gap-1 font-bold">
+                <span>{{ feeItem.label }}</span>
+              </p>
+              <p
+                v-if="feeItem.quantity !== undefined && feeItem.quantityDesc"
+                class="pl-4 text-neutral-toned"
+              >
+                x {{ feeItem.quantity }} {{ feeItem.quantityDesc }}
+              </p>
             </div>
-            <ConnectFeeExtraFee
-              v-if="!!feeOptions.showFutureEffectiveFee || (!!feeOptions.showAllActiveFees && totalFutureEffectiveFees)"
-              data-testid="future-effective-fee"
-              :description="$t('connect.label.futureEffectiveFee')"
-              :fee="totalFutureEffectiveFees"
-              show-fee-value
-            />
-            <ConnectFeeExtraFee
-              v-if="!!feeOptions.showPriorityFee || (!!feeOptions.showAllActiveFees && totalPriorityFees)"
-              data-testid="priority-fee"
-              :description="$t('connect.label.priorityFee')"
-              :fee="totalPriorityFees"
-              show-fee-value
-            />
-            <ConnectFeeExtraFee
-              v-if="!!feeOptions.showProcessingFee || (!!feeOptions.showAllActiveFees && totalProcessingFees)"
-              data-testid="processing-fee"
-              :description="$t('connect.label.processingFee')"
-              :fee="totalProcessingFees"
-              show-fee-value
-            />
-            <ConnectFeeExtraFee
-              v-if="!!feeOptions.showServiceFee || (!!feeOptions.showAllActiveFees && serviceFee)"
-              data-testid="service-fee"
-              :description="$t('connect.label.serviceFee')"
-              :fee="serviceFee"
-              show-fee-value
-            />
-            <ConnectFeeExtraFee
-              v-if="!!feeOptions.showPst || (!!feeOptions.showAllActiveFees && totalPst)"
-              data-testid="pst-fee"
-              :description="$t('connect.label.pst')"
-              :fee="totalPst"
-              show-fee-value
-            />
-            <ConnectFeeExtraFee
-              v-if="!!feeOptions.showGst || (!!feeOptions.showAllActiveFees && totalGst)"
-              data-testid="gst-fee"
-              :description="$t('connect.label.gst')"
-              :fee="totalGst"
-              show-fee-value
-            />
+            <p>{{ getItemFee(feeItem) }}</p>
           </div>
-        </template>
+          <ConnectFeeExtraFee
+            v-if="!!feeOptions.showFutureEffectiveFee || (!!feeOptions.showAllActiveFees && totalFutureEffectiveFees)"
+            data-testid="future-effective-fee"
+            :description="$t('connect.label.futureEffectiveFee')"
+            :fee="totalFutureEffectiveFees"
+            show-fee-value
+          />
+          <ConnectFeeExtraFee
+            v-if="!!feeOptions.showPriorityFee || (!!feeOptions.showAllActiveFees && totalPriorityFees)"
+            data-testid="priority-fee"
+            :description="$t('connect.label.priorityFee')"
+            :fee="totalPriorityFees"
+            show-fee-value
+          />
+          <ConnectFeeExtraFee
+            v-if="!!feeOptions.showProcessingFee || (!!feeOptions.showAllActiveFees && totalProcessingFees)"
+            data-testid="processing-fee"
+            :description="$t('connect.label.processingFee')"
+            :fee="totalProcessingFees"
+            show-fee-value
+          />
+          <ConnectFeeExtraFee
+            v-if="!!feeOptions.showServiceFee || (!!feeOptions.showAllActiveFees && serviceFee)"
+            data-testid="service-fee"
+            :description="$t('connect.label.serviceFee')"
+            :fee="serviceFee"
+            show-fee-value
+          />
+          <ConnectFeeExtraFee
+            v-if="!!feeOptions.showPst || (!!feeOptions.showAllActiveFees && totalPst)"
+            data-testid="pst-fee"
+            :description="$t('connect.label.pst')"
+            :fee="totalPst"
+            show-fee-value
+          />
+          <ConnectFeeExtraFee
+            v-if="!!feeOptions.showGst || (!!feeOptions.showAllActiveFees && totalGst)"
+            data-testid="gst-fee"
+            :description="$t('connect.label.gst')"
+            :fee="totalGst"
+            show-fee-value
+          />
+        </div>
         <div
           data-testid="total-fee"
           class="flex flex-row items-end justify-between border-t border-line-muted p-3"

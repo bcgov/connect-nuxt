@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 export default {
   connect: {
     label: {
