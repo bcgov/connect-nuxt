@@ -8,5 +8,8 @@ definePageMeta({
 </script>
 
 <template>
-  <HelloWorld />
+  <div>
+    <HelloWorld />
+    <span class="text-highlighted font-bold">This should be 212529</span>
+  </div>
 </template>
