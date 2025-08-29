@@ -2,6 +2,8 @@
 const props = defineProps<{
   address: Partial<ConnectAddress>
   omitCountry?: boolean
+  separateCity?: boolean
+  textDecor?: boolean
 }>()
 
 const getAddressDisplayParts = (
@@ -37,9 +39,12 @@ const getAddressDisplayParts = (
   }
 
   const getCountry = () => {
-    return address.country && !omitCountry ? (regionNamesInEnglish.of(address.country) || address.country) : ''
+    try {
+      return address.country && !omitCountry ? (regionNamesInEnglish.of(address.country) || address.country) : ''
+    } catch {
+      return address.country || ''
+    }
   }
-
   return [
     getLine1(),
     getLine2(),
@@ -49,7 +54,7 @@ const getAddressDisplayParts = (
   ].filter(val => !!val && val !== ',')
 }
 
-const addressDisplay = getAddressDisplayParts(props.address, false, true, props.omitCountry)
+const addressDisplay = getAddressDisplayParts(props.address, props.separateCity, props.textDecor, props.omitCountry)
 </script>
 
 <template>
