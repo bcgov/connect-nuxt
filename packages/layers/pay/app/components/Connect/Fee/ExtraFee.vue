@@ -17,6 +17,8 @@ const itemFee = computed(() => {
     <p class="font-bold text-highlighted">
       {{ description }}
     </p>
-    <p class="text-highlighted">{{ showFeeValue ? itemFee: '$ -' }}</p>
+    <p class="text-highlighted">
+      {{ showFeeValue ? itemFee: '$ -' }}
+    </p>
   </div>
 </template>

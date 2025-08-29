@@ -117,7 +117,9 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
                 x {{ feeItem.quantity }} {{ feeItem.quantityDesc }}
               </p>
             </div>
-            <p class="text-highlighted">{{ getItemFee(feeItem) }}</p>
+            <p class="text-highlighted">
+              {{ getItemFee(feeItem) }}
+            </p>
           </div>
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showFutureEffectiveFee || (!!feeOptions.showAllActiveFees && totalFutureEffectiveFees)"

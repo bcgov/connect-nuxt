@@ -12,7 +12,7 @@ test.describe('Connect Fee (default)', () => {
     await page.waitForURL('*/**/examples/components/ConnectFeeWidget/default')
     await expect(page.getByRole('heading', { name: 'Connect Fee Widget (Basic Example)' })).toBeVisible()
     // toggle fees to show non-loaded state
-    await page.getByRole('button', { name: 'Toggle Fee'}).click()
+    await page.getByRole('button', { name: 'Toggle Fee' }).click()
     await expect(page.getByTestId('fee-widget')).toBeVisible()
     await expect(page.getByTestId('fee-item')).toBeVisible()
     await expect(page.getByTestId('fee-item')).toContainText('Example Fee')
