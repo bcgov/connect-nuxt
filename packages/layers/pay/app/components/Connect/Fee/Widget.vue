@@ -95,8 +95,8 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
     <ConnectTransitionCollapse>
       <div v-if="!folded">
         <div v-if="loading || !Object.values(fees).length" class="flex justify-between p-3">
-          <USkeleton class="h-5 w-1/2" />
-          <USkeleton class="h-5 w-1/4" />
+          <USkeleton class="h-5 w-1/2 max-w-[150px]" />
+          <USkeleton class="h-5 w-1/4 max-w-[100px]" />
         </div>
         <div v-else class="divide-y divide-line-muted text-sm">
           <div
@@ -165,12 +165,12 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
           data-testid="total-fee"
           class="flex flex-row items-end justify-between border-t border-line-muted p-3"
         >
-          <USkeleton v-if="loading || !Object.values(fees).length" class="h-8 w-1/3" />
+          <USkeleton v-if="loading || !Object.values(fees).length" class="h-8 w-1/3 max-w-[100px]" />
           <p v-else class="mb-1 font-bold">
             {{ $t("connect.label.totalFees") }}
           </p>
 
-          <USkeleton v-if="loading || !Object.values(fees).length" class="h-8 w-1/4" />
+          <USkeleton v-if="loading || !Object.values(fees).length" class="h-8 w-1/3 max-w-[100px]" />
           <p v-else class="flex items-end text-sm text-neutral">
             <span class="mb-1">{{ $t("connect.label.cad") }}</span>
             <b class="ml-[5px] flex items-end text-2xl text-black">
