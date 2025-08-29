@@ -121,7 +121,7 @@ export default defineAppConfig({
       base: 'relative',
       variants: {
         orientation: {
-          horizontal: 'inline-flex -space-x-px divide-x divide-gray-300',
+          horizontal: 'inline-flex -space-x-px divide-x divide-line-muted',
           vertical: 'flex flex-col -space-y-px'
         }
       }
@@ -134,13 +134,13 @@ export default defineAppConfig({
     checkbox: {
       slots: {
         root: 'relative flex items-center group',
-        base: 'rounded-xs relative shrink-0 flex overflow-visible items-center justify-center ring-2 ring-gray-700 before:absolute before:-inset-2.75 before:flex before:items-center before:justify-center group-hover:before:bg-[#C7C7C7]/80 before:rounded-full cursor-pointer group-active:before:bg-[#454545]/40 has-data-[state=checked]:hover:before:bg-[#7AA1D2]/40 has-data-[state=checked]:active:before:bg-[#155fb7]/40 before:transition-colors',
+        base: 'rounded-xs relative shrink-0 flex overflow-visible items-center justify-center ring-2 ring-neutral before:absolute before:-inset-2.75 before:flex before:items-center before:justify-center group-hover:before:bg-[#C7C7C7]/80 before:rounded-full cursor-pointer group-active:before:bg-[#454545]/40 has-data-[state=checked]:hover:before:bg-[#7AA1D2]/40 has-data-[state=checked]:active:before:bg-[#155fb7]/40 before:transition-colors',
         label: 'cursor-pointer text-sm'
       },
       variants: {
         variant: {
           card: {
-            root: 'bg-gray-100 border border-gray-300 rounded-sm'
+            root: 'bg-shade border border-line-muted rounded-sm'
           }
         },
         indicator: {
@@ -161,7 +161,7 @@ export default defineAppConfig({
           color: 'primary',
           variant: 'card',
           class: {
-            root: 'has-data-[state=checked]:border-gray-300 cursor-pointer'
+            root: 'has-data-[state=checked]:border-line-muted cursor-pointer'
           }
         }
       ]
