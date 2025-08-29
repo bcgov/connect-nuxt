@@ -14,6 +14,8 @@ definePageMeta({
       <ul>
         <li>`address` - ConnectAddress - required</li>
         <li>`omitCountry` - boolean - optional</li>
+        <li>`separateCity` - boolean - optional</li>
+        <li>`textDecor` - boolean - optional</li>
       </ul>
     </ConnectPageSection>
 
@@ -27,9 +29,6 @@ definePageMeta({
           postalCode: 'V1X 1X1',
           country: 'CA',
           locationDescription: 'Some extra location info',
-          // streetName?: string
-          // streetNumber?: string
-          // unitNumber?: string
         }"
       />
     </ConnectPageSection>
@@ -44,11 +43,38 @@ definePageMeta({
           postalCode: 'V1X 1X1',
           country: 'CA',
           locationDescription: 'Some extra location info',
-          // streetName?: string
-          // streetNumber?: string
-          // unitNumber?: string
         }"
         :omit-country="true"
+      />
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'Separate City' }" ui-body="p-4 space-y-4">
+      <ConnectAddressDisplay
+        :address="{
+          street: '123 Street Ave',
+          streetAdditional: 'Line 2',
+          city: 'Townsville',
+          region: 'XY',
+          postalCode: 'V1X 1X1',
+          country: 'CA',
+          locationDescription: 'Some extra location info',
+        }"
+        :separate-city="true"
+      />
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'Text Decor' }" ui-body="p-4 space-y-4">
+      <ConnectAddressDisplay
+        :address="{
+          street: '123 Street Ave',
+          streetAdditional: 'Line 2',
+          city: 'Townsville',
+          region: 'XY',
+          postalCode: 'V1X 1X1',
+          country: 'Canada',
+          locationDescription: 'Some extra location info',
+        }"
+        :text-decor="true"
       />
     </ConnectPageSection>
 
