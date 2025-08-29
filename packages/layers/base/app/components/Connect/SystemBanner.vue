@@ -18,7 +18,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div id="connect-system-banner" class="bg-brand-inverted">
+  <div id="connect-system-banner" class="bg-brand-inverted px-2 sm:px-4">
     <UAlert
       v-show="!!message && !close"
       class="py-0"
@@ -26,7 +26,7 @@ onMounted(async () => {
       :close="dismissible"
       close-icon="i-mdi-close"
       :ui="{
-        root: 'rounded-none bg-brand-inverted p-2 sm:px-4 app-inner-container',
+        root: 'rounded-none bg-brand-inverted px-0 sm:px-0 app-inner-container',
         wrapper: 'bg-brand-inverted',
         close: 'mt-2 text-neutral-highlighted',
       }"

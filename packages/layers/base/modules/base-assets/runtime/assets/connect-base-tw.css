@@ -6,12 +6,12 @@
 /* Customize Nuxt UI default tokens */
 /* Follows https://sites.google.com/bcdevexchange.org/designsystem/foundation-styles/colours */
 :root {
-  /* Default Text Colours */
-  --ui-text-dimmed: var(--ui-color-gray-400);
-  --ui-text-muted: var(--ui-color-gray-500);
-  --ui-text-toned: var(--ui-color-gray-600);
-  --ui-text: var(--ui-color-neutral);
-  --ui-text-highlighted: var(--ui-color-neutral-highlighted);
+  /* Nuxt UI Default Text Colours */
+  --ui-text-dimmed: var(--color-gray-400);
+  --ui-text-muted: var(--color-gray-500);
+  --ui-text-toned: var(--color-gray-600);
+  --ui-text: var(--ui-neutral);
+  --ui-text-highlighted: var(--ui-neutral-highlighted);
   --ui-text-inverted: var(--color-white);
   /* Variant Colours */
   --ui-error: var(--color-red-600);
@@ -42,12 +42,12 @@
 
 /* FUTURE: add dark themed colours (currently set to be the same) */
 .dark {
-  /* Default Text Colours */
+  /* Nuxt UI Default Text Colours */
   --ui-text-dimmed: var(--ui-color-gray-400);
   --ui-text-muted: var(--ui-color-gray-500);
   --ui-text-toned: var(--ui-color-gray-600);
-  --ui-text: var(--ui-color-neutral);
-  --ui-text-highlighted: var(--ui-color-neutral-highlighted);
+  --ui-text: var(--ui-neutral);
+  --ui-text-highlighted: var(--ui-neutral-highlighted);
   --ui-text-inverted: var(--color-white);
   /* Variant Colours */
   --ui-error: var(--color-red-600);
@@ -76,6 +76,7 @@
   --ui-radius: 0.1667rem;
 }
 
+/* Main Theme */
 @theme static {
   /* font */
   --font-sans: 'BCSans', 'Verdana', 'Arial', 'sans-serif';
@@ -275,3 +276,14 @@ body {
     @apply pointer-events-none absolute left-0 top-1 text-neutral-highlighted text-xs font-medium px-2.5 transition-all duration-200 peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-primary peer-aria-invalid:text-error;
   }
 }
+
+/* TODO: maybe delete this */
+/* Extra Utilities */
+/* This should be working out-of-the-box from Nuxt UI but isnt for some reason */
+/* https://ui.nuxt.com/getting-started/theme#neutral */
+/* .text-highlighted {
+  color: var(--color-gray-900);
+  @variant dark {
+    color: var(--color-gray-900);
+  }
+} */

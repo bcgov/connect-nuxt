@@ -54,9 +54,9 @@ const appVersions = computed<string[]>(() => {
   <footer
     id="connect-main-footer"
     data-testid="connect-main-footer"
-    class="border-t-2 border-brand-inverted bg-brand"
+    class="border-t-2 border-brand-inverted bg-brand p-2 sm:px-4"
   >
-    <div class="app-inner-container flex items-center justify-between p-2">
+    <div class="app-inner-container flex items-center justify-between">
       <nav :aria-label="$t('connect.footer.navLabel')" class="flex grow">
         <ul class="list-none flex-col gap-1 p-0 sm:-ml-2 sm:flex-row sm:flex-wrap">
           <li
