@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.14
+
+### Patch Changes
+
+- [#54](https://github.com/bcgov/connect-nuxt/pull/54) [`5d66b92`](https://github.com/bcgov/connect-nuxt/commit/5d66b927121d6144ee7eedb8ed86b64c76e26c7e) Thanks [@deetz99](https://github.com/deetz99)! - Update layout padding, fix text-highlighted css var reference.
+
 ## 0.1.13
 
 ### Patch Changes
