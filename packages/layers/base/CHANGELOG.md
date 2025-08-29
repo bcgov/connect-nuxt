@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.15
+
+### Patch Changes
+
+- [#56](https://github.com/bcgov/connect-nuxt/pull/56) [`cab53dc`](https://github.com/bcgov/connect-nuxt/commit/cab53dc83ab8c8032bdb424a9e135febdfebf645) Thanks [@kialj876](https://github.com/kialj876)! - Address display component update
+
 ## 0.1.14
 
 ### Patch Changes
