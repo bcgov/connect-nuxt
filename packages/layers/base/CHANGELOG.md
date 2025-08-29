@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.13
+
+### Patch Changes
+
+- [#52](https://github.com/bcgov/connect-nuxt/pull/52) [`602360a`](https://github.com/bcgov/connect-nuxt/commit/602360a628742ffe8957209bbe38eff1663a0851) Thanks [@deetz99](https://github.com/deetz99)! - Update badge, checkbox and buttonGroup app config defaults
+
 ## 0.1.12
 
 ### Patch Changes
