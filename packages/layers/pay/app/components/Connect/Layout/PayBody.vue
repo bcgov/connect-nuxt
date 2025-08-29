@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col lg:flex-row lg:gap-6 grow">
-    <div class="grow max-w-full overflow-hidden">
+  <div class="flex flex-col lg:flex-row lg:gap-6 grow app-inner-container">
+    <div class="grow overflow-hidden">
       <slot />
     </div>
 

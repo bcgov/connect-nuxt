@@ -1,0 +1,7 @@
+export enum ConnectPayStatus {
+  CREATED = 'CREATED',
+  COMPLETED = 'COMPLETED',
+  DELETED = 'DELETED',
+  REFUNDED = 'REFUNDED',
+  FAILED = 'FAILED'
+}

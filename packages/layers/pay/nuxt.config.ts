@@ -42,7 +42,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       payApiUrl: '',
-      payApiVersion: ''
+      payApiVersion: '',
+      paymentPortalUrl: ''
     }
   }
 })
