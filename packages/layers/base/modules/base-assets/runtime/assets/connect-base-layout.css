@@ -9,5 +9,5 @@
 }
 
 .app-body {
-  @apply grow relative flex flex-col px-4;
+  @apply grow relative flex flex-col;
 }
