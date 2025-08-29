@@ -61,10 +61,11 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
   if (feeItem.isPlaceholder) {
     return '$ -'
   }
-  if (feeItem.waived) {
+  const total = (feeItem.filingFees * (feeItem.quantity || 1)).toFixed(2)
+  if (feeItem.waived || total === '0.00') {
     return t('connect.label.noFee')
   }
-  return `$${(feeItem.filingFees * (feeItem.quantity || 1)).toFixed(2)}`
+  return `$${total}`
 }
 </script>
 
@@ -94,7 +95,7 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
     </UButton>
     <ConnectTransitionCollapse>
       <div v-if="!folded">
-        <div v-if="loading || !Object.values(fees).length" class="flex justify-between p-3">
+        <div v-if="loading && !isPlaceholderActive" class="flex justify-between p-3">
           <USkeleton class="h-5 w-1/2 max-w-[150px]" />
           <USkeleton class="h-5 w-1/4 max-w-[100px]" />
         </div>
@@ -107,7 +108,7 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
           >
             <div>
               <p class="flex items-center gap-1 font-bold">
-                <span>{{ feeItem.label }}</span>
+                <span class="text-highlighted">{{ feeItem.label }}</span>
               </p>
               <p
                 v-if="feeItem.quantity !== undefined && feeItem.quantityDesc"
@@ -116,7 +117,7 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
                 x {{ feeItem.quantity }} {{ feeItem.quantityDesc }}
               </p>
             </div>
-            <p>{{ getItemFee(feeItem) }}</p>
+            <p class="text-highlighted">{{ getItemFee(feeItem) }}</p>
           </div>
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showFutureEffectiveFee || (!!feeOptions.showAllActiveFees && totalFutureEffectiveFees)"
@@ -165,12 +166,12 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
           data-testid="total-fee"
           class="flex flex-row items-end justify-between border-t border-line-muted p-3"
         >
-          <USkeleton v-if="loading || !Object.values(fees).length" class="h-8 w-1/3 max-w-[100px]" />
-          <p v-else class="mb-1 font-bold">
+          <USkeleton v-if="loading && !isPlaceholderActive" class="h-8 w-1/3 max-w-[100px]" />
+          <p v-else class="mb-1 font-bold text-highlighted">
             {{ $t("connect.label.totalFees") }}
           </p>
 
-          <USkeleton v-if="loading || !Object.values(fees).length" class="h-8 w-1/3 max-w-[100px]" />
+          <USkeleton v-if="loading && !isPlaceholderActive" class="h-8 w-1/3 max-w-[100px]" />
           <p v-else class="flex items-end text-sm text-neutral">
             <span class="mb-1">{{ $t("connect.label.cad") }}</span>
             <b class="ml-[5px] flex items-end text-2xl text-black">

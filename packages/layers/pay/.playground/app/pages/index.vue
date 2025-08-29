@@ -42,6 +42,10 @@ const componentExamples: DropdownMenuItem[] = [
   {
     label: 'Connect Fee (loading)',
     to: localePath('/examples/components/ConnectFeeWidget/loading')
+  },
+  {
+    label: 'Connect Fee (no fee)',
+    to: localePath('/examples/components/ConnectFeeWidget/noFee')
   }
 ]
 
