@@ -38,6 +38,10 @@ const componentExamples: DropdownMenuItem[] = [
   {
     label: 'Connect Fee (payment override)',
     to: localePath('/examples/components/ConnectFeeWidget/paymentOverride')
+  },
+  {
+    label: 'Connect Fee (loading)',
+    to: localePath('/examples/components/ConnectFeeWidget/loading')
   }
 ]
 
