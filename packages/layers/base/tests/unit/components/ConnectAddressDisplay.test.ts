@@ -13,11 +13,12 @@ describe('ConnectAddressDisplay.vue', () => {
     locationDescription: 'Near the park entrance'
   }
 
-  it('should render a full address with all parts', async () => {
+  it('should render a full address with all parts (textDecor)', async () => {
     const wrapper = await mountSuspended(ConnectAddressDisplay, {
       props: {
         address: fullAddress,
-        omitCountry: false
+        omitCountry: false,
+        textDecor: true
       }
     })
 
@@ -44,8 +45,8 @@ describe('ConnectAddressDisplay.vue', () => {
 
     const addressLines = wrapper.findAll('[data-testid="address-line"]')
     expect(addressLines.length).toBe(3)
-    expect(addressLines[0].text()).toBe('123 Fake Ave,')
-    expect(addressLines[1].text()).toBe('Burnaby, BC\u00A0 V1X 1X1')
+    expect(addressLines[0].text()).toBe('123 Fake Ave')
+    expect(addressLines[1].text()).toBe('Burnaby BC V1X 1X1')
     expect(addressLines[2].text()).toBe('Canada')
   })
 
@@ -63,8 +64,8 @@ describe('ConnectAddressDisplay.vue', () => {
 
     const addressLines = wrapper.findAll('[data-testid="address-line"]')
     expect(addressLines.length).toBe(3)
-    expect(addressLines[0].text()).toBe('10-123 Test Cres,')
-    expect(addressLines[1].text()).toBe('Surrey, BC\u00A0 V1X 1X1')
+    expect(addressLines[0].text()).toBe('10-123 Test Cres')
+    expect(addressLines[1].text()).toBe('Surrey BC V1X 1X1')
     expect(addressLines[2].text()).toBe('Canada')
   })
 
@@ -84,7 +85,7 @@ describe('ConnectAddressDisplay.vue', () => {
 
     const addressLines = wrapper.findAll('[data-testid="address-line"]')
     expect(addressLines.length).toBe(1)
-    expect(addressLines[0].text()).toBe('Seattle, WA\u00A0 98101')
+    expect(addressLines[0].text()).toBe('Seattle WA 98101')
   })
 
   it('should handle minimal address parts (city and country only)', async () => {
@@ -96,7 +97,7 @@ describe('ConnectAddressDisplay.vue', () => {
 
     const addressLines = wrapper.findAll('[data-testid="address-line"]')
     expect(addressLines.length).toBe(2)
-    expect(addressLines[0].text()).toBe('Townsville,')
+    expect(addressLines[0].text()).toBe('Townsville')
     expect(addressLines[1].text()).toBe('Canada')
   })
 
@@ -117,8 +118,8 @@ describe('ConnectAddressDisplay.vue', () => {
 
     const addressLines = wrapper.findAll('[data-testid="address-line"]')
     expect(addressLines.length).toBe(2)
-    expect(addressLines[0].text()).toBe('789 Birch Ave,')
-    expect(addressLines[1].text()).toBe('Kelowna,')
+    expect(addressLines[0].text()).toBe('789 Birch Ave')
+    expect(addressLines[1].text()).toBe('Kelowna')
   })
 
   it('should render locationDescription when provided', async () => {
