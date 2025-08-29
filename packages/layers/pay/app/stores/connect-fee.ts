@@ -34,12 +34,14 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     total: 0
   }
   const placeholderFeeItem = ref<ConnectFeeItem>(defaultPlaceholder)
+  const loading = ref<boolean>(false)
 
   const initFees = async (
     feeCodes: { code: string, entityType: string, label: string, quantityDesc?: string }[],
     placeholder: { label: string, matchServiceFeeToCode?: string },
     options?: ConnectFeeOptions
   ) => {
+    loading.value = true
     // Get all the fee information for each fee code from the pay api
     const feePromises = []
     for (const feeInfo of feeCodes) {
@@ -72,6 +74,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
         ...options
       }
     }
+    loading.value = false
   }
 
   const getTotalFromFees = (feeValue: string, isTax = false) => {
@@ -249,6 +252,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     feeOptions.value = defaultFeeOptions
     fees.value = {}
     placeholderFeeItem.value = defaultPlaceholder
+    loading.value = false
     $resetAlternatePayOptions()
   }
 
@@ -263,6 +267,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     totalPst,
     totalServiceFees,
     total,
+    loading,
     initFees,
     addReplaceFee,
     removeFee,

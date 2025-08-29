@@ -299,6 +299,9 @@ export default defineAppConfig({
         variant: 'bcGov'
       }
     },
+    skeleton: {
+      base: 'bg-gray-200'
+    },
     select: {
       slots: {
         content: 'rounded-sm',
