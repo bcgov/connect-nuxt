@@ -24,7 +24,7 @@ const loadFees = async () => {
 
 <template>
   <div class="my-10">
-    <ConnectPageSection :heading="{ label: 'Connect Fee Widget (Basic Example)' }">
+    <ConnectPageSection :heading="{ label: 'Connect Fee Widget (Loading Example)' }">
       <div class="p-10 space-y-5">
         <div>
           A loading state will be displayed if no fees have been fetched yet or fees are being initialized.
