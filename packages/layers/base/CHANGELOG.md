@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.16
+
+### Patch Changes
+
+- [#58](https://github.com/bcgov/connect-nuxt/pull/58) [`a98c264`](https://github.com/bcgov/connect-nuxt/commit/a98c2647e041061223d504c8e974670148c08c0b) Thanks [@deetz99](https://github.com/deetz99)! - Fix base layout, add loading state to fee widget
+
 ## 0.1.15
 
 ### Patch Changes
