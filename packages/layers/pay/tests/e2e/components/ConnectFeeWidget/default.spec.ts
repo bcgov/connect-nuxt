@@ -21,7 +21,7 @@ test.describe('Connect Fee (default)', () => {
     await expect(serviceFee).toContainText('$1.50')
     const totalFee = page.getByTestId('total-fee')
     await expect(totalFee).toBeVisible()
-    await expect(totalFee).toContainText('Total Fee')
+    await expect(totalFee).toContainText('Total Fees')
     await expect(totalFee).toContainText('$ -')
   })
   test('Toggle fee works as expected', async ({ page }) => {

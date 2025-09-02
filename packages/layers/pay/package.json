@@ -18,6 +18,7 @@
     "test": "pnpm run test:unit; pnpm run test:e2e",
     "test:unit": "vitest run",
     "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
     "typecheck": "npx nuxt typecheck"
   },
   "devDependencies": {

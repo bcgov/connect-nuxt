@@ -14,7 +14,8 @@ const {
   userSelectedPaymentMethod,
   allowedPaymentMethods,
   userPaymentAccount,
-  allowAlternatePaymentMethod
+  allowAlternatePaymentMethod,
+  loading
 } = storeToRefs(useConnectFeeStore())
 
 const isPlaceholderActive = ref(false)
@@ -60,10 +61,11 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
   if (feeItem.isPlaceholder) {
     return '$ -'
   }
-  if (feeItem.waived) {
+  const total = (feeItem.filingFees * (feeItem.quantity || 1)).toFixed(2)
+  if (feeItem.waived || total === '0.00') {
     return t('connect.label.noFee')
   }
-  return `$${(feeItem.filingFees * (feeItem.quantity || 1)).toFixed(2)}`
+  return `$${total}`
 }
 </script>
 
@@ -75,7 +77,7 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
     <UButton
       :tabindex="isFoldable ? 0 : -1"
       :role="isFoldable ? 'button' : 'title'"
-      class="flex w-full bg-brand py-2 pl-4 text-lg lg:text-3xl font-bold transition-all"
+      class="flex w-full bg-brand py-2 pl-3 text-lg font-bold transition-all"
       :class="[folded ? 'rounded' : 'rounded-b-none rounded-t', isFoldable ? '' : 'pointer-events-none']"
       :aria-label="$t('connect.label.feeSummary')"
       :label="$t('connect.label.feeSummary')"
@@ -93,16 +95,20 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
     </UButton>
     <ConnectTransitionCollapse>
       <div v-if="!folded">
-        <div class="divide-y divide-line-muted pt-1 text-sm">
+        <div v-if="loading && !isPlaceholderActive" class="flex justify-between p-3">
+          <USkeleton class="h-5 w-1/2 max-w-[150px]" />
+          <USkeleton class="h-5 w-1/4 max-w-[100px]" />
+        </div>
+        <div v-else class="divide-y divide-line-muted text-sm">
           <div
             v-for="feeItem in feeItems"
             :key="feeItem.filingTypeCode"
             data-testid="fee-item"
-            class="flex justify-between px-4 py-3"
+            class="flex justify-between p-3"
           >
             <div>
               <p class="flex items-center gap-1 font-bold">
-                <span>{{ feeItem.label }}</span>
+                <span class="text-highlighted">{{ feeItem.label }}</span>
               </p>
               <p
                 v-if="feeItem.quantity !== undefined && feeItem.quantityDesc"
@@ -111,7 +117,9 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
                 x {{ feeItem.quantity }} {{ feeItem.quantityDesc }}
               </p>
             </div>
-            <p>{{ getItemFee(feeItem) }}</p>
+            <p class="text-highlighted">
+              {{ getItemFee(feeItem) }}
+            </p>
           </div>
           <ConnectFeeExtraFee
             v-if="!!feeOptions.showFutureEffectiveFee || (!!feeOptions.showAllActiveFees && totalFutureEffectiveFees)"
@@ -160,10 +168,13 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
           data-testid="total-fee"
           class="flex flex-row items-end justify-between border-t border-line-muted p-3"
         >
-          <p class="mb-1 font-bold">
+          <USkeleton v-if="loading && !isPlaceholderActive" class="h-8 w-1/3 max-w-[100px]" />
+          <p v-else class="mb-1 font-bold text-highlighted">
             {{ $t("connect.label.totalFees") }}
           </p>
-          <p class="flex items-end text-sm text-neutral">
+
+          <USkeleton v-if="loading && !isPlaceholderActive" class="h-8 w-1/3 max-w-[100px]" />
+          <p v-else class="flex items-end text-sm text-neutral">
             <span class="mb-1">{{ $t("connect.label.cad") }}</span>
             <b class="ml-[5px] flex items-end text-2xl text-black">
               {{ !isPlaceholderActive ? `$${total.toFixed(2)}` : '$ -' }}
