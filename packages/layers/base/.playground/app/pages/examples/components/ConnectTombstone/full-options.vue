@@ -7,7 +7,7 @@ definePageMeta({
 
 const localePath = useLocalePath()
 
-const tombstone = useConnectTombstone()
+const tombstone = useConnectTombstone('full-options')
 
 async function triggerReset() {
   tombstone.value.loading = true
@@ -78,7 +78,7 @@ setBreadcrumbs([
 
     <ConnectPageSection :heading="{ label: 'Full Options Example' }" ui-body="p-4 space-y-4">
       <UButton label="Show Loading State" @click="triggerReset" />
-      <ConnectTombstone class="border border-black" />
+      <ConnectTombstone class="border border-black" state-key="full-options" />
     </ConnectPageSection>
   </div>
 </template>

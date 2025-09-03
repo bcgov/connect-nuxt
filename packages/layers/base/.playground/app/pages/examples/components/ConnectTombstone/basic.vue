@@ -6,7 +6,7 @@ definePageMeta({
 })
 
 const localePath = useLocalePath()
-const tombstone = useConnectTombstone()
+const tombstone = useConnectTombstone('basic')
 
 async function triggerReset() {
   tombstone.value.loading = true
@@ -47,7 +47,7 @@ setBreadcrumbs([
 
     <ConnectPageSection :heading="{ label: 'Basic Example' }" ui-body="p-4 space-y-4">
       <UButton label="Show Loading State" @click="triggerReset" />
-      <ConnectTombstone class="border border-black" />
+      <ConnectTombstone class="border border-black" state-key="basic" />
     </ConnectPageSection>
   </div>
 </template>

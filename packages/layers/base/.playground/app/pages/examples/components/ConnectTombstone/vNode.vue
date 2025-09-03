@@ -19,7 +19,7 @@ setBreadcrumbs([
   }
 ])
 
-const tombstone = useConnectTombstone()
+const tombstone = useConnectTombstone('v-node')
 const UButton = resolveComponent('UButton')
 const UButtonGroup = resolveComponent('UButtonGroup')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
@@ -191,7 +191,7 @@ onMounted(async () => {
 
     <ConnectPageSection :heading="{ label: 'vNode (with custom id)' }" ui-body="p-4 space-y-4">
       <UButton label="Trigger Refresh" @click="setVNode" />
-      <ConnectTombstone id="v-node" class="border border-black" />
+      <ConnectTombstone state-key="v-node" class="border border-black" />
     </ConnectPageSection>
   </div>
 </template>
