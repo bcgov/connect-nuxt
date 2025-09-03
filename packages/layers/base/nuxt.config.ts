@@ -120,6 +120,10 @@ export default defineNuxtConfig({
     }
   },
 
+  typescript: {
+    includeWorkspace: true // fixes auto imports in tests
+  },
+
   runtimeConfig: {
     public: {
       // Should in alphabetical order

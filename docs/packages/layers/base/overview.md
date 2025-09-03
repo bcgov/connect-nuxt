@@ -52,6 +52,7 @@ Components for BC Government branding and styling:
 - ConnectSpinner
 - ConnectSystemBanner
 - ConnectTextarea
+- ConnectContactDisplay
 
 ### Composables
 
