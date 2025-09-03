@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.17
+
+### Patch Changes
+
+- [#60](https://github.com/bcgov/connect-nuxt/pull/60) [`b77b067`](https://github.com/bcgov/connect-nuxt/commit/b77b067c07962f79396064f14da87dd25a89a4d1) Thanks [@deetz99](https://github.com/deetz99)! - Update modal title font size, set floating labels to neutral instead of neutral-highlighted. issue: bcgov/entity#29341
+
 ## 0.1.16
 
 ### Patch Changes
