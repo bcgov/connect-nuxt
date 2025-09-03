@@ -23,7 +23,12 @@ definePageMeta({
           { type: 'phone', title: 'Toll Free:', value: '1-877-370-1033', href: 'tel:+1-877-370-1033' },
           { type: 'phone', title: 'Victoria Office:', value: '250-387-7848', href: 'tel:+1-250-387-7848' },
           { type: 'fax', title: 'Fax:', value: '1-250-387-7848' },
-          { type: 'email', title: 'Email:', value: 'BCRegistries@gov.bc.ca', href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request' }
+          {
+            type: 'email',
+            title: 'Email:',
+            value: 'BCRegistries@gov.bc.ca',
+            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request',
+          },
         ]"
         hours="Monday to Friday, 8:30am - 4:30pm Pacific Time"
       />
@@ -33,7 +38,12 @@ definePageMeta({
       <ConnectContactDisplay
         :contact="[
           { type: 'phone', title: 'Toll Free:', value: '1-877-370-1033', href: 'tel:+1-877-370-1033' },
-          { type: 'email', title: 'Email:', value: 'BCRegistries@gov.bc.ca', href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request' }
+          {
+            type: 'email',
+            title: 'Email:',
+            value: 'BCRegistries@gov.bc.ca',
+            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request',
+          },
         ]"
         hours="Monday to Friday, 8:30am - 4:30pm Pacific Time"
       />
@@ -43,7 +53,12 @@ definePageMeta({
       <ConnectContactDisplay
         :contact="[
           { type: 'phone', title: 'Toll Free:', value: '1-877-370-1033', href: 'tel:+1-877-370-1033' },
-          { type: 'email', title: 'Email:', value: 'BCRegistries@gov.bc.ca', href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request' }
+          {
+            type: 'email',
+            title: 'Email:',
+            value: 'BCRegistries@gov.bc.ca',
+            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request',
+          },
         ]"
       />
     </ConnectPageSection>

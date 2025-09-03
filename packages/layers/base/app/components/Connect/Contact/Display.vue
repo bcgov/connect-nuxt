@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ConnectContactItem } from '#imports';
+import type { ConnectContactItem } from '#imports'
 
 const props = defineProps<{
   contact: ConnectContactItem | ConnectContactItem[]
@@ -20,7 +20,11 @@ const normalizedContact = computed(() => {
 
 <template>
   <div class="space-y-5">
-    <ul v-if="isMultipleContacts" class="space-y-1" :aria-label="$t('connect.label.contactInformation')">
+    <ul
+      v-if="isMultipleContacts"
+      class="space-y-1"
+      :aria-label="$t('connect.label.contactInformation')"
+    >
       <li v-for="item in normalizedContact" :key="item.value">
         <span class="inline-flex items-center gap-1">
           <UIcon :name="iconMap[item.type]" class="mr-2 size-4 text-blue-350" />

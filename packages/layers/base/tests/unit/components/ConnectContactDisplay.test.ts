@@ -20,9 +20,9 @@ describe('<ConnectContactDisplay />', () => {
     {
       type: 'fax',
       title: 'Fax:',
-      value: '250-987-6543',
+      value: '250-987-6543'
     },
-     {
+    {
       type: 'email',
       title: 'Support:',
       value: 'support@example.com',
@@ -94,7 +94,7 @@ describe('<ConnectContactDisplay />', () => {
   })
 
   it('renders an email with target="_blank"', async () => {
-     const wrapper = await mountSuspended(ConnectContactDisplay, {
+    const wrapper = await mountSuspended(ConnectContactDisplay, {
       props: { contact: multipleContacts }
     })
 
@@ -104,7 +104,7 @@ describe('<ConnectContactDisplay />', () => {
   })
 
   it('renders a phone link without a target', async () => {
-     const wrapper = await mountSuspended(ConnectContactDisplay, {
+    const wrapper = await mountSuspended(ConnectContactDisplay, {
       props: { contact: multipleContacts }
     })
 
