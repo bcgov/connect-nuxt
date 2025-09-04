@@ -28,7 +28,7 @@ defineProps<ConnectTombstoneItem>()
       v-else-if="vNode"
     />
     <p
-      v-else
+      v-else-if="text"
       :class="itemClass || 'mt-[2px] text-sm'"
     >
       {{ text }}
