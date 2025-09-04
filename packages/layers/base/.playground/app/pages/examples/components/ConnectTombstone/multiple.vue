@@ -6,8 +6,8 @@ definePageMeta({
 })
 
 const localePath = useLocalePath()
-const tombstone1 = reactive(useConnectTombstone('no-1'))
-const tombstone2 = reactive(useConnectTombstone('no-2'))
+const tombstone1 = useConnectTombstone('no-1')
+const tombstone2 = useConnectTombstone('no-2')
 
 async function trigger1() {
   tombstone1.value.loading = true

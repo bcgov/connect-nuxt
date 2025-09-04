@@ -117,7 +117,7 @@ const dropdownItems = ref<DropdownMenuItem[][]>([
 
 async function setVNode() {
   tombstone.value.loading = true
-  await delay(1500)
+  await delay(1000)
   tombstone.value.title = { el: 'span', text: 'VNode Title Here' }
   tombstone.value.subtitles = [{ text: 'BC Cooperative Association' }]
   tombstone.value.details = [
@@ -135,40 +135,33 @@ async function setVNode() {
       vNode: h('div', { class: 'font-bold text-error' }, 'Render anything using vNode')
     },
     {
-      vNode: h(
-        'div',
-        { },
-        [
-          h(
-            UButtonGroup,
-            { size: 'sm' },
-            {
-              default: () => [
+      vNode: h(UButtonGroup,
+        { size: 'sm' },
+        {
+          default: () => [
+            h(UButton, {
+              variant: 'ghost',
+              label: 'Change',
+              icon: 'i-mdi-pencil',
+              class: 'px-4',
+              onClick: () => window.alert('Change Clicked!')
+            }),
+            h(UDropdownMenu, {
+              items: dropdownItems.value
+            }, {
+              default: () =>
                 h(UButton, {
-                  variant: 'ghost',
-                  label: 'Change',
-                  icon: 'i-mdi-pencil',
-                  class: 'px-4',
-                  onClick: () => window.alert('Change Clicked!')
-                }),
-                h(UDropdownMenu, {
-                  items: dropdownItems.value
-                }, {
-                  default: () =>
-                    h(UButton, {
-                      'variant': 'ghost',
-                      'icon': 'i-mdi-caret-down',
-                      'class': 'px-4 data-[state=open]:bg-(--ui-primary)/25 group',
-                      'ui': {
-                        leadingIcon: 'shrink-0 group-data-[state=open]:rotate-180 transition-transform duration-200'
-                      },
-                      'aria-label': 'More Actions'
-                    })
+                  'variant': 'ghost',
+                  'icon': 'i-mdi-caret-down',
+                  'class': 'px-4 data-[state=open]:bg-(--ui-primary)/25 group',
+                  'ui': {
+                    leadingIcon: 'shrink-0 group-data-[state=open]:rotate-180 transition-transform duration-200'
+                  },
+                  'aria-label': 'More Actions'
                 })
-              ]
-            }
-          )
-        ]
+            })
+          ]
+        }
       )
     }
   ]
