@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { ref, type Ref } from 'vue'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
@@ -84,7 +85,7 @@ describe('useConnectTombstone', () => {
       details: [],
       sideDetails: [],
       bottomButtons: []
-    }) 
+    })
   })
 
   it('should reset to the custom default state when $reset is called', () => {
@@ -92,7 +93,7 @@ describe('useConnectTombstone', () => {
       loading: true,
       title: { text: 'Initial Title' }
     }
-    
+
     const { tombstone, $reset } = useConnectTombstone('custom-reset-key', customInitialState)
 
     expect(tombstone.value.loading).toBe(true)

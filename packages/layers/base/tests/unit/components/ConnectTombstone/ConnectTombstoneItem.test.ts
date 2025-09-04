@@ -93,7 +93,7 @@ describe('<ConnectTombstoneItem />', () => {
       }
     })
 
-    // icon and badge should render 
+    // icon and badge should render
     expect(wrapper.findComponent({ name: 'UIcon' }).exists()).toBe(true)
     expect(wrapper.findComponent({ name: 'UBadge' }).exists()).toBe(true)
     expect(wrapper.findComponent({ name: 'ULink' }).exists()).toBe(false)
@@ -101,7 +101,7 @@ describe('<ConnectTombstoneItem />', () => {
     expect(wrapper.find('button').exists()).toBe(false)
     expect(wrapper).not.toContain('Hello World')
   })
-  
+
   it('should render an icon with a link', async () => {
     const wrapper = await mountSuspended(ConnectTombstoneItem, {
       props: {
@@ -112,14 +112,14 @@ describe('<ConnectTombstoneItem />', () => {
       }
     })
 
-    // icon and link should render 
+    // icon and link should render
     expect(wrapper.findComponent({ name: 'UIcon' }).exists()).toBe(true)
     expect(wrapper.findComponent({ name: 'ULink' }).exists()).toBe(true)
     expect(wrapper.find('p').exists()).toBe(false)
     expect(wrapper.find('button').exists()).toBe(false)
     expect(wrapper).not.toContain('Hello World')
   })
-  
+
   it('should render an icon with a vNode', async () => {
     const wrapper = await mountSuspended(ConnectTombstoneItem, {
       props: {
@@ -129,14 +129,14 @@ describe('<ConnectTombstoneItem />', () => {
       }
     })
 
-    // icon and button should render 
+    // icon and button should render
     expect(wrapper.findComponent({ name: 'UIcon' }).exists()).toBe(true)
     expect(wrapper.find('p').exists()).toBe(false)
     expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.html()).toContain('VNode Button')
     expect(wrapper).not.toContain('Hello World')
   })
-  
+
   it('should render an icon with a plain text', async () => {
     const wrapper = await mountSuspended(ConnectTombstoneItem, {
       props: {

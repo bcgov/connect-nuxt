@@ -9,7 +9,7 @@ import type { ButtonProps } from '@nuxt/ui'
 let mockTombstoneState: Ref<ConnectTombstoneState>
 
 mockNuxtImport('useConnectTombstone', () => {
-  return vi.fn((stateKey: string) => {
+  return vi.fn((_stateKey: string) => {
     return {
       tombstone: mockTombstoneState,
       $reset: vi.fn()

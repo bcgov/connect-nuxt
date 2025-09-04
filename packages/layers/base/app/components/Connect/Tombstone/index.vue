@@ -5,7 +5,7 @@ const props = defineProps<{ stateKey: string }>()
 
 const { tombstone } = useConnectTombstone(props.stateKey)
 
-async function handleButtonAction (button: ButtonProps, event: MouseEvent) {
+async function handleButtonAction(button: ButtonProps, event: MouseEvent) {
   button.loading = true
   if (button.onClick) {
     if (Array.isArray(button.onClick)) {
