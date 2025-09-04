@@ -4,14 +4,6 @@ import type { VNode } from 'vue'
 export interface ConnectTombstoneSideDetail {
   label: string
   value: string
-  edit?: {
-    isEditing: boolean
-    validation?: {
-      error: string
-      validate: (val: string) => string
-    }
-    action: (...args: unknown[]) => unknown | Promise<unknown>
-  }
 }
 
 export interface ConnectTombstoneTitle {
@@ -35,4 +27,13 @@ export interface ConnectTombstoneItem {
 export type ConnectTombstoneBtn = {
   button?: ButtonProps
   vNode?: VNode
+}
+
+export interface ConnectTombstoneState {
+  loading: boolean
+  title: ConnectTombstoneTitle
+  subtitles: ConnectTombstoneItem[]
+  details: ConnectTombstoneItem[]
+  sideDetails: ConnectTombstoneSideDetail[]
+  bottomButtons: ConnectTombstoneBtn[]
 }

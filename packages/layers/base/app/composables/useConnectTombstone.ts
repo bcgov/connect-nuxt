@@ -1,15 +1,6 @@
-interface TombstoneState {
-  loading: boolean
-  title: ConnectTombstoneTitle
-  subtitles: ConnectTombstoneItem[]
-  details: ConnectTombstoneItem[]
-  sideDetails: ConnectTombstoneSideDetail[]
-  bottomButtons: ConnectTombstoneBtn[]
-}
-
 export const useConnectTombstone = (stateKey: string) => {
 
-  function createInitialState (): TombstoneState {
+  function createInitialState (): ConnectTombstoneState {
     return ({
       loading: false,
       title: {} as ConnectTombstoneTitle,
@@ -20,7 +11,7 @@ export const useConnectTombstone = (stateKey: string) => {
     })
   }
 
-  const tombstone = useState<TombstoneState>(stateKey, () => createInitialState())
+  const tombstone = useState<ConnectTombstoneState>(stateKey, () => createInitialState())
 
   function $reset() {
     tombstone.value = createInitialState()
