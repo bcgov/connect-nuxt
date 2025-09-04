@@ -6,7 +6,7 @@ interface ConnectTombstoneLink extends LinkProps {
   label?: string
 }
 
-// cant use imported interface here as it causes vue comiler to break when extended
+// cant use imported interface here as it causes vue compiler to break when extended
 // must also update connect-tombstone interface if changing these props
 defineProps<{
   text?: string
