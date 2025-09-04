@@ -15,5 +15,8 @@
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.5",
     "pkg-pr-new": "^0.0.54"
+  },
+  "resolutions": {
+    "unimport": "4.1.1"
   }
 }
