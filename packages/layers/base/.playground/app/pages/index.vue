@@ -33,6 +33,10 @@ const componentExamples: DropdownMenuItem[] = [
       {
         label: 'Reset',
         to: localePath('/examples/components/ConnectTombstone/reset')
+      },
+      {
+        label: 'Slots',
+        to: localePath('/examples/components/ConnectTombstone/slots')
       }
     ]
   }

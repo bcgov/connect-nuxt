@@ -25,18 +25,20 @@ const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
         v-if="tombstone.loading"
         class="flex flex-col gap-2 *:space-y-2 sm:flex-row"
       >
-        <div class="grow">
-          <USkeleton class="h-9 w-[400px] rounded" />
-          <USkeleton class="h-5 w-[250px] rounded" />
-          <USkeleton class="h-5 w-[200px] rounded" />
-          <USkeleton class="h-5 w-[150px] rounded" />
-        </div>
-        <div>
-          <USkeleton class="h-5 w-[300px] rounded" />
-          <USkeleton class="h-5 w-[300px] rounded" />
-          <USkeleton class="h-5 w-[300px] rounded" />
-          <USkeleton class="h-5 w-[300px] rounded" />
-        </div>
+        <slot name="loading">
+          <div class="grow">
+            <USkeleton class="h-9 w-[400px] rounded" />
+            <USkeleton class="h-5 w-[250px] rounded" />
+            <USkeleton class="h-5 w-[200px] rounded" />
+            <USkeleton class="h-5 w-[150px] rounded" />
+          </div>
+          <div>
+            <USkeleton class="h-5 w-[300px] rounded" />
+            <USkeleton class="h-5 w-[300px] rounded" />
+            <USkeleton class="h-5 w-[300px] rounded" />
+            <USkeleton class="h-5 w-[300px] rounded" />
+          </div>
+        </slot>
       </div>
       <div
         v-else
@@ -44,24 +46,28 @@ const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
       >
         <div class="grow space-y-4">
           <div>
-            <component
-              :is="tombstone.title.el"
-              class="text-[1.375rem] font-bold text-neutral-highlighted"
-            >
-              {{ tombstone.title.text }}
-            </component>
-            <div
-              v-if="tombstone.subtitles.length"
-              class="flex divide-x divide-gray-500"
-            >
-              <ConnectTombstoneItem
-                v-for="subtitle, i in tombstone.subtitles"
-                :key="'subtitle-' + i"
-                v-bind="subtitle"
-                class="px-2"
-                :class="i === 0 ? 'pl-0' : ''"
-              />
-            </div>
+            <slot name="title">
+              <component
+                :is="tombstone.title.el"
+                class="text-[1.375rem] font-bold text-neutral-highlighted"
+              >
+                {{ tombstone.title.text }}
+              </component>
+            </slot>
+            <slot name="subtitles">
+              <div
+                v-if="tombstone.subtitles.length"
+                class="flex divide-x divide-gray-500"
+              >
+                <ConnectTombstoneItem
+                  v-for="subtitle, i in tombstone.subtitles"
+                  :key="'subtitle-' + i"
+                  v-bind="subtitle"
+                  class="px-2"
+                  :class="i === 0 ? 'pl-0' : ''"
+                />
+              </div>
+            </slot>
           </div>
           <div class="space-y-1">
             <slot name="details">
@@ -95,7 +101,8 @@ const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
             </slot>
           </div>
         </div>
-        <dl class="space-y-1 pt-1 text-sm">
+        <slot name="sideDetails">
+        <dl class="space-y-1 text-sm">
           <div 
             v-for="detail in tombstone.sideDetails"
             :key="detail.label"
@@ -112,6 +119,7 @@ const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
             </dd>
           </div>
         </dl>
+      </slot>
       </div>
     </div>
   </div>
