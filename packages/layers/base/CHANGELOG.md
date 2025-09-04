@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.20
+
+### Patch Changes
+
+- [#67](https://github.com/bcgov/connect-nuxt/pull/67) [`88cd406`](https://github.com/bcgov/connect-nuxt/commit/88cd406e185ec8b91b35ec04efc80e2518412462) Thanks [@deetz99](https://github.com/deetz99)! - Redefine ConnectTombstoneItem props to satisfy vue compiler when extending layer. Issue: bcgov/entity#29341
+
 ## 0.1.19
 
 ### Patch Changes
