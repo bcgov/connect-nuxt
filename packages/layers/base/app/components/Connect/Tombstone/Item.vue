@@ -1,7 +1,21 @@
 <script setup lang="ts">
-// workaround for vue compiler when importing layer
-type ItemProps = ConnectTombstoneItem
-defineProps<ItemProps>()
+import type { IconProps, BadgeProps, LinkProps } from '@nuxt/ui'
+import type { VNode } from 'vue'
+
+interface ConnectTombstoneLink extends LinkProps {
+  label?: string
+}
+
+// cant use imported interface here as it causes vue comiler to break when extended
+// must also update connect-tombstone interface if changing these props
+defineProps<{
+  text?: string
+  itemClass?: string
+  icon?: IconProps
+  badge?: BadgeProps
+  link?: ConnectTombstoneLink
+  vNode?: VNode
+}>()
 </script>
 
 <template>

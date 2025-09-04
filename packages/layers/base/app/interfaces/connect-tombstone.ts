@@ -11,10 +11,12 @@ export interface ConnectTombstoneTitle {
   as: 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4'
 }
 
+// must also update ConnectTombstoneItem props if updating this type
 export interface ConnectTombstoneLink extends LinkProps {
   label?: string
 }
 
+// must also update ConnectTombstoneItem props if updating this type
 export interface ConnectTombstoneItem {
   text?: string
   itemClass?: string
