@@ -2,4 +2,4 @@
 "@sbc-connect/nuxt-base": patch
 ---
 
-Try type alias workaround for Tombstone props. Issue: bcgov/entity#29341
+Redefine ConnectTombstoneItem props to satisfy vue compiler when extending layer. Issue: bcgov/entity#29341
