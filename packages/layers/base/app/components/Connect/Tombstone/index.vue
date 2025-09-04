@@ -1,29 +1,9 @@
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
 
-const props = defineProps<{ stateKey?: string }>()
+const props = defineProps<{ stateKey: string }>()
 
-const tombstone = reactive(useConnectTombstone(props.stateKey))
-
-const validate = (sideDetail: ConnectTombstoneSideDetail, onlyOnExistingErr: boolean) => {
-  if (onlyOnExistingErr && !sideDetail.edit?.validation?.error) {
-    return
-  }
-  if (sideDetail.edit?.validation) {
-    sideDetail.edit.validation.error = sideDetail.edit?.validation?.validate(sideDetail.value)
-  }
-}
-
-const save = (sideDetail: ConnectTombstoneSideDetail) => {
-  if (sideDetail.edit) {
-    sideDetail.edit.validation?.validate(sideDetail.value)
-    if (sideDetail.edit.validation?.error) {
-      return
-    }
-    sideDetail.edit.isEditing = false
-    sideDetail.edit.action()
-  }
-}
+const tombstone = useConnectTombstone(props.stateKey)
 
 const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
   button.loading = true
@@ -116,63 +96,21 @@ const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
           </div>
         </div>
         <dl class="space-y-1 pt-1 text-sm">
-          <template
+          <div 
             v-for="detail in tombstone.sideDetails"
             :key="detail.label"
+            class="flex flex-row flex-wrap gap-2"
           >
-            <div :class="[detail.edit && !detail.edit.isEditing && 'mr-14']">
-              <!-- TODO: design not finalized, this is a WIP  -->
-              <UTooltip
-                :prevent="detail.edit?.isEditing"
-                :close-delay="100"
-                :content="{ side: 'right', sideOffset: 0 }"
-                :ui="{ content: 'bg-transparent opacity-100 shadow-none' }"
-              >
-                <div class="flex flex-row flex-wrap gap-2">
-                  <dt
-                    class="font-bold text-neutral-highlighted"
-                    :class="[detail.edit?.isEditing && 'mt-1']"
-                  >
-                    {{ detail.label }}:
-                  </dt>
-                  <dd v-if="!detail.edit?.isEditing">
-                    {{ detail.value }}
-                  </dd>
-                  <UFormField
-                    v-else
-                    :name="detail.label"
-                    :error="detail.edit?.validation?.error || undefined"
-                    size="xs"
-                  >
-                    <UInput
-                      v-model="detail.value"
-                      size="xs"
-                      @input="validate(detail, true)"
-                      @change="validate(detail, false)"
-                    />
-                  </UFormField>
-                  <UButton
-                    v-if="detail.edit?.isEditing"
-                    class="mt-[2px] items-start"
-                    :label="$t('word.Save')"
-                    :padded="false"
-                    variant="link"
-                    @click="save(detail)"
-                  />
-                </div>
-                <template #text>
-                  <UButton
-                    v-if="detail.edit && !detail.edit.isEditing"
-                    icon="i-mdi-edit"
-                    :label="$t('label.edit')"
-                    :padded="false"
-                    variant="link"
-                    @click="detail.edit.isEditing = true"
-                  />
-                </template>
-              </UTooltip>
-            </div>
-          </template>
+            <dt
+              class="font-bold text-neutral-highlighted"
+              :class="[detail.edit?.isEditing && 'mt-1']"
+            >
+              {{ detail.label }}:
+            </dt>
+            <dd>
+              {{ detail.value }}
+            </dd>
+          </div>
         </dl>
       </div>
     </div>

@@ -7,10 +7,8 @@ interface TombstoneState {
   bottomButtons: ConnectTombstoneBtn[]
 }
 
-export const useConnectTombstone = (stateKey?: string) => {
-  const key = stateKey ? `connect-tombstone-state-${stateKey}` : 'connect-tombstone-state'
-
-  return useState<TombstoneState>(key, () => ({
+export const useConnectTombstone = (stateKey: string) => {
+  return useState<TombstoneState>(stateKey, () => ({
     loading: false,
     title: {} as ConnectTombstoneTitle,
     subtitles: [],
