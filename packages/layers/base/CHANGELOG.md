@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.19
+
+### Patch Changes
+
+- [#65](https://github.com/bcgov/connect-nuxt/pull/65) [`f1145be`](https://github.com/bcgov/connect-nuxt/commit/f1145be1b8b175d9f2e37ae13305d112c6d31cc9) Thanks [@deetz99](https://github.com/deetz99)! - Fix tombstone type import. issue: bcgov/entity#29341
+
 ## 0.1.18
 
 ### Patch Changes
