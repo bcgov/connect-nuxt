@@ -45,6 +45,13 @@ setBreadcrumbs([
 
     <p>This component is meant to used with the useConnectTombstone composable.</p>
 
+    <ConnectPageSection :heading="{ label: 'Props' }" ui-body="p-4 space-y-4">
+      <p>The `stateKey` prop is required to link the composable and component state.</p>
+      <ul>
+        <li>`stateKey` - String - required</li>
+      </ul>
+    </ConnectPageSection>
+
     <ConnectPageSection :heading="{ label: 'Basic Example' }" ui-body="p-4 space-y-4">
       <UButton label="Show Loading State" @click="triggerReset" />
       <ConnectTombstone class="border border-black" state-key="basic" />

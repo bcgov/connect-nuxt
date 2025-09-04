@@ -60,7 +60,13 @@ setBreadcrumbs([
     </h1>
 
     <p>This component is meant to used with the useConnectTombstone composable.</p>
-    <p>Pass the `state-key` props to have multiple tombstones active</p>
+    
+    <ConnectPageSection :heading="{ label: 'Props' }" ui-body="p-4 space-y-4">
+      <p>The `stateKey` prop is required to link the composable and component state.</p>
+      <ul>
+        <li>`stateKey` - String - required</li>
+      </ul>
+    </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'Multiple Example' }" ui-body="p-4 space-y-4">
       <div class="flex gap-4">

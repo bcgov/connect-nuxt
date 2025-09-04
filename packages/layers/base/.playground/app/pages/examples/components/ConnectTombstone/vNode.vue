@@ -182,6 +182,13 @@ onMounted(async () => {
     <p>This component is meant to used with the useConnectTombstone composable.</p>
     <p>Pass any element or component using the vNode option.</p>
 
+    <ConnectPageSection :heading="{ label: 'Props' }" ui-body="p-4 space-y-4">
+      <p>The `stateKey` prop is required to link the composable and component state.</p>
+      <ul>
+        <li>`stateKey` - String - required</li>
+      </ul>
+    </ConnectPageSection>
+
     <ConnectPageSection :heading="{ label: 'vNode (with custom id)' }" ui-body="p-4 space-y-4">
       <UButton label="Trigger Refresh" @click="setVNode" />
       <ConnectTombstone state-key="v-node" class="border border-black" />
