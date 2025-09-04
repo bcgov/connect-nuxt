@@ -3,7 +3,7 @@ import type { ButtonProps } from '@nuxt/ui'
 
 const props = defineProps<{ stateKey: string }>()
 
-const tombstone = useConnectTombstone(props.stateKey)
+const { tombstone } = useConnectTombstone(props.stateKey)
 
 const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
   button.loading = true

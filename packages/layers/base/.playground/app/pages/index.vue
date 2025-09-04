@@ -29,6 +29,10 @@ const componentExamples: DropdownMenuItem[] = [
       {
         label: 'vNode',
         to: localePath('/examples/components/ConnectTombstone/vNode')
+      },
+      {
+        label: 'Reset',
+        to: localePath('/examples/components/ConnectTombstone/reset')
       }
     ]
   }

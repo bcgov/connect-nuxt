@@ -6,8 +6,8 @@ definePageMeta({
 })
 
 const localePath = useLocalePath()
-const { tombstone: tombstone1 } = useConnectTombstone('no-1')
-const { tombstone: tombstone2 } = useConnectTombstone('no-2')
+const { tombstone: tombstone1, $reset: reset1 } = useConnectTombstone('reset-no-1')
+const { tombstone: tombstone2, $reset: reset2 } = useConnectTombstone('reset-no-2')
 
 async function trigger1() {
   tombstone1.value.loading = true
@@ -48,7 +48,7 @@ setBreadcrumbs([
     label: 'Examples'
   },
   {
-    label: 'ConnectTombstone (multiple)'
+    label: 'ConnectTombstone (reset)'
   }
 ])
 </script>
@@ -56,10 +56,11 @@ setBreadcrumbs([
 <template>
   <div class="py-8 space-y-6">
     <h1>
-      ConnectTombstone - Multiple
+      ConnectTombstone - Reset
     </h1>
 
     <p>This component is meant to used with the useConnectTombstone composable.</p>
+    <p>Use the `$reset` method to reset to an empty state.</p>
     
     <ConnectPageSection :heading="{ label: 'Props' }" ui-body="p-4 space-y-4">
       <p>The `stateKey` prop is required to link the composable and component state.</p>
@@ -68,13 +69,15 @@ setBreadcrumbs([
       </ul>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'Multiple Example' }" ui-body="p-4 space-y-4">
+    <ConnectPageSection :heading="{ label: 'Reset Example' }" ui-body="p-4 space-y-4">
       <div class="flex gap-4">
         <UButton label="Show Loading State 1" @click="trigger1" />
         <UButton label="Show Loading State 2" @click="trigger2" />
+        <UButton label="Reset 1" @click="reset1" />
+        <UButton label="Reset 2" @click="reset2" />
       </div>
-      <ConnectTombstone class="border border-black" state-key="no-1" />
-      <ConnectTombstone class="border border-black" state-key="no-2" />
+      <ConnectTombstone class="border border-black" state-key="reset-no-1" />
+      <ConnectTombstone class="border border-black" state-key="reset-no-2" />
     </ConnectPageSection>
   </div>
 </template>

@@ -7,7 +7,7 @@ definePageMeta({
 
 const localePath = useLocalePath()
 
-const tombstone = useConnectTombstone('full-options')
+const { tombstone } = useConnectTombstone('full-options')
 
 async function triggerReset() {
   tombstone.value.loading = true

@@ -19,7 +19,7 @@ setBreadcrumbs([
   }
 ])
 
-const tombstone = useConnectTombstone('v-node')
+const { tombstone } = useConnectTombstone('v-node')
 const UButton = resolveComponent('UButton')
 const UButtonGroup = resolveComponent('UButtonGroup')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
