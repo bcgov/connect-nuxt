@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { ConnectTombstoneItem } from '#imports'
+// must import via alias to be resolved correctly when extending
+import type { ConnectTombstoneItem } from '#base/app/interfaces/connect-tombstone'
 
 defineProps<ConnectTombstoneItem>()
 </script>
