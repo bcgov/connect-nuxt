@@ -1,8 +1,21 @@
 <script setup lang="ts">
-// must import via alias to be resolved correctly when extending
-import type { ConnectTombstoneItem } from '#base/app/interfaces/connect-tombstone'
+import type { IconProps, BadgeProps, LinkProps } from '@nuxt/ui'
+import type { VNode } from 'vue'
 
-defineProps<ConnectTombstoneItem>()
+interface ConnectTombstoneLink extends LinkProps {
+  label?: string
+}
+
+// cant use imported interface here as it causes vue compiler to break when extended
+// must also update connect-tombstone interface if changing these props
+defineProps<{
+  text?: string
+  itemClass?: string
+  icon?: IconProps
+  badge?: BadgeProps
+  link?: ConnectTombstoneLink
+  vNode?: VNode
+}>()
 </script>
 
 <template>

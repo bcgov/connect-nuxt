@@ -36,7 +36,7 @@ describe('useConnectTombstone', () => {
   it('should initialize with a custom default state', () => {
     const customInitialState = {
       loading: true,
-      title: { text: 'Initial Title' }
+      title: { text: 'Initial Title', as: 'span' }
     }
 
     const { tombstone } = useConnectTombstone('custom-key', customInitialState)
@@ -53,7 +53,7 @@ describe('useConnectTombstone', () => {
     expect(instance1.tombstone).toBe(instance2.tombstone)
 
     instance1.tombstone.value.loading = true
-    instance1.tombstone.value.title = { text: 'Shared Title' }
+    instance1.tombstone.value.title = { text: 'Shared Title', as: 'span' }
 
     expect(instance2.tombstone.value.loading).toBe(true)
     expect(instance2.tombstone.value.title.text).toBe('Shared Title')
@@ -73,8 +73,8 @@ describe('useConnectTombstone', () => {
   it('should reset the state to its initial value when $reset is called', () => {
     const { tombstone, $reset } = useConnectTombstone('reset-key')
     tombstone.value.loading = true
-    tombstone.value.title = { text: 'Some Title' }
-    tombstone.value.details = [{ type: 'text', text: 'Some Detail' }]
+    tombstone.value.title = { text: 'Some Title', as: 'span' }
+    tombstone.value.details = [{ text: 'Some Detail' }]
 
     $reset()
 
@@ -91,7 +91,7 @@ describe('useConnectTombstone', () => {
   it('should reset to the custom default state when $reset is called', () => {
     const customInitialState = {
       loading: true,
-      title: { text: 'Initial Title' }
+      title: { text: 'Initial Title', as: 'span' }
     }
 
     const { tombstone, $reset } = useConnectTombstone('custom-reset-key', customInitialState)
@@ -100,7 +100,7 @@ describe('useConnectTombstone', () => {
     expect(tombstone.value.title.text).toBe('Initial Title')
 
     tombstone.value.loading = false
-    tombstone.value.title = { text: 'A Different Title' }
+    tombstone.value.title = { text: 'A Different Title', as: 'span' }
 
     expect(tombstone.value.loading).toBe(false)
     expect(tombstone.value.title.text).toBe('A Different Title')
