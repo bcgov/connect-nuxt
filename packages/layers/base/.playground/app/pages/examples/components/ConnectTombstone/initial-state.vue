@@ -6,7 +6,7 @@ definePageMeta({
 })
 
 const localePath = useLocalePath()
-const { tombstone, $reset } = useConnectTombstone('initial-state', { title: { el: 'h2', text: 'Initial State Title' }})
+const { tombstone, $reset } = useConnectTombstone('initial-state', { title: { as: 'h2', text: 'Initial State Title' }})
 
 async function triggerReset() {
   tombstone.value.loading = true

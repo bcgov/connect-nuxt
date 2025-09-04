@@ -12,7 +12,7 @@ const { tombstone: tombstone2 } = useConnectTombstone('no-2')
 async function trigger1() {
   tombstone1.value.loading = true
   await delay(1000)
-  tombstone1.value.title = { el: 'span', text: 'First Tombstone Here' }
+  tombstone1.value.title = { as: 'span', text: 'First Tombstone Here' }
   tombstone1.value.subtitles = [{ text: 'BC Cooperative Association' }]
   tombstone1.value.sideDetails = [
     { label: 'Business Number', value: '609760293752375' },
@@ -26,7 +26,7 @@ async function trigger1() {
 async function trigger2() {
   tombstone2.value.loading = true
   await delay(1000)
-  tombstone2.value.title = { el: 'span', text: 'Second Tombstone Here' }
+  tombstone2.value.title = { as: 'span', text: 'Second Tombstone Here' }
   tombstone2.value.subtitles = [{ text: 'BC Cooperative Association' }]
   tombstone2.value.sideDetails = [
     { label: 'Business Number', value: '609760293752375' },

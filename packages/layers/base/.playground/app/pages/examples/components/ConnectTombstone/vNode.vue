@@ -118,7 +118,7 @@ const dropdownItems = ref<DropdownMenuItem[][]>([
 async function setVNode() {
   tombstone.value.loading = true
   await delay(1000)
-  tombstone.value.title = { el: 'span', text: 'VNode Title Here' }
+  tombstone.value.title = { as: 'span', text: 'VNode Title Here' }
   tombstone.value.subtitles = [{ text: 'BC Cooperative Association' }]
   tombstone.value.details = [
     { text: 'vNode option', icon: { name: 'i-mdi-information-outline' } },

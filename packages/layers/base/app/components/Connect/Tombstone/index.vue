@@ -5,7 +5,7 @@ const props = defineProps<{ stateKey: string }>()
 
 const { tombstone } = useConnectTombstone(props.stateKey)
 
-const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
+async function handleButtonAction (button: ButtonProps, event: MouseEvent) {
   button.loading = true
   if (button.onClick) {
     if (Array.isArray(button.onClick)) {
@@ -48,7 +48,7 @@ const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
           <div>
             <slot name="title">
               <component
-                :is="tombstone.title.el"
+                :is="tombstone.title.as"
                 class="text-[1.375rem] font-bold text-neutral-highlighted"
               >
                 {{ tombstone.title.text }}

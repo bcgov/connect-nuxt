@@ -8,7 +8,7 @@ export interface ConnectTombstoneSideDetail {
 
 export interface ConnectTombstoneTitle {
   text: string
-  el: string
+  as: keyof HTMLElementTagNameMap
 }
 
 export interface ConnectTombstoneLink extends LinkProps {

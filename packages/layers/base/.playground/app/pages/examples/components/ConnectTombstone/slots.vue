@@ -11,7 +11,7 @@ const { tombstone } = useConnectTombstone('slots')
 async function triggerReset() {
   tombstone.value.loading = true
   await delay(1000)
-  tombstone.value.title = { el: 'span', text: 'Full Title Here' }
+  tombstone.value.title = { as: 'span', text: 'Full Title Here' }
   tombstone.value.subtitles = [{ text: 'BC Cooperative Association' }]
   tombstone.value.details = [
     { badge: { label: 'BADGE' } },
