@@ -1,5 +1,13 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.18
+
+### Patch Changes
+
+- [#64](https://github.com/bcgov/connect-nuxt/pull/64) [`291b7dd`](https://github.com/bcgov/connect-nuxt/commit/291b7dd9147dfe465efaabca645ff5cef23d2a66) Thanks [@deetz99](https://github.com/deetz99)! - Create ConnectTombstone component. issue: bcgov/entity#29341
+
+- [#62](https://github.com/bcgov/connect-nuxt/pull/62) [`6ff25af`](https://github.com/bcgov/connect-nuxt/commit/6ff25af994b1099582f632825e1c280a518ff59a) Thanks [@deetz99](https://github.com/deetz99)! - Create ConnectContactDisplay component. issue: bcgov/entity#29341
+
 ## 0.1.17
 
 ### Patch Changes

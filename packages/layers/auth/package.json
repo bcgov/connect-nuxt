@@ -1,7 +1,7 @@
 {
   "name": "@sbc-connect/nuxt-auth",
   "type": "module",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "repository": "github:bcgov/connect-nuxt",
   "license": "BSD-3-Clause",
   "main": "./nuxt.config.ts",
