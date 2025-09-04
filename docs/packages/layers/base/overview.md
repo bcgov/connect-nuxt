@@ -52,12 +52,14 @@ Components for BC Government branding and styling:
 - ConnectSpinner
 - ConnectSystemBanner
 - ConnectTextarea
+- ConnectTombstone
 - ConnectContactDisplay
 
 ### Composables
 
 - useConnectModal
 - useConnectLaunchDarkly
+- useConnectTombstone
 
 ### Layouts
 
