@@ -1,8 +1,7 @@
 <script setup lang="ts">
-// must import via alias to be resolved correctly when extending
-import type { ConnectTombstoneItem } from '#base/app/interfaces/connect-tombstone'
-
-defineProps<ConnectTombstoneItem>()
+// workaround for vue compiler when importing layer
+type ItemProps = ConnectTombstoneItem
+defineProps<ItemProps>()
 </script>
 
 <template>
