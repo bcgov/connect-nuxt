@@ -53,6 +53,7 @@ Components for BC Government branding and styling:
 - ConnectSystemBanner
 - ConnectTextarea
 - ConnectTombstone
+- ConnectContactDisplay
 
 ### Composables
 
