@@ -61,7 +61,7 @@ setBreadcrumbs([
 
     <p>This component is meant to used with the useConnectTombstone composable.</p>
     <p>Use the `$reset` method to reset to an empty state.</p>
-    
+
     <ConnectPageSection :heading="{ label: 'Props' }" ui-body="p-4 space-y-4">
       <p>The `stateKey` prop is required to link the composable and component state.</p>
       <ul>

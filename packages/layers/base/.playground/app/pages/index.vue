@@ -37,6 +37,10 @@ const componentExamples: DropdownMenuItem[] = [
       {
         label: 'Slots',
         to: localePath('/examples/components/ConnectTombstone/slots')
+      },
+      {
+        label: 'Initial State',
+        to: localePath('/examples/components/ConnectTombstone/initial-state')
       }
     ]
   }

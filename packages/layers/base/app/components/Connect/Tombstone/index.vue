@@ -102,24 +102,21 @@ const handleButtonAction = async (button: ButtonProps, event: MouseEvent) => {
           </div>
         </div>
         <slot name="sideDetails">
-        <dl class="space-y-1 text-sm">
-          <div 
-            v-for="detail in tombstone.sideDetails"
-            :key="detail.label"
-            class="flex flex-row flex-wrap gap-2"
-          >
-            <dt
-              class="font-bold text-neutral-highlighted"
-              :class="[detail.edit?.isEditing && 'mt-1']"
+          <dl class="space-y-1 text-sm">
+            <div
+              v-for="detail in tombstone.sideDetails"
+              :key="detail.label"
+              class="flex flex-row flex-wrap gap-2"
             >
-              {{ detail.label }}:
-            </dt>
-            <dd>
-              {{ detail.value }}
-            </dd>
-          </div>
-        </dl>
-      </slot>
+              <dt class="font-bold text-neutral-highlighted">
+                {{ detail.label }}:
+              </dt>
+              <dd>
+                {{ detail.value }}
+              </dd>
+            </div>
+          </dl>
+        </slot>
       </div>
     </div>
   </div>

@@ -93,7 +93,7 @@ setBreadcrumbs([
         </template>
       </ConnectTombstone>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Subtitles Slot' }" ui-body="p-4 space-y-4">
       <UButton label="Trigger Reset" @click="triggerReset" />
       <ConnectTombstone class="border border-black" state-key="slots">
@@ -104,7 +104,7 @@ setBreadcrumbs([
         </template>
       </ConnectTombstone>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Details Slot' }" ui-body="p-4 space-y-4">
       <UButton label="Trigger Reset" @click="triggerReset" />
       <ConnectTombstone class="border border-black" state-key="slots">
@@ -115,7 +115,7 @@ setBreadcrumbs([
         </template>
       </ConnectTombstone>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Buttons Slot' }" ui-body="p-4 space-y-4">
       <UButton label="Trigger Reset" @click="triggerReset" />
       <ConnectTombstone class="border border-black" state-key="slots">
@@ -126,7 +126,7 @@ setBreadcrumbs([
         </template>
       </ConnectTombstone>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Side Details Slot' }" ui-body="p-4 space-y-4">
       <UButton label="Trigger Reset" @click="triggerReset" />
       <ConnectTombstone class="border border-black" state-key="slots">
@@ -137,7 +137,7 @@ setBreadcrumbs([
         </template>
       </ConnectTombstone>
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Loading Slot' }" ui-body="p-4 space-y-4">
       <UButton label="Trigger Reset" @click="triggerReset" />
       <ConnectTombstone class="border border-black" state-key="slots">
