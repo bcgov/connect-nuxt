@@ -2,7 +2,7 @@
   "name": "nuxt-forms-demo-app",
   "private": true,
   "type": "module",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build-check": "nuxt build",
