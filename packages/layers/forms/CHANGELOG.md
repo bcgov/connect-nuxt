@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.22
+
+### Patch Changes
+
+- [#69](https://github.com/bcgov/connect-nuxt/pull/69) [`0249697`](https://github.com/bcgov/connect-nuxt/commit/0249697fec6fa0de96b53665a2e6a09254e5af24) Thanks [@deetz99](https://github.com/deetz99)! - Fix incorrect postal code input mask.
+
 ## 0.1.21
 
 ### Patch Changes
