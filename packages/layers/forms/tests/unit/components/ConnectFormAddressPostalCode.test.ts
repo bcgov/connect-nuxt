@@ -36,7 +36,7 @@ describe('ConnectFormAddressPostalCode.vue', () => {
     const formInput = wrapper.findComponent(ConnectFormInput)
 
     expect(formInput.props('label')).toBe('Postal Code')
-    expect(formInput.props('mask')).toBe('V#@ #@#')
+    expect(formInput.props('mask')).toBe('@#@ #@#')
   })
 
   it('converts the model value to uppercase on set', async () => {
