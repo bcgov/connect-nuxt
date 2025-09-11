@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.1.22
+
+### Patch Changes
+
+- [#71](https://github.com/bcgov/connect-nuxt/pull/71) [`1752ac6`](https://github.com/bcgov/connect-nuxt/commit/1752ac651e03269825b81bf24bba3fcc67c2679c) Thanks [@deetz99](https://github.com/deetz99)! - fix logout page accidentally referencing login redirect property
+
 ## 0.1.21
 
 ### Patch Changes
