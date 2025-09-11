@@ -9,7 +9,7 @@ const redirectUrl = computed(() => {
   const urlReturn = route.query.return
   const url = urlReturn !== undefined
     ? urlReturn as string
-    : `${rtc.baseUrl}${locale.value}${ac.login.redirect}`
+    : `${rtc.baseUrl}${locale.value}${ac.logout.redirect}`
   return url
 })
 
