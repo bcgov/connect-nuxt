@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.21
+
+### Patch Changes
+
+- [#73](https://github.com/bcgov/connect-nuxt/pull/73) [`6c568da`](https://github.com/bcgov/connect-nuxt/commit/6c568da341a6d9c56cacf2c5ad56301837f9f525) Thanks [@deetz99](https://github.com/deetz99)! - Fix base modal font size.
+
 ## 0.1.20
 
 ### Patch Changes
