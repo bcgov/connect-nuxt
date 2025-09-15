@@ -19,8 +19,8 @@ defineEmits<{ close: [] }>()
   >
     <template #content>
       <div class="p-10 flex flex-col gap-6">
-        <div class="flex flex-col gap-6 text-left text-2xl">
-          <h2>
+        <div class="flex flex-col gap-6 text-left">
+          <h2 class="text-2xl">
             {{ title }}
           </h2>
           <p class="-mt-2">
