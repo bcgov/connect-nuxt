@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.22
+
+### Patch Changes
+
+- [#75](https://github.com/bcgov/connect-nuxt/pull/75) [`3dec6d9`](https://github.com/bcgov/connect-nuxt/commit/3dec6d92101915d2253cb177c38acf2a2e534fc1) Thanks [@deetz99](https://github.com/deetz99)! - Update ConnectInput modelValue type to match UInput
+
 ## 0.1.21
 
 ### Patch Changes
