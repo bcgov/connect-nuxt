@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const model = defineModel<string>({ required: true })
+const model = defineModel<string | number | bigint | null | undefined>({ required: true })
 
 defineProps<{
   id: string
