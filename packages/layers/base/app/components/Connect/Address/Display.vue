@@ -54,7 +54,7 @@ const getAddressDisplayParts = (
   ].filter(val => !!val && val !== ',')
 }
 
-const addressDisplay = getAddressDisplayParts(props.address, props.separateCity, props.textDecor, props.omitCountry)
+const addressDisplay = computed<string[]>(() => getAddressDisplayParts(props.address, props.separateCity, props.textDecor, props.omitCountry))
 </script>
 
 <template>
