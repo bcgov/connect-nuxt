@@ -18,20 +18,22 @@
     "test": "pnpm run test:unit; pnpm run test:e2e",
     "test:unit": "vitest run --passWithNoTests",
     "test:unit:watch": "vitest",
+    "test:unit:cov": "vitest --dir tests/unit --coverage",
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui",
     "typecheck": "npx nuxt typecheck"
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "@nuxt/ui": "^3.3.0",
-    "@nuxtjs/i18n": "^10.0.3",
-    "@vueuse/core": "^13.6.0",
-    "@vueuse/nuxt": "^13.6.0",
-    "dompurify": "^3.2.6",
-    "es-toolkit": "^1.39.8",
+    "@nuxt/ui": "^4.1.0",
+    "@nuxtjs/i18n": "^10.1.2",
+    "@vueuse/core": "14.0.0",
+    "@vueuse/nuxt": "14.0.0",
+    "dompurify": "^3.3.0",
+    "es-toolkit": "^1.41.0",
     "launchdarkly-vue-client-sdk": "^2.4.1",
-    "maska": "^3.2.0"
+    "maska": "^3.2.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
