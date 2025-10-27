@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/* eslint-disable vue/no-v-html */
+/* eslint-disable vue/no-v-text-v-html-on-component */
+
 const {
   translationPath,
   as = 'span'

@@ -43,20 +43,25 @@ setBreadcrumbs([
       </p>
       <ConnectI18nHelper translation-path="test.i18n.computed" :count />
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'With a different element (default span)' }" ui-body="p-4 space-y-4">
       <p>
         Customize the wrapper element. `as="h1"`
       </p>
-      <ConnectI18nHelper translation-path="test.i18n.computed" :count as="h1" />
+      <ConnectI18nHelper
+        translation-path="test.i18n.computed"
+        :count
+        as="h1"
+      />
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Sanitized input' }" ui-body="p-4 space-y-4">
       <p>
         Text is sanitized to safely use user generated strings.
       </p>
       <p>
-        translation path: `"This is &lt;strong&gt;safe bold text&lt;/strong&gt;, with a sanitized &lt;script&gt;alert('XSS')&lt;/script&gt; script element."`
+        translation path: `"This is &lt;strong&gt;safe bold text&lt;/strong&gt;,
+        with a sanitized &lt;script&gt;alert('XSS')&lt;/script&gt; script element."`
       </p>
       <p>
         sanitized path: `"This is &lt;strong&gt;safe bold text&lt;/strong&gt;, with a sanitized script element."`
