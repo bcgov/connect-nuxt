@@ -1,4 +1,4 @@
-type SbcCountrySubdivision = {
+type ConnectCountrySubdivision = {
   code: string
   name: string
 }
@@ -1941,7 +1941,7 @@ export const isoCountriesList: Array<Iso3166_1Country> = [
 ]
 
 // canada
-const subdivisionsCa: SbcCountrySubdivision[] = [
+const subdivisionsCa: ConnectCountrySubdivision[] = [
   { code: 'AB', name: 'Alberta' },
   { code: 'BC', name: 'British Columbia' },
   { code: 'MB', name: 'Manitoba' },
@@ -1958,7 +1958,7 @@ const subdivisionsCa: SbcCountrySubdivision[] = [
 ]
 
 // us
-const subdivisionsUs: SbcCountrySubdivision[] = [
+const subdivisionsUs: ConnectCountrySubdivision[] = [
   { name: 'Alabama', code: 'AL' },
   { name: 'Alaska', code: 'AK' },
   { name: 'American Samoa', code: 'AS' },
