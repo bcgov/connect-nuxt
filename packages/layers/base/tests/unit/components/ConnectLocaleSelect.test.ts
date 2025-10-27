@@ -33,6 +33,17 @@ mockNuxtImport('useI18n', () => {
   )
 })
 
+vi.mock('reka-ui', async (importOriginal) => {
+  const original = await importOriginal<typeof import('reka-ui')>()
+
+  return {
+    ...original,
+    PopperRoot: {
+      template: '<div><slot /></div>'
+    }
+  }
+})
+
 describe('<ConnectLocaleSelect />', () => {
   it('mounts', async () => {
     const wrapper = await renderSuspended(ConnectLocaleSelect)
