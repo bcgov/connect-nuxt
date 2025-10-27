@@ -43,6 +43,10 @@ const componentExamples: DropdownMenuItem[] = [
         to: localePath('/examples/components/ConnectTombstone/initial-state')
       }
     ]
+  },
+  {
+    label: 'Connect I18n Helper',
+    to: localePath('/examples/components/ConnectI18nHelper')
   }
 ]
 </script>

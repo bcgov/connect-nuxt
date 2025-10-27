@@ -60,7 +60,10 @@ export default {
       strong: 'This should have {boldStart} bold {boldEnd} text',
       strongWithProps: 'This should have {boldStart} bold {boldEnd} text and allow a {prop}',
       italic: 'Italic test {italicStart} goes here {italicEnd}.',
-      computed: 'This text will be updated. Updated {boldStart}{count}{boldEnd} times.'
+      computed: 'This text will be updated. Updated {boldStart}{count}{boldEnd} times.',
+      sanitized: () => {
+        return "This is <strong>safe bold text</strong>, with a sanitized <script>alert('XSS')</script> script element."
+      }
     }
   }
 }

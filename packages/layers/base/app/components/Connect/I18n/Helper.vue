@@ -1,6 +1,23 @@
 <script setup lang="ts">
-const props = defineProps<{
+const {
+  translationPath,
+  as = 'span'
+} = defineProps<{
   translationPath: string
+  as?: 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'label'
+    | 'span'
+    | 'p'
+    | 'div'
+    | 'li'
+    | 'legend'
+    | 'strong'
+    | 'em'
 }>()
 
 const attrs = useAttrs()
@@ -14,11 +31,10 @@ const textToDisplay = computed(() => {
     italicStart: '<em>',
     italicEnd: '</em>'
   }
-  return t(props.translationPath, translationProps)
+  return t(translationPath, translationProps)
 })
 </script>
 
 <template>
-  <!-- eslint-disable-next-line vue/no-v-html -->
-  <span v-html="textToDisplay" />
+  <component :is="as" v-html="$sanitize(textToDisplay)" />
 </template>
