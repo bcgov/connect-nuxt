@@ -1,5 +1,4 @@
 import { vi, describe, expect, it } from 'vitest'
-import { ref } from 'vue'
 import { mountSuspended, renderSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { fireEvent, screen } from '@testing-library/vue'
 
@@ -33,26 +32,31 @@ mockNuxtImport('useI18n', () => {
   )
 })
 
-vi.mock('reka-ui', async (importOriginal) => {
-  const original = await importOriginal<typeof import('reka-ui')>()
-
-  return {
-    ...original,
-    PopperRoot: {
-      template: '<div><slot /></div>'
-    }
-  }
-})
-
 describe('<ConnectLocaleSelect />', () => {
   it('mounts', async () => {
-    const wrapper = await renderSuspended(ConnectLocaleSelect)
+    const wrapper = await renderSuspended(ConnectLocaleSelect, {
+      global: {
+        stubs: {
+          PopperRoot: {
+            template: '<div><slot /></div>'
+          }
+        }
+      }
+    })
 
     expect(wrapper).toBeTruthy()
   })
 
   it('can open the dropdown', async () => {
-    const wrapper = await renderSuspended(ConnectLocaleSelect)
+    const wrapper = await renderSuspended(ConnectLocaleSelect, {
+      global: {
+        stubs: {
+          PopperRoot: {
+            template: '<div><slot /></div>'
+          }
+        }
+      }
+    })
 
     // menuitem hidden by default
     const menuitemStart = wrapper.queryByRole('menuitem')
@@ -68,7 +72,15 @@ describe('<ConnectLocaleSelect />', () => {
   })
 
   it('can change the locale value', async () => {
-    await renderSuspended(ConnectLocaleSelect)
+    await renderSuspended(ConnectLocaleSelect, {
+      global: {
+        stubs: {
+          PopperRoot: {
+            template: '<div><slot /></div>'
+          }
+        }
+      }
+    })
 
     // click buttton to open menu
     const button = screen.getByLabelText('Select a Language, current language: English')
@@ -93,7 +105,15 @@ describe('<ConnectLocaleSelect />', () => {
   })
 
   it('computed returns correct items for dropdown', async () => {
-    const wrapper = await mountSuspended(ConnectLocaleSelect)
+    const wrapper = await mountSuspended(ConnectLocaleSelect, {
+      global: {
+        stubs: {
+          PopperRoot: {
+            template: '<div><slot /></div>'
+          }
+        }
+      }
+    })
 
     // @ts-expect-error - cant find items in wrapper instance
     const computedItems = wrapper.vm.items
