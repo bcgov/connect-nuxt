@@ -8,7 +8,7 @@ export default defineVitestConfig({
     include: ['**/*.test.ts'],
     environmentOptions: {
       nuxt: {
-        domEnvironment: 'happy-dom', // 'happy-dom' (default) or 'jsdom'
+        domEnvironment: 'jsdom', // 'happy-dom' causing issues with reka-ui portal elements
         overrides: {
           // other Nuxt config you want to pass
         }
