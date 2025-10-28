@@ -3,6 +3,10 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import ConnectI18nHelper from '../../../app/components/Connect/I18n/Helper.vue'
 import { i18nMock } from '../mocks/i18n'
 
+const $sanitize = (value) => {
+  return value
+}
+
 describe('<ConnectI18nHelper />', () => {
   it('should add bold tags around text', async () => {
     const wrapper = await mountSuspended(ConnectI18nHelper, {
@@ -10,7 +14,10 @@ describe('<ConnectI18nHelper />', () => {
         translationPath: 'test.i18n.strong'
       },
       global: {
-        plugins: [i18nMock]
+        plugins: [i18nMock],
+        mocks: {
+          $sanitize
+        }
       }
     })
 
@@ -24,7 +31,10 @@ describe('<ConnectI18nHelper />', () => {
         prop: 'prop to be added'
       },
       global: {
-        plugins: [i18nMock]
+        plugins: [i18nMock],
+        mocks: {
+          $sanitize
+        }
       }
     })
 
