@@ -39,8 +39,8 @@ const search = async () => {
             {{ result.legalType }}
             {{ result.status }}
             {{ result.bn }}
-            {{ result.goodStanding }}
-            {{ result.modernized }}
+            {{ result.goodStanding !== undefined ? `(good standing: ${result.goodStanding})` : '' }}
+            {{ `(modernized: ${result.modernized})` }}
           </li>
         </ul>
         <p class="mt-3">
