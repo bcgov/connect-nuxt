@@ -1,5 +1,11 @@
 # @sbc-connect/eslint-config
 
+## 0.0.8
+
+### Patch Changes
+
+- [#77](https://github.com/bcgov/connect-nuxt/pull/77) [`86ec3d0`](https://github.com/bcgov/connect-nuxt/commit/86ec3d03baa7dae3137f6c4c96a328f13eb46ce5) Thanks [@deetz99](https://github.com/deetz99)! - Update dependencies
+
 ## 0.0.7
 
 ### Patch Changes
