@@ -1,7 +1,5 @@
-declare module '#app' {
-  interface PageMeta {
-    buttonControl?: ConnectButtonControl
-  }
-}
+// declare module '#app' {
+//   interface PageMeta {}
+// }
 
 export {}

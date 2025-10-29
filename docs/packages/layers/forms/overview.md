@@ -57,7 +57,7 @@ Standard Connect formfield wrapper, similar to a fieldset except **specifically*
 
 ### Composables
 
-#### useButtonControl
+#### useConnectButtonControl
 
 Manage a group of action buttons via composable, find an example [here](../../../../packages/layers/forms/.playground/app/pages/examples/components/ConnectButtonControl/Stacked.vue).
 

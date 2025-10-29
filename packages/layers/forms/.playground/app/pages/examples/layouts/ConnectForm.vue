@@ -6,13 +6,13 @@ definePageMeta({
     { label: 'Connect Form Layout' }
   ]
 })
-const { setButtonControl, handleButtonLoading, setAlertText } = useButtonControl()
+const { setButtonControl, handleButtonLoading, setAlertText } = useConnectButtonControl()
 const handleClick = (position: 'left' | 'right', index: number) => {
   if (position === 'right') {
     if (index === 0) {
-      setAlertText(false, 'right', undefined, 'Alert text side')
+      setAlertText('Alert text side', 'right', undefined)
     } else {
-      setAlertText(false, 'right', index, 'Alert text underneath')
+      setAlertText('Alert text underneath', 'right', index)
     }
   } else {
     handleButtonLoading(false, position, index)

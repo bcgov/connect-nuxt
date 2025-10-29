@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { delay } from 'es-toolkit'
+
 definePageMeta({
   layout: 'connect-base',
   breadcrumbs: [
@@ -6,18 +8,9 @@ definePageMeta({
     { label: 'Connect Button Control Component (stacked)' }
   ]
 })
-const { setButtonControl, handleButtonLoading, setAlertText } = useButtonControl()
-const showLoading = (position: 'left' | 'right', index: number) => {
-  setAlertText(true)
-  handleButtonLoading(false, position, index)
-  setTimeout(() => {
-    handleButtonLoading(true)
-  }, 1000)
-}
-const showAlertText = (position: 'left' | 'right', index: number, text: string) => {
-  setAlertText(false, position, index, text)
-}
-setButtonControl({
+const buttonControl = useConnectButtonControl('stacked')
+
+buttonControl.setButtonControl({
   leftGroup: {
     buttons: [
       {
@@ -25,7 +18,7 @@ setButtonControl({
         icon: 'i-mdi-chevron-up',
         class: 'min-w-[300px] justify-center',
         color: 'success',
-        onClick: () => showAlertText('left', 0, 'Alert text no jump')
+        onClick: () => buttonControl.setAlertText('Alert text no jump', 'left', 0)
       },
       {
         label: 'Left 2',
@@ -33,7 +26,7 @@ setButtonControl({
         class: 'min-w-[142px] justify-center',
         variant: 'outline',
         removeAlertSpacing: true,
-        onClick: () => showLoading('left', 1)
+        onClick: () => delay(1000)
       },
       {
         label: 'Left 3',
@@ -41,7 +34,7 @@ setButtonControl({
         class: 'min-w-[142px] justify-center',
         variant: 'ghost',
         removeAlertSpacing: true,
-        onClick: () => showAlertText('right', 2, 'Left 3 alert text')
+        onClick: () => buttonControl.setAlertText('Left 3 alert text', 'left', 2)
       }
     ]
   },
@@ -52,7 +45,7 @@ setButtonControl({
         class: 'min-w-[300px] justify-center',
         trailingIcon: 'i-mdi-chevron-right',
         removeAlertSpacing: true,
-        onClick: () => showAlertText('right', 0, 'Alert text jump')
+        onClick: () => buttonControl.setAlertText('Alert text jump', 'right', 0)
       },
       {
         label: 'Right Button 2',
@@ -60,14 +53,14 @@ setButtonControl({
         color: 'error',
         variant: 'soft',
         removeAlertSpacing: true,
-        onClick: () => showAlertText('right', 2, 'Right Button 2 alert text')
+        onClick: () => buttonControl.setAlertText('Right Button 2 alert text', 'right', 1)
       },
       {
         label: 'Right Button 3',
         class: 'min-w-[300px] justify-center',
         color: 'error',
         variant: 'outline',
-        onClick: () => showAlertText('right', 2, 'Right Button 3 alert text')
+        onClick: () => buttonControl.setAlertText('Right Button 3 alert text', 'right', 2)
       }
     ],
     stacked: true
@@ -79,7 +72,7 @@ setButtonControl({
   <div class="my-10">
     <ConnectPageSection :heading="{ label: 'Connect Button Control (stacked example)' }">
       <div class="p-10">
-        <ConnectButtonControl class="mx-auto max-w-[300px] bg-shade-new" />
+        <ConnectButtonControl state-key="stacked" class="mx-auto max-w-[300px] bg-shade-new" />
       </div>
     </ConnectPageSection>
   </div>

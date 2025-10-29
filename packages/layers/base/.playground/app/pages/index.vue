@@ -12,6 +12,23 @@ const localePath = useLocalePath()
 
 const componentExamples: DropdownMenuItem[] = [
   {
+    label: 'Connect Button Control',
+    children: [
+      {
+        label: 'Default',
+        to: localePath('/examples/components/ConnectButtonControl/Default')
+      },
+      {
+        label: 'Options',
+        to: localePath('/examples/components/ConnectButtonControl/Options')
+      },
+      {
+        label: 'Stacked Buttons',
+        to: localePath('/examples/components/ConnectButtonControl/Stacked')
+      }
+    ]
+  },
+  {
     label: 'Connect Tombstone',
     children: [
       {

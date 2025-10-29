@@ -41,7 +41,7 @@ test.describe('Connect Button Control (stacked)', () => {
     await leftButton2.click()
     await expect(leftButton1Text).not.toBeVisible()
     // Can add error text under a different button
-    const leftButton3TextUnderRight3 = rightButtonWrappers[2].getByText('Left 3 alert text')
+    const leftButton3TextUnderRight3 = leftButtonWrappers[2].getByText('Left 3 alert text')
     await expect(leftButton3TextUnderRight3).not.toBeVisible()
     await leftButton3.click()
     await expect(leftButton3TextUnderRight3).toBeVisible()

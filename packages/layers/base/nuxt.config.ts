@@ -120,10 +120,9 @@ export default defineNuxtConfig({
     }
   },
 
-  // removing this for now as its causing more issues
-  // typescript: {
-  //   includeWorkspace: true // fixes auto imports in tests
-  // },
+  typescript: {
+    includeWorkspace: true // allow auto imports in tests
+  },
 
   runtimeConfig: {
     public: {

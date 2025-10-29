@@ -15,3 +15,8 @@ export interface ConnectButtonControl {
   leftGroup: ConnectButtonGroup
   rightGroup: ConnectButtonGroup
 }
+
+export interface ConnectButtonControlOptions {
+  handleLoading: boolean
+  clearAlertTextOnClick: boolean
+}

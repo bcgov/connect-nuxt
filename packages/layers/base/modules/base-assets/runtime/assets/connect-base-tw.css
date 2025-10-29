@@ -276,14 +276,3 @@ body {
     @apply pointer-events-none absolute left-0 top-1 text-neutral text-xs font-medium px-2.5 transition-all duration-200 peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-primary peer-aria-invalid:text-error;
   }
 }
-
-/* TODO: maybe delete this */
-/* Extra Utilities */
-/* This should be working out-of-the-box from Nuxt UI but isnt for some reason */
-/* https://ui.nuxt.com/getting-started/theme#neutral */
-/* .text-highlighted {
-  color: var(--color-gray-900);
-  @variant dark {
-    color: var(--color-gray-900);
-  }
-} */

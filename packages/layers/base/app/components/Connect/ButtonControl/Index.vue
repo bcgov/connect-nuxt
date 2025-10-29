@@ -1,5 +1,12 @@
 <script setup lang="ts">
-const buttonControl = computed(() => useRoute().meta.buttonControl as ConnectButtonControl)
+const {
+  stateKey = 'default-button-control'
+} = defineProps<{
+  stateKey?: string
+}>()
+
+const { buttonControl: meta } = useConnectButtonControl(stateKey)
+const buttonControl = computed(() => meta.value)
 const leftGroup = computed(() => buttonControl.value?.leftGroup || [])
 const rightGroup = computed(() => buttonControl.value?.rightGroup || [])
 const leftAlertText = computed(() => buttonControl.value?.leftGroup.alertText || undefined)
@@ -29,7 +36,7 @@ const rightAlertText = computed(() => buttonControl.value?.rightGroup.alertText 
                 {{ leftAlertText }}
               </p>
             </div>
-            <ConnectButtonControlButtons :buttons="leftGroup.buttons" :position="'left'" />
+            <ConnectButtonControlButtons :buttons="leftGroup.buttons" position="left" />
           </div>
         </div>
       </div>
@@ -50,7 +57,7 @@ const rightAlertText = computed(() => buttonControl.value?.rightGroup.alertText 
                 {{ rightAlertText }}
               </p>
             </div>
-            <ConnectButtonControlButtons :buttons="rightGroup.buttons" :position="'right'" />
+            <ConnectButtonControlButtons :buttons="rightGroup.buttons" position="right" />
           </div>
         </div>
       </div>
