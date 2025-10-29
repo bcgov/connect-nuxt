@@ -26,7 +26,7 @@ const config: ConnectButtonControl = {
   },
   rightGroup: {
     buttons: [
-      // @ts-expect-error - ignore mock not matching onCLick type
+      // @ts-expect-error - ignore mock not matching onClick type
       { label: 'Right 1', onClick: mockRightClick1, loading: true, disabled: true },
       { label: 'Right 2', onClick: mockRightClick2 }
     ]
@@ -55,7 +55,7 @@ describe('useConnectButtonControl', () => {
     expect(btnCtrl1.buttonControl).toBe(btnCtrl2.buttonControl)
   })
 
-  it('should return different state instances for different keys', () => {
+  it('should return different state for different keys', () => {
     const btnCtrl1 = useConnectButtonControl('1')
     const btnCtrl2 = useConnectButtonControl('2')
     expect(btnCtrl1.buttonControl).not.toBe(btnCtrl2.buttonControl)
