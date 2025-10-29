@@ -55,11 +55,25 @@ Components for BC Government branding and styling:
 - ConnectTombstone
 - ConnectContactDisplay
 
+#### ConnectButtonControl
+
+Manage a group of action buttons via composable, find an example [here](../../../../packages/layers/forms/.playground/app/pages/examples/components/ConnectButtonControl/Stacked.vue).
+
+![Screenshot of ButtonControl component in stacked mode.](./img/button-control-stacked.png)
+
+**Child Components**
+- ConnectButtonControlWrapper
+- ConnectButtonControlButtons
+
 ### Composables
 
 - useConnectModal
 - useConnectLaunchDarkly
 - useConnectTombstone
+
+#### useConnectButtonControl
+
+Manage a group of action buttons via composable, find an example [here](../../../../packages/layers/base/.playground/app/pages/examples/components/ConnectButtonControl/Stacked.vue).
 
 ### Layouts
 

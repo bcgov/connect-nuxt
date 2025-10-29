@@ -13,16 +13,6 @@
 
 ### Components
 
-#### ConnectButtonControl
-
-Manage a group of action buttons via composable, find an example [here](../../../../packages/layers/forms/.playground/app/pages/examples/components/ConnectButtonControl/Stacked.vue).
-
-![Screenshot of ButtonControl component in stacked mode.](./img/button-control-stacked.png)
-
-**Child Components**
-- ConnectButtonControlWrapper
-- ConnectButtonControlButtons
-
 #### ConnectFormAddress
 
 Standardized form input elements for addresses, see an example [here](../../../../packages/layers/forms/.playground/app/pages/examples/components/ConnectFormAddress/index.vue). A full form usage example including the provided zod schemas [here](../../../../packages/layers/forms/.playground/app/pages/examples/forms/ConnectFormAddress/index.vue).
@@ -56,10 +46,6 @@ Standard Connect formfield wrapper, similar to a fieldset except **specifically*
 - ConnectFormTextarea
 
 ### Composables
-
-#### useConnectButtonControl
-
-Manage a group of action buttons via composable, find an example [here](../../../../packages/layers/forms/.playground/app/pages/examples/components/ConnectButtonControl/Stacked.vue).
 
 #### useCanadaPost
 
