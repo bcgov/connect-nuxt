@@ -34,7 +34,7 @@ buttonControl.setButtonControl({
         class: 'min-w-[142px] justify-center',
         variant: 'ghost',
         removeAlertSpacing: true,
-        onClick: () => buttonControl.setAlertText('Left 3 alert text', 'left', 2)
+        onClick: () => buttonControl.setAlertText('Left 3 click sets alert text on Right Button 3', 'right', 2)
       }
     ]
   },
