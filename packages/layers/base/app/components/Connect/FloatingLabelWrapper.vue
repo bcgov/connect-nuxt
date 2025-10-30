@@ -3,13 +3,10 @@ type VariantOption = 'input' | 'textarea' | 'select' | 'selectmenu'
 
 const {
   variant = 'input'
-  // hasLeadingIcon = false,
-  // hasTrailingIcon = false
 } = defineProps<{
   label: string
   variant?: VariantOption
-  // hasLeadingIcon?: boolean
-  // hasTrailingIcon?: boolean
+  id: string
 }>()
 
 const variantClass: Record<VariantOption, string[]> = {
@@ -51,6 +48,7 @@ const variantClass: Record<VariantOption, string[]> = {
 <template>
   <div class="relative group">
     <span
+      :id
       :class="[
         variantClass[variant],
         'line-clamp-1 px-2.5',
