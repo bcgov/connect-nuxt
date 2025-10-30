@@ -1,7 +1,7 @@
 {
   "name": "@sbc-connect/nuxt-pay",
   "type": "module",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "repository": "github:bcgov/connect-nuxt",
   "license": "BSD-3-Clause",
   "main": "./nuxt.config.ts",
