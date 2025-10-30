@@ -11,6 +11,8 @@ const select = ref('')
 const selectItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
 const selectMenu = ref('')
 const selectMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
+const inputMenu = ref('')
+const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
 </script>
 
 <template>
@@ -103,20 +105,20 @@ const selectMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'InputMenu Example' }" ui-body="p-4 space-y-4">
-      <!-- <p>SelectMenu requires `data-placeholder="true/false"` attribute.</p> -->
-      <ConnectFloatingLabelWrapper label="Normal" variant="input">
+      <p>InputMenu requires `placeholder="&nbsp;"` attribute.</p>
+      <ConnectFloatingLabelWrapper label="Normal">
         <UInputMenu
-          v-model="selectMenu"
-          :items="selectMenuItems"
+          v-model="inputMenu"
+          :items="inputMenuItems"
           placeholder="&nbsp;"
           class="w-full"
         />
       </ConnectFloatingLabelWrapper>
 
-      <ConnectFloatingLabelWrapper label="Aria Invalid" variant="input">
+      <ConnectFloatingLabelWrapper label="Aria Invalid">
         <UInputMenu
-          v-model="selectMenu"
-          :items="selectMenuItems"
+          v-model="inputMenu"
+          :items="inputMenuItems"
           class="w-full"
           placeholder="&nbsp;"
           aria-invalid="true"

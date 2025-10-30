@@ -277,7 +277,7 @@ export default defineAppConfig({
     input: {
       variants: {
         size: {
-          bcGovLg: {
+          bcGov: {
             base: 'px-2.5 pb-2 pt-6 text-base gap-1.5',
             leading: 'ps-2.5',
             trailing: 'pe-2.5',
@@ -291,7 +291,34 @@ export default defineAppConfig({
         }
       },
       defaultVariants: {
-        size: 'bcGovLg',
+        size: 'bcGov',
+        color: 'primary',
+        variant: 'bcGov'
+      }
+    },
+    inputMenu: {
+      slots: {
+        group: 'p-0',
+        item: 'py-3 px-4 data-highlighted:not-data-disabled:text-primary data-highlighted:not-data-disabled:before:bg-shade my-0.75 before:rounded-none',
+        trailingIcon: 'delay-50 group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-focus-visible:text-primary group-data-[state=open]:text-primary group-has-[[aria-invalid=true]]:text-error!'
+      },
+      variants: {
+        size: {
+          bcGov: {
+            base: 'px-2.5 pb-2 pt-6 text-base gap-1.5',
+            leading: 'ps-2.5',
+            trailing: 'pe-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5'
+          }
+        },
+        variant: {
+          bcGov: 'ring-0 ring-transparent peer rounded-t-sm rounded-b-none bg-shade shadow-input focus:ring-0 focus:outline-none focus:shadow-input-focus text-neutral-highlighted aria-invalid:shadow-input-error aria-invalid:focus:shadow-input-error aria-invalid:ring-0'
+        }
+      },
+      defaultVariants: {
+        size: 'bcGov',
         color: 'primary',
         variant: 'bcGov'
       }
@@ -374,7 +401,7 @@ export default defineAppConfig({
     textarea: {
       variants: {
         size: {
-          bcGovLg: {
+          bcGov: {
             base: 'px-2.5 pb-1.5 pt-5 text-base gap-1.5 resize-none',
             leading: 'ps-2.5',
             trailing: 'pe-2.5',
@@ -388,7 +415,7 @@ export default defineAppConfig({
         }
       },
       defaultVariants: {
-        size: 'bcGovLg',
+        size: 'bcGov',
         color: 'primary',
         variant: 'bcGov'
       }
