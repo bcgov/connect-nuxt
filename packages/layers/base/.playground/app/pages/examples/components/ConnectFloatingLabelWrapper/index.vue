@@ -9,6 +9,8 @@ const input = ref('')
 const textarea = ref('')
 const select = ref('')
 const selectItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
+const selectMenu = ref('')
+const selectMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
 </script>
 
 <template>
@@ -79,24 +81,47 @@ const selectItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'SelectMenu Example' }" ui-body="p-4 space-y-4">
-      <ConnectFloatingLabelWrapper label="Normal" variant="select">
+      <p>SelectMenu requires `data-placeholder="true/false"` attribute.</p>
+      <ConnectFloatingLabelWrapper label="Normal" variant="selectmenu">
         <USelectMenu
-          v-model="select"
-          :items="selectItems"
+          v-model="selectMenu"
+          :items="selectMenuItems"
+          class="w-full"
+          :data-placeholder="!selectMenu"
+        />
+      </ConnectFloatingLabelWrapper>
+
+      <ConnectFloatingLabelWrapper label="Aria Invalid" variant="selectmenu">
+        <USelectMenu
+          v-model="selectMenu"
+          :items="selectMenuItems"
+          class="w-full"
+          aria-invalid="true"
+          :data-placeholder="!selectMenu"
+        />
+      </ConnectFloatingLabelWrapper>
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'InputMenu Example' }" ui-body="p-4 space-y-4">
+      <!-- <p>SelectMenu requires `data-placeholder="true/false"` attribute.</p> -->
+      <ConnectFloatingLabelWrapper label="Normal" variant="input">
+        <UInputMenu
+          v-model="selectMenu"
+          :items="selectMenuItems"
+          placeholder="&nbsp;"
           class="w-full"
         />
       </ConnectFloatingLabelWrapper>
 
-      <p>Can't hard code aria-invalid on USelect, will be set by UFormField</p>
-      <UFormField error="Some Error">
-        <ConnectFloatingLabelWrapper label="Aria Invalid" variant="select">
-          <USelectMenu
-            v-model="select"
-            :items="selectItems"
-            class="w-full"
-          />
-        </ConnectFloatingLabelWrapper>
-      </UFormField>
+      <ConnectFloatingLabelWrapper label="Aria Invalid" variant="input">
+        <UInputMenu
+          v-model="selectMenu"
+          :items="selectMenuItems"
+          class="w-full"
+          placeholder="&nbsp;"
+          aria-invalid="true"
+        />
+      </ConnectFloatingLabelWrapper>
     </ConnectPageSection>
   </div>
 </template>

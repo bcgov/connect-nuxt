@@ -335,6 +335,42 @@ export default defineAppConfig({
         variant: 'bcGov'
       }
     },
+    selectMenu: {
+      slots: {
+        content: 'rounded-sm',
+        group: 'px-0 py-2',
+        trailingIcon: 'delay-50 group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-focus-visible:text-primary group-data-[state=open]:text-primary group-has-[[aria-invalid=true]]:text-error!',
+        item: 'my-0.75 text-neutral-highlighted before:rounded-none data-highlighted:not-data-disabled:text-primary data-highlighted:not-data-disabled:before:bg-shade data-[state=checked]:text-primary data-[state=checked]:bg-blue-50',
+        itemLeadingIcon: 'group-data-[state=checked]:text-primary group-data-highlighted:not-data-disabled:text-primary text-neutral-highlighted'
+      },
+      variants: {
+        size: {
+          bcGov: {
+            base: 'px-2.5 pb-2 pt-6 text-base gap-1.5',
+            leading: 'ps-2.5',
+            trailing: 'pe-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5',
+            label: 'p-1.5 text-xs gap-1.5',
+            item: 'py-3 px-4 text-sm gap-3',
+            itemLeadingIcon: 'size-5',
+            itemLeadingAvatarSize: '2xs',
+            itemLeadingChip: 'size-5',
+            itemLeadingChipSize: 'md',
+            itemTrailingIcon: 'size-5'
+          }
+        },
+        variant: {
+          bcGov: 'peer ring-0! rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input shadow-input focus-visible:shadow-input-focus data-[state=open]:shadow-input-focus text-neutral-highlighted aria-[invalid=true]:shadow-input-error! delay-50'
+        }
+      },
+      defaultVariants: {
+        size: 'bcGov',
+        color: 'primary',
+        variant: 'bcGov'
+      }
+    },
     textarea: {
       variants: {
         size: {

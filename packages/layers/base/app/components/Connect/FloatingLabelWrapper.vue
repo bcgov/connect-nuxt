@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type VariantOption = 'input' | 'textarea' | 'select'
+type VariantOption = 'input' | 'textarea' | 'select' | 'selectmenu'
 
 const {
   variant = 'input'
@@ -33,6 +33,16 @@ const variantClass: Record<VariantOption, string[]> = {
     'group-has-[button[data-state=open]]:text-xs',
     'group-has-[button:not([data-placeholder])]:top-3',
     'group-has-[button:not([data-placeholder])]:text-xs',
+    'group-has-[button[data-state=open]:not([aria-invalid=true])]:text-primary'
+  ],
+  selectmenu: [
+    'delay-100',
+    '-translate-y-1/2 top-1/2 group-focus-within:top-3',
+    'group-has-[button[aria-invalid=true]]:text-error',
+    'group-has-[button[data-state=open]]:top-3',
+    'group-has-[button[data-state=open]]:text-xs',
+    'group-has-[button[data-placeholder=false]]:top-3',
+    'group-has-[button[data-placeholder=false]]:text-xs',
     'group-has-[button[data-state=open]:not([aria-invalid=true])]:text-primary'
   ]
 }
