@@ -2,7 +2,7 @@
 definePageMeta({
   breadcrumbs: [
     { label: 'Examples', to: '/' },
-    { label: 'Connect Floating Label Wrapper' }
+    { label: 'Connect Floating Label' }
   ]
 })
 const input = ref('')
@@ -18,23 +18,23 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
 <template>
   <div class="flex flex-col gap-10">
     <h1>
-      ConnectFloatingLabelWrapper
+      ConnectFloatingLabel
     </h1>
 
     <p>Do not forget to associate the label `id` with the inputs `aria-labelledby` attribute for accessibility.</p>
 
     <ConnectPageSection :heading="{ label: 'Input Example' }" ui-body="p-4 space-y-4">
       <p>Input requires `placeholder="&nbsp;"` attribute.</p>
-      <ConnectFloatingLabelWrapper id="input-example" label="Normal">
+      <ConnectFloatingLabel id="input-example" label="Normal">
         <UInput
           v-model="input"
           placeholder="&nbsp;"
           class="w-full"
           aria-labelledby="input-example"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
 
-      <ConnectFloatingLabelWrapper id="input-example-invalid" label="Aria Invalid">
+      <ConnectFloatingLabel id="input-example-invalid" label="Aria Invalid">
         <UInput
           v-model="input"
           placeholder="&nbsp;"
@@ -42,12 +42,12 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           class="w-full"
           aria-labelledby="input-example-invalid"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'Textarea Example' }" ui-body="p-4 space-y-4">
       <p>Textarea requires `placeholder="&nbsp;"` attribute.</p>
-      <ConnectFloatingLabelWrapper
+      <ConnectFloatingLabel
         id="textarea-example"
         label="Normal"
         variant="textarea"
@@ -58,9 +58,9 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           class="w-full"
           aria-labelledby="textarea-example"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
 
-      <ConnectFloatingLabelWrapper
+      <ConnectFloatingLabel
         id="textarea-example-invalid"
         label="Aria Invalid"
         variant="textarea"
@@ -72,11 +72,11 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           class="w-full"
           aria-labelledby="textarea-example-invalid"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'Select Example' }" ui-body="p-4 space-y-4">
-      <ConnectFloatingLabelWrapper
+      <ConnectFloatingLabel
         id="select-example"
         label="Normal"
         variant="select"
@@ -87,11 +87,11 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           class="w-full"
           aria-labelledby="select-example"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
 
       <p>Can't hard code aria-invalid on USelect, will be set by UFormField</p>
       <UFormField error="Some Error">
-        <ConnectFloatingLabelWrapper
+        <ConnectFloatingLabel
           id="select-example-invalid"
           label="Aria Invalid"
           variant="select"
@@ -102,13 +102,13 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
             class="w-full"
             aria-labelledby="select-example-invalid"
           />
-        </ConnectFloatingLabelWrapper>
+        </ConnectFloatingLabel>
       </UFormField>
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'SelectMenu Example' }" ui-body="p-4 space-y-4">
       <p>SelectMenu requires `data-placeholder="true/false"` attribute.</p>
-      <ConnectFloatingLabelWrapper
+      <ConnectFloatingLabel
         id="selectmenu-example"
         label="Normal"
         variant="selectmenu"
@@ -120,9 +120,9 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           :data-placeholder="!selectMenu"
           aria-labelledby="selectmenu-example"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
 
-      <ConnectFloatingLabelWrapper
+      <ConnectFloatingLabel
         id="selectmenu-example-invalid"
         label="Aria Invalid"
         variant="selectmenu"
@@ -135,12 +135,12 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           :data-placeholder="!selectMenu"
           aria-labelledby="selectmenu-example-invalid"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
     </ConnectPageSection>
 
     <ConnectPageSection :heading="{ label: 'InputMenu Example' }" ui-body="p-4 space-y-4">
       <p>InputMenu requires `placeholder="&nbsp;"` attribute.</p>
-      <ConnectFloatingLabelWrapper id="inputmenu-example" label="Normal">
+      <ConnectFloatingLabel id="inputmenu-example" label="Normal">
         <UInputMenu
           v-model="inputMenu"
           :items="inputMenuItems"
@@ -148,9 +148,9 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           class="w-full"
           aria-labelledby="inputmenu-example"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
 
-      <ConnectFloatingLabelWrapper id="selectmenu-example-invalid" label="Aria Invalid">
+      <ConnectFloatingLabel id="selectmenu-example-invalid" label="Aria Invalid">
         <UInputMenu
           v-model="inputMenu"
           :items="inputMenuItems"
@@ -159,7 +159,7 @@ const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
           aria-invalid="true"
           aria-labelledby="inputmenu-example-invalid"
         />
-      </ConnectFloatingLabelWrapper>
+      </ConnectFloatingLabel>
     </ConnectPageSection>
   </div>
 </template>

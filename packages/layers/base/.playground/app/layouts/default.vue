@@ -27,11 +27,11 @@ const items: NavigationMenuItem[] = [
       ]
     },
     {
-      label: 'Connect Floating Label Wrapper',
+      label: 'Connect Floating Label',
       children: [
         {
           label: 'Default',
-          to: localePath('/examples/components/ConnectFloatingLabelWrapper')
+          to: localePath('/examples/components/ConnectFloatingLabel')
         }
       ]
     },
