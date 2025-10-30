@@ -2,7 +2,10 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Tombstone (initial state)' }
+  ]
 })
 
 const localePath = useLocalePath()
@@ -27,7 +30,7 @@ setBreadcrumbs([
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-8">
     <h1>
       ConnectTombstone - Initial State
     </h1>

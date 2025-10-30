@@ -1,6 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Modal' }
+  ]
 })
 
 const { baseModal } = useConnectModal()
@@ -39,7 +42,7 @@ function openButtonExample() {
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-10">
     <h1>
       ConnectModal
     </h1>

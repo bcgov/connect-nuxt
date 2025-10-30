@@ -2,7 +2,6 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
-  layout: 'connect-base',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Button Control Component (options)' }
@@ -61,7 +60,7 @@ controlManualAlert.setButtonControl({
 </script>
 
 <template>
-  <div class="my-10 flex flex-col gap-10">
+  <div class="flex flex-col gap-10">
     <ConnectPageSection :heading="{ label: 'Connect Button Control (manual loading)' }">
       <div class="p-10">
         <ConnectButtonControl state-key="manual-loading" />

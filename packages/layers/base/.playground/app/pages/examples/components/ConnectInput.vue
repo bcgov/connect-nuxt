@@ -1,6 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Input' }
+  ]
 })
 const standardValue = ref('')
 const invalidValue = ref('')
@@ -9,7 +12,7 @@ const extraAttrsValue = ref('')
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-10">
     <h1>
       ConnectInput
     </h1>

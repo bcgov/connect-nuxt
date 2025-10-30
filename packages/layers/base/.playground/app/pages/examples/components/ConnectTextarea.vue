@@ -1,6 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Textarea' }
+  ]
 })
 
 const standardValue = ref('')
@@ -11,7 +14,7 @@ const extraAttrsValue = ref('')
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-10">
     <h1>
       ConnectTextarea
     </h1>
@@ -83,7 +86,7 @@ const extraAttrsValue = ref('')
         v-model="extraAttrsValue"
         label="Description"
         name="description"
-        rows="5"
+        :rows="5"
       />
     </ConnectPageSection>
   </div>

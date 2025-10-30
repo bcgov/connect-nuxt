@@ -2,7 +2,6 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
-  layout: 'connect-base',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Button Control Component (stacked)' }
@@ -69,7 +68,7 @@ buttonControl.setButtonControl({
 </script>
 
 <template>
-  <div class="my-10">
+  <div>
     <ConnectPageSection :heading="{ label: 'Connect Button Control (stacked example)' }">
       <div class="p-10">
         <ConnectButtonControl state-key="stacked" class="mx-auto max-w-[300px] bg-shade-new" />
