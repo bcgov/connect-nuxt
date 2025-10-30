@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.24
+
+### Patch Changes
+
+- [#80](https://github.com/bcgov/connect-nuxt/pull/80) [`0615542`](https://github.com/bcgov/connect-nuxt/commit/06155422d0a8d61ee862bb3483330610b4a9434d) Thanks [@deetz99](https://github.com/deetz99)! - feat: Move button control to base and handle loading state internally
+
 ## 0.1.23
 
 ### Patch Changes
