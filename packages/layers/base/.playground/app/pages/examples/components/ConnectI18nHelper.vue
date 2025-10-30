@@ -1,8 +1,9 @@
 <script setup lang="ts">
-const localePath = useLocalePath()
-
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'ConnectI18nHelper' }
+  ]
 })
 
 const count = ref(0)
@@ -10,15 +11,10 @@ const count = ref(0)
 setInterval(() => {
   count.value = count.value += 1
 }, 1000)
-
-setBreadcrumbs([
-  { label: 'Examples', to: localePath('/') },
-  { label: 'ConnectI18nHelper' }
-])
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-10">
     <h1>
       ConnectI18nHelper
     </h1>

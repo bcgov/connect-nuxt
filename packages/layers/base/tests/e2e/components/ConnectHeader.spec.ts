@@ -4,7 +4,7 @@ test.describe('ConnectHeader tests', () => {
   test('Loads component example page with expected visuals', async ({ page }) => {
     await page.goto('./examples/components/ConnectHeader')
     // header wrapper
-    const headerWrapper = page.getByTestId('connect-header-wrapper')
+    const headerWrapper = page.getByTestId('connect-header-wrapper').first()
     await expect(headerWrapper).toBeVisible()
     // home link
     const homeLink = headerWrapper.getByRole('link', { name: 'Home' })

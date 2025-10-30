@@ -1,6 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Spinner' }
+  ]
 })
 
 const fullscreen = ref(false)
@@ -17,7 +20,7 @@ defineShortcuts({
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-10">
     <h1>
       ConnectSpinner
     </h1>

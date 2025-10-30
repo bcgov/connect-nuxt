@@ -4,24 +4,15 @@ import { h } from 'vue'
 import type { DropdownMenuItem } from '@nuxt/ui'
 
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Tombstone (vNode)' }
+  ]
 })
-
-const localePath = useLocalePath()
-
-setBreadcrumbs([
-  {
-    to: localePath('/'),
-    label: 'Examples'
-  },
-  {
-    label: 'ConnectTombstone (vNode)'
-  }
-])
 
 const { tombstone } = useConnectTombstone('v-node')
 const UButton = resolveComponent('UButton')
-const UButtonGroup = resolveComponent('UButtonGroup')
+const UFieldGroup = resolveComponent('UFieldGroup')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
 const UAvatar = resolveComponent('UAvatar')
 
@@ -135,7 +126,7 @@ async function setVNode() {
       vNode: h('div', { class: 'font-bold text-error' }, 'Render anything using vNode')
     },
     {
-      vNode: h(UButtonGroup,
+      vNode: h(UFieldGroup,
         { size: 'sm' },
         {
           default: () => [
@@ -174,7 +165,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-8">
     <h1>
       ConnectTombstone - vNode
     </h1>

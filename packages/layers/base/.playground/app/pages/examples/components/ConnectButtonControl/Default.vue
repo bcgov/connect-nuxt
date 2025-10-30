@@ -1,33 +1,39 @@
 <script setup lang="ts">
+import { delay } from 'es-toolkit'
+
 definePageMeta({
-  layout: 'connect-base',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Button Control Component (default)' }
   ]
 })
-const { setButtonControl, handleButtonLoading, setAlertText } = useButtonControl()
-const handleClick = (position: 'left' | 'right', index: number) => {
+
+const buttonControl = useConnectButtonControl()
+const localePath = useLocalePath()
+
+const handleClick = async (position: 'left' | 'right', index: number) => {
   if (position === 'right') {
     if (index === 0) {
-      setAlertText(false, 'right', undefined, 'Alert text right side')
+      await buttonControl.setAlertText('Alert text right side', 'right')
     } else {
-      setAlertText(false, 'right', index, 'Alert text underneath')
+      await buttonControl.setAlertText('Alert text underneath', 'right', index)
     }
   } else if (index === 1) {
-    setAlertText(false, 'left', undefined, 'Alert text left side')
+    await buttonControl.setAlertText('Alert text left side', 'left')
   } else {
-    handleButtonLoading(false, position, index)
-    setTimeout(() => {
-      handleButtonLoading(true)
-    }, 3000)
+    await delay(3000)
   }
 }
-setButtonControl({
+buttonControl.setButtonControl({
   leftGroup: {
     buttons: [
       { label: 'Left Button 1', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 0) },
-      { label: 'Left Button 2', onClick: () => handleClick('left', 1) }
+      { label: 'Left Button 2', onClick: () => handleClick('left', 1) },
+      {
+        label: 'Left Button 3 Link',
+        to: localePath('/examples/components/ConnectButtonControl/Default?query=' + Math.random().toString()),
+        variant: 'soft'
+      }
     ]
   },
   rightGroup: {
@@ -45,7 +51,7 @@ setButtonControl({
 </script>
 
 <template>
-  <div class="my-10">
+  <div>
     <ConnectPageSection :heading="{ label: 'Connect Button Control (default example)' }">
       <div class="p-10">
         <ConnectButtonControl class="bg-shade-new" />

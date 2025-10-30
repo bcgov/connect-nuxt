@@ -2,10 +2,12 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
-  layout: 'connect-base'
+  breadcrumbs: [
+    { label: 'Examples', to: '/' },
+    { label: 'Connect Tombstone (multiple)' }
+  ]
 })
 
-const localePath = useLocalePath()
 const { tombstone: tombstone1 } = useConnectTombstone('no-1')
 const { tombstone: tombstone2 } = useConnectTombstone('no-2')
 
@@ -41,20 +43,10 @@ onMounted(async () => {
   await trigger1()
   await trigger2()
 })
-
-setBreadcrumbs([
-  {
-    to: localePath('/'),
-    label: 'Examples'
-  },
-  {
-    label: 'ConnectTombstone (multiple)'
-  }
-])
 </script>
 
 <template>
-  <div class="py-8 space-y-6">
+  <div class="flex flex-col gap-8">
     <h1>
       ConnectTombstone - Multiple
     </h1>
