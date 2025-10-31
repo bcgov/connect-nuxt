@@ -1,8 +1,7 @@
 <script setup lang="ts">
 const {
   maxlength = '1000',
-  country,
-  disabled = true
+  country
 } = defineProps<{
   parentId: string
   country?: string
