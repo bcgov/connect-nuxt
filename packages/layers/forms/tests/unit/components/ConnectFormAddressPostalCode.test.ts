@@ -61,7 +61,8 @@ describe('ConnectFormAddressPostalCode.vue', () => {
   it('constructs and passes correct name, id, and test-id props', async () => {
     const wrapper = await mountComponent({
       parentId: 'shipping-address',
-      schemaPrefix: 'shipping'
+      schemaPrefix: 'shipping',
+      variant: 'delivery'
     })
     const formInput = wrapper.findComponent(ConnectFormInput)
 

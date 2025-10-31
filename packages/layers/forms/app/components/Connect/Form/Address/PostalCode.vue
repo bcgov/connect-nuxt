@@ -1,9 +1,12 @@
 <script setup lang="ts">
+type AddressFormVariant = 'delivery' | 'mailing'
+
 defineProps<{
   parentId: string
   schemaPrefix: string
   disabled?: boolean
   country?: string
+  variant?: AddressFormVariant
 }>()
 
 const model = defineModel<string | undefined>({
@@ -23,7 +26,7 @@ const model = defineModel<string | undefined>({
     :data-testid="`${parentId}-field-postalCode`"
     :input-id="`${parentId}-input-postalCode`"
     :disabled
-    required
+    :required="variant === 'delivery'"
     :label="country === 'US'
       ? $t('connect.label.zipCode')
       : $t('connect.label.postalCode')

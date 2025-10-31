@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */ // allow any for form ref type
 import type { Form } from '@nuxt/ui'
 
+type AddressFormVariant = 'delivery' | 'mailing'
+
 const {
   disabledFields,
   excludedFields = ['streetName', 'streetNumber', 'unitNumber'],
@@ -16,6 +18,7 @@ const {
   excludedFields?: Array<keyof ConnectAddress>
   disableAddressComplete?: boolean
   streetHelpText?: 'allow-po' | 'no-po' | 'none'
+  variant?: AddressFormVariant
 }>()
 
 const state = defineModel<Partial<ConnectAddress>>({ required: true })
@@ -54,6 +57,7 @@ async function populateAddressComplete(e: ConnectAddress) {
       :parent-id="id"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('country')"
+      :variant
       @change="state.region = ''"
     />
 
@@ -66,6 +70,7 @@ async function populateAddressComplete(e: ConnectAddress) {
       :disable-address-complete="disableAddressComplete"
       :disabled="disabledFields?.includes('street')"
       :help-text="streetHelpText"
+      :variant
       @address-complete="populateAddressComplete"
     />
 
@@ -84,6 +89,7 @@ async function populateAddressComplete(e: ConnectAddress) {
         :parent-id="id"
         :schema-prefix="schemaPrefix"
         :disabled="disabledFields?.includes('city')"
+        :variant
       />
 
       <ConnectFormAddressRegion
@@ -93,6 +99,7 @@ async function populateAddressComplete(e: ConnectAddress) {
         :schema-prefix="schemaPrefix"
         :country="state.country"
         :disabled="disabledFields?.includes('region')"
+        :variant
       />
 
       <ConnectFormAddressPostalCode
@@ -102,6 +109,7 @@ async function populateAddressComplete(e: ConnectAddress) {
         :schema-prefix="schemaPrefix"
         :country="state.country"
         :disabled="disabledFields?.includes('postalCode')"
+        :variant
       />
     </div>
 

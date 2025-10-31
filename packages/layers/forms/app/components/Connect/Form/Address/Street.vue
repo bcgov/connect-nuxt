@@ -1,4 +1,6 @@
 <script setup lang="ts">
+type AddressFormVariant = 'delivery' | 'mailing'
+
 const {
   schemaPrefix,
   helpText = 'none',
@@ -11,6 +13,7 @@ const {
   schemaPrefix: string
   disableAddressComplete?: boolean
   helpText?: 'allow-po' | 'no-po' | 'none'
+  variant?: AddressFormVariant
 }>()
 
 const model = defineModel<string | undefined>({ required: true })
@@ -56,7 +59,7 @@ watch(
         : $t('connect.text.addressCanBePOBox')
     "
     :label="$t('connect.label.street')"
-    required
+    :required="variant === 'delivery'"
     @keypress.once="addressComplete(`${parentId}-input-street`)"
     @click="addressComplete(`${parentId}-input-street`)"
   />

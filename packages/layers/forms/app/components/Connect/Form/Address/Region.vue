@@ -1,13 +1,17 @@
 <script setup lang="ts">
+type AddressFormVariant = 'delivery' | 'mailing'
+
 const {
   maxlength = '1000',
-  country
+  country,
+  variant
 } = defineProps<{
   parentId: string
   country?: string
   schemaPrefix: string
   disabled?: boolean
   maxlength?: string
+  variant?: AddressFormVariant
 }>()
 
 const model = defineModel<string | undefined>({ required: true })
@@ -39,8 +43,7 @@ const regions = computed(() => {
         :items="regions"
         value-key="code"
         label-key="name"
-        formnovalidate
-        :required="country === 'US' || country === 'CA'"
+        :required="variant === 'delivery'"
         :disabled
         class="w-full grow"
       />

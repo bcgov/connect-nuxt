@@ -1,7 +1,10 @@
 <script setup lang="ts">
+type AddressFormVariant = 'delivery' | 'mailing'
+
 defineProps<{
   parentId: string
   schemaPrefix: string
+  variant?: AddressFormVariant
 }>()
 
 const model = defineModel<string | undefined>({ required: true })
@@ -13,7 +16,7 @@ const model = defineModel<string | undefined>({ required: true })
     :data-testid="`${parentId}-field-city`"
     :input-id="`${parentId}-input-city`"
     :name="schemaPrefix + '.city'"
-    required
+    :required="variant === 'delivery'"
     :label="$t('connect.label.city')"
   />
 </template>

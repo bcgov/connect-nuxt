@@ -2,10 +2,13 @@
 import type { SelectItem } from '@nuxt/ui'
 import { isoCountriesListSortedByName as countries } from '#forms/app/utils/isoCountriesList'
 
+type AddressFormVariant = 'delivery' | 'mailing'
+
 defineProps<{
   parentId: string
   schemaPrefix: string
   disabled?: boolean
+  variant?: AddressFormVariant
 }>()
 
 defineEmits<{
@@ -38,6 +41,7 @@ const options: SelectItem[] = [
         label-key="name"
         class="w-full"
         :disabled
+        :required="variant === 'delivery'"
         @change="$emit('change')"
       />
       <div
