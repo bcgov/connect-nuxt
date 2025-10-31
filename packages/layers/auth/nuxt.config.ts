@@ -75,7 +75,8 @@ export default defineNuxtConfig({
       tokenRefreshInterval: '',
       tokenMinValidity: '',
       sessionInactivityTimeout: '',
-      sessionModalTimeout: ''
+      sessionModalTimeout: '',
+      playwright: process.env.playwright === 'true'
     }
   }
 })
