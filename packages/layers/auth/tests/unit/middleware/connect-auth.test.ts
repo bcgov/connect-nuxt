@@ -33,7 +33,6 @@ mockNuxtImport('storeToRefs', () => () => ({
   currentAccount: mockCurrentAccount
 }))
 mockNuxtImport('useConnectAccountStore', () => () => ({
-  // The middleware uses storeToRefs, so we just need to provide the ref
   currentAccount: mockCurrentAccount
 }))
 
@@ -48,7 +47,7 @@ describe('connect-auth middleware', () => {
   beforeEach(() => {
     vi.resetAllMocks()
     mockIsAuthenticated.value = false
-    mockRtc.value.playwright = false // Default to playwright OFF
+    mockRtc.value.playwright = false
     mockConnectAuth.tokenParsed = null
     mockConnectAuth.authenticated = false
     mockCurrentAccount.value = null
