@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.25
+
+### Patch Changes
+
+- [#82](https://github.com/bcgov/connect-nuxt/pull/82) [`ba04c84`](https://github.com/bcgov/connect-nuxt/commit/ba04c8424353b32af0811534d9c3edd31e15d39e) Thanks [@deetz99](https://github.com/deetz99)! - feat: Create floating label wrapper component.
+
 ## 0.1.24
 
 ### Patch Changes
