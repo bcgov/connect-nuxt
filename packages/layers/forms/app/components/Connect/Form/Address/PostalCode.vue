@@ -12,8 +12,7 @@ const model = defineModel<string | undefined>({
       return value.toUpperCase()
     }
   },
-  required: true,
-  default: ''
+  required: true
 })
 </script>
 

@@ -12,7 +12,7 @@ defineEmits<{
   change: []
 }>()
 
-const model = defineModel<string | undefined>({ required: true, default: '' })
+const model = defineModel<string | undefined>({ required: true })
 
 const options: SelectItem[] = [
   countries.find(c => c.alpha_2 === 'CA')!,

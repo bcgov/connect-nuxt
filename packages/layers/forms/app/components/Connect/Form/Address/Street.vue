@@ -13,7 +13,7 @@ const {
   helpText?: 'allow-po' | 'no-po' | 'none'
 }>()
 
-const model = defineModel<string | undefined>({ required: true, default: '' })
+const model = defineModel<string | undefined>({ required: true })
 
 const emit = defineEmits<{
   addressComplete: [value: ConnectAddress]

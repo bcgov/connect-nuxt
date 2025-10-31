@@ -5,7 +5,7 @@ defineProps<{
   disabled?: boolean
 }>()
 
-const model = defineModel<string | undefined>({ required: true, default: '' })
+const model = defineModel<string | undefined>({ required: true })
 </script>
 
 <template>

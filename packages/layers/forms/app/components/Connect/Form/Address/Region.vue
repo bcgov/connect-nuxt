@@ -10,7 +10,7 @@ const {
   maxlength?: string
 }>()
 
-const model = defineModel<string | undefined>({ required: true, default: '' })
+const model = defineModel<string | undefined>({ required: true })
 
 const regions = computed(() => {
   switch (country) {

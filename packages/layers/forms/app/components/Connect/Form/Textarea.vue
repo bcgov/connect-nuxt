@@ -9,7 +9,7 @@ defineProps<{
   help?: string
 }>()
 
-const model = defineModel<string | undefined>({ required: true })
+const model = defineModel<null | string | number | undefined>({ required: true })
 </script>
 
 <template>
