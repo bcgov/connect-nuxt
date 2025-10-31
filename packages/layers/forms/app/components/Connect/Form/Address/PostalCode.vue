@@ -6,11 +6,13 @@ defineProps<{
   country?: string
 }>()
 
-const model = defineModel({
+const model = defineModel<string | undefined>({
   set(value) {
-    return value.toUpperCase()
+    if (value) {
+      return value.toUpperCase()
+    }
   },
-  type: String,
+  required: true,
   default: ''
 })
 </script>

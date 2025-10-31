@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectFormAddressPostalCode from '../../../app/components/Connect/Form/Address/PostalCode.vue'
-import ConnectFormInput from '../../../app/components/Connect/Form/Input.vue'
+import { ConnectFormAddressPostalCode, ConnectFormInput } from '#components'
 
 describe('ConnectFormAddressPostalCode.vue', () => {
   const mountComponent = (props = {}) => {
     return mountSuspended(ConnectFormAddressPostalCode, {
       props: {
+        modelValue: '',
         parentId: 'test',
         schemaPrefix: 'test',
         ...props
@@ -43,7 +43,7 @@ describe('ConnectFormAddressPostalCode.vue', () => {
     const wrapper = await mountComponent()
     const formInput = wrapper.findComponent(ConnectFormInput)
 
-    formInput.vm.$emit('update:modelValue', 'a1b 2c3')
+    formInput.setValue('a1b 2c3')
 
     const emittedEvent = wrapper.emitted('update:modelValue')
 

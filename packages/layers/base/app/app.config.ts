@@ -328,11 +328,13 @@ export default defineAppConfig({
     },
     select: {
       slots: {
+        base: 'ring-0',
         content: 'rounded-sm',
         group: 'px-0 py-2',
         trailingIcon: 'delay-50 group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-focus-visible:text-primary group-data-[state=open]:text-primary group-has-[[aria-invalid=true]]:text-error!',
         item: 'my-0.75 text-neutral-highlighted before:rounded-none data-highlighted:not-data-disabled:text-primary data-highlighted:not-data-disabled:before:bg-shade data-[state=checked]:text-primary data-[state=checked]:bg-blue-50',
-        itemLeadingIcon: 'group-data-[state=checked]:text-primary group-data-highlighted:not-data-disabled:text-primary text-neutral-highlighted'
+        itemLeadingIcon: 'group-data-[state=checked]:text-primary group-data-highlighted:not-data-disabled:text-primary text-neutral-highlighted',
+        itemTrailingIcon: 'hidden'
       },
       variants: {
         size: {
