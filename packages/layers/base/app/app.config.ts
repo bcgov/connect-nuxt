@@ -277,7 +277,7 @@ export default defineAppConfig({
     input: {
       variants: {
         size: {
-          bcGovLg: {
+          bcGov: {
             base: 'px-2.5 pb-2 pt-6 text-base gap-1.5',
             leading: 'ps-2.5',
             trailing: 'pe-2.5',
@@ -291,7 +291,34 @@ export default defineAppConfig({
         }
       },
       defaultVariants: {
-        size: 'bcGovLg',
+        size: 'bcGov',
+        color: 'primary',
+        variant: 'bcGov'
+      }
+    },
+    inputMenu: {
+      slots: {
+        group: 'p-0',
+        item: 'py-3 px-4 data-highlighted:not-data-disabled:text-primary data-highlighted:not-data-disabled:before:bg-shade my-0.75 before:rounded-none',
+        trailingIcon: 'delay-50 group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-focus-visible:text-primary group-data-[state=open]:text-primary group-has-[[aria-invalid=true]]:text-error!'
+      },
+      variants: {
+        size: {
+          bcGov: {
+            base: 'px-2.5 pb-2 pt-6 text-base gap-1.5',
+            leading: 'ps-2.5',
+            trailing: 'pe-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5'
+          }
+        },
+        variant: {
+          bcGov: 'ring-0 ring-transparent peer rounded-t-sm rounded-b-none bg-shade shadow-input focus:ring-0 focus:outline-none focus:shadow-input-focus text-neutral-highlighted aria-invalid:shadow-input-error aria-invalid:focus:shadow-input-error aria-invalid:ring-0'
+        }
+      },
+      defaultVariants: {
+        size: 'bcGov',
         color: 'primary',
         variant: 'bcGov'
       }
@@ -303,14 +330,14 @@ export default defineAppConfig({
       slots: {
         content: 'rounded-sm',
         group: 'px-0 py-2',
-        trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-data-[state=open]:text-primary group-focus:text-primary',
+        trailingIcon: 'delay-50 group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-focus-visible:text-primary group-data-[state=open]:text-primary group-has-[[aria-invalid=true]]:text-error!',
         item: 'my-0.75 text-neutral-highlighted before:rounded-none data-highlighted:not-data-disabled:text-primary data-highlighted:not-data-disabled:before:bg-shade data-[state=checked]:text-primary data-[state=checked]:bg-blue-50',
         itemLeadingIcon: 'group-data-[state=checked]:text-primary group-data-highlighted:not-data-disabled:text-primary text-neutral-highlighted'
       },
       variants: {
         size: {
           bcGov: {
-            base: 'px-0 py-0 text-base gap-1.5',
+            base: 'px-2.5 pb-2 pt-6 text-base gap-1.5',
             leading: 'ps-2.5',
             trailing: 'pe-2.5',
             leadingIcon: 'size-5',
@@ -326,7 +353,43 @@ export default defineAppConfig({
           }
         },
         variant: {
-          bcGov: 'peer rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input data-[state=open]:shadow-input-focus focus:shadow-input-focus text-neutral-highlighted'
+          bcGov: 'peer ring-0! rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input shadow-input focus-visible:shadow-input-focus data-[state=open]:shadow-input-focus text-neutral-highlighted aria-[invalid=true]:shadow-input-error! delay-50'
+        }
+      },
+      defaultVariants: {
+        size: 'bcGov',
+        color: 'primary',
+        variant: 'bcGov'
+      }
+    },
+    selectMenu: {
+      slots: {
+        content: 'rounded-sm',
+        group: 'px-0 py-2',
+        trailingIcon: 'delay-50 group-data-[state=open]:rotate-180 transition-transform duration-200 text-(--ui-text) group-focus-visible:text-primary group-data-[state=open]:text-primary group-has-[[aria-invalid=true]]:text-error!',
+        item: 'my-0.75 text-neutral-highlighted before:rounded-none data-highlighted:not-data-disabled:text-primary data-highlighted:not-data-disabled:before:bg-shade data-[state=checked]:text-primary data-[state=checked]:bg-blue-50',
+        itemLeadingIcon: 'group-data-[state=checked]:text-primary group-data-highlighted:not-data-disabled:text-primary text-neutral-highlighted'
+      },
+      variants: {
+        size: {
+          bcGov: {
+            base: 'px-2.5 pb-2 pt-6 text-base gap-1.5',
+            leading: 'ps-2.5',
+            trailing: 'pe-2.5',
+            leadingIcon: 'size-5',
+            leadingAvatarSize: '2xs',
+            trailingIcon: 'size-5',
+            label: 'p-1.5 text-xs gap-1.5',
+            item: 'py-3 px-4 text-sm gap-3',
+            itemLeadingIcon: 'size-5',
+            itemLeadingAvatarSize: '2xs',
+            itemLeadingChip: 'size-5',
+            itemLeadingChipSize: 'md',
+            itemTrailingIcon: 'size-5'
+          }
+        },
+        variant: {
+          bcGov: 'peer ring-0! rounded-t-sm rounded-b-none bg-shade focus:ring-0 focus:outline-none shadow-input shadow-input focus-visible:shadow-input-focus data-[state=open]:shadow-input-focus text-neutral-highlighted aria-[invalid=true]:shadow-input-error! delay-50'
         }
       },
       defaultVariants: {
@@ -338,7 +401,7 @@ export default defineAppConfig({
     textarea: {
       variants: {
         size: {
-          bcGovLg: {
+          bcGov: {
             base: 'px-2.5 pb-1.5 pt-5 text-base gap-1.5 resize-none',
             leading: 'ps-2.5',
             trailing: 'pe-2.5',
@@ -352,7 +415,7 @@ export default defineAppConfig({
         }
       },
       defaultVariants: {
-        size: 'bcGovLg',
+        size: 'bcGov',
         color: 'primary',
         variant: 'bcGov'
       }

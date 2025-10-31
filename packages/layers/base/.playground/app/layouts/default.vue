@@ -27,6 +27,15 @@ const items: NavigationMenuItem[] = [
       ]
     },
     {
+      label: 'Connect Floating Label',
+      children: [
+        {
+          label: 'Default',
+          to: localePath('/examples/components/ConnectFloatingLabel')
+        }
+      ]
+    },
+    {
       label: 'Connect Tombstone',
       children: [
         {
