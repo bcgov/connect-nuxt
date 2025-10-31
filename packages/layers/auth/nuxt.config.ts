@@ -75,7 +75,9 @@ export default defineNuxtConfig({
       tokenRefreshInterval: '',
       tokenMinValidity: '',
       sessionInactivityTimeout: '',
-      sessionModalTimeout: ''
+      sessionModalTimeout: '',
+      registriesSearchApiUrl: '',
+      registriesSearchApiVersion2: ''
     }
   }
 })
