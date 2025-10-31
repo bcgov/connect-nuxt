@@ -2,8 +2,6 @@
 import type { SelectItem } from '@nuxt/ui'
 import { isoCountriesListSortedByName as countries } from '#forms/app/utils/isoCountriesList'
 
-type AddressFormVariant = 'delivery' | 'mailing'
-
 defineProps<{
   parentId: string
   schemaPrefix: string

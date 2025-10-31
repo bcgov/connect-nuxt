@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */ // allow any for form ref type
 import type { Form } from '@nuxt/ui'
 
-type AddressFormVariant = 'delivery' | 'mailing'
-
 const {
   disabledFields,
   excludedFields = ['streetName', 'streetNumber', 'unitNumber'],

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-type AddressFormVariant = 'delivery' | 'mailing'
-
 const {
   schemaPrefix,
   helpText = 'none',
