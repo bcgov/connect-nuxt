@@ -4,7 +4,7 @@
       <ConnectHeaderAuth />
     </template>
     <template #bottomHeaders>
-      <ConnectTombstone state-key="connect-pay-header-tombstone" />
+      <ConnectTombstone />
     </template>
     <template #body>
       <ConnectLayoutPayBody>
@@ -12,7 +12,7 @@
       </ConnectLayoutPayBody>
     </template>
     <template #topFooters>
-      <ConnectButtonControlWrapper state-key="connect-pay-buttons" class="px-2 sm:px-4" />
+      <ConnectButtonControlWrapper class="px-2 sm:px-4" />
     </template>
   </ConnectLayout>
 </template>

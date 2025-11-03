@@ -18,7 +18,7 @@ await feeStore.initFees(
 )
 feeStore.addReplaceFee(exampleFeeCode)
 
-const buttonControl = useConnectButtonControl('connect-pay-buttons')
+const buttonControl = useConnectButtonControl()
 buttonControl.setButtonControl({
   leftGroup: {
     buttons: [

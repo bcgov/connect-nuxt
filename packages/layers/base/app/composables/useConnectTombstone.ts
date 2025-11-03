@@ -1,4 +1,7 @@
-export const useConnectTombstone = (stateKey: string, initialState?: Partial<ConnectTombstoneState>) => {
+export const useConnectTombstone = (
+  stateKey: string = 'default-tombstone',
+  initialState?: Partial<ConnectTombstoneState>
+) => {
   function createInitialState(): ConnectTombstoneState {
     const baseState: ConnectTombstoneState = {
       loading: false,

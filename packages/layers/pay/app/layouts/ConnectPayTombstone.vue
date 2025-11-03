@@ -4,7 +4,7 @@
       <ConnectHeaderAuth />
     </template>
     <template #bottomHeaders>
-      <ConnectTombstone state-key="connect-pay-header-tombstone" />
+      <ConnectTombstone />
     </template>
     <template #body>
       <ConnectLayoutPayBody>

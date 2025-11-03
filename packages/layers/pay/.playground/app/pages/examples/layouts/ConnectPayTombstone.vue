@@ -18,7 +18,7 @@ await feeStore.initFees(
 )
 feeStore.addReplaceFee(exampleFeeCode)
 
-const { tombstone } = useConnectTombstone('connect-pay-header-tombstone')
+const { tombstone } = useConnectTombstone()
 tombstone.value.title = { as: 'span', text: 'Basic Title Here' }
 tombstone.value.subtitles = [{ text: 'BC Cooperative Association' }]
 tombstone.value.sideDetails = [

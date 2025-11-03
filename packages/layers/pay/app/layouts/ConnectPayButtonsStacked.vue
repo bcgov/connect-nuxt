@@ -7,7 +7,7 @@
       <ConnectLayoutPayBody>
         <slot />
         <template #actions>
-          <ConnectButtonControl state-key="connect-pay-buttons" />
+          <ConnectButtonControl />
         </template>
       </ConnectLayoutPayBody>
     </template>
