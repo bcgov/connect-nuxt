@@ -158,7 +158,7 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
           v-model="state.deliveryAddress"
           schema-prefix="deliveryAddress"
           :form-ref="formRef"
-          variant="delivery"
+          required
         />
       </ConnectFieldset>
       <ConnectFieldset label="Mailing Address" :error="formErrors.mailing">
@@ -167,7 +167,6 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
           v-model="state.mailingAddress"
           schema-prefix="mailingAddress"
           :form-ref="formRef"
-          variant="mailing"
         />
       </ConnectFieldset>
 

@@ -62,7 +62,7 @@ describe('ConnectFormAddressPostalCode.vue', () => {
     const wrapper = await mountComponent({
       parentId: 'shipping-address',
       schemaPrefix: 'shipping',
-      variant: 'delivery'
+      required: true
     })
     const formInput = wrapper.findComponent(ConnectFormInput)
 

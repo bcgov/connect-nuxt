@@ -46,6 +46,7 @@ function resetAddress() {
         <li>`disabledFields` - Array keyof ConnectAddress - optional</li>
         <li>`excludedFields` - Array keyof ConnectAddress - optional</li>
         <li>`disableAddressComplete` - boolean - optional</li>
+        <li>`required` - boolean - optional</li>
         <li>`streetHelpText` - 'allow-po' | 'no-po' | 'none' - default: 'none'</li>
       </ul>
     </ConnectPageSection>
@@ -81,6 +82,23 @@ function resetAddress() {
         v-model="state"
         schema-prefix="mailingAddress"
         :disable-address-complete="true"
+      />
+    </ConnectPageSection>
+
+    <ConnectPageSection
+      :heading="{ label: 'ConnectFormAddress (required)' }"
+      ui-body="sm:p-6 space-y-4"
+      :actions="[{ label: 'Reset', onClick: () => resetAddress() }]"
+    >
+      <p>
+        The required prop will set `aria-required="true"` on the Country,
+        Street, City, Province (if Country is CA or US) and Postal Code inputs.
+      </p>
+      <ConnectFormAddress
+        id="required"
+        v-model="state"
+        schema-prefix="mailingAddress"
+        required
       />
     </ConnectPageSection>
 

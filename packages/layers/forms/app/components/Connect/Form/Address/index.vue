@@ -16,7 +16,7 @@ const {
   excludedFields?: Array<keyof ConnectAddress>
   disableAddressComplete?: boolean
   streetHelpText?: 'allow-po' | 'no-po' | 'none'
-  variant?: AddressFormVariant
+  required?: boolean
 }>()
 
 const state = defineModel<Partial<ConnectAddress>>({ required: true })
@@ -55,7 +55,7 @@ async function populateAddressComplete(e: ConnectAddress) {
       :parent-id="id"
       :schema-prefix="schemaPrefix"
       :disabled="disabledFields?.includes('country')"
-      :variant
+      :required
       @change="state.region = ''"
     />
 
@@ -68,7 +68,7 @@ async function populateAddressComplete(e: ConnectAddress) {
       :disable-address-complete="disableAddressComplete"
       :disabled="disabledFields?.includes('street')"
       :help-text="streetHelpText"
-      :variant
+      :required
       @address-complete="populateAddressComplete"
     />
 
@@ -87,7 +87,7 @@ async function populateAddressComplete(e: ConnectAddress) {
         :parent-id="id"
         :schema-prefix="schemaPrefix"
         :disabled="disabledFields?.includes('city')"
-        :variant
+        :required
       />
 
       <ConnectFormAddressRegion
@@ -97,7 +97,7 @@ async function populateAddressComplete(e: ConnectAddress) {
         :schema-prefix="schemaPrefix"
         :country="state.country"
         :disabled="disabledFields?.includes('region')"
-        :variant
+        :required
       />
 
       <ConnectFormAddressPostalCode
@@ -107,7 +107,7 @@ async function populateAddressComplete(e: ConnectAddress) {
         :schema-prefix="schemaPrefix"
         :country="state.country"
         :disabled="disabledFields?.includes('postalCode')"
-        :variant
+        :required
       />
     </div>
 

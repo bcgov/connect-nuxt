@@ -1,15 +1,14 @@
 <script setup lang="ts">
 const {
   maxlength = '1000',
-  country,
-  variant
+  country
 } = defineProps<{
   parentId: string
   country?: string
   schemaPrefix: string
   disabled?: boolean
   maxlength?: string
-  variant?: AddressFormVariant
+  required?: boolean
 }>()
 
 const model = defineModel<string | undefined>({ required: true })
@@ -41,7 +40,7 @@ const regions = computed(() => {
         :items="regions"
         value-key="code"
         label-key="name"
-        :required="variant === 'delivery'"
+        :required
         :disabled
         class="w-full grow"
       />

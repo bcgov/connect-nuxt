@@ -29,7 +29,7 @@ describe('ConnectFormAddressRegion.vue', () => {
     })
 
     it('sets the correct ARIA attributes for a required province', async () => {
-      const wrapper = await mountComponent({ country: 'CA', variant: 'delivery' })
+      const wrapper = await mountComponent({ country: 'CA', variant: 'delivery', required: true })
       const floatingLabel = wrapper.findComponent(ConnectFloatingLabel as any)
       expect(floatingLabel.exists()).toBe(true)
       expect(floatingLabel.props('label')).toBe('Province')
@@ -52,7 +52,7 @@ describe('ConnectFormAddressRegion.vue', () => {
     })
 
     it('sets the correct ARIA attributes for a required state', async () => {
-      const wrapper = await mountComponent({ country: 'US', variant: 'delivery' })
+      const wrapper = await mountComponent({ country: 'US', variant: 'delivery', required: true })
       const floatingLabel = wrapper.findComponent(ConnectFloatingLabel as any)
       expect(floatingLabel.exists()).toBe(true)
       expect(floatingLabel.props('label')).toBe('State')

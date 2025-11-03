@@ -2,7 +2,7 @@
 defineProps<{
   parentId: string
   schemaPrefix: string
-  variant?: AddressFormVariant
+  required?: boolean
 }>()
 
 const model = defineModel<string | undefined>({ required: true })
@@ -14,7 +14,7 @@ const model = defineModel<string | undefined>({ required: true })
     :data-testid="`${parentId}-field-city`"
     :input-id="`${parentId}-input-city`"
     :name="schemaPrefix + '.city'"
-    :required="variant === 'delivery'"
+    :required
     :label="$t('connect.label.city')"
   />
 </template>

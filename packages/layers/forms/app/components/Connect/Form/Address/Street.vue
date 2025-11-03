@@ -11,7 +11,7 @@ const {
   schemaPrefix: string
   disableAddressComplete?: boolean
   helpText?: 'allow-po' | 'no-po' | 'none'
-  variant?: AddressFormVariant
+  required?: boolean
 }>()
 
 const model = defineModel<string | undefined>({ required: true })
@@ -57,7 +57,7 @@ watch(
         : $t('connect.text.addressCanBePOBox')
     "
     :label="$t('connect.label.street')"
-    :required="variant === 'delivery'"
+    :required
     @keypress.once="addressComplete(`${parentId}-input-street`)"
     @click="addressComplete(`${parentId}-input-street`)"
   />

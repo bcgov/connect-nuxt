@@ -4,7 +4,7 @@ defineProps<{
   schemaPrefix: string
   disabled?: boolean
   country?: string
-  variant?: AddressFormVariant
+  required?: boolean
 }>()
 
 const model = defineModel<string | undefined>({
@@ -24,7 +24,7 @@ const model = defineModel<string | undefined>({
     :data-testid="`${parentId}-field-postalCode`"
     :input-id="`${parentId}-input-postalCode`"
     :disabled
-    :required="variant === 'delivery'"
+    :required
     :label="country === 'US'
       ? $t('connect.label.zipCode')
       : $t('connect.label.postalCode')

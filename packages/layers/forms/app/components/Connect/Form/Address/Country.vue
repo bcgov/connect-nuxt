@@ -6,7 +6,7 @@ defineProps<{
   parentId: string
   schemaPrefix: string
   disabled?: boolean
-  variant?: AddressFormVariant
+  required?: boolean
 }>()
 
 defineEmits<{
@@ -39,7 +39,7 @@ const options: SelectItem[] = [
         label-key="name"
         class="w-full"
         :disabled
-        :required="variant === 'delivery'"
+        :required
         @change="$emit('change')"
       />
       <div
