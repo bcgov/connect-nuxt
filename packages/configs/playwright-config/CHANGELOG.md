@@ -1,5 +1,11 @@
 # @sbc-connect/playwright-config
 
+## 0.0.8
+
+### Patch Changes
+
+- [#84](https://github.com/bcgov/connect-nuxt/pull/84) [`f37700a`](https://github.com/bcgov/connect-nuxt/commit/f37700ab568335df724a5e9472a5e0b4198704b5) Thanks [@deetz99](https://github.com/deetz99)! - Add env variable `playwright: true` to shared test config.
+
 ## 0.0.7
 
 ### Patch Changes

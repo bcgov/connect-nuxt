@@ -1,5 +1,12 @@
 # nuxt-forms-demo-app
 
+## 0.1.27
+
+### Patch Changes
+
+- Updated dependencies [[`6b0f70a`](https://github.com/bcgov/connect-nuxt/commit/6b0f70ab895a26c0b049dce84b130d6a04fd911e), [`f37700a`](https://github.com/bcgov/connect-nuxt/commit/f37700ab568335df724a5e9472a5e0b4198704b5)]:
+  - @sbc-connect/nuxt-forms@0.1.27
+
 ## 0.1.26
 
 ### Patch Changes
