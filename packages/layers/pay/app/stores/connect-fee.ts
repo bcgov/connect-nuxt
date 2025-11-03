@@ -3,7 +3,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const { t } = useI18n()
   const { baseModal } = useConnectModal()
 
-  const defaultFeeOptions = {
+  const getDefaultFeeOptions = () => ({
     showAllActiveFees: true,
     showFutureEffectiveFee: false,
     showPriorityFee: false,
@@ -11,13 +11,13 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     showGst: false,
     showPst: false,
     showServiceFee: false
-  }
-  const feeOptions = ref<ConnectFeeOptions>(defaultFeeOptions)
+  })
+  const feeOptions = ref<ConnectFeeOptions>(getDefaultFeeOptions())
 
   const fees = ref<ConnectFees>({})
   const feesCached = ref<ConnectFees>({})
 
-  const defaultPlaceholder = {
+  const getDefaultPlaceholder = () => ({
     isPlaceholder: true,
     filingFees: 0,
     filingType: 'placeholder',
@@ -32,8 +32,8 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
       pst: 0
     },
     total: 0
-  }
-  const placeholderFeeItem = ref<ConnectFeeItem>(defaultPlaceholder)
+  })
+  const placeholderFeeItem = ref<ConnectFeeItem>(getDefaultPlaceholder())
   const loading = ref<boolean>(false)
 
   const initFees = async (
@@ -180,6 +180,17 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     delete fees.value[code]
   }
 
+  const updateAllFees = (priority?: boolean, waived?: boolean, excludedCodes: string[] = []) => {
+    for (const feeCode in fees.value) {
+      if (!excludedCodes.includes(feeCode)) {
+        addReplaceFee(feeCode, {
+          ...(priority !== undefined ? { priority } : {}),
+          ...(waived !== undefined ? { waived } : {})
+        })
+      }
+    }
+  }
+
   // alternate payment option stuff
   const PAD_PENDING_STATES = [ConnectPayCfsStatus.PENDING, ConnectPayCfsStatus.PENDING_PAD_ACTIVATION]
   const userPaymentAccount = shallowRef<ConnectPayAccount>({} as ConnectPayAccount)
@@ -249,9 +260,9 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   }
 
   const $reset = () => {
-    feeOptions.value = defaultFeeOptions
+    feeOptions.value = getDefaultFeeOptions()
     fees.value = {}
-    placeholderFeeItem.value = defaultPlaceholder
+    placeholderFeeItem.value = getDefaultPlaceholder()
     loading.value = false
     $resetAlternatePayOptions()
   }
@@ -259,6 +270,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   return {
     feeOptions,
     fees,
+    feesCached,
     placeholderFeeItem,
     totalFutureEffectiveFees,
     totalPriorityFees,
@@ -271,6 +283,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     initFees,
     addReplaceFee,
     removeFee,
+    updateAllFees,
     initAlternatePaymentMethod,
     userPaymentAccount,
     userSelectedPaymentMethod,

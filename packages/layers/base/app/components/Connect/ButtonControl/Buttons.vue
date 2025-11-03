@@ -1,6 +1,7 @@
 <script setup lang="ts">
-defineProps<{ buttons: ConnectButton[], position: 'left' | 'right' }>()
+const props = defineProps<{ buttons: ConnectButton[], position: 'left' | 'right' }>()
 
+console.log(props)
 // remove alertText and removeAlertSpacing from being added to button html attrs
 const removeButtonAttrs = (button: ConnectButton) => {
   const newButton = { ...button }

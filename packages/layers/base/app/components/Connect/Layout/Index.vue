@@ -9,6 +9,7 @@
     <slot name="breadcrumb">
       <ConnectBreadcrumb />
     </slot>
+    <slot name="bottomHeaders" />
     <main class="app-body px-2 sm:px-4">
       <slot name="body">
         <div class="app-inner-container grow flex flex-col overflow-hidden">
@@ -16,6 +17,7 @@
         </div>
       </slot>
     </main>
+    <slot name="topFooters" />
     <slot name="footer">
       <ConnectFooter />
     </slot>
