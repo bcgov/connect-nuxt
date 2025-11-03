@@ -1,5 +1,15 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.25
+
+### Patch Changes
+
+- [#84](https://github.com/bcgov/connect-nuxt/pull/84) [`f37700a`](https://github.com/bcgov/connect-nuxt/commit/f37700ab568335df724a5e9472a5e0b4198704b5) Thanks [@deetz99](https://github.com/deetz99)! - Add generic Select component with floating label. Update textarea v-model type.
+
+- [#85](https://github.com/bcgov/connect-nuxt/pull/85) [`6b0f70a`](https://github.com/bcgov/connect-nuxt/commit/6b0f70ab895a26c0b049dce84b130d6a04fd911e) Thanks [@kialj876](https://github.com/kialj876)! - Common layout updates, default state key for tombstone, fee store - waive fees, add prioirty, expose cached fees
+
+- [#82](https://github.com/bcgov/connect-nuxt/pull/82) [`ba04c84`](https://github.com/bcgov/connect-nuxt/commit/ba04c8424353b32af0811534d9c3edd31e15d39e) Thanks [@deetz99](https://github.com/deetz99)! - feat: Create floating label wrapper component.
+
 ## 0.1.24
 
 ### Patch Changes
