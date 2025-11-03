@@ -5,7 +5,10 @@
     </div>
 
     <div class="shrink-0 lg:w-[300px] lg:static sticky lg:mt-10">
-      <ConnectFeeWidget class="sticky lg:top-10" />
+      <div class="sticky lg:top-10">
+        <ConnectFeeWidget />
+        <slot name="actions" />
+      </div>
     </div>
   </div>
 </template>

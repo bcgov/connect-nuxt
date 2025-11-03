@@ -14,9 +14,8 @@
         </div>
       </slot>
     </template>
-    <template #footer>
+    <template #topFooters>
       <ConnectButtonControlWrapper />
-      <ConnectFooter />
     </template>
   </ConnectLayout>
 </template>

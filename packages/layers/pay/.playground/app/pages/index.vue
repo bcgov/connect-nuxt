@@ -15,6 +15,26 @@ const layoutExamples: DropdownMenuItem[] = [
   {
     label: 'Connect Pay Layout',
     to: localePath('/examples/layouts/ConnectPay')
+  },
+  {
+    label: 'Connect Pay Layout Buttons',
+    to: localePath('/examples/layouts/ConnectPayButtons')
+  },
+  {
+    label: 'Connect Pay Layout Buttons Stacked',
+    to: localePath('/examples/layouts/ConnectPayButtonsStacked')
+  },
+  {
+    label: 'Connect Pay Layout Tombstone',
+    to: localePath('/examples/layouts/ConnectPayTombstone')
+  },
+  {
+    label: 'Connect Pay Layout Tombstone Buttons',
+    to: localePath('/examples/layouts/ConnectPayTombstoneButtons')
+  },
+  {
+    label: 'Connect Pay Layout Tombstone Buttons Stacked',
+    to: localePath('/examples/layouts/ConnectPayTombstoneButtonsStacked')
   }
 ]
 
