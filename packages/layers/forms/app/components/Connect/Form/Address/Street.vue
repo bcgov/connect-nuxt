@@ -3,25 +3,27 @@ const {
   schemaPrefix,
   helpText = 'none',
   country,
-  disableAddressComplete
+  disableAddressComplete,
+  parentId
 } = defineProps<{
   parentId: string
   country?: string
   schemaPrefix: string
   disableAddressComplete?: boolean
   helpText?: 'allow-po' | 'no-po' | 'none'
+  required?: boolean
 }>()
 
-const model = defineModel<string>({ default: '' })
+const model = defineModel<string | undefined>({ required: true })
 
 const emit = defineEmits<{
   addressComplete: [value: ConnectAddress]
 }>()
 
-const { address: canadaPostAddress, enableAddressComplete } = useCanadaPost()
+const { address: canadaPostAddress, enableAddressComplete, destroyAddressComplete } = useCanadaPost()
 
 const addressComplete = (id: string) => {
-  if (!disableAddressComplete && country && country.trim() !== '') {
+  if (!disableAddressComplete && country === 'CA') {
     enableAddressComplete(id, country, false)
   }
 }
@@ -29,6 +31,17 @@ const addressComplete = (id: string) => {
 watch(canadaPostAddress, (newAddress) => {
   emit('addressComplete', newAddress)
 })
+
+watch(
+  () => country,
+  (v) => {
+    if (v !== 'CA') {
+      destroyAddressComplete()
+    } else if (!disableAddressComplete) {
+      enableAddressComplete(`${parentId}-input-street`, v, false)
+    }
+  }
+)
 </script>
 
 <template>
@@ -44,7 +57,7 @@ watch(canadaPostAddress, (newAddress) => {
         : $t('connect.text.addressCanBePOBox')
     "
     :label="$t('connect.label.street')"
-    required
+    :required
     @keypress.once="addressComplete(`${parentId}-input-street`)"
     @click="addressComplete(`${parentId}-input-street`)"
   />

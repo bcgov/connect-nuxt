@@ -2,9 +2,10 @@
 defineProps<{
   parentId: string
   schemaPrefix: string
+  required?: boolean
 }>()
 
-const model = defineModel<string>({ default: '' })
+const model = defineModel<string | undefined>({ required: true })
 </script>
 
 <template>
@@ -13,7 +14,7 @@ const model = defineModel<string>({ default: '' })
     :data-testid="`${parentId}-field-city`"
     :input-id="`${parentId}-input-city`"
     :name="schemaPrefix + '.city'"
-    required
+    :required
     :label="$t('connect.label.city')"
   />
 </template>

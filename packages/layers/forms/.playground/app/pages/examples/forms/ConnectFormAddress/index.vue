@@ -139,6 +139,7 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
         'border-l-3 border-error': hasErrors,
       }"
       aria-labelledby="form-title"
+      novalidate
       @error="onError"
       @submit="onSubmit"
     >
@@ -157,6 +158,7 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
           v-model="state.deliveryAddress"
           schema-prefix="deliveryAddress"
           :form-ref="formRef"
+          required
         />
       </ConnectFieldset>
       <ConnectFieldset label="Mailing Address" :error="formErrors.mailing">

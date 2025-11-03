@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectFormAddressRegion from '../../../app/components/Connect/Form/Address/Region.vue'
-import { countrySubdivisions } from '../../../app/utils/isoCountriesList'
-import USelect from '@nuxt/ui/components/Select.vue'
-import ConnectInput from '../../../../base/app/components/Connect/Input.vue'
+import { ConnectFormAddressRegion, ConnectFloatingLabel, USelect, ConnectInput } from '#components'
 
 describe('ConnectFormAddressRegion.vue', () => {
   const mountComponent = (props = {}) => {
     return mountSuspended(ConnectFormAddressRegion, {
       props: {
+        modelValue: '',
         parentId: 'test',
         schemaPrefix: 'test',
         ...props
@@ -31,16 +29,13 @@ describe('ConnectFormAddressRegion.vue', () => {
     })
 
     it('sets the correct ARIA attributes for a required province', async () => {
-      const wrapper = await mountComponent({ country: 'CA' })
+      const wrapper = await mountComponent({ country: 'CA', variant: 'delivery', required: true })
+      const floatingLabel = wrapper.findComponent(ConnectFloatingLabel as any)
+      expect(floatingLabel.exists()).toBe(true)
+      expect(floatingLabel.props('label')).toBe('Province')
       const buttonEl = wrapper.find('[data-testid="test-input-region"]')
-      expect(buttonEl.attributes('aria-label')).toBe('Province')
-      // expect(buttonEl.attributes('aria-required')).toBe('true'); // TODO: pretty sure this is a bug
-    })
-
-    it('computes and displays the full province name when a value is selected', async () => {
-      const wrapper = await mountComponent({ country: 'CA' })
-      await wrapper.setProps({ modelValue: 'BC' })
-      expect((wrapper.vm as any).displayedRegionName).toBe('British Columbia')
+      expect(buttonEl.attributes('aria-labelledby')).toBe(floatingLabel.props('id'))
+      expect(buttonEl.attributes('aria-required')).toBe('true')
     })
   })
 
@@ -57,10 +52,13 @@ describe('ConnectFormAddressRegion.vue', () => {
     })
 
     it('sets the correct ARIA attributes for a required state', async () => {
-      const wrapper = await mountComponent({ country: 'US' })
+      const wrapper = await mountComponent({ country: 'US', variant: 'delivery', required: true })
+      const floatingLabel = wrapper.findComponent(ConnectFloatingLabel as any)
+      expect(floatingLabel.exists()).toBe(true)
+      expect(floatingLabel.props('label')).toBe('State')
       const buttonEl = wrapper.find('[data-testid="test-input-region"]')
-      expect(buttonEl.attributes('aria-label')).toBe('State')
-      // expect(buttonEl.attributes('aria-required')).toBe('true'); // TODO: pretty sure this is a bug
+      expect(buttonEl.attributes('aria-labelledby')).toBe(floatingLabel.props('id'))
+      expect(buttonEl.attributes('aria-required')).toBe('true')
     })
   })
 
@@ -78,7 +76,7 @@ describe('ConnectFormAddressRegion.vue', () => {
       expect(label.text()).toContain('Region (Optional)')
 
       const input = wrapper.find('[id="test-input-region"]')
-      // expect(input.attributes('disabled')).toBe(true) // TODO: figure out why this isnt passing
+      expect(input.attributes('disabled')).toBeDefined()
       expect(input.attributes('maxlength')).toBe('50')
     })
   })

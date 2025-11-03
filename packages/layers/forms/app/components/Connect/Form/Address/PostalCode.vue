@@ -4,14 +4,16 @@ defineProps<{
   schemaPrefix: string
   disabled?: boolean
   country?: string
+  required?: boolean
 }>()
 
-const model = defineModel({
+const model = defineModel<string | undefined>({
   set(value) {
-    return value.toUpperCase()
+    if (value) {
+      return value.toUpperCase()
+    }
   },
-  type: String,
-  default: ''
+  required: true
 })
 </script>
 
@@ -22,7 +24,7 @@ const model = defineModel({
     :data-testid="`${parentId}-field-postalCode`"
     :input-id="`${parentId}-input-postalCode`"
     :disabled
-    required
+    :required
     :label="country === 'US'
       ? $t('connect.label.zipCode')
       : $t('connect.label.postalCode')

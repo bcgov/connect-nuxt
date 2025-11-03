@@ -4,7 +4,7 @@ defineProps<{
   schemaPrefix: string
 }>()
 
-const model = defineModel<string>({ default: '' })
+const model = defineModel<string | undefined>({ required: true })
 </script>
 
 <template>

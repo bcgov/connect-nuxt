@@ -1,29 +1,24 @@
 <script setup lang="ts">
+import type { SelectItem } from '@nuxt/ui'
 import { isoCountriesListSortedByName as countries } from '#forms/app/utils/isoCountriesList'
 
 defineProps<{
   parentId: string
   schemaPrefix: string
   disabled?: boolean
+  required?: boolean
 }>()
 
 defineEmits<{
   change: []
 }>()
 
-const model = defineModel<string>({ default: '' })
+const model = defineModel<string | undefined>({ required: true })
 
-const displayedCountryName = computed(() => {
-  if (model.value) {
-    const found = countries.find(c => c.alpha_2 === model.value)?.name
-    return found ?? ''
-  }
-  return ''
-})
-
-const options = [
+const options: SelectItem[] = [
   countries.find(c => c.alpha_2 === 'CA')!,
   countries.find(c => c.alpha_2 === 'US')!,
+  { type: 'separator' },
   ...countries
 ]
 </script>
@@ -35,58 +30,18 @@ const options = [
     class="grow"
   >
     <template #default="{ error }">
-      <USelect
+      <ConnectSelect
         :id="`${parentId}-input-country`"
         v-model="model"
-        :data-testid="`${parentId}-input-country`"
+        :label="$t('connect.label.country')"
         :items="options"
         value-key="alpha_2"
         label-key="name"
         class="w-full"
-        :class="error ? 'shadow-input-error ring-0' : ''"
         :disabled
-        :aria-label="$t('connect.label.country')"
-        :aria-required="true"
-        :ui="{
-          base: error
-            ? 'shadow-input-error focus:shadow-input-error data-[state=open]:shadow-input-error'
-            : '',
-          trailingIcon: error
-            ? 'text-error group-data-[state=open]:text-error group-focus:text-error'
-            : '',
-          item: 'nth-2:border-b nth-2:border-gray-200',
-          itemTrailingIcon: 'hidden',
-        }"
+        :required
         @change="$emit('change')"
-      >
-        <template #default="{ modelValue }">
-          <div class="relative px-2.5 pb-2 pt-6 w-full">
-            <span
-              aria-hidden="true"
-              :class="[
-                !modelValue
-                  ? 'top-1/2 -translate-y-1/2'
-                  : 'top-1 -translate-y-none text-xs',
-                error
-                  ? 'text-red-600 group-data-[state=open]:text-red-600 group-focus:text-red-600'
-                  : '',
-                'absolute left-0 px-2.5 text-sm transition-all',
-                'group-data-[state=open]:text-primary group-focus:text-primary',
-              ]"
-            >
-              {{ $t('connect.label.country') }}
-            </span>
-            <div class="h-6">
-              <span
-                v-if="modelValue"
-                class="line-clamp-1 text-left"
-              >
-                {{ displayedCountryName }}
-              </span>
-            </div>
-          </div>
-        </template>
-      </USelect>
+      />
       <div
         v-if="!$slots.help && !error"
         class="h-4 mt-1"

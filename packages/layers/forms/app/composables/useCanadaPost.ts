@@ -42,9 +42,8 @@ export const useCanadaPost = () => {
       console.warn('AddressComplete not initialized due to missing script and/or key')
       return
     }
-    if ((window as any).currentAddressComplete) {
-      (window as any).currentAddressComplete.destroy()
-    }
+    destroyAddressComplete();
+
     (window as any).currentAddressComplete = createAddressComplete(pca, key, id, countryIso2, countrySelect)
   }
 
@@ -60,9 +59,16 @@ export const useCanadaPost = () => {
     address.unitNumber = addressComplete.SubBuilding
   }
 
+  const destroyAddressComplete = () => {
+    if ((window as any).currentAddressComplete) {
+      (window as any).currentAddressComplete.destroy()
+    }
+  }
+
   return {
     activeAddressField,
     address,
-    enableAddressComplete
+    enableAddressComplete,
+    destroyAddressComplete
   }
 }
