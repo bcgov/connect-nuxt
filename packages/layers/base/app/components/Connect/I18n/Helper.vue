@@ -1,7 +1,4 @@
 <script setup lang="ts">
-/* eslint-disable vue/no-v-html */
-/* eslint-disable vue/no-v-text-v-html-on-component */
-
 const {
   translationPath,
   as = 'span'
@@ -39,5 +36,5 @@ const textToDisplay = computed(() => {
 </script>
 
 <template>
-  <component :is="as" v-html="$sanitize(textToDisplay)" />
+  <component :is="as" v-sanitize="textToDisplay" />
 </template>
