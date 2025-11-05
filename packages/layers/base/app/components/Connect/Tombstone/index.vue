@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
 
-const props = defineProps<{ stateKey: string }>()
+const props = defineProps<{ stateKey?: string }>()
 
-const { tombstone } = useConnectTombstone(props.stateKey)
+const { tombstone } = useConnectTombstone(props.stateKey || '')
 
 async function handleButtonAction(button: ButtonProps, event: MouseEvent) {
   button.loading = true
