@@ -1,22 +1,21 @@
 <script setup lang="ts">
-/* eslint-disable @typescript-eslint/no-explicit-any */ // allow any for form ref type
-import type { Form } from '@nuxt/ui'
-
 const {
   disabledFields,
   excludedFields = ['streetName', 'streetNumber', 'unitNumber'],
   schemaPrefix,
-  streetHelpText = 'none',
-  formRef
+  streetHelpText = 'none'
 } = defineProps<{
   id: string
   schemaPrefix: string
-  formRef?: Form<any> | null
   disabledFields?: Array<keyof ConnectAddress>
   excludedFields?: Array<keyof ConnectAddress>
   disableAddressComplete?: boolean
   streetHelpText?: 'allow-po' | 'no-po' | 'none'
   required?: boolean
+}>()
+
+const emit = defineEmits<{
+  'should-validate': []
 }>()
 
 const state = defineModel<Partial<ConnectAddress>>({ required: true })
@@ -38,12 +37,7 @@ async function populateAddressComplete(e: ConnectAddress) {
 
   // wait for dom to populate inputs
   await nextTick()
-
-  // validate populated fields if formRef provided
-  if (formRef) {
-    const fields = validKeys.map(k => `${schemaPrefix}.${k}`)
-    await formRef.validate({ name: fields, silent: true })
-  }
+  emit('should-validate')
 }
 </script>
 
