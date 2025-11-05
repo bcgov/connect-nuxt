@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.28
+
+### Patch Changes
+
+- [#86](https://github.com/bcgov/connect-nuxt/pull/86) [`c1fb4f2`](https://github.com/bcgov/connect-nuxt/commit/c1fb4f2a217b3d57e7ea7aed8b9773e215a21978) Thanks [@deetz99](https://github.com/deetz99)! - Update forms to emit @should-validate event instead of requiring form ref as prop to revalidate inputs on address complete.
+
+- Updated dependencies [[`c1fb4f2`](https://github.com/bcgov/connect-nuxt/commit/c1fb4f2a217b3d57e7ea7aed8b9773e215a21978)]:
+  - @sbc-connect/nuxt-base@0.1.26
+
 ## 0.1.27
 
 ### Patch Changes
