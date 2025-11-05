@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.30
+
+### Patch Changes
+
+- [#90](https://github.com/bcgov/connect-nuxt/pull/90) [`b66923e`](https://github.com/bcgov/connect-nuxt/commit/b66923e94a2c8a7aa936b7e371e727be73d90ea7) Thanks [@kialj876](https://github.com/kialj876)! - Base tombstone - bug fix
+
+- Updated dependencies [[`b66923e`](https://github.com/bcgov/connect-nuxt/commit/b66923e94a2c8a7aa936b7e371e727be73d90ea7)]:
+  - @sbc-connect/nuxt-base@0.1.28
+
 ## 0.1.29
 
 ### Patch Changes
