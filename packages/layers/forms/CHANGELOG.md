@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.29
+
+### Patch Changes
+
+- [#88](https://github.com/bcgov/connect-nuxt/pull/88) [`11ccded`](https://github.com/bcgov/connect-nuxt/commit/11ccdedb47c73d36a335ddd96e529fe74ca17480) Thanks [@kialj876](https://github.com/kialj876)! - Base layer - Update tombstone component stateKey prop to optional
+
+- Updated dependencies [[`11ccded`](https://github.com/bcgov/connect-nuxt/commit/11ccdedb47c73d36a335ddd96e529fe74ca17480)]:
+  - @sbc-connect/nuxt-base@0.1.27
+
 ## 0.1.28
 
 ### Patch Changes
