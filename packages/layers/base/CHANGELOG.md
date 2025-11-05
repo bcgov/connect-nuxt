@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.26
+
+### Patch Changes
+
+- [#86](https://github.com/bcgov/connect-nuxt/pull/86) [`c1fb4f2`](https://github.com/bcgov/connect-nuxt/commit/c1fb4f2a217b3d57e7ea7aed8b9773e215a21978) Thanks [@deetz99](https://github.com/deetz99)! - feat: v-sanitize directive.
+
 ## 0.1.25
 
 ### Patch Changes
