@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.28
+
+### Patch Changes
+
+- [#90](https://github.com/bcgov/connect-nuxt/pull/90) [`b66923e`](https://github.com/bcgov/connect-nuxt/commit/b66923e94a2c8a7aa936b7e371e727be73d90ea7) Thanks [@kialj876](https://github.com/kialj876)! - Base tombstone - bug fix
+
 ## 0.1.27
 
 ### Patch Changes
