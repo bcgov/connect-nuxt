@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.1.31
+
+### Patch Changes
+
+- [#92](https://github.com/bcgov/connect-nuxt/pull/92) [`c80a32a`](https://github.com/bcgov/connect-nuxt/commit/c80a32a8781894ee29ade5dc8c47f9e26d52b8b4) Thanks [@deetz99](https://github.com/deetz99)! - feat: ConnectFieldset - Add description and body variant props. Add label and description slots.
+
 ## 0.1.30
 
 ### Patch Changes
