@@ -20,7 +20,7 @@ definePageMeta({
     <ConnectPageSection :heading="{ label: 'Props' }" ui-body="sm:p-6 space-y-4">
       <ul>
         <li>`label` - string - required</li>
-        <li>`string` - string - optional</li>
+        <li>`description` - string - optional</li>
         <li>`error` - FormError - optional</li>
         <li>`showErrorMsg` - boolean - optional</li>
         <li>`orientation` - 'vertical' | 'horizontal' - default: vertical</li>
