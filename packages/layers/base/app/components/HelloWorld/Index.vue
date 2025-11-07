@@ -10,5 +10,8 @@ const { myLayer } = useAppConfig()
     <p class="text-gray-900">
       Hello World text base should be gray-900
     </p>
+    <p class="text-midnightBlue-500">
+      Hello World text base should be midnightBlue-500
+    </p>
   </div>
 </template>
