@@ -7,6 +7,7 @@
     </h3>
     <p class="text-brand-inverted text-xl lg:text-3xl">
       Auth - should be brand-inverted
+      test
     </p>
   </div>
 </template>
