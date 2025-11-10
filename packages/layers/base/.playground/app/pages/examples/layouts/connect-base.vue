@@ -6,8 +6,6 @@ definePageMeta({
     { label: 'Connect Base Layout' }
   ]
 })
-
-onMounted(initSidebar)
 </script>
 
 <template>
@@ -16,7 +14,7 @@ onMounted(initSidebar)
       <p>
         Slot content (nav bar below is not included by default)
       </p>
-      <ConnectLayoutSidebar class="ml-30" />
+      <ConnectLayoutSidebar :items="getBaseSidebarItems()" class="ml-30" />
     </div>
   </div>
 </template>

@@ -4,7 +4,6 @@ import { h } from 'vue'
 import type { DropdownMenuItem } from '@nuxt/ui'
 
 definePageMeta({
-  layout: 'connect-sidebar',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Tombstone (vNode)' }

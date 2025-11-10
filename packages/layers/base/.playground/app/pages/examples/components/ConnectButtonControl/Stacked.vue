@@ -2,7 +2,6 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
-  layout: 'connect-sidebar',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Button Control Component (stacked)' }
@@ -66,8 +65,6 @@ buttonControl.setButtonControl({
     stacked: true
   }
 })
-
-onMounted(initSidebar)
 </script>
 
 <template>

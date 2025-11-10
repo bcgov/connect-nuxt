@@ -1,6 +1,5 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'connect-sidebar',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Floating Label' }
@@ -14,8 +13,6 @@ const selectMenu = ref('')
 const selectMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
 const inputMenu = ref('')
 const inputMenuItems = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
-
-onMounted(initSidebar)
 </script>
 
 <template>

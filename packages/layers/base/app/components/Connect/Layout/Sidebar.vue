@@ -1,8 +1,7 @@
 <script setup lang="ts">
-const { stateKey = 'default-sidebar' } = defineProps<{
-  stateKey?: string
-}>()
-const { sidebarItems } = useConnectSidebar(stateKey)
+import type { NavigationMenuItem } from '@nuxt/ui'
+
+defineProps<{ items: NavigationMenuItem[] }>()
 
 const showSideMenu = ref(true)
 </script>
@@ -20,7 +19,7 @@ const showSideMenu = ref(true)
       <div v-if="showSideMenu">
         <UNavigationMenu
           collapsible
-          :items="sidebarItems"
+          :items
           orientation="vertical"
           class="text-neutral-highlighted"
           variant="pill"
