@@ -1,8 +1,13 @@
 <script setup lang="ts">
 definePageMeta({
+  layout: 'connect-sidebar',
   breadcrumbs: [
     { label: 'Examples' }
   ]
+})
+
+onMounted(() => {
+  initSidebar()
 })
 </script>
 

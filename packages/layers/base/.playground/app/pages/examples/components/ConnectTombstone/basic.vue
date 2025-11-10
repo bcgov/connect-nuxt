@@ -2,6 +2,7 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
+  layout: 'connect-sidebar',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Tombstone (basic)' }
@@ -26,6 +27,7 @@ async function triggerReset() {
 }
 
 onMounted(async () => {
+  initSidebar()
   await triggerReset()
 })
 

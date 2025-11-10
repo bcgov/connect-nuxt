@@ -2,6 +2,7 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
+  layout: 'connect-sidebar',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Button Control Component (default)' }
@@ -48,6 +49,8 @@ buttonControl.setButtonControl({
     ]
   }
 })
+
+onMounted(initSidebar)
 </script>
 
 <template>

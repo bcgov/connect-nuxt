@@ -2,6 +2,7 @@
 import { delay } from 'es-toolkit'
 
 definePageMeta({
+  layout: 'connect-sidebar',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Tombstone (multiple)' }
