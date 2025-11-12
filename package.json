@@ -10,7 +10,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "ci:publish": "changeset publish",
-    "build:base": "pnpm --filter-prod @sbc-connect/nuxt-base build"
+    "build:base": "pnpm --filter @sbc-connect/nuxt-base build"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
