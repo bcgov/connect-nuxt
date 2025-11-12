@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/
+// https://whatsock.com/Templates/Datepickers/Basic,%20Auto%20Open/index.htm
 import type { ConnectInput, UCalendar } from '#components';
 import { CalendarDate } from '@internationalized/date'
 import { DateTime } from 'luxon'
