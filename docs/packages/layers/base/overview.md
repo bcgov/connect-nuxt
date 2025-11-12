@@ -31,6 +31,7 @@ Components for BC Government branding and styling:
 - [ES Toolkit](https://es-toolkit.dev/)
 - [LaunchDarkly SDK](https://launchdarkly.com/docs/sdk/client-side/vue)
 - [Maska](https://beholdr.github.io/maska/v3/#/vue)
+- [Luxon](https://moment.github.io/luxon/#/?id=luxon)
 
 ### Components
 
@@ -47,6 +48,7 @@ Components for BC Government branding and styling:
 - ConnectBreadcrumb
 - ConnectFooter
 - ConnectInput
+- ConnectInputDate
 - ConnectLocaleSelect
 - ConnectPageSection
 - ConnectSpinner

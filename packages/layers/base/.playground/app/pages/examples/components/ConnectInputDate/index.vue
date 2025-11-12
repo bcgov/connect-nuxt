@@ -5,7 +5,7 @@ import type { Form } from '@nuxt/ui'
 definePageMeta({
   breadcrumbs: [
     { label: 'Examples', to: '/' },
-    { label: 'Connect Datepicker Input' }
+    { label: 'Connect InputDate' }
   ]
 })
 
@@ -29,7 +29,7 @@ const formRef = useTemplateRef<Form<DateSchema>>('form-ref')
 <template>
   <div class="flex flex-col gap-10">
     <h1>
-      ConnectDatePickerInput
+      ConnectInputDate
     </h1>
 
     <ConnectPageSection :heading="{ label: 'Basic Example' }" ui-body="p-4 space-y-4">
@@ -56,7 +56,6 @@ const formRef = useTemplateRef<Form<DateSchema>>('form-ref')
             id="form-date"
             @blur="formRef?.validate({ silent: true })"
           />
-          
         </UFormField>
         <UButton type="submit" label="Submit" />
       </UForm>
