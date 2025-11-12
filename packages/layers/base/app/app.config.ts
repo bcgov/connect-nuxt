@@ -278,6 +278,9 @@ export default defineAppConfig({
       upload: 'i-mdi-upload'
     },
     input: {
+      slots: {
+        trailingIcon: 'text-neutral group-has-[div>input[aria-invalid=true]]:text-error group-focus-within:text-primary'
+      },
       variants: {
         size: {
           bcGov: {

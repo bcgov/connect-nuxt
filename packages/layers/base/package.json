@@ -32,6 +32,7 @@
     "dompurify": "^3.3.0",
     "es-toolkit": "^1.41.0",
     "launchdarkly-vue-client-sdk": "^2.4.1",
+    "luxon": "^3.7.2",
     "maska": "^3.2.0",
     "zod": "^4.1.12"
   },
@@ -40,6 +41,7 @@
     "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
+    "@types/luxon": "^3.7.1",
     "@vitest/coverage-v8": "catalog:",
     "dotenv": "catalog:",
     "nuxt": "catalog:",
