@@ -5,6 +5,9 @@ test.describe('Connect Button Control (stacked)', () => {
     await page.goto('./examples/components/ConnectButtonControl/stacked')
     await page.waitForURL('*/**/examples/components/ConnectButtonControl/stacked')
     await expect(page.getByRole('heading', { name: 'Connect Button Control (stacked example)' })).toBeVisible()
+    // collapse sidebar
+    await page.getByTestId('connect-sidebar-toggle-btn').click()
+
     const buttonControl = page.getByTestId('connect-button-control')
     await expect(buttonControl).toBeVisible()
     const leftButtons = buttonControl.getByTestId('left-buttons')
@@ -22,6 +25,9 @@ test.describe('Connect Button Control (stacked)', () => {
     await page.goto('./examples/components/ConnectButtonControl/stacked')
     await page.waitForURL('*/**/examples/components/ConnectButtonControl/stacked')
     await expect(page.getByRole('heading', { name: 'Connect Button Control (stacked example)' })).toBeVisible()
+    // collapse sidebar
+    await page.getByTestId('connect-sidebar-toggle-btn').click()
+
     const buttonControl = page.getByTestId('connect-button-control')
     const leftButtons = buttonControl.getByTestId('left-buttons')
     const rightButtons = buttonControl.getByTestId('right-buttons')

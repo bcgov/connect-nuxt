@@ -13,6 +13,7 @@ const showSideMenu = ref(true)
       color="neutral"
       size="xs"
       :icon="showSideMenu ? 'i-mdi-minus' : 'i-mdi-plus'"
+      data-testid="connect-sidebar-toggle-btn"
       @click="showSideMenu = !showSideMenu"
     />
     <ConnectTransitionCollapse>
