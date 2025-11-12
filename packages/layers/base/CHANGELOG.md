@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.29
+
+### Patch Changes
+
+- [#95](https://github.com/bcgov/connect-nuxt/pull/95) [`a0724ac`](https://github.com/bcgov/connect-nuxt/commit/a0724ac5fdf44296e822942b0eea6be3bb313fcb) Thanks [@kialj876](https://github.com/kialj876)! - Add firebase.json for CI build, update examples sidebar
+
 ## 0.1.28
 
 ### Patch Changes
