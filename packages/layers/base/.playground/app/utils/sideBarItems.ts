@@ -19,7 +19,7 @@ export const getBaseSidebarItems = () => {
             to: localePath('/examples/components/ConnectButtonControl/Options')
           },
           {
-            label: 'Stacked Buttons',
+            label: 'Stacked',
             to: localePath('/examples/components/ConnectButtonControl/Stacked')
           }
         ]
@@ -133,6 +133,14 @@ export const getBaseSidebarItems = () => {
       {
         label: '500',
         to: localePath('/examples/error-pages/500')
+      },
+      {
+        label: 'Other',
+        type: 'label'
+      },
+      {
+        label: 'LaunchDarkly',
+        to: localePath('/examples/launchdarkly')
       }
     ]
   ]

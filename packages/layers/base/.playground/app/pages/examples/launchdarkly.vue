@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'connect-sidebar'
-})
-
 const { getStoredFlag, getFeatureFlag } = useConnectLaunchDarkly()
 
 // --- Scenario 1: Reactive Mode (Default) ---
