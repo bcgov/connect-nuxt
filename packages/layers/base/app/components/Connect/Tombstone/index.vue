@@ -19,7 +19,7 @@ async function handleButtonAction(button: ButtonProps, event: MouseEvent) {
 </script>
 
 <template>
-  <div class="bg-white py-8 px-2 sm:px-4">
+  <div class="bg-white py-8 px-2 sm:px-4" data-testid="connect-tombstone-wrapper">
     <div class="app-inner-container">
       <div
         v-if="tombstone.loading"

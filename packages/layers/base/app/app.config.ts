@@ -80,6 +80,9 @@ export default defineAppConfig({
           class: 'ring ring-inset ring-primary text-primary hover:bg-primary/10 active:bg-primary/10 disabled:bg-transparent aria-disabled:bg-transparent dark:disabled:bg-transparent dark:aria-disabled:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-primary'
         }
       ],
+      slots: {
+        base: 'cursor-pointer'
+      },
       variants: {
         size: {
           sm: {
