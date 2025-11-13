@@ -36,7 +36,10 @@ buttonControl.setButtonControl({
 </script>
 
 <template>
-  <div class="py-10 text-center bg-shade-secondary h-[500px]">
-    Content wrapped by layout
+  <div class="py-10 bg-shade-secondary h-screen">
+    <div class="mx-auto mt-20 max-w-md text-center">
+      Content wrapped by layout
+      <ConnectLayoutSidebar class="ml-30" :items="getBaseSidebarItems()" />
+    </div>
   </div>
 </template>
