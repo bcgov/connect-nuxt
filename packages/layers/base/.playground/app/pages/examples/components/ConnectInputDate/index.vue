@@ -46,7 +46,7 @@ const formRef = useTemplateRef<Form<DateSchema>>('form-ref')
         :state="form"
         :schema="dateSchema"
         class="space-y-8"
-        @submit="(e) => console.info(e.data)"
+        @submit="(e) => console.info(e.data.date)"
         @error="(e) => console.info(e.errors)"
       >
         <UFormField name="date" help="Format: YYYY-MM-DD">
