@@ -1,7 +1,8 @@
 <script setup lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/
 // https://whatsock.com/Templates/Datepickers/Basic,%20Auto%20Open/index.htm
-import type { ConnectInput, UCalendar } from '#components';
+import type { ConnectInput, UCalendar } from '#components'
 import { CalendarDate } from '@internationalized/date'
 import { DateTime } from 'luxon'
 
@@ -44,14 +45,14 @@ const open = ref(false)
 const calendarRef = useTemplateRef('calendar-ref')
 const inputRef = useTemplateRef<InstanceType<typeof ConnectInput>>('input-ref')
 
-function focusCalendar () {
+function focusCalendar() {
   const button = (calendarRef.value as any).$el.querySelector('button')
   if (button) {
     (button as HTMLButtonElement).focus()
   }
 }
 
-function focusInput () {
+function focusInput() {
   const input = (inputRef.value as any).$el.querySelector('input')
   if (input) {
     (input as HTMLInputElement).focus()
@@ -64,27 +65,27 @@ function focusInput () {
 <template>
   <UPopover
     v-model:open="open"
-    @update:open="(v) => {
-      if (!v) {
-        $emit('blur')
-      }
-    }"
     :content="{
       onOpenAutoFocus: (e) => e.preventDefault(),
       onEscapeKeyDown: () => {
         focusInput()
       },
       side: 'bottom',
-      align: 'start'
+      align: 'start',
+    }"
+    @update:open="(v) => {
+      if (!v) {
+        $emit('blur')
+      }
     }"
   >
     <template #default>
       <div class="w-full group">
         <ConnectInput
+          :id
           ref="input-ref"
           v-model="externalModel"
           :label
-          :id
           mask="####-##-##"
           trailing-icon="i-mdi-calendar"
           @focus="open = true"

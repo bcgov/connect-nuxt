@@ -17,7 +17,7 @@ const form = reactive({
 // basic validation
 const dateSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
-    message: "Date must be in YYYY-MM-DD format"
+    message: 'Date must be in YYYY-MM-DD format'
   })
 })
 
@@ -34,26 +34,26 @@ const formRef = useTemplateRef<Form<DateSchema>>('form-ref')
 
     <ConnectPageSection :heading="{ label: 'Basic Example' }" ui-body="p-4 space-y-4">
       <ConnectInputDate
+        id="basic-date"
         v-model="basic"
         label="Basic Date"
-        id="basic-date"
       />
     </ConnectPageSection>
-    
+
     <ConnectPageSection :heading="{ label: 'Form Example' }" ui-body="p-4 space-y-4">
       <UForm
         ref="form-ref"
         :state="form"
         :schema="dateSchema"
+        class="space-y-8"
         @submit="(e) => console.info(e.data)"
         @error="(e) => console.info(e.errors)"
-        class="space-y-8"
       >
         <UFormField name="date" help="Format: YYYY-MM-DD">
           <ConnectInputDate
+            id="form-date"
             v-model="form.date"
             label="Form Date"
-            id="form-date"
             @blur="formRef?.validate({ silent: true })"
           />
         </UFormField>
