@@ -3,7 +3,6 @@ const { t } = useI18n()
 const feeStore = useConnectFeeStore()
 
 definePageMeta({
-  layout: 'connect-auth',
   breadcrumbs: [
     { label: 'Examples', to: '/' },
     { label: 'Connect Fee Component (no fee)' }

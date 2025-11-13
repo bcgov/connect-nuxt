@@ -2,7 +2,6 @@
 import type { DropdownMenuItem } from '@nuxt/ui'
 
 definePageMeta({
-  layout: 'connect-auth',
   breadcrumbs: [
     { label: 'Examples' }
   ]
