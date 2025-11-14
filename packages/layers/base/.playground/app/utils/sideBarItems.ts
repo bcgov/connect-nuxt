@@ -95,6 +95,10 @@ export const getBaseSidebarItems = () => {
         to: localePath('/examples/components/ConnectInput')
       },
       {
+        label: 'Connect InputDate',
+        to: localePath('/examples/components/ConnectInputDate')
+      },
+      {
         label: 'Connect Locale Select',
         to: localePath('/examples/components/ConnectLocaleSelect')
       },
@@ -128,11 +132,11 @@ export const getBaseSidebarItems = () => {
       },
       {
         label: '404',
-        to: localePath('/examples/error-pages/404')
+        to: localePath('/examples/error-page/404')
       },
       {
         label: '500',
-        to: localePath('/examples/error-pages/500')
+        to: localePath('/examples/error-page/500')
       },
       {
         label: 'Other',
