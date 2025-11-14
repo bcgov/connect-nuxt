@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.1.30
+
+### Patch Changes
+
+- [#97](https://github.com/bcgov/connect-nuxt/pull/97) [`09323e1`](https://github.com/bcgov/connect-nuxt/commit/09323e1fcaff9a2738528c8161288c1d4bcd0677) Thanks [@deetz99](https://github.com/deetz99)! - feat: ConnectInputDate component
+
 ## 0.1.29
 
 ### Patch Changes
