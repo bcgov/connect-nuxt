@@ -23,10 +23,11 @@ const uInputSlots = inject<{ [key: string]: VNode }>(
 <template>
   <UInput
     :id
-    v-model="model"
+    v-model.trim="model"
     v-maska="mask"
     v-bind="uInputProps"
     class="w-full grow"
+    placeholder="&nbsp;"
   >
     <label
       :for="id"
