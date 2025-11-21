@@ -4,9 +4,7 @@ defineProps<{
   label: string
   inputId: string
   required?: boolean
-  autofocus?: boolean
   mask?: string
-  disabled?: boolean
   help?: string
 }>()
 
@@ -24,10 +22,8 @@ const model = defineModel<string | number | bigint | null | undefined>({ require
         :id="inputId"
         v-model="model"
         :mask
-        :aria-required="required"
         :label
-        :autofocus
-        :disabled
+        :aria-required="required"
       />
       <div
         v-if="!help && !error"

@@ -1,11 +1,23 @@
 <script setup lang="ts">
-const model = defineModel<string | number | bigint | null | undefined>({ required: true })
+import type { InputProps } from '@nuxt/ui'
 
-defineProps<{
+const props = defineProps<{
   id: string
   label: string
   mask?: string
 }>()
+
+const model = defineModel<string | number | bigint | null | undefined>({ required: true })
+
+const uInputProps = inject<InputProps>(
+  `UInput-props${props.id ? `-${props.id}` : ''}`,
+  {} as InputProps
+)
+
+const uInputSlots = inject<{ [key: string]: VNode }>(
+  `UInput-slots${props.id ? `-${props.id}` : ''}`,
+  {}
+)
 </script>
 
 <template>
@@ -13,9 +25,9 @@ defineProps<{
     :id
     v-model.trim="model"
     v-maska="mask"
-    :data-testid="id"
-    placeholder="&nbsp;"
+    v-bind="uInputProps"
     class="w-full grow"
+    placeholder="&nbsp;"
   >
     <label
       :for="id"
@@ -23,5 +35,16 @@ defineProps<{
     >
       {{ label }}
     </label>
+
+    <!-- Render injected slots -->
+    <template
+      v-for="(comp, name) in uInputSlots"
+      #[name]
+      :key="name"
+    >
+      <component
+        :is="comp"
+      />
+    </template>
   </UInput>
 </template>
