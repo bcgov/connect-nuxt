@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-auth
 
+## 0.1.32
+
+### Patch Changes
+
+- [#98](https://github.com/bcgov/connect-nuxt/pull/98) [`cb7ba1b`](https://github.com/bcgov/connect-nuxt/commit/cb7ba1b38a7e7dbeb296479ef0fcba13ddb1d20f) Thanks [@kialj876](https://github.com/kialj876)! - Auth Layer: Move auth layout to component, Pay Layer: Add in sidebar for examples and add layout tests
+
+- Updated dependencies [[`09323e1`](https://github.com/bcgov/connect-nuxt/commit/09323e1fcaff9a2738528c8161288c1d4bcd0677), [`033f6c6`](https://github.com/bcgov/connect-nuxt/commit/033f6c624fbf953f1d7cf491c876cc9b58619b22)]:
+  - @sbc-connect/nuxt-base@0.2.0
+
 ## 0.1.31
 
 ### Patch Changes

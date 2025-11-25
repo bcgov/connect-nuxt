@@ -1,5 +1,15 @@
 # @sbc-connect/nuxt-base
 
+## 0.2.0
+
+### Minor Changes
+
+- [#101](https://github.com/bcgov/connect-nuxt/pull/101) [`033f6c6`](https://github.com/bcgov/connect-nuxt/commit/033f6c624fbf953f1d7cf491c876cc9b58619b22) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Implements dynamic slots/props while supporting explicit props
+
+### Patch Changes
+
+- [#97](https://github.com/bcgov/connect-nuxt/pull/97) [`09323e1`](https://github.com/bcgov/connect-nuxt/commit/09323e1fcaff9a2738528c8161288c1d4bcd0677) Thanks [@deetz99](https://github.com/deetz99)! - feat: ConnectInputDate component
+
 ## 0.1.29
 
 ### Patch Changes
