@@ -6,6 +6,8 @@ defineProps<{
   required?: boolean
   mask?: string
   help?: string
+  disabled?: boolean
+  autoFocus?: boolean
 }>()
 
 const model = defineModel<string | number | bigint | null | undefined>({ required: true })
@@ -23,6 +25,8 @@ const model = defineModel<string | number | bigint | null | undefined>({ require
         v-model="model"
         :mask
         :label
+        :disabled
+        :auto-focus
         :aria-required="required"
       />
       <div

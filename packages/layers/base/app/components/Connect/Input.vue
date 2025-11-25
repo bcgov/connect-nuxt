@@ -5,16 +5,20 @@ const props = defineProps<{
   id: string
   label: string
   mask?: string
+  disabled?: boolean
+  autoFocus?: boolean
 }>()
 
 const model = defineModel<string | number | bigint | null | undefined>({ required: true })
 
-const uInputProps = inject<InputProps>(
+// Inject props
+const injectedProps = inject<InputProps>(
   `UInput-props${props.id ? `-${props.id}` : ''}`,
   {} as InputProps
 )
 
-const uInputSlots = inject<{ [key: string]: VNode }>(
+// Inject slots
+const injectedSlots = inject<{ [key: string]: VNode }>(
   `UInput-slots${props.id ? `-${props.id}` : ''}`,
   {}
 )
@@ -22,11 +26,14 @@ const uInputSlots = inject<{ [key: string]: VNode }>(
 
 <template>
   <UInput
-    :id
+    v-bind="{
+      ...props,
+      ...injectedProps, // injected props will default when provided
+    }"
     v-model.trim="model"
     v-maska="mask"
-    v-bind="uInputProps"
     class="w-full grow"
+    :data-testid="id"
     placeholder="&nbsp;"
   >
     <label
@@ -38,7 +45,7 @@ const uInputSlots = inject<{ [key: string]: VNode }>(
 
     <!-- Render injected slots -->
     <template
-      v-for="(comp, name) in uInputSlots"
+      v-for="(comp, name) in injectedSlots"
       #[name]
       :key="name"
     >
