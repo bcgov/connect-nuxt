@@ -27,7 +27,9 @@ const injectedSlots = inject<{ [key: string]: VNode }>(
 <template>
   <UInput
     v-bind="{
-      ...props,
+      id,
+      disabled,
+      autoFocus,
       ...injectedProps, // injected props will default when provided
     }"
     v-model.trim="model"
