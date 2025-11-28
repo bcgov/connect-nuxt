@@ -19,7 +19,7 @@ export default defineAppConfig({
           color: 'warning',
           variant: 'subtle',
           class: {
-            root: 'text-highlighted bg-yellow-400/25 ring-2 ring-yellow-400',
+            root: 'py-4 px-6 relative bg-white text-highlighted ring-2 ring-brand-inverted before:content-[""] before:absolute before:inset-0 before:bg-brand-inverted/10 before:z-10',
             icon: 'text-warning',
             title: 'font-bold text-nuetral-highlighted',
             description: 'text-nuetral-highlighted'
@@ -165,6 +165,9 @@ export default defineAppConfig({
           }
         }
       ]
+    },
+    container: {
+      base: 'px-0 sm:px-0 lg:px-0 py-6 space-y-6 sm:py-10 sm:space-y-10'
     },
     dropdownMenu: {
       slots: {
