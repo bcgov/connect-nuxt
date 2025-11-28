@@ -11,17 +11,23 @@ useHead({
   title: t('connect.page.login.title')
 })
 
+// TODO: redirect user conditionally based on the login config
+// persist return url if going to account select or create pages
+
 definePageMeta({
   layout: 'connect-auth',
   hideBreadcrumbs: true,
   middleware: async (to) => {
     const { $connectAuth, $router, _appConfig } = useNuxtApp()
+    const config = _appConfig.connect.login
     if ($connectAuth.authenticated) {
-      if (to.query.return) {
-        window.location.replace(to.query.return as string)
-        return
+      if (to.query.return) { // TODO: forward return url to account select/create page?
+        if (config.skipAccountRedirect) {
+          window.location.replace(to.query.return as string)
+          return
+        }
       }
-      await $router.push(_appConfig.connect.login.redirect || '/')
+      await $router.push(config.redirect || '/') // TODO: go to account select by default? Unless skipped?
     }
   }
 })
@@ -35,7 +41,7 @@ const loginOptions = computed(() => {
     : `${rtc.baseUrl}${locale.value}${ac.login.redirect}`
 
   const loginOptionsMap: Record<
-    'bcsc' | 'bceid' | 'idir',
+    ConnectValidIdpOption,
     { label: string, icon: string, onClick: () => Promise<void> }
   > = {
     bcsc: {
@@ -56,6 +62,29 @@ const loginOptions = computed(() => {
   }
 
   return ac.login.idps.map(key => loginOptionsMap[key as keyof typeof loginOptionsMap])
+})
+
+onBeforeMount(() => {
+  const validIdps = getValidIdps()
+  const allowedIdps = route.query.allowedIdps as string | undefined
+  if (allowedIdps) {
+    const idpArray = allowedIdps
+      .split(',')
+      .filter(idp =>
+        validIdps.includes(idp as ConnectValidIdpOption)
+      ) as ConnectValidIdps
+
+    if (idpArray.length) {
+      // updateAppConfig util doesn't seem to be updating correctly
+      // https://nuxt.com/docs/4.x/api/utils/update-app-config
+      // assign directly
+      ac.login.idps = idpArray
+    }
+  }
+})
+
+onMounted(() => {
+  console.log(route.query)
 })
 </script>
 

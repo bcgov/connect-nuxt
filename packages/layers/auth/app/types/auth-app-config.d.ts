@@ -3,7 +3,9 @@ declare module '@nuxt/schema' {
     connect?: {
       login?: {
         redirect?: string
-        idps?: Array<'bcsc' | 'bceid' | 'idir'>
+        idps?: ConnectValidIdps
+        skipAccountRedirect?: boolean
+        // idpEnforcement: 'strict' | 'none' - future potentially
       }
       logout?: {
         redirect?: string
