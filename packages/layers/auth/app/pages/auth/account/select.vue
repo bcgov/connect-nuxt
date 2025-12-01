@@ -8,11 +8,17 @@ definePageMeta({
 const rtc = useRuntimeConfig().public
 const accountStore = useConnectAccountStore()
 const { authUser } = useConnectAuth()
+const { finalRedirect } = useConnectAccountFlowRedirect()
 
 const addNew = ref(false)
 
+function selectAndRedirect(id: number) {
+  accountStore.switchCurrentAccount(id)
+  finalRedirect()
+}
+
 onBeforeMount(() => {
-  if (accountStore.userAccounts.length === 0) {
+  if (accountStore.userAccounts.length === 0 && authUser.value.loginSource === ConnectLoginSource.BCSC) {
     addNew.value = true
   }
 })
@@ -31,7 +37,7 @@ onBeforeMount(() => {
       <ConnectAccountExistingList
         v-if="addNew === false"
         :accounts="accountStore.userAccounts"
-        @select="(e) => accountStore.switchCurrentAccount(e)"
+        @select="selectAndRedirect"
       />
 
       <div v-else class="h-[66dvh] bg-white rounded border-2 border-black flex items-center justify-center text-3xl">
