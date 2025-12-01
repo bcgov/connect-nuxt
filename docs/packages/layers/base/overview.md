@@ -35,6 +35,7 @@ Components for BC Government branding and styling:
 
 ### Components
 
+- ConnectAddressDisplay
 - ConnectHeader
 - ConnectHeaderLogoHomeLink
 - ConnectHeaderWhatsNew
@@ -44,6 +45,7 @@ Components for BC Government branding and styling:
 - ConnectModal
 - ConnectSlideoverWhatsNew
 - ConnectTransitionCollapse
+- ConnectTransitionFade
 - ConnectBCGovLogo
 - ConnectBreadcrumb
 - ConnectFooter
