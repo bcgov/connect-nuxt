@@ -28,7 +28,7 @@ onBeforeMount(() => {
   <UContainer class="max-w-6xl">
     <ConnectTransitionFade>
       <div class="space-y-6 sm:space-y-10">
-        <h1>{{ !addNew ? $t('connect.label.existingAccountFound') : 'Service BC Account Creation' }}</h1>
+        <h1>{{ !addNew ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation') }}</h1>
         <ConnectAccountExistingAlert v-if="!addNew" />
       </div>
     </ConnectTransitionFade>

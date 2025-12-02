@@ -18,6 +18,7 @@ export default {
       mainMenu: 'Main Menu',
       notifications: 'Notifications',
       notificationsAria: 'Notifications, {count} unread',
+      sbcAccountCreation: 'Service BC Account Creation',
       selectLoginMethod: 'Select log in method',
       switchAccount: 'Switch Account',
       teamMembers: 'Team Members',

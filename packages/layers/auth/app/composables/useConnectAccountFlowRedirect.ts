@@ -6,7 +6,7 @@ export const useConnectAccountFlowRedirect = () => {
   const internalRedirectUrl = ac.redirect
 
   function finalRedirect() {
-    const query = route.query
+    const query = { ...route.query }
 
     if (query.return) {
       delete query.return
