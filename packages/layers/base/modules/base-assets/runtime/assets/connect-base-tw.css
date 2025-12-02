@@ -38,6 +38,7 @@
   --ui-shade-highlighted: var(--color-blue-50);
   --ui-shade-warning: #FAE9E9;
   --ui-radius: 0.1667rem;
+  --ui-container: var(--container-bcGovLg);
 }
 
 /* FUTURE: add dark themed colours (currently set to be the same) */

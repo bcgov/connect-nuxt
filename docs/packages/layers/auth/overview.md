@@ -53,7 +53,7 @@ While these values are configurable, it is recommended to use the default to ens
 - ConnectHeaderLoginMenu
 - ConnectHeaderNotifications
 - ConnectHeaderUnauthenticatedOptions
-- ConnectLayout
+- ConnectLayoutAuth
 - ConnectModalSessionExpired
 
 ### Stores
@@ -89,12 +89,14 @@ While mainly an internal composable. This can be used to create a custom authent
 
 - **/auth/login:** Standard Connect login page with `return` query option.
 - **/auth/logout:** Navigating here will log the user out.
+- **/auth/account/select:** Set the users current account from their list of accounts. Alias: '/auth/account/create'. Default destination after user logs in. **(WIP)**
 
 ### Middleware
 
 - **connect-auth:** Protect your pages from unauthenticated users with the `connect-auth` middleware.
 - **setup-accounts (global):** Accounts will be fetched and the store updated if authenticated.
 - **keycloak-params (global):** Keycloak adds url params which are removed.
+- **allowed-idps (global):** Updates the allowed idps for the app - overwrites app config.
 
 #### connect-auth
 

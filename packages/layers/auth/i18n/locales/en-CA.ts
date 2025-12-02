@@ -9,17 +9,23 @@ export default {
       bceid: 'BCeID',
       bcsc: 'BC Services Card',
       createAccount: 'Create Account',
+      createNewAccount: 'Create New Account',
       editProfile: 'Edit Profile',
+      existingAccountFound: 'Existing Account Found',
       idir: 'IDIR',
       logout: 'Log out',
       login: 'Log in',
       mainMenu: 'Main Menu',
       notifications: 'Notifications',
       notificationsAria: 'Notifications, {count} unread',
+      sbcAccountCreation: 'Service BC Account Creation',
       selectLoginMethod: 'Select log in method',
       switchAccount: 'Switch Account',
       teamMembers: 'Team Members',
-      transactions: 'Transactions'
+      transactions: 'Transactions',
+      useThisAccount: 'Use this Account',
+      useThisAccountAria: 'Use this Account, {name}',
+      yourExistingAccounts: '{boldStart}Your Existing Accounts{boldEnd} ({count})'
     },
     page: {
       login: {
@@ -44,6 +50,7 @@ export default {
       }
     },
     text: {
+      alertExistingAccountFound: '{boldStart}Note:{boldEnd} It looks like you already have an account with Service BC Connect. You can use an existing account to proceed or create a new one.',
       imageAltGenericLogin: 'Generic Login Image',
       notifications: {
         none: 'No Notifications',
