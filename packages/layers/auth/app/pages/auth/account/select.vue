@@ -14,7 +14,7 @@ const addNew = ref(false)
 
 function selectAndRedirect(id: number) {
   accountStore.switchCurrentAccount(id)
-  finalRedirect()
+  finalRedirect(useRoute())
 }
 
 onBeforeMount(() => {

@@ -1,11 +1,12 @@
-export const useConnectAccountFlowRedirect = () => {
-  const route = useRoute()
-  const localePath = useLocalePath()
-  const ac = useAppConfig().connect.login
-  const externalRedirectUrl = route.query.return as string | undefined
-  const internalRedirectUrl = ac.redirect
+import type { RouteLocationNormalizedGeneric } from '#vue-router'
 
-  function finalRedirect() {
+export const useConnectAccountFlowRedirect = () => {
+  function finalRedirect(route: RouteLocationNormalizedGeneric) {
+    const localePath = useLocalePath()
+    const ac = useAppConfig().connect.login
+    const externalRedirectUrl = route.query.return as string | undefined
+    const internalRedirectUrl = ac.redirect
+
     const query = { ...route.query }
 
     if (query.return) {

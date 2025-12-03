@@ -1,5 +1,6 @@
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
+  const authApi = useAuthApi()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
   // selected user account
@@ -56,7 +57,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Set user name information */
   async function setUserName() {
-    const authUserInfo = await getAuthUserProfile('@me')
+    const query = await authApi.getAuthUserProfile()
+    await query.refresh()
+    const authUserInfo = query.data.value
     if (authUserInfo?.firstname && authUserInfo?.lastname) {
       userFirstName.value = authUserInfo.firstname
       userLastName.value = authUserInfo.lastname

@@ -21,6 +21,8 @@ export default {
       appVersion: 'App Version',
       bcApp: 'A BC Online Application',
       bcGovLogo: 'Government of British Columbia Logo',
+      cancel: 'Cancel',
+      close: 'Close',
       contactInformation: 'Contact Information',
       copyright: 'Copyright',
       disclaimer: 'Disclaimer',

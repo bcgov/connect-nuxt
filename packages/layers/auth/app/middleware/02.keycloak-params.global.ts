@@ -2,6 +2,7 @@ export default defineNuxtRouteMiddleware((to) => {
   if (import.meta.server) {
     return
   }
+
   // remove query params in url added by keycloak
   if (to.query) {
     const params = new URLSearchParams(to.fullPath.split('?')[1])
