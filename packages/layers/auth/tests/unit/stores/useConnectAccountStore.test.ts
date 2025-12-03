@@ -1,13 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setActivePinia, createPinia } from 'pinia'
-import { ref } from 'vue'
-import type { ConnectAuthUser } from '../../../app/interfaces/connect-auth-user'
-import type { ConnectAccount } from '../../../app/interfaces/connect-account'
-import { UserSettingsType } from '../../../app/enums/user-settings-type'
-import { AccountType } from '../../../app/enums/account-type'
-import { AccountStatus } from '../../../app/enums/account-status'
-import { useConnectAccountStore } from '../../../app/stores/connect-account'
 
 const mockAuthApi = vi.fn()
 mockNuxtImport('useNuxtApp', () => () => ({
@@ -47,6 +41,11 @@ const mockSessionStorage = {
   removeItem: vi.fn()
 }
 Object.defineProperty(global, 'sessionStorage', { value: mockSessionStorage })
+
+const mockGetAuthUserProfile = vi.fn()
+mockNuxtImport('useAuthApi', () => () => ({
+  getAuthUserProfile: mockGetAuthUserProfile
+}))
 
 describe('useConnectAccountStore', () => {
   let store: ReturnType<typeof useConnectAccountStore>
@@ -90,7 +89,7 @@ describe('useConnectAccountStore', () => {
 
   describe('Computed properties', () => {
     it('hasRoles should return true if account or user has the role', () => {
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0] as any
       mockAuthUser.value = { roles: ['viewer'] } as ConnectAuthUser
       expect(store.hasRoles(['PREMIUM'])).toBe(true)
       expect(store.hasRoles(['viewer'])).toBe(true)
@@ -98,13 +97,13 @@ describe('useConnectAccountStore', () => {
     })
 
     it('isCurrentAccount should return true for the active account ID', () => {
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0] as any
       expect(store.isCurrentAccount(1)).toBe(true)
       expect(store.isCurrentAccount(2)).toBe(false)
     })
 
     it('currentAccountName should return the label of the current account', () => {
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0] as any
       expect(store.currentAccountName).toEqual('Account 1')
     })
   })
@@ -133,9 +132,9 @@ describe('useConnectAccountStore', () => {
     })
 
     it('setUserName should set user name from API if available', async () => {
+      mockGetAuthUserProfile.mockResolvedValue({ data: { value: { firstname: 'API', lastname: 'User' } } })
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Default'
-      mockAuthApi.mockResolvedValue({ firstname: 'API', lastname: 'User' })
 
       await store.setUserName()
 
@@ -143,9 +142,9 @@ describe('useConnectAccountStore', () => {
     })
 
     it('setUserName should fallback to authUser name', async () => {
+      mockGetAuthUserProfile.mockResolvedValue({ data: { value: { } } })
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Fallback'
-      mockAuthApi.mockResolvedValueOnce({})
 
       await store.setUserName()
 
@@ -199,16 +198,16 @@ describe('useConnectAccountStore', () => {
 
   describe('Actions', () => {
     it('switchCurrentAccount should switch the current account', () => {
-      store.userAccounts = mockAccounts
-      store.currentAccount = mockAccounts[0]
+      store.userAccounts = mockAccounts as any
+      store.currentAccount = mockAccounts[0] as any
       expect(store.currentAccount.label).toEqual('Account 1')
       store.switchCurrentAccount(3)
       expect(store.currentAccount.label).toEqual('Account 3')
     })
 
     it('$reset should clear all store state', () => {
-      store.userAccounts = mockAccounts
-      store.currentAccount = mockAccounts[0]
+      store.userAccounts = mockAccounts as any
+      store.currentAccount = mockAccounts[0] as any
       store.pendingApprovalCount = 5
       store.$reset()
       expect(store.currentAccount).toEqual({})
@@ -219,6 +218,7 @@ describe('useConnectAccountStore', () => {
 
   describe('initAccountStore', () => {
     it('should call all initialize sub-actions', async () => {
+      mockGetAuthUserProfile.mockResolvedValue({ data: { value: { firstname: 'API', lastname: 'User' } } })
       mockAuthUser.value.keycloakGuid = 'test-guid'
       store.currentAccount = { id: 1 } as ConnectAccount
 
@@ -233,14 +233,12 @@ describe('useConnectAccountStore', () => {
         body: { isLogin: true }
       })
       // setUserName
-      expect(mockAuthApi).toHaveBeenCalledWith('/users/@me', {
-        parseResponse: expect.any(Function)
-      })
+      expect(mockGetAuthUserProfile).toHaveBeenCalled()
       // getPendingApprovalCount
       expect(mockAuthApi).toHaveBeenCalledWith('/users/test-guid/org/1/notifications')
     })
 
-    it('should handle initialization errors gracefully', async () => {
+    it('should log initialization error', async () => {
       mockAuthApi.mockRejectedValue(new Error('API Error'))
       await store.initAccountStore()
       expect(mockLogFetchError).toHaveBeenCalledWith(expect.any(Error), expect.any(String))
