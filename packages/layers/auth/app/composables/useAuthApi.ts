@@ -1,5 +1,3 @@
-import { useQueryCache, defineQuery } from '@pinia/colada'
-
 export const useAuthApi = () => {
   const { $authApi } = useNuxtApp()
   const queryCache = useQueryCache()
@@ -7,7 +5,7 @@ export const useAuthApi = () => {
   async function getAuthUserProfile() {
     const query = defineQuery({
       key: ['auth-user-profile'],
-      query: () => $authApi<ConnectAuthProfile>('users/@me', {
+      query: () => $authApi<ConnectAuthProfile>('/users/@me', {
         parseResponse: JSON.parse
       }),
       staleTime: 300000
