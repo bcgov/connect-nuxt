@@ -70,9 +70,7 @@ const disableButtons = computed<boolean>(() => {
       @submit="patchTermsOfUse({
         accepted: true,
         version: data!.versionId,
-        successCb: async () => {
-          return await finalRedirect(useRoute())
-        },
+        successCb: async () => await finalRedirect(useRoute()),
       })"
     />
   </UContainer>
