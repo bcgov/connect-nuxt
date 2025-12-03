@@ -3,7 +3,7 @@ export const useConnectTosModals = () => {
   const { logout } = useConnectAuth()
   const t = useNuxtApp().$i18n.t
 
-  function openDeclineTOSModal() {
+  function openDeclineTosModal() {
     baseModal.open({
       title: `${t('connect.label.declineTermsOfUse')}?`,
       description: t('connect.text.declineTOSCantAccessService'),
@@ -40,7 +40,7 @@ export const useConnectTosModals = () => {
   }
 
   return {
-    openDeclineTOSModal,
+    openDeclineTosModal,
     openPatchTosErrorModal
   }
 }

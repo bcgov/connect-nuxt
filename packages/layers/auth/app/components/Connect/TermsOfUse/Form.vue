@@ -3,7 +3,7 @@ import { z } from 'zod'
 import type { FormErrorEvent, Form } from '@nuxt/ui'
 
 const { t } = useI18n()
-const { openDeclineTOSModal } = useConnectTosModals()
+const { openDeclineTosModal } = useConnectTosModals()
 
 const props = defineProps<{
   hasReachedBottom: boolean
@@ -94,7 +94,7 @@ watch(() => props.hasReachedBottom, (newVal) => {
         :label="$t('connect.label.decline')"
         variant="outline"
         :disabled="disableButtons"
-        @click="openDeclineTOSModal"
+        @click="openDeclineTosModal"
       />
     </div>
   </UForm>
