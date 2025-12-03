@@ -4,7 +4,6 @@ import { ConnectTermsOfUseContent, ConnectTermsOfUseForm } from '#components'
 const { t } = useI18n()
 const authApi = useAuthApi()
 const { finalRedirect } = useConnectAccountFlowRedirect()
-const { openPatchTosErrorModal } = useConnectTosModals()
 
 definePageMeta({
   layout: 'connect-auth',
@@ -18,6 +17,7 @@ useHead({
 })
 
 const { data, status } = await authApi.getTermsOfUse()
+const { patchTermsOfUse, isLoading } = authApi.usePatchTermsOfUse()
 
 const formRef = useTemplateRef<InstanceType<typeof ConnectTermsOfUseForm>>('form-ref')
 const contentRef = useTemplateRef<InstanceType<typeof ConnectTermsOfUseContent>>('content-ref')
@@ -27,21 +27,9 @@ const { bottom: tosBottom } = useElementBounding(contentRef)
 const { top: formTop } = useElementBounding(formRef)
 const hasReachedBottom = computed(() => formTop.value >= tosBottom.value)
 
-const loading = ref<boolean>(false)
-
 const disableButtons = computed<boolean>(() => {
-  return loading.value || status.value === 'pending' || status.value === 'error' || !data.value?.content
+  return isLoading.value || status.value === 'pending' || status.value === 'error' || !data.value?.content
 })
-
-async function submitTermsOfUse() {
-  try {
-    loading.value = true
-    await authApi.patchTermsOfUse(data.value!.versionId) // can only submit if data.value is present
-    return finalRedirect(useRoute())
-  } catch {
-    openPatchTosErrorModal()
-  }
-}
 
 // TODO: - FUTURE - add help/contact info to alert?
 </script>
@@ -78,8 +66,14 @@ async function submitTermsOfUse() {
       ref="form-ref"
       :disable-buttons="disableButtons"
       :has-reached-bottom="hasReachedBottom"
-      :loading
-      @submit="submitTermsOfUse"
+      :loading="isLoading"
+      @submit="patchTermsOfUse({
+        accepted: true,
+        version: data!.versionId,
+        successCb: async () => {
+          return await finalRedirect(useRoute())
+        },
+      })"
     />
   </UContainer>
 </template>

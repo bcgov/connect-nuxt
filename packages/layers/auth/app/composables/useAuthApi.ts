@@ -1,4 +1,3 @@
-// import type { UseQueryReturn } from '@pinia/colada'
 import { useQueryCache, defineQuery } from '@pinia/colada'
 
 export const useAuthApi = () => {
@@ -25,21 +24,39 @@ export const useAuthApi = () => {
     return query()
   }
 
-  async function patchTermsOfUse(version: string) {
-    const res = await $authApi<ConnectAuthProfile>('/users/@me', {
-      method: 'PATCH',
-      body: {
-        istermsaccepted: true,
-        termsversion: version
+  const usePatchTermsOfUse = defineMutation(() => {
+    const { mutateAsync, ...mutation } = useMutation({
+      mutation: (vars: { accepted: boolean, version: string, successCb?: () => Promise<unknown> }) => {
+        return $authApi<ConnectAuthProfile>('/users/@me', {
+          method: 'PATCH',
+          body: {
+            istermsaccepted: vars.accepted,
+            termsversion: vars.version
+          }
+        })
+      },
+      onError: (error) => {
+        // TODO: FUTURE - add api error message to modal content - remove console.error
+        console.error('ERROR: ', error)
+        useConnectTosModals().openPatchTosErrorModal()
+      },
+      onSuccess: async (_, _vars) => {
+        await queryCache.invalidateQueries({ key: ['auth-user-profile'], exact: true })
+        if (_vars.successCb) {
+          await _vars.successCb()
+        }
       }
     })
-    queryCache.invalidateQueries({ key: ['auth-user-profile'], exact: true })
-    return res
-  }
+
+    return {
+      ...mutation,
+      patchTermsOfUse: mutateAsync
+    }
+  })
 
   return {
     getAuthUserProfile,
     getTermsOfUse,
-    patchTermsOfUse
+    usePatchTermsOfUse
   }
 }
