@@ -11,7 +11,7 @@ export const useConnectTosModals = () => {
       buttons: [
         {
           label: t('connect.label.declineTermsOfUse'),
-          onClick: async () => await logout() // TODO: - QUESTION - configure redirect target on logout?
+          onClick: async () => await logout()
         },
         {
           label: t('connect.label.cancel'),

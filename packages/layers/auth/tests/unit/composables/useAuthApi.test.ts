@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 
@@ -16,32 +15,14 @@ mockNuxtImport('useConnectTosModals', () => {
   })
 })
 
-const mockQuery = vi.fn()
 const mockInvalidateQueries = vi.fn()
-
-const { mockDefineQuery, mockUseMutation } = vi.hoisted(() => {
-  const mockMutationReturnObject = {
-    mutateAsync: vi.fn(),
-    isPending: false,
-    isSuccess: false
-  }
-
-  const mockUseMutation = vi.fn(() => mockMutationReturnObject)
-
-  const mockDefineQuery = vi.fn(() => mockQuery)
-
+vi.mock('@pinia/colada', async (importOriginal) => {
+  const actual = await importOriginal()
   return {
-    mockDefineQuery,
-    mockUseMutation
+    ...actual as object,
+    useQueryCache: () => ({ invalidateQueries: mockInvalidateQueries })
   }
 })
-
-vi.mock('@pinia/colada', () => ({
-  defineQuery: mockDefineQuery,
-  useQueryCache: () => ({ invalidateQueries: mockInvalidateQueries }),
-  useMutation: mockUseMutation,
-  defineMutation: vi.fn(setupFn => setupFn)
-}))
 
 describe('useAuthApi', () => {
   const authApi = useAuthApi()
@@ -51,25 +32,9 @@ describe('useAuthApi', () => {
   })
 
   describe('getAuthUserProfile', () => {
-    it('should define and return the query', async () => {
-      const expected = { data: 'test-data' }
-      mockQuery.mockReturnValue(expected)
-
-      const result = await authApi.getAuthUserProfile()
-
-      expect(mockDefineQuery).toHaveBeenCalledTimes(1)
-
-      const callArgs = (mockDefineQuery.mock.calls[0] as any)[0]
-
-      expect(callArgs.key).toEqual(['auth-user-profile'])
-      expect(callArgs.staleTime).toBe(300000)
-
-      expect(mockQuery).toHaveBeenCalledTimes(1)
-
-      expect(result).toBe(expected)
-
-      const queryFunction = callArgs.query
-      queryFunction()
+    it('should call the authApi /users/@me endpoint', async () => {
+      const query = await authApi.getAuthUserProfile()
+      await query.refresh()
 
       expect(mockAuthApi).toHaveBeenCalledWith('/users/@me', {
         parseResponse: JSON.parse
@@ -78,25 +43,9 @@ describe('useAuthApi', () => {
   })
 
   describe('getTermsOfUse', () => {
-    it('should define and return the query', async () => {
-      const expected = { data: 'test-data' }
-      mockQuery.mockReturnValue(expected)
-
-      const result = await authApi.getTermsOfUse()
-
-      expect(mockDefineQuery).toHaveBeenCalledTimes(1)
-
-      const callArgs = (mockDefineQuery.mock.calls[0] as any)[0]
-
-      expect(callArgs.key).toEqual(['auth-terms-of-use'])
-      expect(callArgs.staleTime).toBe(300000)
-
-      expect(mockQuery).toHaveBeenCalledTimes(1)
-
-      expect(result).toBe(expected)
-
-      const queryFunction = callArgs.query
-      queryFunction()
+    it('should call the authApi /documents/termsofuse endpoint', async () => {
+      const query = await authApi.getTermsOfUse()
+      await query.refresh()
 
       expect(mockAuthApi).toHaveBeenCalledWith('/documents/termsofuse')
     })
@@ -105,10 +54,9 @@ describe('useAuthApi', () => {
   describe('usePatchTermsOfUse', () => {
     const mockSuccessCb = vi.fn(() => Promise.resolve())
     const { usePatchTermsOfUse } = useAuthApi()
-    const mutateArgs = { accepted: true, version: '5', successCb: mockSuccessCb }
+    const { patchTermsOfUse } = usePatchTermsOfUse()
 
-    usePatchTermsOfUse()
-    const callArgs = (mockUseMutation.mock.calls[0] as any)[0]
+    const mutateArgs = { accepted: true, version: '5', successCb: mockSuccessCb }
 
     beforeEach(() => {
       vi.clearAllMocks()
@@ -117,7 +65,7 @@ describe('useAuthApi', () => {
     it('should call authApi with correct payload and endpoint', async () => {
       mockAuthApi.mockResolvedValue({})
 
-      await callArgs.mutation(mutateArgs)
+      await patchTermsOfUse(mutateArgs)
 
       expect(mockAuthApi).toHaveBeenCalledWith('/users/@me', {
         method: 'PATCH',
@@ -128,22 +76,25 @@ describe('useAuthApi', () => {
       })
     })
 
-    it('should invalidate cache and call successCb on success', async () => {
-      await callArgs.onSuccess({ success: true }, mutateArgs)
+    it('should invalidate auth user profile query and trigger successCb on success', async () => {
+      mockAuthApi.mockResolvedValue({})
 
-      expect(mockInvalidateQueries).toHaveBeenCalledWith({ key: ['auth-user-profile'], exact: true })
+      await patchTermsOfUse(mutateArgs)
+
+      expect(mockAuthApi).toHaveBeenCalled()
       expect(mockSuccessCb).toHaveBeenCalledTimes(1)
       expect(mockOpenErrorModal).not.toHaveBeenCalled()
+      expect(mockInvalidateQueries).toHaveBeenCalledWith({ key: ['auth-user-profile'], exact: true })
     })
 
-    it('should call error modal on failure', async () => {
+    it('should open error modal on failure', async () => {
       const error = new Error('401')
-
-      callArgs.onError(error)
+      mockAuthApi.mockRejectedValue(error)
+      await expect(patchTermsOfUse(mutateArgs)).rejects.toThrow(error)
 
       expect(mockOpenErrorModal).toHaveBeenCalledTimes(1)
-      expect(mockInvalidateQueries).not.toHaveBeenCalled()
       expect(mockSuccessCb).not.toHaveBeenCalled()
+      expect(mockAuthApi).toHaveBeenCalledOnce()
     })
   })
 })

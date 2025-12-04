@@ -50,7 +50,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Set user name information */
   async function setUserName() {
-    const { data } = await authApi.getAuthUserProfile()
+    const { data, refresh } = await authApi.getAuthUserProfile()
+    await refresh()
     if (data.value?.firstname && data.value?.lastname) {
       userFirstName.value = data.value.firstname
       userLastName.value = data.value.lastname

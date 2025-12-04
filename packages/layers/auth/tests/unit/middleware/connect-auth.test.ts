@@ -18,13 +18,15 @@ const { mockNavigateTo } = vi.hoisted(() => {
 })
 mockNuxtImport('navigateTo', () => mockNavigateTo)
 
+const mockAuthApi = vi.fn()
 const mockConnectAuth = vi.hoisted(() => ({
   tokenParsed: null as any,
   authenticated: false
 }))
 
 mockNuxtImport('useNuxtApp', () => () => ({
-  $connectAuth: mockConnectAuth
+  $connectAuth: mockConnectAuth,
+  $authApi: mockAuthApi
 }))
 
 const mockCurrentAccount = ref<object | null>(null)
@@ -34,23 +36,6 @@ mockNuxtImport('storeToRefs', () => () => ({
 mockNuxtImport('useConnectAccountStore', () => () => ({
   currentAccount: mockCurrentAccount
 }))
-
-const mockGetAuthUserProfile = vi.fn()
-mockNuxtImport('useAuthApi', () => () => ({
-  getAuthUserProfile: mockGetAuthUserProfile
-}))
-
-function getUserProfileResponse(accepted: boolean) {
-  return {
-    data: {
-      value: {
-        userTerms: {
-          isTermsOfUseAccepted: accepted
-        }
-      }
-    }
-  }
-}
 
 describe('connect-auth middleware', () => {
   const to = {
@@ -63,6 +48,8 @@ describe('connect-auth middleware', () => {
 
   beforeEach(() => {
     vi.resetAllMocks()
+    vi.restoreAllMocks()
+    useQueryCache().invalidateQueries()
     mockIsAuthenticated.value = false
     mockRtc.value.playwright = false
     mockConnectAuth.tokenParsed = null
@@ -71,11 +58,15 @@ describe('connect-auth middleware', () => {
   })
 
   it('should do nothing if the user is authenticated and has accepted the latest terms of use', async () => {
+    mockAuthApi.mockResolvedValue({
+      userTerms: {
+        isTermsOfUseAccepted: true
+      }
+    })
     mockIsAuthenticated.value = true
-    mockGetAuthUserProfile.mockResolvedValue(getUserProfileResponse(true))
     await connectAuthMiddleware(to, from)
-    expect(mockGetAuthUserProfile).toHaveBeenCalledOnce()
     expect(mockNavigateTo).not.toHaveBeenCalled()
+    expect(mockAuthApi).toHaveBeenCalledOnce()
   })
 
   it('should redirect to the login page if the user is NOT authenticated', async () => {
@@ -118,9 +109,13 @@ describe('connect-auth middleware', () => {
 
   it('should redirect to the TOS page if the user is authenticated and has not accepted the latest TOS', async () => {
     mockIsAuthenticated.value = true
-    mockGetAuthUserProfile.mockResolvedValue(getUserProfileResponse(false))
+    mockAuthApi.mockResolvedValue({
+      userTerms: {
+        isTermsOfUseAccepted: false
+      }
+    })
     await connectAuthMiddleware(to, from)
-    expect(mockGetAuthUserProfile).toHaveBeenCalledOnce()
+    expect(mockAuthApi).toHaveBeenCalledOnce()
     expect(mockNavigateTo).toHaveBeenCalledWith(expect.objectContaining({ path: '/en-CA/auth/terms-of-use' }))
   })
 })

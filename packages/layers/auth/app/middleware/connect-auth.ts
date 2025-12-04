@@ -10,7 +10,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   if (isAuthenticated.value) {
-    const { data } = await authApi.getAuthUserProfile()
+    const { data, refresh } = await authApi.getAuthUserProfile()
+    await refresh()
     const hasAccepted = data.value?.userTerms.isTermsOfUseAccepted
     const isTosPage = to.meta.connectTosPage === true
     if (!hasAccepted && !isTosPage) {

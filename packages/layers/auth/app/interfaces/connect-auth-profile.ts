@@ -1,14 +1,14 @@
 export interface ConnectAuthProfile {
   contacts: ConnectAuthContact[]
-  created: string // utc date
+  created: ApiDateTimeUtc
   id: number
   idpUserid: string
   keycloakGuid: string
   lastname: string
   firstname?: string
   loginSource: ConnectLoginSource
-  loginTime: string // utc date
-  modified: string // utc date
+  loginTime: ApiDateTimeUtc
+  modified: ApiDateTimeUtc
   modifiedBy: string
   userStatus: number
   type: string // PUBLIC_USER - // TODO: get enum?

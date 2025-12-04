@@ -75,9 +75,10 @@ describe('useConnectAccountStore', () => {
 
   beforeEach(() => {
     setActivePinia(createPinia())
+    vi.resetAllMocks()
+    // useQueryCache().invalidateQueries()
     store = useConnectAccountStore()
     store.$reset()
-    vi.resetAllMocks()
   })
 
   it('initializes with the correct default state', () => {
@@ -132,7 +133,11 @@ describe('useConnectAccountStore', () => {
     })
 
     it('setUserName should set user name from API if available', async () => {
-      mockGetAuthUserProfile.mockResolvedValue({ data: { value: { firstname: 'API', lastname: 'User' } } })
+      const mockApiData = { firstname: 'API', lastname: 'User' }
+      mockGetAuthUserProfile.mockResolvedValue({
+        data: { value: mockApiData },
+        refresh: vi.fn()
+      })
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Default'
 
@@ -142,7 +147,10 @@ describe('useConnectAccountStore', () => {
     })
 
     it('setUserName should fallback to authUser name', async () => {
-      mockGetAuthUserProfile.mockResolvedValue({ data: { value: { } } })
+      mockGetAuthUserProfile.mockResolvedValue({
+        data: { value: {} },
+        refresh: vi.fn()
+      })
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Fallback'
 
@@ -218,24 +226,28 @@ describe('useConnectAccountStore', () => {
 
   describe('initAccountStore', () => {
     it('should call all initialize sub-actions', async () => {
-      mockGetAuthUserProfile.mockResolvedValue({ data: { value: { firstname: 'API', lastname: 'User' } } })
+      mockGetAuthUserProfile.mockResolvedValue(
+        { data: { value: { firstname: 'API', lastname: 'User' } }, refresh: vi.fn() }
+      )
       mockAuthUser.value.keycloakGuid = 'test-guid'
       store.currentAccount = { id: 1 } as ConnectAccount
 
       await store.initAccountStore()
 
-      // spies arent working
-      // set account info
       expect(mockAuthApi).toHaveBeenCalledWith('/users/test-guid/settings')
-      // update auth user info
+
       expect(mockAuthApi).toHaveBeenCalledWith('/users', {
         method: 'POST',
         body: { isLogin: true }
       })
-      // setUserName
+
       expect(mockGetAuthUserProfile).toHaveBeenCalled()
-      // getPendingApprovalCount
-      expect(mockAuthApi).toHaveBeenCalledWith('/users/test-guid/org/1/notifications')
+
+      const calls = mockAuthApi.mock.calls
+
+      expect(calls[0]![0]).toBe('/users/test-guid/settings')
+      expect(calls[1]![0]).toBe('/users')
+      expect(calls[2]![0]).toBe('/users/test-guid/org/1/notifications')
     })
 
     it('should log initialization error', async () => {
