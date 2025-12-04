@@ -76,7 +76,6 @@ describe('useConnectAccountStore', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
     vi.resetAllMocks()
-    // useQueryCache().invalidateQueries()
     store = useConnectAccountStore()
     store.$reset()
   })
