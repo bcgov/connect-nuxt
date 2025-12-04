@@ -18,7 +18,8 @@ export default defineNuxtConfig({
 
   modules: [
     '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt'
+    'pinia-plugin-persistedstate/nuxt',
+    '@pinia/colada-nuxt'
   ],
 
   alias: {

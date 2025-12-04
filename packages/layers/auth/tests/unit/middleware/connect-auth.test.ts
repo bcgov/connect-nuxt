@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import type { RouteLocationNormalizedGeneric } from 'vue-router'
-import connectAuthMiddleware from '../../../app/middleware/connect-auth'
+import connectAuthMiddleware from '#auth/app/middleware/connect-auth'
 
 const mockRtc = ref({
   baseUrl: 'https://app.example.com/',
@@ -19,13 +18,15 @@ const { mockNavigateTo } = vi.hoisted(() => {
 })
 mockNuxtImport('navigateTo', () => mockNavigateTo)
 
+const mockAuthApi = vi.fn()
 const mockConnectAuth = vi.hoisted(() => ({
   tokenParsed: null as any,
   authenticated: false
 }))
 
 mockNuxtImport('useNuxtApp', () => () => ({
-  $connectAuth: mockConnectAuth
+  $connectAuth: mockConnectAuth,
+  $authApi: mockAuthApi
 }))
 
 const mockCurrentAccount = ref<object | null>(null)
@@ -40,12 +41,15 @@ describe('connect-auth middleware', () => {
   const to = {
     path: '/some-path',
     fullPath: '/some-path',
-    query: {}
+    query: {},
+    meta: {}
   } as unknown as RouteLocationNormalizedGeneric
-  const from = { path: '/another-path' } as unknown as RouteLocationNormalizedGeneric
+  const from = { path: '/another-path', meta: {} } as unknown as RouteLocationNormalizedGeneric
 
   beforeEach(() => {
     vi.resetAllMocks()
+    vi.restoreAllMocks()
+    useQueryCache().invalidateQueries()
     mockIsAuthenticated.value = false
     mockRtc.value.playwright = false
     mockConnectAuth.tokenParsed = null
@@ -53,10 +57,16 @@ describe('connect-auth middleware', () => {
     mockCurrentAccount.value = null
   })
 
-  it('should do nothing if the user is authenticated', async () => {
+  it('should do nothing if the user is authenticated and has accepted the latest terms of use', async () => {
+    mockAuthApi.mockResolvedValue({
+      userTerms: {
+        isTermsOfUseAccepted: true
+      }
+    })
     mockIsAuthenticated.value = true
     await connectAuthMiddleware(to, from)
     expect(mockNavigateTo).not.toHaveBeenCalled()
+    expect(mockAuthApi).toHaveBeenCalledOnce()
   })
 
   it('should redirect to the login page if the user is NOT authenticated', async () => {
@@ -95,5 +105,17 @@ describe('connect-auth middleware', () => {
       urlorigin: '',
       urlpath: ''
     })
+  })
+
+  it('should redirect to the TOS page if the user is authenticated and has not accepted the latest TOS', async () => {
+    mockIsAuthenticated.value = true
+    mockAuthApi.mockResolvedValue({
+      userTerms: {
+        isTermsOfUseAccepted: false
+      }
+    })
+    await connectAuthMiddleware(to, from)
+    expect(mockAuthApi).toHaveBeenCalledOnce()
+    expect(mockNavigateTo).toHaveBeenCalledWith(expect.objectContaining({ path: '/en-CA/auth/terms-of-use' }))
   })
 })

@@ -1,10 +1,25 @@
-export default defineNuxtRouteMiddleware((to) => {
+export default defineNuxtRouteMiddleware(async (to) => {
   const { isAuthenticated } = useConnectAuth()
   const rtc = useRuntimeConfig().public
   const localePath = useLocalePath()
+  const authApi = useAuthApi()
+  const { finalRedirect } = useConnectAccountFlowRedirect()
 
   if (!isAuthenticated.value && !rtc.playwright) {
     return navigateTo(localePath(`/auth/login?return=${rtc.baseUrl}${to.fullPath.slice(1)}`))
+  }
+
+  if (isAuthenticated.value) {
+    const { data, refresh } = await authApi.getAuthUserProfile()
+    await refresh()
+    const hasAccepted = data.value?.userTerms.isTermsOfUseAccepted
+    const isTosPage = to.meta.connectTosPage === true
+    if (!hasAccepted && !isTosPage) {
+      const query = { ...to.query }
+      return navigateTo({ path: localePath('/auth/terms-of-use'), query })
+    } else if (hasAccepted && isTosPage) {
+      return finalRedirect(to)
+    }
   }
 
   if (rtc.playwright) {

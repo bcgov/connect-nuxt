@@ -12,7 +12,7 @@
     <slot name="bottomHeaders" />
     <main class="app-body px-2 sm:px-4">
       <slot name="body">
-        <div class="app-inner-container grow flex flex-col overflow-hidden">
+        <div class="app-inner-container grow flex flex-col overflow-clip">
           <slot />
         </div>
       </slot>

@@ -1,5 +1,6 @@
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
+  const authApi = useAuthApi()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
   // selected user account
@@ -39,13 +40,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     return accountId === currentAccount.value.id
   }
 
-  /** Get user information from AUTH */
-  async function getAuthUserProfile(identifier: string): Promise<{ firstname: string, lastname: string } | undefined> {
-    return $authApi<{ firstname: string, lastname: string }>(`/users/${identifier}`, {
-      parseResponse: JSON.parse
-    })
-  }
-
   /** Update user information in AUTH with current token info */
   async function updateAuthUserInfo(): Promise<void> {
     await $authApi('/users', {
@@ -56,10 +50,11 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Set user name information */
   async function setUserName() {
-    const authUserInfo = await getAuthUserProfile('@me')
-    if (authUserInfo?.firstname && authUserInfo?.lastname) {
-      userFirstName.value = authUserInfo.firstname
-      userLastName.value = authUserInfo.lastname
+    const { data, refresh } = await authApi.getAuthUserProfile()
+    await refresh()
+    if (data.value?.firstname && data.value?.lastname) {
+      userFirstName.value = data.value.firstname
+      userLastName.value = data.value.lastname
       return
     }
     userFirstName.value = user.value?.firstName || '-'
@@ -175,7 +170,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     setUserName,
     hasRoles,
     isCurrentAccount,
-    getAuthUserProfile,
     setAccountInfo,
     getUserAccounts,
     switchCurrentAccount,

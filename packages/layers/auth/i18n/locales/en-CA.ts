@@ -3,6 +3,7 @@ export default {
   /* Ordering should be alphabetical unless otherwise specified */
   connect: {
     label: {
+      accept: 'Accept',
       accountInfo: 'Account Info',
       accountOptionsMenu: 'Account Options Menu',
       accountSettings: 'Account Settings',
@@ -10,6 +11,8 @@ export default {
       bcsc: 'BC Services Card',
       createAccount: 'Create Account',
       createNewAccount: 'Create New Account',
+      decline: 'Decline',
+      declineTermsOfUse: 'Decline Terms of Use',
       editProfile: 'Edit Profile',
       existingAccountFound: 'Existing Account Found',
       idir: 'IDIR',
@@ -38,6 +41,10 @@ export default {
           title: 'Session Expired',
           description: 'Your session has expired. Please log in again to continue.'
         }
+      },
+      termsOfUse: {
+        h1: 'Terms of Use',
+        title: 'Terms of Use - Service BC Connect'
       }
     },
     sessionExpiry: {
@@ -51,11 +58,18 @@ export default {
     },
     text: {
       alertExistingAccountFound: '{boldStart}Note:{boldEnd} It looks like you already have an account with Service BC Connect. You can use an existing account to proceed or create a new one.',
+      alertUnableToLoadTermsOfUse: 'Unable to load Terms of Use, please try again later.',
+      declineTOSCantAccessService: 'By declining the Terms of Use, you won’t be able to access this service. Do you wish to proceed?',
+      iHaveReadAndAcceptTermsOfUse: 'I have read and accept the Terms of Use',
       imageAltGenericLogin: 'Generic Login Image',
       notifications: {
         none: 'No Notifications',
         teamMemberApproval: '{count} team member requires approval to access this account. | {count} team members require approval to access this account.'
       }
+    },
+    validation: {
+      acceptTermsOfUse: 'Please accept the Terms of Use.',
+      termsOfUseScrollToBottom: 'Please scroll to the bottom of the page to accept the Terms of Use.'
     }
   }
 }

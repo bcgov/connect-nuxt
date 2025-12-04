@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to) => {
 
   if (isAuthenticated.value) {
     if (numAccounts === 1) {
-      return finalRedirect()
+      return finalRedirect(to)
     }
 
     if (numAccounts === 0 && authUser.value.loginSource === ConnectLoginSource.BCSC) {
