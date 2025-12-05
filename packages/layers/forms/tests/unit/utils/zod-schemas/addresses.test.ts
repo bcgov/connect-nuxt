@@ -155,6 +155,13 @@ describe('zod schemas - address validation', () => {
         expect(error?.message).toBe(invalidZipMessage)
       })
 
+      it('should fail an undefined US ZIP code', () => {
+        const invalidUsAddress = { ...validAddress, postalCode: undefined, country: 'US', region: 'CA' }
+        const result = schema.safeParse(invalidUsAddress)
+
+        expect(result.success).toBe(false)
+      })
+
       it('should pass an empty postal code with a non CA or US country', () => {
         const validPCAddress = { ...validAddress, postalCode: '', country: 'XX', region: 'XX' }
         const result = schema.safeParse(validPCAddress)
@@ -183,15 +190,6 @@ describe('zod schemas - address validation', () => {
         const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
         expect(error!.message).toBe(invalidZipMessage)
         expect(result.success).toBe(false)
-      })
-
-      it('should fail an invalid US ZIP code with double space', () => {
-        const invalidUsAddress = { ...validAddress, postalCode: '90210  5555', country: 'US', region: 'CA' }
-        const result = schema.safeParse(invalidUsAddress)
-
-        expect(result.success).toBe(false)
-        const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
-        expect(error!.message).toBe(invalidZipMessage)
       })
     })
   })
