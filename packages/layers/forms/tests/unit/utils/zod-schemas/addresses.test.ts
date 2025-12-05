@@ -71,6 +71,129 @@ describe('zod schemas - address validation', () => {
       const streetError = result.error?.issues.find(i => i.path[0] === 'street')
       expect(streetError?.message).toBe('Maximum 50 characters')
     })
+
+    describe('Postal Code Format', () => {
+      const invalidPostalCodeMessage = 'Invalid Postal Code format (e.g., 1X1 X1X)'
+      const invalidZipMessage = 'Invalid ZIP Code format (e.g., 12345 or 12345-6789)'
+
+      it('should pass a valid CA postal code (with space)', () => {
+        const caAddress = { ...validAddress, postalCode: 'T2R 1E8', country: 'CA', region: 'AB' }
+        const result = schema.safeParse(caAddress)
+        expect(result.success).toBe(true)
+      })
+
+      it('should pass a valid CA postal code (without space)', () => {
+        const caAddress = { ...validAddress, postalCode: 'T2R1E8', country: 'CA', region: 'AB' }
+        const result = schema.safeParse(caAddress)
+        expect(result.success).toBe(true)
+      })
+
+      it('should fail an invalid CA postal code (invalid letter)', () => {
+        // 'I' is invalid
+        const invalidCaAddress = { ...validAddress, postalCode: 'I5A 1S6', country: 'CA', region: 'BC' }
+        const result = schema.safeParse(invalidCaAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error?.issues.find(i => i.path[0] === 'postalCode')
+        expect(error?.message).toBe(invalidPostalCodeMessage)
+      })
+
+      it('should fail an invalid CA postal code (too short)', () => {
+        const invalidCaAddress = { ...validAddress, postalCode: 'T2R', country: 'CA', region: 'BC' }
+        const result = schema.safeParse(invalidCaAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
+        expect(error!.message).toBe(invalidPostalCodeMessage)
+      })
+
+      it('should fail if postal code is missing for CA', () => {
+        const invalidAddress = { ...validAddress, postalCode: '', region: 'BC', country: 'CA' }
+        const result = schema.safeParse(invalidAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
+        expect(error!.message).toBe('This field is required')
+      })
+
+      it('should fail if postal code is undefined for CA', () => {
+        const invalidAddress = { ...validAddress, postalCode: undefined, region: 'BC', country: 'CA' }
+        const result = schema.safeParse(invalidAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
+        expect(error!.message).toBe('This field is required')
+      })
+
+      it('should pass a valid US ZIP code', () => {
+        const usAddress = { ...validAddress, postalCode: '90210', country: 'US', region: 'CA' }
+        const result = schema.safeParse(usAddress)
+        expect(result.success).toBe(true)
+      })
+
+      it('should pass a valid US ZIP code (ZIP+4)', () => {
+        const usAddress = { ...validAddress, postalCode: '90210-5555', country: 'US', region: 'CA' }
+        const result = schema.safeParse(usAddress)
+        expect(result.success).toBe(true)
+      })
+
+      it('should fail an invalid US ZIP code (too short)', () => {
+        const invalidUsAddress = { ...validAddress, postalCode: '1234', country: 'US', region: 'CA' }
+        const result = schema.safeParse(invalidUsAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
+        expect(error!.message).toBe(invalidZipMessage)
+      })
+
+      it('should fail an invalid US ZIP code (incomplete)', () => {
+        const invalidUsAddress = { ...validAddress, postalCode: '12345-6', country: 'US', region: 'CA' }
+        const result = schema.safeParse(invalidUsAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error?.issues.find(i => i.path[0] === 'postalCode')
+        expect(error?.message).toBe(invalidZipMessage)
+      })
+
+      it('should pass an empty postal code with a non CA or US country', () => {
+        const validPCAddress = { ...validAddress, postalCode: '', country: 'XX', region: 'XX' }
+        const result = schema.safeParse(validPCAddress)
+        expect(result.success).toBe(true)
+      })
+
+      it('should pass an undefined postal code with a non CA or US country', () => {
+        const validPCAddress = { ...validAddress, postalCode: undefined, country: 'XX', region: 'XX' }
+        const result = schema.safeParse(validPCAddress)
+        expect(result.success).toBe(true)
+      })
+
+      it('should fail if non CA/US postal code is greater than 15 characters', () => {
+        const longCode = 'A'.repeat(16)
+        const longPCAddress = { ...validAddress, postalCode: longCode, country: 'DE', region: 'BY' }
+        const result = schema.safeParse(longPCAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error?.issues.find(i => i.path[0] === 'postalCode')
+        expect(error?.message).toBe('Maximum 15 characters')
+      })
+
+      it('should fail a US ZIP+4 with whitespace instead of "-" separator', () => {
+        const usAddress = { ...validAddress, postalCode: '90210 5555', country: 'US', region: 'CA' }
+        const result = schema.safeParse(usAddress)
+        const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
+        expect(error!.message).toBe(invalidZipMessage)
+        expect(result.success).toBe(false)
+      })
+
+      it('should fail an invalid US ZIP code with double space', () => {
+        const invalidUsAddress = { ...validAddress, postalCode: '90210  5555', country: 'US', region: 'CA' }
+        const result = schema.safeParse(invalidUsAddress)
+
+        expect(result.success).toBe(false)
+        const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
+        expect(error!.message).toBe(invalidZipMessage)
+      })
+    })
   })
 
   describe('getNonRequiredAddressSchema', () => {
