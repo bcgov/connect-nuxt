@@ -1,5 +1,19 @@
 # @sbc-connect/nuxt-base
 
+## 0.3.0
+
+### Minor Changes
+
+- [#102](https://github.com/bcgov/connect-nuxt/pull/102) [`d714785`](https://github.com/bcgov/connect-nuxt/commit/d71478573f1fe11be34d5d588d68fb75eb5fd159) Thanks [@deetz99](https://github.com/deetz99)! - - ConnectTransitionFade component
+  - configure UContainer app config with default spacing and padding
+  - configure UAlert subtle/warning app config with correct bg styling
+
+### Patch Changes
+
+- [#104](https://github.com/bcgov/connect-nuxt/pull/104) [`5f1b383`](https://github.com/bcgov/connect-nuxt/commit/5f1b3839ed993654a7f20fe161047ba38ab86274) Thanks [@deetz99](https://github.com/deetz99)! - - change overflow-hidden to overflow-clip in main layout component, allowing position sticky to work correctly
+  - cancel and close i18n translations
+  - Type aliases for Dates
+
 ## 0.2.0
 
 ### Minor Changes

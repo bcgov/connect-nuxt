@@ -1,5 +1,30 @@
 # @sbc-connect/nuxt-auth
 
+## 0.2.0
+
+### Minor Changes
+
+- [#104](https://github.com/bcgov/connect-nuxt/pull/104) [`5f1b383`](https://github.com/bcgov/connect-nuxt/commit/5f1b3839ed993654a7f20fe161047ba38ab86274) Thanks [@deetz99](https://github.com/deetz99)! - - Terms of Use page
+
+  - check user terms of use in auth middleware
+  - useAuthApi composable using pinia-colada for api methods
+  - terms of use error/decline modals
+  - auth contact, auth profile and terms of use interfaces
+  - update account store to use pinia-colada query for setUserName method
+  - related i18n translations
+  - add '@pinia/colada-nuxt' nuxt module
+
+- [#102](https://github.com/bcgov/connect-nuxt/pull/102) [`d714785`](https://github.com/bcgov/connect-nuxt/commit/d71478573f1fe11be34d5d588d68fb75eb5fd159) Thanks [@deetz99](https://github.com/deetz99)! - - allowed-idps middleware
+  - login-page middleware
+  - add explicit typing for allowed idps in app config
+  - util getValidIdps constant
+  - Choose existing account page (WIP)
+
+### Patch Changes
+
+- Updated dependencies [[`d714785`](https://github.com/bcgov/connect-nuxt/commit/d71478573f1fe11be34d5d588d68fb75eb5fd159), [`5f1b383`](https://github.com/bcgov/connect-nuxt/commit/5f1b3839ed993654a7f20fe161047ba38ab86274)]:
+  - @sbc-connect/nuxt-base@0.3.0
+
 ## 0.1.32
 
 ### Patch Changes
