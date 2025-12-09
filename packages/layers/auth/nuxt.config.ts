@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-07-10',
 
-  extends: ['@sbc-connect/nuxt-base'],
+  extends: ['@sbc-connect/nuxt-base', '@sbc-connect/nuxt-forms'],
 
   imports: {
     dirs: ['interfaces', 'types', 'enums', 'stores']

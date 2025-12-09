@@ -29,6 +29,9 @@ onBeforeMount(() => {
     <ConnectTransitionFade>
       <div class="space-y-6 sm:space-y-10">
         <h1>{{ !addNew ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation') }}</h1>
+        <p v-if="addNew">
+          Create a new account to continue
+        </p>
         <ConnectAccountExistingAlert v-if="!addNew" />
       </div>
     </ConnectTransitionFade>
@@ -40,12 +43,13 @@ onBeforeMount(() => {
         @select="selectAndRedirect"
       />
 
-      <div v-else class="h-[66dvh] bg-white rounded border-2 border-black flex items-center justify-center text-3xl">
-        Create Account Form Here
-      </div>
+      <ConnectAccountCreate
+        v-else
+        :accounts="accountStore.userAccounts"
+      />
     </ConnectTransitionFade>
 
-    <div class="flex justify-center">
+    <div v-if="addNew === false" class="flex justify-center">
       <UButton
         v-if="authUser.loginSource === ConnectLoginSource.BCSC"
         variant="outline"
@@ -66,6 +70,24 @@ onBeforeMount(() => {
         class="w-full justify-center sm:w-min sm:justify-normal"
         external
         :to="rtc.authWebUrl + 'setup-account'"
+      />
+    </div>
+
+    <div v-if="addNew === true" class="flex justify-end gap-x-3">
+      <UButton
+        variant="outline"
+        label="Back"
+        trailing
+        size="xl"
+        class="w-full justify-center sm:w-min sm:justify-normal"
+        @click="addNew = !addNew"
+      />
+      <UButton
+        label="Save and Continue"
+        trailing
+        size="xl"
+        class="w-full justify-center sm:w-min sm:justify-normal"
+        external
       />
     </div>
   </UContainer>

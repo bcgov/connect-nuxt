@@ -1,3 +1,5 @@
+import { type AccountProfileSchema, getAccountProfileSchema } from '#auth/app/utils/schemas/account'
+
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
   const authApi = useAuthApi()
@@ -12,6 +14,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const userFirstName = ref<string>(user.value?.firstName || '-')
   const userLastName = ref<string>(user.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
+  const createAccountProfileSchema = getAccountProfileSchema()
+  const accountFormState = reactive<AccountProfileSchema>(createAccountProfileSchema.parse({}))
 
   /**
    * Checks if the current account or the Keycloak user has any of the specified roles.
@@ -161,6 +165,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   return {
+    accountFormState,
     currentAccount,
     currentAccountName,
     userAccounts,

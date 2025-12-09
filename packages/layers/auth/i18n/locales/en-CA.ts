@@ -5,6 +5,7 @@ export default {
     label: {
       accept: 'Accept',
       accountInfo: 'Account Info',
+      accountInformation: 'Account Information',
       accountOptionsMenu: 'Account Options Menu',
       accountSettings: 'Account Settings',
       bceid: 'BCeID',
