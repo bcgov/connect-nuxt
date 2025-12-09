@@ -1,5 +1,16 @@
 # @sbc-connect/nuxt-forms
 
+## 0.2.0
+
+### Minor Changes
+
+- [#105](https://github.com/bcgov/connect-nuxt/pull/105) [`78195c7`](https://github.com/bcgov/connect-nuxt/commit/78195c765aa337be53fbb4ecf60e45bea44b36ff) Thanks [@deetz99](https://github.com/deetz99)! - Add strict Postal and Zip code validation for CA or US addresses.
+
+### Patch Changes
+
+- Updated dependencies [[`d714785`](https://github.com/bcgov/connect-nuxt/commit/d71478573f1fe11be34d5d588d68fb75eb5fd159), [`5f1b383`](https://github.com/bcgov/connect-nuxt/commit/5f1b3839ed993654a7f20fe161047ba38ab86274)]:
+  - @sbc-connect/nuxt-base@0.3.0
+
 ## 0.1.33
 
 ### Patch Changes
