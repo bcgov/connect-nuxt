@@ -43,6 +43,7 @@ Components for BC Government branding and styling:
 - ConnectI18nHelper
 - ConnectLayout
 - ConnectModal
+- ConnectModalError
 - ConnectSlideoverWhatsNew
 - ConnectTransitionCollapse
 - ConnectTransitionFade
@@ -95,11 +96,13 @@ Manage a group of action buttons via composable, find an example [here](../../..
 - logFetchError
 - parseSpecialCharacters
 - setBreadcrumbs
+- getErrorStatus
+- getErrorMessage
 
 ### Plugins
 
-- [Maska](https://beholdr.github.io/maska/v3/#/vue) input masks
-- HTML sanitizer
+- [Maska](https://beholdr.github.io/maska/v3/#/vue) input masks.
+- HTML sanitizer - `$sanitize` method or `v-sanitize` directive.
 - `What's New` Status API items, configurable with App Config.
 
 ### App Config
