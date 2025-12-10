@@ -8,10 +8,8 @@ import { getRequiredAddressSchema } from '#forms/app/utils'
  * - ext: digits only (optional).
  */
 export function getPhoneSchema() {
-  const CountryCodeEnum = z.enum(['CA', 'US', 'GB', 'AU', 'NZ'])
-
   return z.object({
-    countryIso2: CountryCodeEnum,
+    countryIso2: z.string(),
     countryCode: z.string(),
     phoneNumber: z
       .string()
