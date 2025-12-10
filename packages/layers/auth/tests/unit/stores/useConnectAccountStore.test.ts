@@ -8,7 +8,7 @@ const mockAuthApi = vi.fn()
 mockNuxtImport('useNuxtApp', () => () => ({
   $authApi: mockAuthApi,
   $i18n: {
-    t: vi.fn((key: string, params?: Record<string, unknown>) => key)
+    t: vi.fn((key: string) => key)
   }
 }))
 
