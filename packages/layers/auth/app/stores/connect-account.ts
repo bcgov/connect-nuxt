@@ -1,4 +1,4 @@
-import { getAccountProfileSchema } from '#auth/app/utils/schemas/account'
+import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
 import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
 
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
@@ -15,7 +15,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const userFirstName = ref<string>(user.value?.firstName || '-')
   const userLastName = ref<string>(user.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
-  const createAccountProfileSchema = getAccountProfileSchema()
+  const createAccountProfileSchema = getAccountCreateSchema()
   const accountFormState = reactive<AccountProfileSchema>(createAccountProfileSchema.parse({}))
 
   /**

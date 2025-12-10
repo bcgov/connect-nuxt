@@ -2,12 +2,12 @@ import { z } from 'zod'
 import { getRequiredAddressSchema } from '#forms/app/utils'
 
 /**
- * Phone schema — broken into countryCode select + phone + ext
- * - countryCode: use ISO country code or dialing code; here we model ISO country codes in a small enum.
- *   If you want E.164 dialing codes instead (e.g., "+1", "+44"), swap to z.enum(['+1', '+44', ...]).
+ * Phone schema: country dialing code + local phone + optional extension.
+ * - countryCode: E.164 dialing code (e.g., "+1", "+44").
+ * - phoneNumber: accepts common local formats (e.g., "(123) 456-7890").
+ * - ext: digits only (optional).
  */
 export function getPhoneSchema() {
-  // Example: limit to a small, common set. Expand or change to dialing codes if preferred.
   const CountryCodeEnum = z.enum(['CA', 'US', 'GB', 'AU', 'NZ'])
 
   return z.object({
@@ -23,13 +23,11 @@ export function getPhoneSchema() {
   })
 }
 
-export type PhoneSchema = z.output<ReturnType<typeof getPhoneSchema>>
-
 /**
- * Account profile schema — single address + name + email + phone
+ * Account create schema — single address + name + email + phone
  * Mirrors your .default(...) pattern.
  */
-export function getAccountProfileSchema() {
+export function getAccountCreateSchema() {
   return z.object({
     address: getRequiredAddressSchema().default({
       street: '',
@@ -51,4 +49,4 @@ export function getAccountProfileSchema() {
   })
 }
 
-export type AccountProfileSchema = z.output<ReturnType<typeof getAccountProfileSchema>>
+export type AccountProfileSchema = z.output<ReturnType<typeof getAccountCreateSchema>>

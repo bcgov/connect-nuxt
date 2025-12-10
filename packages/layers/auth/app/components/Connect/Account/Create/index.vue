@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { Form } from '@nuxt/ui'
 import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
-import { getAccountProfileSchema } from '#auth/app/utils/schemas/account'
+import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
 
 const { accountFormState, userFullName } = useConnectAccountStore()
-const accountProfileSchema = getAccountProfileSchema()
+const accountProfileSchema = getAccountCreateSchema()
 
 const formRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form')
 

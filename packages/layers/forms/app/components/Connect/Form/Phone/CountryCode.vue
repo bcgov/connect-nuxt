@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import countryList from 'country-codes-list'
-import type { ConnectPhoneCountry } from '#imports'
 import CountryFlag from '#forms/app/components/Connect/Form/Phone/CountryFlag.vue'
+import type { PhoneCountry } from '#forms/app/interfaces/phone-country'
 
 defineProps<{
   isInvalid: boolean | undefined
@@ -26,7 +26,7 @@ watch(countryIso2, (val) => {
   }
 })
 
-const selectedCountry = ref<ConnectPhoneCountry | undefined>(undefined)
+const selectedCountry = ref<PhoneCountry | undefined>(undefined)
 watch(selectedCountry, (newVal) => {
   if (newVal?.callingCode !== countryCallingCode.value) {
     countryCallingCode.value = newVal?.callingCode
@@ -39,13 +39,13 @@ watch(selectedCountry, (newVal) => {
 const _countryListOptions = countryList.customList(
   'countryCode', '{countryCallingCode},{countryNameEn},{countryNameLocal}')
 
-const manualInput = (event: any) => {
+const manualInput = (event: Event) => {
   selectedCountry.value = {
     callingCode: event.target.value
   }
 }
 
-const countryListOptions: Array<ConnectPhoneCountry> = Object.keys(_countryListOptions).map((key) => {
+const countryListOptions: Array<PhoneCountry> = Object.keys(_countryListOptions).map((key) => {
   const [callingCode, nameEn, nameLocal] = _countryListOptions[key].split(',')
   return {
     iso2: key,
