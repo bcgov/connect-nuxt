@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import countryList from 'country-codes-list'
 import type { ConnectPhoneCountry } from '#imports'
-import CountryFlag from '#forms/app/components/Connect/Form/PhoneNumber/CountryFlag.vue'
+import CountryFlag from '#forms/app/components/Connect/Form/Phone/CountryFlag.vue'
 
 defineProps<{
   isInvalid: boolean | undefined

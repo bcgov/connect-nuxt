@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { Form } from '@nuxt/ui'
+import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
+
 definePageMeta({
   layout: 'connect-auth',
   alias: ['/auth/account/create'],
@@ -9,6 +12,7 @@ const rtc = useRuntimeConfig().public
 const accountStore = useConnectAccountStore()
 const { authUser } = useConnectAuth()
 const { finalRedirect } = useConnectAccountFlowRedirect()
+const { clearAccountState } = useConnectAccountStore()
 
 const addNew = ref(false)
 
@@ -22,6 +26,22 @@ onBeforeMount(() => {
     addNew.value = true
   }
 })
+
+const toggleCreateNewAccount = () => {
+  addNew.value = !addNew.value
+  clearAccountState()
+}
+
+const accountCreateFormRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form-ref')
+const onSubmit = async () => {
+  const result = await accountCreateFormRef.value?.validate()
+  if (result) {
+    // Valid form - proceed to make account creation API call here
+    // ToDo: Implement requests to create the account, update the address and redirect
+  } else {
+    // Invalid form - handle accordingly
+  }
+}
 </script>
 
 <template>
@@ -30,7 +50,7 @@ onBeforeMount(() => {
       <div class="space-y-6 sm:space-y-10">
         <h1>{{ !addNew ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation') }}</h1>
         <p v-if="addNew">
-          Create a new account to continue
+          {{ $t('connect.label.createNewAccountCont') }}
         </p>
         <ConnectAccountExistingAlert v-if="!addNew" />
       </div>
@@ -45,11 +65,12 @@ onBeforeMount(() => {
 
       <ConnectAccountCreate
         v-else
-        :accounts="accountStore.userAccounts"
+        ref="account-create-form-ref"
       />
     </ConnectTransitionFade>
 
-    <div v-if="addNew === false" class="flex justify-center">
+    <!-- Select Account Actions -->
+    <div v-if="!addNew" class="flex justify-center">
       <UButton
         v-if="authUser.loginSource === ConnectLoginSource.BCSC"
         variant="outline"
@@ -58,7 +79,7 @@ onBeforeMount(() => {
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
-        @click="addNew = !addNew"
+        @click="toggleCreateNewAccount"
       />
       <UButton
         v-else
@@ -73,21 +94,23 @@ onBeforeMount(() => {
       />
     </div>
 
-    <div v-if="addNew === true" class="flex justify-end gap-x-3">
+    <!-- Create Account Actions -->
+    <div v-if="addNew" class="flex justify-end gap-x-3">
       <UButton
         variant="outline"
-        label="Back"
+        :label="$t('connect.label.back')"
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
-        @click="addNew = !addNew"
+        @click="toggleCreateNewAccount"
       />
       <UButton
-        label="Save and Continue"
+        :label="$t('connect.label.saveAndContinue')"
+        class="w-full justify-center sm:w-min sm:justify-normal"
         trailing
         size="xl"
-        class="w-full justify-center sm:w-min sm:justify-normal"
         external
+        @click="onSubmit"
       />
     </div>
   </UContainer>

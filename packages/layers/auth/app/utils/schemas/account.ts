@@ -15,8 +15,7 @@ export function getPhoneSchema() {
     countryCode: z.string(),
     phoneNumber: z
       .string()
-      // Basic normalization-friendly pattern; adapt as needed
-      .regex(/^[0-9()\-\s]+$/, { message: 'Phone must contain digits and ( ) - or spaces' }),
+      .regex(/^\(\d{3}\) \d{3}-\d{4}$/, { message: 'Phone must be in the format (123) 123-1231' }),
     ext: z
       .string()
       .regex(/^[0-9]*$/, { message: 'Extension must be digits only' })
@@ -41,8 +40,8 @@ export function getAccountProfileSchema() {
       country: 'CA',
       locationDescription: ''
     }),
-    accountName: z.string().default(''),
-    email: z.string().email().default(''),
+    accountName: z.string().min(1, 'Account name is required').default(''),
+    emailAddress: z.string().email().default(''),
     phone: getPhoneSchema().default({
       countryIso2: 'CA',
       countryCode: '1',

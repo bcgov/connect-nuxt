@@ -1,4 +1,5 @@
-import { type AccountProfileSchema, getAccountProfileSchema } from '#auth/app/utils/schemas/account'
+import { getAccountProfileSchema } from '#auth/app/utils/schemas/account'
+import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
 
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
@@ -164,8 +165,13 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     userLastName.value = user.value?.lastName || ''
   }
 
+  function clearAccountState() {
+    Object.assign(accountFormState, createAccountProfileSchema.parse({}))
+  }
+
   return {
     accountFormState,
+    clearAccountState,
     currentAccount,
     currentAccountName,
     userAccounts,

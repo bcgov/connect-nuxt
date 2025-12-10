@@ -1,21 +1,28 @@
 <script setup lang="ts">
+import type { Form } from '@nuxt/ui'
+import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
 import { getAccountProfileSchema } from '#auth/app/utils/schemas/account'
 
-defineProps<{
-  accounts?: ConnectAccount[]
-}>()
-
-const { accountFormState } = useConnectAccountStore()
+const { accountFormState, userFullName } = useConnectAccountStore()
 const accountProfileSchema = getAccountProfileSchema()
+
+const formRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form')
+
+async function validate() {
+  return formRef.value?.validate({ silent: true })
+}
+
+defineExpose({
+  validate
+})
 </script>
 
 <template>
   <UForm
-    id="liquidator-filing"
-    ref="liquidator-filing"
+    id="account-create-form"
+    ref="account-create-form"
     :schema="accountProfileSchema"
-    schema-prefix=""
-    nested
+    :state="accountFormState"
   >
     <ConnectPageSection
       :heading="{ label: $t('connect.label.accountInformation'), labelClass: 'font-bold md:ml-4' }"
@@ -23,83 +30,85 @@ const accountProfileSchema = getAccountProfileSchema()
     >
       <!-- Legal Name -->
       <div class="col-span-3 font-bold">
-        Your Name
+        {{ $t('connect.page.createAccount.yourNameLabel') }}
       </div>
       <div class="col-span-9 ">
         <p class="font-bold">
-          Cameron Bowler
+          {{ userFullName }}
         </p>
         <p class="mt-4">
-          This is your legal name as it appears on your BC Services Card.
+          {{ $t('connect.page.createAccount.yourNameHelp') }}
         </p>
       </div>
 
-      <USeparator orientation="horizontal" class="col-span-12" />
+      <USeparator orientation="horizontal" class="col-span-12 my-4" />
 
       <!-- Account Name -->
       <div class="col-span-3 font-bold">
-        Account Name
+        {{ $t('connect.page.createAccount.accountNameLabel') }}
       </div>
       <div class="col-span-9">
         <ConnectFormInput
           v-model="accountFormState.accountName"
           name="accountName"
           input-id="account-name-input"
-          label="Account Name"
-          help="This is your default login name."
+          :label="$t('connect.page.createAccount.accountNameLabel')"
+          :help="$t('connect.page.createAccount.accountNameHelp')"
         />
       </div>
 
       <!-- Account Email -->
       <div class="col-span-3 font-bold">
-        Email
+        {{ $t('connect.page.createAccount.emailLabel') }}
       </div>
       <div class="col-span-9">
         <ConnectFormInput
-          v-model="accountFormState.email"
+          v-model="accountFormState.emailAddress"
           name="emailAddress"
           input-id="email-input"
-          label="enter email Address"
+          :label="$t('connect.page.createAccount.emailPlaceholder')"
         />
       </div>
 
       <!-- Account Phone -->
       <div class="col-span-3 font-bold">
-        Phone
+        {{ $t('connect.page.createAccount.phoneLabel') }}
       </div>
       <div class="col-span-9">
         <div class="flex flex-row gap-2">
-          <ConnectFormPhoneNumberCountryCode
+          <ConnectFormPhoneCountryCode
             v-model:country-calling-code="accountFormState.phone.countryCode"
             v-model:country-iso2="accountFormState.phone.countryIso2"
-            :is-invalid="false"
+            :is-invalid="!accountFormState.phone.countryIso2"
             class="w-40 mt-[-20px]"
           />
           <ConnectFormInput
             v-model="accountFormState.phone.phoneNumber"
-            name="phoneNumber"
+            name="phone.phoneNumber"
             input-id="phone-number-input"
-            label="Enter phone number"
+            :label="$t('connect.page.createAccount.phonePlaceholder')"
+            mask="(###) ###-####"
           />
           <ConnectFormInput
             v-model="accountFormState.phone.ext"
-            name="phoneExt"
+            name="phone.ext"
             input-id="phone-ext-input"
-            label="Phone extension (Optional)"
+            :label="$t('connect.page.createAccount.phoneExtensionLabel')"
           />
         </div>
       </div>
 
       <!-- Account Address -->
       <div class="col-span-3 font-bold">
-        Address
+        {{ $t('connect.page.createAccount.addressLabel') }}
       </div>
       <div class="col-span-9">
         <ConnectFormAddress
-          v-model="accountFormState.address"
           id="account-address"
-          name="account-address"
+          v-model="accountFormState.address"
+          name="address"
           schema-prefix="address"
+          @should-validate="validate"
         />
       </div>
     </ConnectPageSection>
