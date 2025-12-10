@@ -34,6 +34,19 @@ export const getBaseSidebarItems = () => {
         ]
       },
       {
+        label: 'Connect Modal',
+        children: [
+          {
+            label: 'Default',
+            to: localePath('/examples/components/ConnectModal')
+          },
+          {
+            label: 'Error',
+            to: localePath('/examples/components/ConnectModal/Error')
+          }
+        ]
+      },
+      {
         label: 'Connect Tombstone',
         children: [
           {
@@ -101,10 +114,6 @@ export const getBaseSidebarItems = () => {
       {
         label: 'Connect Locale Select',
         to: localePath('/examples/components/ConnectLocaleSelect')
-      },
-      {
-        label: 'Connect Modal',
-        to: localePath('/examples/components/ConnectModal')
       },
       {
         label: 'Connect Page Section',
