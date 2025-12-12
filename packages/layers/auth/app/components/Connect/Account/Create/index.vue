@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Form } from '@nuxt/ui'
+import type { Form, FormError } from '@nuxt/ui'
 import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
 import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
 
@@ -8,46 +8,66 @@ const accountProfileSchema = getAccountCreateSchema()
 
 const formRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form')
 
+const formErrors = computed<{
+  accountName: FormError<string> | undefined
+  emailAddress: FormError<string> | undefined
+  phone: FormError<string> | undefined
+  address: FormError<string> | undefined
+}>(() => {
+  const errors = formRef.value?.getErrors()
+  return {
+    accountName: errors?.find(e => e.name === 'accountName'),
+    emailAddress: errors?.find(e => e.name?.startsWith('emailAddress')),
+    phone: errors?.find(e => e.name?.startsWith('phone')),
+    address: errors?.find(e => e.name?.startsWith('address'))
+  }
+})
+
 async function validate() {
   return formRef.value?.validate({ silent: true })
 }
-
-defineExpose({
-  validate
-})
 </script>
 
 <template>
-  <UForm
-    id="account-create-form"
-    ref="account-create-form"
-    :schema="accountProfileSchema"
-    :state="accountFormState"
+  <ConnectPageSection
+    :heading="{
+      label: $t('connect.label.accountInformation'),
+      labelClass: 'font-bold md:ml-4',
+    }"
   >
-    <ConnectPageSection
-      :heading="{ label: $t('connect.label.accountInformation'), labelClass: 'font-bold md:ml-4' }"
-      ui-body="grid grid-cols-12 gap-4 mx-2 my-5 gap-y-6"
+    <UForm
+      id="account-create-form"
+      ref="account-create-form"
+      class="p-8"
+      no-validate
+      :validate-on="['input', 'change']"
+      :schema="accountProfileSchema"
+      :state="accountFormState"
+      @submit="validate()"
+      @error="onFormSubmitError"
     >
       <!-- Legal Name -->
-      <div class="col-span-3 font-bold">
-        {{ $t('connect.page.createAccount.yourNameLabel') }}
-      </div>
-      <div class="col-span-9 ">
+      <ConnectFormFieldWrapper
+        :label="$t('connect.page.createAccount.yourNameLabel')"
+        orientation="horizontal"
+      >
         <p class="font-bold">
           {{ userFullName }}
         </p>
-        <p class="mt-4">
+        <p class="mt-3">
           {{ $t('connect.page.createAccount.yourNameHelp') }}
         </p>
-      </div>
+      </ConnectFormFieldWrapper>
 
-      <USeparator orientation="horizontal" class="col-span-12 my-4" />
+      <USeparator orientation="horizontal" class="my-8" />
 
       <!-- Account Name -->
-      <div class="col-span-3 font-bold">
-        {{ $t('connect.page.createAccount.accountNameLabel') }}
-      </div>
-      <div class="col-span-9">
+      <ConnectFormFieldWrapper
+        class="pt-2 my-6"
+        :label="$t('connect.page.createAccount.accountNameLabel')"
+        orientation="horizontal"
+        :error="formErrors.accountName"
+      >
         <ConnectFormInput
           v-model="accountFormState.accountName"
           name="accountName"
@@ -55,26 +75,29 @@ defineExpose({
           :label="$t('connect.page.createAccount.accountNameLabel')"
           :help="$t('connect.page.createAccount.accountNameHelp')"
         />
-      </div>
+      </ConnectFormFieldWrapper>
 
       <!-- Account Email -->
-      <div class="col-span-3 font-bold">
-        {{ $t('connect.page.createAccount.emailLabel') }}
-      </div>
-      <div class="col-span-9">
+      <ConnectFormFieldWrapper
+        class="my-6"
+        :label="$t('connect.page.createAccount.emailLabel')"
+        orientation="horizontal"
+        :error="formErrors.emailAddress"
+      >
         <ConnectFormInput
           v-model="accountFormState.emailAddress"
           name="emailAddress"
           input-id="email-input"
           :label="$t('connect.page.createAccount.emailPlaceholder')"
         />
-      </div>
+      </ConnectFormFieldWrapper>
 
       <!-- Account Phone -->
-      <div class="col-span-3 font-bold">
-        {{ $t('connect.page.createAccount.phoneLabel') }}
-      </div>
-      <div class="col-span-9">
+      <ConnectFormFieldWrapper
+        :label="$t('connect.page.createAccount.phoneLabel')"
+        orientation="horizontal"
+        :error="formErrors.phone"
+      >
         <div class="flex flex-row gap-2">
           <ConnectFormPhoneCountryCode
             v-model:country-calling-code="accountFormState.phone.countryCode"
@@ -96,13 +119,15 @@ defineExpose({
             :label="$t('connect.page.createAccount.phoneExtensionLabel')"
           />
         </div>
-      </div>
+      </ConnectFormFieldWrapper>
 
       <!-- Account Address -->
-      <div class="col-span-3 font-bold">
-        {{ $t('connect.page.createAccount.addressLabel') }}
-      </div>
-      <div class="col-span-9">
+      <ConnectFormFieldWrapper
+        class="my-6"
+        :label="$t('connect.page.createAccount.addressLabel')"
+        orientation="horizontal"
+        :error="formErrors.address"
+      >
         <ConnectFormAddress
           id="account-address"
           v-model="accountFormState.address"
@@ -110,7 +135,7 @@ defineExpose({
           schema-prefix="address"
           @should-validate="validate"
         />
-      </div>
-    </ConnectPageSection>
-  </UForm>
+      </ConnectFormFieldWrapper>
+    </UForm>
+  </ConnectPageSection>
 </template>

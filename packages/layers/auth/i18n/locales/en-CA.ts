@@ -61,8 +61,7 @@ export default {
         phonePlaceholder: 'Enter phone number',
         phoneExtensionLabel: 'Phone extension (Optional)',
         addressLabel: 'Address',
-        countryLabel: 'Country',
-        countryValue: 'Canada'
+        countryLabel: 'Country'
       }
     },
     sessionExpiry: {
@@ -87,7 +86,10 @@ export default {
     },
     validation: {
       acceptTermsOfUse: 'Please accept the Terms of Use.',
-      termsOfUseScrollToBottom: 'Please scroll to the bottom of the page to accept the Terms of Use.'
+      termsOfUseScrollToBottom: 'Please scroll to the bottom of the page to accept the Terms of Use.',
+      phoneNumberFormat: 'Phone must be in the format (123) 123-1231',
+      phoneExtFormat: 'Extension must be digits only',
+      requiredAccountName: 'Account name is required'
     }
   }
 }

@@ -97,6 +97,7 @@ onMounted(() => {
     class="cursor-pointer"
     :aria-required="true"
     :aria-invalid="isInvalid"
+    :aria-label="$t('connect.label.countryCode')"
     @input="manualInput($event)"
   >
     <template v-if="!!selectedCountry?.iso2" #leading="{ modelValue }">

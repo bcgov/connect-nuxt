@@ -8,15 +8,17 @@ import { getRequiredAddressSchema } from '#forms/app/utils'
  * - ext: digits only (optional).
  */
 export function getPhoneSchema() {
+  const t = useNuxtApp().$i18n.t
+
   return z.object({
     countryIso2: z.string(),
     countryCode: z.string(),
     phoneNumber: z
       .string()
-      .regex(/^\(\d{3}\) \d{3}-\d{4}$/, { message: 'Phone must be in the format (123) 123-1231' }),
+      .regex(/^\(\d{3}\) \d{3}-\d{4}$/, { message: t('connect.validation.phoneNumberFormat') }),
     ext: z
       .string()
-      .regex(/^[0-9]*$/, { message: 'Extension must be digits only' })
+      .regex(/^[0-9]*$/, { message: t('connect.validation.phoneExtFormat') })
       .optional()
   })
 }
@@ -26,6 +28,8 @@ export function getPhoneSchema() {
  * Mirrors your .default(...) pattern.
  */
 export function getAccountCreateSchema() {
+  const t = useNuxtApp().$i18n.t
+
   return z.object({
     address: getRequiredAddressSchema().default({
       street: '',
@@ -36,7 +40,7 @@ export function getAccountCreateSchema() {
       country: 'CA',
       locationDescription: ''
     }),
-    accountName: z.string().min(1, 'Account name is required').default(''),
+    accountName: z.string().min(1, t('connect.validation.requiredAccountName')).default(''),
     emailAddress: z.string().email().default(''),
     phone: getPhoneSchema().default({
       countryIso2: 'CA',

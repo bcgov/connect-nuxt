@@ -19,13 +19,13 @@ const {
   >
     <span
       aria-hidden="true"
-      class="text-base text-neutral-highlighted font-bold"
-      :class="[
-        { 'text-red-600': !!error },
-        { 'w-full sm:w-1/4': orientation === 'horizontal' },
-      ]"
+      class="text-base text-neutral-highlighted font-bold text-red-600"
+      :class="{ 'w-full sm:w-1/4 sm:basis-1/4 sm:w-auto': orientation === 'horizontal' }"
     >
-      <div class="flex flex-wrap gap-4">
+      <div
+        class="flex flex-wrap gap-4"
+        :class="{ 'text-red-600': !!error }"
+      >
         <span>{{ label }}</span>
         <span
           v-if="!!error && showErrorMsg"

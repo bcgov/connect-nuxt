@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import type { Form } from '@nuxt/ui'
-import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
-
 definePageMeta({
   layout: 'connect-auth',
   alias: ['/auth/account/create'],
@@ -15,6 +12,10 @@ const { finalRedirect } = useConnectAccountFlowRedirect()
 const { clearAccountState } = useConnectAccountStore()
 
 const addNew = ref(false)
+
+useHead({
+  title: !addNew.value ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation')
+})
 
 function selectAndRedirect(id: number) {
   accountStore.switchCurrentAccount(id)
@@ -30,17 +31,6 @@ onBeforeMount(() => {
 const toggleCreateNewAccount = () => {
   addNew.value = !addNew.value
   clearAccountState()
-}
-
-const accountCreateFormRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form-ref')
-const onSubmit = async () => {
-  const result = await accountCreateFormRef.value?.validate()
-  if (result) {
-    // Valid form - proceed to make account creation API call here
-    // ToDo: Implement requests to create the account, update the address and redirect
-  } else {
-    // Invalid form - handle accordingly
-  }
 }
 </script>
 
@@ -106,11 +96,11 @@ const onSubmit = async () => {
       />
       <UButton
         :label="$t('connect.label.saveAndContinue')"
+        form="account-create-form"
         class="w-full justify-center sm:w-min sm:justify-normal"
         trailing
+        type="submit"
         size="xl"
-        external
-        @click="onSubmit"
       />
     </div>
   </UContainer>

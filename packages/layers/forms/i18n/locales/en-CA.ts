@@ -7,6 +7,7 @@ export default {
       city: 'City',
       code: 'Code',
       country: 'Country',
+      countryCode: 'Country Code',
       deliveryAddress: 'Delivery Address',
       deliveryInstructions: 'Delivery Instructions',
       deliveryInstructionsOpt: 'Delivery Instructions (Optional)',

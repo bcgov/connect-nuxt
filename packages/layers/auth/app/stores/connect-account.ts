@@ -163,6 +163,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     pendingApprovalCount.value = 0
     userFirstName.value = user.value?.firstName || '-'
     userLastName.value = user.value?.lastName || ''
+    clearAccountState()
   }
 
   function clearAccountState() {
