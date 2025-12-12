@@ -1,6 +1,6 @@
 export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   const { $payApi } = useNuxtApp()
-  const { t } = useI18n()
+  const { t } = useNuxtApp().$i18n
   const { baseModal } = useConnectModal()
 
   const getDefaultFeeOptions = () => ({
