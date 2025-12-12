@@ -35,6 +35,8 @@
     "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@sbc-connect/nuxt-base": "workspace:*"
+    "@sbc-connect/nuxt-base": "workspace:*",
+    "country-codes-list": "^1.6.11",
+    "vue-country-flag-next": "^2.3.2"
   }
 }
