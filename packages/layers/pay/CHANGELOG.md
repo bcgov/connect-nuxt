@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-pay
 
+## 0.1.34
+
+### Patch Changes
+
+- [#109](https://github.com/bcgov/connect-nuxt/pull/109) [`841b9b8`](https://github.com/bcgov/connect-nuxt/commit/841b9b8636426167f7c3847656eabb52d427c626) Thanks [@kialj876](https://github.com/kialj876)! - Connect Pay Layer - useConnectFeeStore: useNuxtApp().$i18n instead of useI18n()
+
+- Updated dependencies []:
+  - @sbc-connect/nuxt-auth@0.2.1
+
 ## 0.1.33
 
 ### Patch Changes
