@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-base
 
+## 0.4.0
+
+### Minor Changes
+
+- [#106](https://github.com/bcgov/connect-nuxt/pull/106) [`f5d34df`](https://github.com/bcgov/connect-nuxt/commit/f5d34df0bbb2b37cbeda8a9dd39c6bce098c564f) Thanks [@deetz99](https://github.com/deetz99)! - <br>
+  - ConnectModalError component
+  - getErrorStatus util
+  - getErrorMessage util
+
 ## 0.3.0
 
 ### Minor Changes
