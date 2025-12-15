@@ -12,9 +12,12 @@ const { finalRedirect } = useConnectAccountFlowRedirect()
 const { clearAccountState } = useConnectAccountStore()
 
 const addNew = ref(false)
+const pageTitle = computed(() =>
+  !addNew.value ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation')
+)
 
 useHead({
-  title: !addNew.value ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation')
+  title: pageTitle
 })
 
 function selectAndRedirect(id: number) {

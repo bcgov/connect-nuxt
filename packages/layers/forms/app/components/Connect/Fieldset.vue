@@ -34,7 +34,7 @@ const bodyClass = bodyClassMap[bodyVariant]
     >
       <div
         class="flex flex-col gap-1"
-        :class="{ 'w-full sm:w-1/4 pb-0': orientation === 'horizontal' }"
+        :class="{ 'w-full sm:basis-1/4 pb-0': orientation === 'horizontal' }"
       >
         <legend
           :id="legendId"

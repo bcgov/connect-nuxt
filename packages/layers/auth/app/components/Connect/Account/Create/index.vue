@@ -43,7 +43,6 @@ async function validate() {
       :validate-on="['input', 'change']"
       :schema="accountProfileSchema"
       :state="accountFormState"
-      @submit="validate()"
       @error="onFormSubmitError"
     >
       <!-- Legal Name -->
@@ -93,7 +92,7 @@ async function validate() {
       </ConnectFormFieldWrapper>
 
       <!-- Account Phone -->
-      <ConnectFormFieldWrapper
+      <ConnectFieldset
         :label="$t('connect.page.createAccount.phoneLabel')"
         orientation="horizontal"
         :error="formErrors.phone"
@@ -119,10 +118,10 @@ async function validate() {
             :label="$t('connect.page.createAccount.phoneExtensionLabel')"
           />
         </div>
-      </ConnectFormFieldWrapper>
+      </ConnectFieldset>
 
       <!-- Account Address -->
-      <ConnectFormFieldWrapper
+      <ConnectFieldset
         class="my-6"
         :label="$t('connect.page.createAccount.addressLabel')"
         orientation="horizontal"
@@ -135,7 +134,7 @@ async function validate() {
           schema-prefix="address"
           @should-validate="validate"
         />
-      </ConnectFormFieldWrapper>
+      </ConnectFieldset>
     </UForm>
   </ConnectPageSection>
 </template>
