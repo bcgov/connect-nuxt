@@ -33,7 +33,6 @@ export default {
       hoursOfOperation: 'Hours of Operation',
       localeSelect: 'Select a Language, current language: English',
       privacy: 'Privacy',
-      releaseNotes: 'Release Notes',
       whatsNew: "What's New",
       whatsNewAria: "What's New, {count} unread",
       whatsNewSlideover: "What's New at BC Registries"
