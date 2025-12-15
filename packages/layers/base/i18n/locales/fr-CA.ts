@@ -28,8 +28,7 @@ export default {
       goBack: 'Retour',
       home: 'Accueil',
       localeSelect: 'Sélectionnez une langue, langue courante: Français',
-      privacy: 'Confidentialité',
-      releaseNotes: 'Notes de Version'
+      privacy: 'Confidentialité'
     },
     text: {}
   },

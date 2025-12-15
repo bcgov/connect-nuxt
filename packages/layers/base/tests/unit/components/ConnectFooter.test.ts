@@ -13,10 +13,9 @@ describe('<ConnectFooter />', () => {
       `
     })
 
-    const linkTexts = ['Home', 'Release Notes', 'Fees', 'Disclaimer', 'Privacy', 'Accessibility', 'Copyright']
+    const linkTexts = ['Home', 'Fees', 'Disclaimer', 'Privacy', 'Accessibility', 'Copyright']
     const linkHrefs = [
       '/en-CA', // '/en-CA' - NuxtLink rendering undefined for internal route
-      'https://www.release-notes.bcregistry.gov.bc.ca',
       '/product-fees',
       'https://www2.gov.bc.ca/gov/content/home/disclaimer',
       'https://www2.gov.bc.ca/gov/content/home/privacy',

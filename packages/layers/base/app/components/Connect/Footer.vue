@@ -10,11 +10,6 @@ const links = [
     to: localePath('/')
   },
   {
-    label: 'connect.label.releaseNotes',
-    to: 'https://www.release-notes.bcregistry.gov.bc.ca',
-    target: '_blank'
-  },
-  {
     label: 'connect.label.fees',
     to: feesUrl,
     target: '_blank'
