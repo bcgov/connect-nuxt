@@ -5,12 +5,15 @@ export default {
     label: {
       accept: 'Accept',
       accountInfo: 'Account Info',
+      accountInformation: 'Account Information',
       accountOptionsMenu: 'Account Options Menu',
       accountSettings: 'Account Settings',
+      back: 'Back',
       bceid: 'BCeID',
       bcsc: 'BC Services Card',
       createAccount: 'Create Account',
       createNewAccount: 'Create New Account',
+      createNewAccountCont: 'Create a new account to continue',
       decline: 'Decline',
       declineTermsOfUse: 'Decline Terms of Use',
       editProfile: 'Edit Profile',
@@ -21,6 +24,7 @@ export default {
       mainMenu: 'Main Menu',
       notifications: 'Notifications',
       notificationsAria: 'Notifications, {count} unread',
+      saveAndContinue: 'Save and Continue',
       sbcAccountCreation: 'Service BC Account Creation',
       selectLoginMethod: 'Select log in method',
       switchAccount: 'Switch Account',
@@ -45,6 +49,19 @@ export default {
       termsOfUse: {
         h1: 'Terms of Use',
         title: 'Terms of Use - Service BC Connect'
+      },
+      createAccount: {
+        yourNameLabel: 'Your Name',
+        yourNameHelp: 'This is your legal name as it appears on your BC Services Card.',
+        accountNameLabel: 'Account Name',
+        accountNameHelp: 'This is your default login name.',
+        emailLabel: 'Email',
+        emailPlaceholder: 'Enter email address',
+        phoneLabel: 'Phone',
+        phonePlaceholder: 'Enter phone number',
+        phoneExtensionLabel: 'Phone extension (Optional)',
+        addressLabel: 'Address',
+        countryLabel: 'Country'
       }
     },
     sessionExpiry: {
@@ -69,7 +86,10 @@ export default {
     },
     validation: {
       acceptTermsOfUse: 'Please accept the Terms of Use.',
-      termsOfUseScrollToBottom: 'Please scroll to the bottom of the page to accept the Terms of Use.'
+      termsOfUseScrollToBottom: 'Please scroll to the bottom of the page to accept the Terms of Use.',
+      phoneNumberFormat: 'Phone must be in the format (123) 123-1231',
+      phoneExtFormat: 'Extension must be digits only',
+      requiredAccountName: 'Account name is required'
     }
   }
 }

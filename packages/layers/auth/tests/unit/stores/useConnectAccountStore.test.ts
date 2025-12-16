@@ -4,8 +4,12 @@ import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setActivePinia, createPinia } from 'pinia'
 
 const mockAuthApi = vi.fn()
+
 mockNuxtImport('useNuxtApp', () => () => ({
-  $authApi: mockAuthApi
+  $authApi: mockAuthApi,
+  $i18n: {
+    t: vi.fn((key: string) => key)
+  }
 }))
 
 const { mockLogFetchError } = vi.hoisted(() => {

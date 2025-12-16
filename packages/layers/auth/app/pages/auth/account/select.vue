@@ -9,8 +9,16 @@ const rtc = useRuntimeConfig().public
 const accountStore = useConnectAccountStore()
 const { authUser } = useConnectAuth()
 const { finalRedirect } = useConnectAccountFlowRedirect()
+const { clearAccountState } = useConnectAccountStore()
 
 const addNew = ref(false)
+const pageTitle = computed(() =>
+  !addNew.value ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation')
+)
+
+useHead({
+  title: pageTitle
+})
 
 function selectAndRedirect(id: number) {
   accountStore.switchCurrentAccount(id)
@@ -22,6 +30,11 @@ onBeforeMount(() => {
     addNew.value = true
   }
 })
+
+const toggleCreateNewAccount = () => {
+  addNew.value = !addNew.value
+  clearAccountState()
+}
 </script>
 
 <template>
@@ -29,6 +42,9 @@ onBeforeMount(() => {
     <ConnectTransitionFade>
       <div class="space-y-6 sm:space-y-10">
         <h1>{{ !addNew ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation') }}</h1>
+        <p v-if="addNew">
+          {{ $t('connect.label.createNewAccountCont') }}
+        </p>
         <ConnectAccountExistingAlert v-if="!addNew" />
       </div>
     </ConnectTransitionFade>
@@ -40,12 +56,14 @@ onBeforeMount(() => {
         @select="selectAndRedirect"
       />
 
-      <div v-else class="h-[66dvh] bg-white rounded border-2 border-black flex items-center justify-center text-3xl">
-        Create Account Form Here
-      </div>
+      <ConnectAccountCreate
+        v-else
+        ref="account-create-form-ref"
+      />
     </ConnectTransitionFade>
 
-    <div class="flex justify-center">
+    <!-- Select Account Actions -->
+    <div v-if="!addNew" class="flex justify-center">
       <UButton
         v-if="authUser.loginSource === ConnectLoginSource.BCSC"
         variant="outline"
@@ -54,7 +72,7 @@ onBeforeMount(() => {
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
-        @click="addNew = !addNew"
+        @click="toggleCreateNewAccount"
       />
       <UButton
         v-else
@@ -66,6 +84,26 @@ onBeforeMount(() => {
         class="w-full justify-center sm:w-min sm:justify-normal"
         external
         :to="rtc.authWebUrl + 'setup-account'"
+      />
+    </div>
+
+    <!-- Create Account Actions -->
+    <div v-if="addNew" class="flex justify-end gap-x-3">
+      <UButton
+        variant="outline"
+        :label="$t('connect.label.back')"
+        trailing
+        size="xl"
+        class="w-full justify-center sm:w-min sm:justify-normal"
+        @click="toggleCreateNewAccount"
+      />
+      <UButton
+        :label="$t('connect.label.saveAndContinue')"
+        form="account-create-form"
+        class="w-full justify-center sm:w-min sm:justify-normal"
+        trailing
+        type="submit"
+        size="xl"
       />
     </div>
   </UContainer>
