@@ -3,26 +3,21 @@ import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setActivePinia, createPinia } from 'pinia'
 
+//  Nuxt app / APIs
 const mockAuthApi = vi.fn()
-
 mockNuxtImport('useNuxtApp', () => () => ({
   $authApi: mockAuthApi,
-  $i18n: {
-    t: vi.fn((key: string) => key)
-  }
+  $i18n: { t: vi.fn((key: string) => key) }
 }))
 
-const { mockLogFetchError } = vi.hoisted(() => {
-  return { mockLogFetchError: vi.fn() }
-})
+//  Hoisted mocks (must be defined before module evaluation)
+const { mockLogFetchError } = vi.hoisted(() => ({ mockLogFetchError: vi.fn() }))
 mockNuxtImport('logFetchError', () => mockLogFetchError)
 
 const mockRoute = ref({ path: '/', query: {}, fullPath: '/', matched: [], meta: {} })
 mockNuxtImport('useRoute', () => () => mockRoute.value)
 
-const { mockNavigateTo } = vi.hoisted(() => {
-  return { mockNavigateTo: vi.fn() }
-})
+const { mockNavigateTo } = vi.hoisted(() => ({ mockNavigateTo: vi.fn() }))
 mockNuxtImport('navigateTo', () => mockNavigateTo)
 
 mockNuxtImport('useRuntimeConfig', () => () => ({
@@ -39,6 +34,7 @@ mockNuxtImport('useConnectAuth', () => () => ({
   isAuthenticated: mockIsAuthenticated
 }))
 
+//  Session storage
 const mockSessionStorage = {
   getItem: vi.fn(),
   setItem: vi.fn(),
@@ -46,10 +42,44 @@ const mockSessionStorage = {
 }
 Object.defineProperty(global, 'sessionStorage', { value: mockSessionStorage })
 
+//  Auth API composables (profile, create account, update contact)
 const mockGetAuthUserProfile = vi.fn()
+const mockCreateAccount = vi.fn()
+const mockUpdateUserContact = vi.fn()
+
 mockNuxtImport('useAuthApi', () => () => ({
-  getAuthUserProfile: mockGetAuthUserProfile
+  getAuthUserProfile: mockGetAuthUserProfile,
+  useCreateAccount: () => ({ createAccount: mockCreateAccount }),
+  useUpdateUserContact: () => ({ updateUserContact: mockUpdateUserContact })
 }))
+
+//  Account flow redirect composable
+const { mockFinalRedirect } = vi.hoisted(() => ({ mockFinalRedirect: vi.fn() }))
+mockNuxtImport('useConnectAccountFlowRedirect', () => () => ({
+  finalRedirect: mockFinalRedirect
+}))
+
+//  Schema for account form (mock)
+vi.mock('#auth/app/utils/schemas/account', () => {
+  return {
+    getAccountCreateSchema: () => ({
+      parse: () => ({
+        accountName: '',
+        emailAddress: '',
+        phone: { phoneNumber: '', ext: '' },
+        address: {
+          city: '',
+          country: '',
+          region: '',
+          postalCode: '',
+          street: '',
+          streetAdditional: '',
+          locationDescription: ''
+        }
+      })
+    })
+  }
+})
 
 describe('useConnectAccountStore', () => {
   let store: ReturnType<typeof useConnectAccountStore>
@@ -82,6 +112,12 @@ describe('useConnectAccountStore', () => {
     vi.resetAllMocks()
     store = useConnectAccountStore()
     store.$reset()
+
+    // Default profile mock for other tests
+    mockGetAuthUserProfile.mockResolvedValue({
+      data: { value: {} },
+      refresh: vi.fn()
+    })
   })
 
   it('initializes with the correct default state', () => {
@@ -227,6 +263,123 @@ describe('useConnectAccountStore', () => {
     })
   })
 
+  //  Tests for submitCreateAccount flow
+  describe('submitCreateAccount', () => {
+    beforeEach(() => {
+      // mock updateUserContact to invoke the successCb when present
+      mockUpdateUserContact.mockImplementation(async (payload: any) => {
+        if (payload && typeof payload.successCb === 'function') {
+          await payload.successCb()
+        }
+      })
+      mockCreateAccount.mockResolvedValue(undefined)
+      mockFinalRedirect.mockResolvedValue(undefined)
+      mockRoute.value.path = '/'
+    })
+
+    it('should create account, update contact twice, and call finalRedirect on success', async () => {
+      // Prepare form state
+      store.accountFormState.accountName = 'Cameron Co'
+      store.accountFormState.emailAddress = 'cam@example.com'
+      store.accountFormState.phone.phoneNumber = '2505551234'
+      store.accountFormState.phone.ext = '123'
+      store.accountFormState.address.city = 'Victoria'
+      store.accountFormState.address.country = 'CA'
+      store.accountFormState.address.region = 'BC'
+      store.accountFormState.address.postalCode = 'V8W1N6'
+      store.accountFormState.address.street = '123 Wharf St'
+      store.accountFormState.address.streetAdditional = 'Suite 500'
+      store.accountFormState.address.locationDescription = 'By the inner harbour'
+
+      expect(store.isLoading).toBe(false)
+
+      await store.submitCreateAccount()
+
+      // isLoading should end false
+      expect(store.isLoading).toBe(false)
+
+      // First contact update (pre-create), then createAccount, then second contact update (with successCb)
+      expect(mockUpdateUserContact).toHaveBeenCalledTimes(2)
+      expect(mockCreateAccount).toHaveBeenCalledTimes(1)
+
+      // Validate createAccount payload mapping
+      const createArgs = mockCreateAccount.mock.calls[0]![0]
+      expect(createArgs).toEqual(
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            name: 'Cameron Co',
+            mailingAddress: expect.objectContaining({
+              city: 'Victoria',
+              country: 'CA',
+              region: 'BC',
+              postalCode: 'V8W1N6',
+              street: '123 Wharf St',
+              streetAdditional: 'Suite 500',
+              deliveryInstructions: 'By the inner harbour'
+            }),
+            paymentInfo: expect.objectContaining({
+              // Actual enum value is opaque here; assert presence of key
+              paymentMethod: expect.anything()
+            }),
+            productSubscriptions: expect.arrayContaining([expect.objectContaining({})])
+          })
+        })
+      )
+
+      // First updateUserContact args
+      const firstUpdateArgs = mockUpdateUserContact.mock.calls[0]![0]
+      expect(firstUpdateArgs).toEqual(
+        expect.objectContaining({
+          email: 'cam@example.com',
+          phone: '2505551234',
+          phoneExtension: '123'
+        })
+      )
+
+      // Second updateUserContact args should include successCb
+      const secondUpdateArgs = mockUpdateUserContact.mock.calls[1]![0]
+      expect(secondUpdateArgs).toEqual(
+        expect.objectContaining({
+          email: 'cam@example.com',
+          phone: '2505551234',
+          phoneExtension: '123',
+          successCb: expect.any(Function)
+        })
+      )
+
+      // finalRedirect should be called with the current route
+      expect(mockFinalRedirect).toHaveBeenCalledTimes(1)
+      expect(mockFinalRedirect).toHaveBeenCalledWith(mockRoute.value)
+    })
+
+    it('should handle errors gracefully (logs and resets isLoading)', async () => {
+      // Prepare minimal form state
+      store.accountFormState.accountName = 'Error Co'
+      store.accountFormState.emailAddress = 'err@example.com'
+      store.accountFormState.phone.phoneNumber = '5550000000'
+
+      // First contact update succeeds, createAccount fails
+      mockUpdateUserContact.mockResolvedValue(undefined)
+      mockCreateAccount.mockRejectedValue(new Error('Create failed'))
+
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {
+      })
+
+      await store.submitCreateAccount()
+
+      // Should have attempted first contact update and createAccount, but NOT the second update (after failure)
+      expect(mockUpdateUserContact).toHaveBeenCalledTimes(1)
+      expect(mockCreateAccount).toHaveBeenCalledTimes(1)
+
+      // finalRedirect should not be called
+      expect(mockFinalRedirect).not.toHaveBeenCalled()
+
+      // Error should be logged, and isLoading reset
+      expect(consoleSpy).toHaveBeenCalledWith('Account Create Submission Error: ', expect.any(Error))
+      expect(store.isLoading).toBe(false)
+    })
+  })
+
   describe('initAccountStore', () => {
     it('should call all initialize sub-actions', async () => {
       mockGetAuthUserProfile.mockResolvedValue(
@@ -247,7 +400,6 @@ describe('useConnectAccountStore', () => {
       expect(mockGetAuthUserProfile).toHaveBeenCalled()
 
       const calls = mockAuthApi.mock.calls
-
       expect(calls[0]![0]).toBe('/users/test-guid/settings')
       expect(calls[1]![0]).toBe('/users')
       expect(calls[2]![0]).toBe('/users/test-guid/org/1/notifications')

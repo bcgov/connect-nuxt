@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { reactive } from 'vue'
 import { z } from 'zod'
-import { ConnectAccountCreate } from '#components' // <-- adjust import to your actual component
+import { ConnectAccountCreate } from '#components'
 
 /** Store mock */
 const accountFormState = reactive({
