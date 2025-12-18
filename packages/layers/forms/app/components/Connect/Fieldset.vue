@@ -39,10 +39,12 @@ const bodyClass = bodyClassMap[bodyVariant]
         <legend
           :id="legendId"
           class="text-base text-neutral-highlighted font-bold"
-          :class="[{ 'text-red-600': !!error }]"
         >
           <slot name="label">
-            <div class="flex flex-wrap gap-4">
+            <div
+              class="flex flex-wrap gap-4"
+              :class="[{ 'text-red-600': !!error }]"
+            >
               <span>{{ label }}</span>
               <span
                 v-if="!!error && showErrorMsg"

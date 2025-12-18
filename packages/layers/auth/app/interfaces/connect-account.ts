@@ -8,3 +8,16 @@ export interface ConnectAccount {
   urlpath: string
   urlorigin: string
 }
+
+export interface ConnectCreateAccount {
+  accessType: AccessType
+  isBusinessAccount: boolean
+  mailingAddress: AccountMailingAddress
+  name: string
+  paymentInfo: {
+    paymentMethod: PaymentMethod
+  }
+  productSubscriptions: Array<{
+    productCode: ProductCode
+  }>
+}

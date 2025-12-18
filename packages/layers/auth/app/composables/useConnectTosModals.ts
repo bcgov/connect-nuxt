@@ -39,8 +39,38 @@ export const useConnectTosModals = () => {
     })
   }
 
+  function openCreateAccountModal() {
+    baseModal.open({
+      title: 'Account Creation Error',
+      description: 'Please try again later',
+      dismissible: true,
+      buttons: [
+        {
+          label: t('connect.label.close'),
+          shouldClose: true
+        }
+      ]
+    })
+  }
+
+  function openUpdateUserContactModal() {
+    baseModal.open({
+      title: 'User Contact Update Error',
+      description: 'Please try again later',
+      dismissible: true,
+      buttons: [
+        {
+          label: t('connect.label.close'),
+          shouldClose: true
+        }
+      ]
+    })
+  }
+
   return {
+    openCreateAccountModal,
     openDeclineTosModal,
-    openPatchTosErrorModal
+    openPatchTosErrorModal,
+    openUpdateUserContactModal
   }
 }

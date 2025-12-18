@@ -86,6 +86,8 @@ export default {
     },
     validation: {
       acceptTermsOfUse: 'Please accept the Terms of Use.',
+      duplicateAccountName: 'An account with this name already exists.',
+      requestError: 'Request error, please try again.',
       termsOfUseScrollToBottom: 'Please scroll to the bottom of the page to accept the Terms of Use.',
       phoneNumberFormat: 'Phone must be in the format (123) 123-1231',
       phoneExtFormat: 'Extension must be digits only',
