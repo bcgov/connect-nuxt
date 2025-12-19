@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { reactive } from 'vue'
 import { z } from 'zod'
-import { ConnectAccountCreate } from '#components'
+import { ConnectAccountCreate, ConnectAccountCreateName } from '#components'
 
 /** Store mock */
 const accountFormState = reactive({
@@ -108,13 +108,9 @@ describe('ConnectAccountCreate', () => {
     expect(wrapper.text()).toContain('connect.page.createAccount.yourNameHelp')
   })
 
-  it('should render Account Name label and bind value to the input', async () => {
+  it('should render Account Name component', async () => {
     const wrapper = await mount()
-    expect(wrapper.text()).toContain('connect.page.createAccount.accountNameLabel')
-
-    const input = wrapper.find('#account-name-input')
-    expect(input.exists()).toBe(true)
-    expect((input.element as HTMLInputElement).value).toBe('My Account')
+    expect(wrapper.findComponent(ConnectAccountCreateName).exists()).toBe(true)
   })
 
   it('should render Email label and bind value to the input', async () => {
@@ -147,6 +143,6 @@ describe('ConnectAccountCreate', () => {
     const uform = wrapper.find('[data-test="uform"]')
     expect(uform.exists()).toBe(true)
     // presence of labels indicates slot rendered inside stubbed UForm
-    expect(wrapper.text()).toContain('connect.page.createAccount.accountNameLabel')
+    expect(wrapper.text()).toContain('connect.page.createAccount.yourNameLabel')
   })
 })
