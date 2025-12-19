@@ -90,16 +90,18 @@ async function validate() {
         :error="formErrors.phone"
       >
         <div class="flex flex-row gap-2">
-          <ConnectFormPhoneCountryCode
-            v-model:country-calling-code="accountFormState.phone.countryCode"
-            v-model:country-iso2="accountFormState.phone.countryIso2"
-            :is-invalid="!accountFormState.phone.countryIso2"
-            class="w-40 mt-[-20px]"
-          />
+          <!-- Disabling country code selection until Auth Model Supports individual property -->
+          <!-- <ConnectFormPhoneCountryCode -->
+          <!-- v-model:country-calling-code="accountFormState.phone.countryCode" -->
+          <!-- v-model:country-iso2="accountFormState.phone.countryIso2" -->
+          <!-- :is-invalid="!accountFormState.phone.countryIso2" -->
+          <!-- class="w-40 mt-[-20px]" -->
+          <!-- /> -->
           <ConnectFormInput
             v-model="accountFormState.phone.phoneNumber"
             name="phone.phoneNumber"
             input-id="phone-number-input"
+            class="flex-2"
             :label="$t('connect.page.createAccount.phonePlaceholder')"
             mask="(###) ###-####"
           />

@@ -83,9 +83,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   async function submitCreateAccount(): Promise<void> {
     try {
       isLoading.value = true
-      const payload = createAccountPayload()
 
       // Create Account
+      const payload = createAccountPayload()
       await createAccount({ payload })
 
       // Update User Contact Info

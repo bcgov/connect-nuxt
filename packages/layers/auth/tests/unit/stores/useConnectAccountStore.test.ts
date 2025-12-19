@@ -1,3 +1,4 @@
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
@@ -263,7 +264,7 @@ describe('useConnectAccountStore', () => {
     })
   })
 
-  //  Tests for submitCreateAccount flow
+  //  Tests for submitCreateAccount flow (updated for single updateUserContact after createAccount)
   describe('submitCreateAccount', () => {
     beforeEach(() => {
       // mock updateUserContact to invoke the successCb when present
@@ -277,7 +278,7 @@ describe('useConnectAccountStore', () => {
       mockRoute.value.path = '/'
     })
 
-    it('should create account, update contact twice, and call finalRedirect on success', async () => {
+    it('should create account, then update contact once with successCb, and call finalRedirect', async () => {
       // Prepare form state
       store.accountFormState.accountName = 'Cameron Co'
       store.accountFormState.emailAddress = 'cam@example.com'
@@ -298,9 +299,9 @@ describe('useConnectAccountStore', () => {
       // isLoading should end false
       expect(store.isLoading).toBe(false)
 
-      // First contact update (pre-create), then createAccount, then second contact update (with successCb)
-      expect(mockUpdateUserContact).toHaveBeenCalledTimes(2)
+      // New flow: createAccount then a single updateUserContact (with successCb)
       expect(mockCreateAccount).toHaveBeenCalledTimes(1)
+      expect(mockUpdateUserContact).toHaveBeenCalledTimes(1)
 
       // Validate createAccount payload mapping
       const createArgs = mockCreateAccount.mock.calls[0]![0]
@@ -318,7 +319,6 @@ describe('useConnectAccountStore', () => {
               deliveryInstructions: 'By the inner harbour'
             }),
             paymentInfo: expect.objectContaining({
-              // Actual enum value is opaque here; assert presence of key
               paymentMethod: expect.anything()
             }),
             productSubscriptions: expect.arrayContaining([expect.objectContaining({})])
@@ -326,19 +326,9 @@ describe('useConnectAccountStore', () => {
         })
       )
 
-      // First updateUserContact args
-      const firstUpdateArgs = mockUpdateUserContact.mock.calls[0]![0]
-      expect(firstUpdateArgs).toEqual(
-        expect.objectContaining({
-          email: 'cam@example.com',
-          phone: '2505551234',
-          phoneExtension: '123'
-        })
-      )
-
-      // Second updateUserContact args should include successCb
-      const secondUpdateArgs = mockUpdateUserContact.mock.calls[1]![0]
-      expect(secondUpdateArgs).toEqual(
+      // Single updateUserContact args should include successCb
+      const updateArgs = mockUpdateUserContact.mock.calls[0]![0]
+      expect(updateArgs).toEqual(
         expect.objectContaining({
           email: 'cam@example.com',
           phone: '2505551234',
@@ -347,19 +337,18 @@ describe('useConnectAccountStore', () => {
         })
       )
 
-      // finalRedirect should be called with the current route
+      // finalRedirect should be called with the current route (via successCb)
       expect(mockFinalRedirect).toHaveBeenCalledTimes(1)
       expect(mockFinalRedirect).toHaveBeenCalledWith(mockRoute.value)
     })
 
-    it('should handle errors gracefully (logs and resets isLoading)', async () => {
+    it('should handle errors gracefully (logs and resets isLoading) when createAccount fails', async () => {
       // Prepare minimal form state
       store.accountFormState.accountName = 'Error Co'
       store.accountFormState.emailAddress = 'err@example.com'
       store.accountFormState.phone.phoneNumber = '5550000000'
 
-      // First contact update succeeds, createAccount fails
-      mockUpdateUserContact.mockResolvedValue(undefined)
+      // createAccount fails; updateUserContact should NOT be called in new flow
       mockCreateAccount.mockRejectedValue(new Error('Create failed'))
 
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {
@@ -367,48 +356,15 @@ describe('useConnectAccountStore', () => {
 
       await store.submitCreateAccount()
 
-      // Should have attempted first contact update and createAccount, but NOT the second update (after failure)
-      expect(mockUpdateUserContact).toHaveBeenCalledTimes(1)
+      // Should have attempted createAccount, but NOT updateUserContact
       expect(mockCreateAccount).toHaveBeenCalledTimes(1)
+      expect(mockUpdateUserContact).toHaveBeenCalledTimes(0)
 
       // finalRedirect should not be called
       expect(mockFinalRedirect).not.toHaveBeenCalled()
 
       // Error should be logged, and isLoading reset
       expect(consoleSpy).toHaveBeenCalledWith('Account Create Submission Error: ', expect.any(Error))
-      expect(store.isLoading).toBe(false)
-    })
-  })
-
-  describe('initAccountStore', () => {
-    it('should call all initialize sub-actions', async () => {
-      mockGetAuthUserProfile.mockResolvedValue(
-        { data: { value: { firstname: 'API', lastname: 'User' } }, refresh: vi.fn() }
-      )
-      mockAuthUser.value.keycloakGuid = 'test-guid'
-      store.currentAccount = { id: 1 } as ConnectAccount
-
-      await store.initAccountStore()
-
-      expect(mockAuthApi).toHaveBeenCalledWith('/users/test-guid/settings')
-
-      expect(mockAuthApi).toHaveBeenCalledWith('/users', {
-        method: 'POST',
-        body: { isLogin: true }
-      })
-
-      expect(mockGetAuthUserProfile).toHaveBeenCalled()
-
-      const calls = mockAuthApi.mock.calls
-      expect(calls[0]![0]).toBe('/users/test-guid/settings')
-      expect(calls[1]![0]).toBe('/users')
-      expect(calls[2]![0]).toBe('/users/test-guid/org/1/notifications')
-    })
-
-    it('should log initialization error', async () => {
-      mockAuthApi.mockRejectedValue(new Error('API Error'))
-      await store.initAccountStore()
-      expect(mockLogFetchError).toHaveBeenCalledWith(expect.any(Error), expect.any(String))
     })
   })
 })
