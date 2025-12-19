@@ -128,7 +128,7 @@ describe('useConnectAccountStore', () => {
 
   describe('Computed properties', () => {
     it('hasRoles should return true if account or user has the role', () => {
-      store.currentAccount = mockAccounts[0] as any
+      store.currentAccount = mockAccounts[0]
       mockAuthUser.value = { roles: ['viewer'] } as ConnectAuthUser
       expect(store.hasRoles(['PREMIUM'])).toBe(true)
       expect(store.hasRoles(['viewer'])).toBe(true)
@@ -136,13 +136,13 @@ describe('useConnectAccountStore', () => {
     })
 
     it('isCurrentAccount should return true for the active account ID', () => {
-      store.currentAccount = mockAccounts[0] as any
+      store.currentAccount = mockAccounts[0]
       expect(store.isCurrentAccount(1)).toBe(true)
       expect(store.isCurrentAccount(2)).toBe(false)
     })
 
     it('currentAccountName should return the label of the current account', () => {
-      store.currentAccount = mockAccounts[0] as any
+      store.currentAccount = mockAccounts[0]
       expect(store.currentAccountName).toEqual('Account 1')
     })
   })
@@ -244,16 +244,16 @@ describe('useConnectAccountStore', () => {
 
   describe('Actions', () => {
     it('switchCurrentAccount should switch the current account', () => {
-      store.userAccounts = mockAccounts as any
-      store.currentAccount = mockAccounts[0] as any
+      store.userAccounts = mockAccounts
+      store.currentAccount = mockAccounts[0]
       expect(store.currentAccount.label).toEqual('Account 1')
       store.switchCurrentAccount(3)
       expect(store.currentAccount.label).toEqual('Account 3')
     })
 
     it('$reset should clear all store state', () => {
-      store.userAccounts = mockAccounts as any
-      store.currentAccount = mockAccounts[0] as any
+      store.userAccounts = mockAccounts
+      store.currentAccount = mockAccounts[0]
       store.pendingApprovalCount = 5
       store.$reset()
       expect(store.currentAccount).toEqual({})
@@ -266,7 +266,7 @@ describe('useConnectAccountStore', () => {
   describe('submitCreateAccount', () => {
     beforeEach(() => {
       // mock updateUserContact to invoke the successCb when present
-      mockUpdateUserContact.mockImplementation(async (payload: any) => {
+      mockUpdateUserContact.mockImplementation(async (payload) => {
         if (payload && typeof payload.successCb === 'function') {
           await payload.successCb()
         }
