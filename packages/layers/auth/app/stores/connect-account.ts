@@ -85,13 +85,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
       isLoading.value = true
       const payload = createAccountPayload()
 
-      // Update Contact Info after account creation
-      await updateUserContact({
-        email: accountFormState.emailAddress,
-        phone: accountFormState.phone.phoneNumber,
-        phoneExtension: accountFormState.phone.ext
-      })
-
       // Create Account
       await createAccount({ payload })
 
