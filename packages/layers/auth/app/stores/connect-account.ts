@@ -79,7 +79,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-  /** Submit create account request */
+  /** Submit create account and user contact update requests */
   async function submitCreateAccount(): Promise<void> {
     try {
       isLoading.value = true
