@@ -59,8 +59,8 @@ export const useAuthApi = () => {
   })
 
   /**
-   * Creates an account by POSTing the given payload to `/orgs`.
-   * @returns Object containing mutation state and `createAccount` function.
+   * Updates a users contact by PUTing the given payload to `/users/contacts`.
+   * @returns Object containing mutation state and `updateUserContact` function.
    */
   const useUpdateUserContact = defineMutation(() => {
     const { mutateAsync, ...mutation } = useMutation({
