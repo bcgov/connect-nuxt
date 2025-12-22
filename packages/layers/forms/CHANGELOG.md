@@ -1,5 +1,18 @@
 # @sbc-connect/nuxt-forms
 
+## 0.3.0
+
+### Minor Changes
+
+- [#108](https://github.com/bcgov/connect-nuxt/pull/108) [`8571754`](https://github.com/bcgov/connect-nuxt/commit/8571754160242c3233838fc039fd1a01ff9d7a82) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Implements account creation in Auth and Country Code/Country Flag components in Forms
+
+### Patch Changes
+
+- [#115](https://github.com/bcgov/connect-nuxt/pull/115) [`dd17349`](https://github.com/bcgov/connect-nuxt/commit/dd173497255f35415b468e17f7192722f604d3c8) Thanks [@deetz99](https://github.com/deetz99)! - Relax postal code mask, different validation message for incorrect format vs invalid postal code
+
+- Updated dependencies [[`d9d6356`](https://github.com/bcgov/connect-nuxt/commit/d9d63560e27117c43b9e8e54d363c3fdbb620049)]:
+  - @sbc-connect/nuxt-base@0.5.0
+
 ## 0.2.1
 
 ### Patch Changes

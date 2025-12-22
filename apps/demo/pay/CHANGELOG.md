@@ -1,5 +1,12 @@
 # nuxt-pay-demo-app
 
+## 0.1.35
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sbc-connect/nuxt-pay@0.1.35
+
 ## 0.1.34
 
 ### Patch Changes

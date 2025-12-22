@@ -1,5 +1,12 @@
 # @sbc-connect/nuxt-pay
 
+## 0.1.35
+
+### Patch Changes
+
+- Updated dependencies [[`8571754`](https://github.com/bcgov/connect-nuxt/commit/8571754160242c3233838fc039fd1a01ff9d7a82)]:
+  - @sbc-connect/nuxt-auth@0.3.0
+
 ## 0.1.34
 
 ### Patch Changes

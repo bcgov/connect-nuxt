@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.5.0
+
+### Minor Changes
+
+- [#111](https://github.com/bcgov/connect-nuxt/pull/111) [`d9d6356`](https://github.com/bcgov/connect-nuxt/commit/d9d63560e27117c43b9e8e54d363c3fdbb620049) Thanks [@hfekete](https://github.com/hfekete)! - Remove broken 'Release Notes' link from footer and related translations
+
 ## 0.4.0
 
 ### Minor Changes
