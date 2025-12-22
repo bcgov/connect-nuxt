@@ -5,6 +5,7 @@ import { z } from 'zod'
  * Ref: https://en.wikipedia.org/wiki/Postal_codes_in_Canada
  */
 const CanadaPostalCodeRegex = /^[ABCEGHJ-NPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z][ ]?[0-9][ABCEGHJ-NPRSTV-Z][0-9]$/i
+const CanadaPostalCodeFormatOnlyRegex = /^[A-Z][0-9][A-Z][ ]?[0-9][A-Z][0-9]$/i
 
 /**
  * US ZIP code regex (eg, accepts 12345 or 12345-6789).
@@ -78,10 +79,16 @@ export function getRequiredAddressSchema() {
     }
 
     if (country === 'CA') {
-      if (!CanadaPostalCodeRegex.test(postalCode)) {
+      if (!CanadaPostalCodeFormatOnlyRegex.test(postalCode)) {
         ctx.addIssue({
           code: 'custom',
           message: t('connect.validation.invalidPostalCodeFormat'),
+          path: ['postalCode']
+        })
+      } else if (!CanadaPostalCodeRegex.test(postalCode)) {
+        ctx.addIssue({
+          code: 'custom',
+          message: t('connect.validation.invalidPostalCode'),
           path: ['postalCode']
         })
       }

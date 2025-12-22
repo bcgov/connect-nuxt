@@ -73,8 +73,9 @@ describe('zod schemas - address validation', () => {
     })
 
     describe('Postal Code Format', () => {
-      const invalidPostalCodeMessage = 'Invalid Postal Code format (e.g., 1X1 X1X)'
-      const invalidZipMessage = 'Invalid ZIP Code format (e.g., 12345 or 12345-6789)'
+      const invalidPostalCodeFormatMessage = 'Format must be A1A 1A1'
+      const invalidPostalCodeMessage = 'Enter a valid postal code'
+      const invalidZipMessage = 'Format must be 12345 or 12345-6789'
 
       it('should pass a valid CA postal code (with space)', () => {
         const caAddress = { ...validAddress, postalCode: 'T2R 1E8', country: 'CA', region: 'AB' }
@@ -104,7 +105,7 @@ describe('zod schemas - address validation', () => {
 
         expect(result.success).toBe(false)
         const error = result.error!.issues.find(i => i.path[0] === 'postalCode')
-        expect(error!.message).toBe(invalidPostalCodeMessage)
+        expect(error!.message).toBe(invalidPostalCodeFormatMessage)
       })
 
       it('should fail if postal code is missing for CA', () => {

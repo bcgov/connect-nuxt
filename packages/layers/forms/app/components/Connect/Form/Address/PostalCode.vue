@@ -30,7 +30,7 @@ const model = defineModel<string | undefined>({
       : $t('connect.label.postalCode')
     "
     :mask="country === 'CA'
-      ? '@#@ #@#'
+      ? '*** ***'
       : country === 'US'
         ? '#####-####'
         : undefined"

@@ -40,8 +40,9 @@ export default {
       maxChars: 'Maximum 0 characters | Maximum 1 character | Maximum {count} characters', // 0/1 most likely will never be used but required for pluralization
       minChars: 'Minimum 0 characters | Minimum 1 character | Minimum {count} characters', // 0/1 most likely will never be used but required for pluralization
       required: 'Required',
-      invalidPostalCodeFormat: 'Invalid Postal Code format (e.g., 1X1 X1X)',
-      invalidZipCodeFormat: 'Invalid ZIP Code format (e.g., 12345 or 12345-6789)'
+      invalidPostalCode: 'Enter a valid postal code',
+      invalidPostalCodeFormat: 'Format must be A1A 1A1',
+      invalidZipCodeFormat: 'Format must be 12345 or 12345-6789'
     }
   }
 }
