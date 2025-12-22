@@ -93,7 +93,7 @@ const toggleCreateNewAccount = () => {
       <UButton
         variant="outline"
         :label="$t('connect.label.back')"
-        :loading="isLoading"
+        :disabled="isLoading"
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"

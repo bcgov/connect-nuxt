@@ -82,6 +82,18 @@ export default {
       notifications: {
         none: 'No Notifications',
         teamMemberApproval: '{count} team member requires approval to access this account. | {count} team members require approval to access this account.'
+      },
+      patchTosError: {
+        title: 'Terms of Use Update Error',
+        description: 'Unable to update Terms of Use at this time. Please try again later.'
+      },
+      accountCreationError: {
+        title: 'Account Creation Error',
+        description: 'Unable to create your account at this time. Please try again later.'
+      },
+      userContactUpdateError: {
+        title: 'User Contact Update Error',
+        description: 'Unable to update your contact information at this time. Please try again later.'
       }
     },
     validation: {

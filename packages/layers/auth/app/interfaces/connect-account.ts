@@ -10,14 +10,14 @@ export interface ConnectAccount {
 }
 
 export interface ConnectCreateAccount {
-  accessType: AccessType
+  accessType: ConnectAccessType
   isBusinessAccount: boolean
-  mailingAddress: AccountMailingAddress
+  mailingAddress: ConnectAddress
   name: string
   paymentInfo: {
-    paymentMethod: PaymentMethod
+    paymentMethod: ConnectPaymentMethod
   }
   productSubscriptions: Array<{
-    productCode: ProductCode
+    productCode: ConnectProductCode
   }>
 }

@@ -263,15 +263,25 @@ describe('useConnectAccountStore', () => {
   })
 
   //  Tests for submitCreateAccount flow (updated for single updateUserContact after createAccount)
+
   describe('submitCreateAccount', () => {
     beforeEach(() => {
-      // mock updateUserContact to invoke the successCb when present
-      mockUpdateUserContact.mockImplementation(async (payload) => {
+      // mock updateUserContact to invoke its own successCb (the inner one) when present
+      mockUpdateUserContact.mockImplementation(async (payload: any) => {
         if (payload && typeof payload.successCb === 'function') {
           await payload.successCb()
         }
       })
-      mockCreateAccount.mockResolvedValue(undefined)
+
+      // invoke createAccount's successCb so the store calls updateUserContact
+      mockCreateAccount.mockImplementation(async (args: any) => {
+        if (args?.successCb) {
+          await args.successCb()
+        }
+        // return anything your implementation expects (usually void/undefined)
+        return undefined
+      })
+
       mockFinalRedirect.mockResolvedValue(undefined)
       mockRoute.value.path = '/'
     })
@@ -320,7 +330,9 @@ describe('useConnectAccountStore', () => {
               paymentMethod: expect.anything()
             }),
             productSubscriptions: expect.arrayContaining([expect.objectContaining({})])
-          })
+          }),
+          // The store passes successCb to createAccount
+          successCb: expect.any(Function)
         })
       )
 
@@ -331,11 +343,12 @@ describe('useConnectAccountStore', () => {
           email: 'cam@example.com',
           phone: '2505551234',
           phoneExtension: '123',
-          successCb: expect.any(Function)
+          successCb: expect.any(Function),
+          errorCb: expect.any(Function) // the store passes both
         })
       )
 
-      // finalRedirect should be called with the current route (via successCb)
+      // finalRedirect should be called with the current route (via inner successCb)
       expect(mockFinalRedirect).toHaveBeenCalledTimes(1)
       expect(mockFinalRedirect).toHaveBeenCalledWith(mockRoute.value)
     })
@@ -349,8 +362,7 @@ describe('useConnectAccountStore', () => {
       // createAccount fails; updateUserContact should NOT be called in new flow
       mockCreateAccount.mockRejectedValue(new Error('Create failed'))
 
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {
-      })
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
       await store.submitCreateAccount()
 
@@ -363,6 +375,7 @@ describe('useConnectAccountStore', () => {
 
       // Error should be logged, and isLoading reset
       expect(consoleSpy).toHaveBeenCalledWith('Account Create Submission Error: ', expect.any(Error))
+      expect(store.isLoading).toBe(false)
     })
   })
 })

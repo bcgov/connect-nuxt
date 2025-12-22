@@ -9,7 +9,7 @@ mockNuxtImport('useNuxtApp', () => {
 })
 
 const mockOpenErrorModal = vi.fn()
-mockNuxtImport('useConnectTosModals', () => {
+mockNuxtImport('useConnectAuthModals', () => {
   return () => ({
     openPatchTosErrorModal: mockOpenErrorModal
   })

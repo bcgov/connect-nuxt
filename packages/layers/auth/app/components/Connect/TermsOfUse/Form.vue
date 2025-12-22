@@ -3,7 +3,7 @@ import { z } from 'zod'
 import type { FormErrorEvent, Form } from '@nuxt/ui'
 
 const { t } = useI18n()
-const { openDeclineTosModal } = useConnectTosModals()
+const { openDeclineTosModal } = useConnectAuthModals()
 
 const props = defineProps<{
   hasReachedBottom: boolean

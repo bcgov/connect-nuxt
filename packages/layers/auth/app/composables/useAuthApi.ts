@@ -43,9 +43,10 @@ export const useAuthApi = () => {
       onError: (error) => {
         // TODO: FUTURE - add api error message to modal content - remove console.error
         console.error('ERROR: ', error)
-        useConnectTosModals().openCreateAccountModal()
+        useConnectAuthModals().openCreateAccountModal()
       },
       onSuccess: async (_, _vars) => {
+        await queryCache.invalidateQueries({ key: ['auth-user-profile'], exact: true })
         if (_vars.successCb) {
           await _vars.successCb()
         }
@@ -69,6 +70,7 @@ export const useAuthApi = () => {
         phone: string
         phoneExtension: string | undefined
         successCb?: () => Promise<unknown>
+        errorCb?: (error: unknown) => Promise<unknown>
       }) => {
         return $authApi<ConnectAuthProfile>('/users/contacts', {
           method: 'PUT',
@@ -79,10 +81,15 @@ export const useAuthApi = () => {
           }
         })
       },
-      onError: (error) => {
+      onError: async (error, _vars) => {
         // TODO: FUTURE - add api error message to modal content - remove console.error
         console.error('ERROR: ', error)
-        useConnectTosModals().openUpdateUserContactModal()
+        await useConnectAuthModals().openUpdateUserContactModal()
+
+        if (_vars.errorCb) {
+          await queryCache.invalidateQueries({ key: ['auth-user-profile'], exact: true })
+          await _vars.errorCb(error)
+        }
       },
       onSuccess: async (_, _vars) => {
         if (_vars.successCb) {
@@ -120,7 +127,7 @@ export const useAuthApi = () => {
       onError: (error) => {
         // TODO: FUTURE - add api error message to modal content - remove console.error
         console.error('ERROR: ', error)
-        useConnectTosModals().openPatchTosErrorModal()
+        useConnectAuthModals().openPatchTosErrorModal()
       },
       onSuccess: async (_, _vars) => {
         await queryCache.invalidateQueries({ key: ['auth-user-profile'], exact: true })

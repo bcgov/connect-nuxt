@@ -63,7 +63,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   /** Map AccountFormState -> CreateAccountPayload */
   function createAccountPayload(): ConnectCreateAccount {
     return {
-      accessType: AccessType.REGULAR,
+      accessType: ConnectAccessType.REGULAR,
       mailingAddress: {
         city: accountFormState.address.city,
         country: accountFormState.address.country,
@@ -74,8 +74,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         deliveryInstructions: accountFormState.address.locationDescription || ''
       },
       name: accountFormState.accountName,
-      paymentInfo: { paymentMethod: PaymentMethod.DIRECT_PAY },
-      productSubscriptions: [{ productCode: ProductCode.BUSINESS }]
+      paymentInfo: { paymentMethod: ConnectPaymentMethod.DIRECT_PAY },
+      productSubscriptions: [{ productCode: ConnectProductCode.BUSINESS }]
     }
   }
 
@@ -83,17 +83,18 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   async function submitCreateAccount(): Promise<void> {
     try {
       isLoading.value = true
-
       // Create Account
       const payload = createAccountPayload()
-      await createAccount({ payload })
-
-      // Update User Contact Info
-      await updateUserContact({
-        email: accountFormState.emailAddress,
-        phone: accountFormState.phone.phoneNumber,
-        phoneExtension: accountFormState.phone.ext,
-        successCb: async () => await finalRedirect(useRoute())
+      await createAccount({
+        payload,
+        // Update User Contact Info on create account success
+        successCb: async () => await updateUserContact({
+          email: accountFormState.emailAddress,
+          phone: accountFormState.phone.phoneNumber,
+          phoneExtension: accountFormState.phone.ext,
+          successCb: async () => await finalRedirect(useRoute()),
+          errorCb: async () => await finalRedirect(useRoute())
+        })
       })
     } catch (error) {
       // Error handled in useAuthApi

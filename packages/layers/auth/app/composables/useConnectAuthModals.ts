@@ -1,4 +1,4 @@
-export const useConnectTosModals = () => {
+export const useConnectAuthModals = () => {
   const { baseModal } = useConnectModal()
   const { logout } = useConnectAuth()
   const t = useNuxtApp().$i18n.t
@@ -25,8 +25,8 @@ export const useConnectTosModals = () => {
   // TODO: better error text
   function openPatchTosErrorModal() {
     baseModal.open({
-      title: "Can't update TOS at this time",
-      description: 'Please try again later',
+      title: `${t('connect.text.patchTosError.title')}`,
+      description: t('connect.text.patchTosError.description'),
       dismissible: true,
       buttons: [
         {
@@ -41,8 +41,8 @@ export const useConnectTosModals = () => {
 
   function openCreateAccountModal() {
     baseModal.open({
-      title: 'Account Creation Error',
-      description: 'Please try again later',
+      title: `${t('connect.text.accountCreationError.title')}`,
+      description: t('connect.text.accountCreationError.description'),
       dismissible: true,
       buttons: [
         {
@@ -55,8 +55,8 @@ export const useConnectTosModals = () => {
 
   function openUpdateUserContactModal() {
     baseModal.open({
-      title: 'User Contact Update Error',
-      description: 'Please try again later',
+      title: `${t('connect.text.userContactUpdateError.title')}`,
+      description: t('connect.text.userContactUpdateError.description'),
       dismissible: true,
       buttons: [
         {
