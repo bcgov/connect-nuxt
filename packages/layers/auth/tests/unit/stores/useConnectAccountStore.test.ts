@@ -267,14 +267,14 @@ describe('useConnectAccountStore', () => {
   describe('submitCreateAccount', () => {
     beforeEach(() => {
       // mock updateUserContact to invoke its own successCb (the inner one) when present
-      mockUpdateUserContact.mockImplementation(async (payload: any) => {
+      mockUpdateUserContact.mockImplementation(async (payload) => {
         if (payload && typeof payload.successCb === 'function') {
           await payload.successCb()
         }
       })
 
       // invoke createAccount's successCb so the store calls updateUserContact
-      mockCreateAccount.mockImplementation(async (args: any) => {
+      mockCreateAccount.mockImplementation(async (args) => {
         if (args?.successCb) {
           await args.successCb()
         }
