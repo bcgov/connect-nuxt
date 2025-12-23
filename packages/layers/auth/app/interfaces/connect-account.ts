@@ -12,7 +12,7 @@ export interface ConnectAccount {
 export interface ConnectCreateAccount {
   accessType: ConnectAccessType
   isBusinessAccount: boolean
-  mailingAddress: ConnectAddress
+  mailingAddress: ConnectAccountAddress
   name: string
   paymentInfo: {
     paymentMethod: ConnectPaymentMethod
