@@ -25,7 +25,7 @@
   - [ ] **Accessibility:** Verified WCAG compliance (ARIA labels, keyboard navigation, and focus management).
 - **Documentation & Examples**
   - [ ] I have updated the relevant documentation (or created new documentation).
-  - [ ] I have added examples into the projects .playground directory.
+  - [ ] I have updated the relevant examples (or created new examples) in the `.playground` directory for new components, composables, pages, etc.
 </details>
 
 ---
