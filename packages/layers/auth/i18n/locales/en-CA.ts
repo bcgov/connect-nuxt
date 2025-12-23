@@ -82,10 +82,24 @@ export default {
       notifications: {
         none: 'No Notifications',
         teamMemberApproval: '{count} team member requires approval to access this account. | {count} team members require approval to access this account.'
+      },
+      patchTosError: {
+        title: 'Terms of Use Update Error',
+        description: 'Unable to update Terms of Use at this time. Please try again later.'
+      },
+      accountCreationError: {
+        title: 'Account Creation Error',
+        description: 'Unable to create your account at this time. Please try again later.'
+      },
+      userContactUpdateError: {
+        title: 'User Contact Update Error',
+        description: 'Unable to update your contact information at this time. Please try again later.'
       }
     },
     validation: {
       acceptTermsOfUse: 'Please accept the Terms of Use.',
+      duplicateAccountName: 'An account with this name already exists.',
+      requestError: 'Request error, please try again.',
       termsOfUseScrollToBottom: 'Please scroll to the bottom of the page to accept the Terms of Use.',
       phoneNumberFormat: 'Phone must be in the format (123) 123-1231',
       phoneExtFormat: 'Extension must be digits only',

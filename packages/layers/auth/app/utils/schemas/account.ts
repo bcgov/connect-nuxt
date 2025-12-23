@@ -1,6 +1,30 @@
 import { z } from 'zod'
 import { getRequiredAddressSchema } from '#forms/app/utils'
 
+export function getAccountNameSchema(status?: number | undefined) {
+  const t = useNuxtApp().$i18n.t
+
+  return z.string().min(1, t('connect.validation.requiredAccountName'))
+    .superRefine((val, ctx) => {
+      // Only run if we have a value and a statusCode
+      if (val && status !== undefined) {
+        if (status === 200) {
+          ctx.addIssue({
+            code: 'custom',
+            message: t('connect.validation.duplicateAccountName')
+          })
+        }
+        if (status === 500) {
+          ctx.addIssue({
+            code: 'custom',
+            message: t('connect.validation.requestError')
+          })
+        }
+      // 204 (No Content) => valid -> no issue
+      }
+    })
+}
+
 /**
  * Phone schema: country dialing code + local phone + optional extension.
  * - countryCode: E.164 dialing code (e.g., "+1", "+44").
@@ -27,9 +51,7 @@ export function getPhoneSchema() {
  * Account create schema — single address + name + email + phone
  * Mirrors your .default(...) pattern.
  */
-export function getAccountCreateSchema() {
-  const t = useNuxtApp().$i18n.t
-
+export function getAccountCreateSchema(status: number | undefined = undefined) {
   return z.object({
     address: getRequiredAddressSchema().default({
       street: '',
@@ -40,7 +62,7 @@ export function getAccountCreateSchema() {
       country: 'CA',
       locationDescription: ''
     }),
-    accountName: z.string().min(1, t('connect.validation.requiredAccountName')).default(''),
+    accountName: getAccountNameSchema(status).default(''),
     emailAddress: z.string().email().default(''),
     phone: getPhoneSchema().default({
       countryIso2: 'CA',

@@ -1,11 +1,14 @@
 import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
 import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
+import type { ConnectCreateAccount } from '#auth/app/interfaces/connect-account'
 
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
-  const authApi = useAuthApi()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
+  const { useCreateAccount, useUpdateUserContact, getAuthUserProfile } = useAuthApi()
+  const { finalRedirect } = useConnectAccountFlowRedirect()
+
   // selected user account
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
@@ -15,9 +18,13 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const userFirstName = ref<string>(user.value?.firstName || '-')
   const userLastName = ref<string>(user.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
+
+  // Create account
+  const isLoading = ref<boolean>(false)
+  const { createAccount } = useCreateAccount()
+  const { updateUserContact } = useUpdateUserContact()
   const createAccountProfileSchema = getAccountCreateSchema()
   const accountFormState = reactive<AccountProfileSchema>(createAccountProfileSchema.parse({}))
-
   /**
    * Checks if the current account or the Keycloak user has any of the specified roles.
    *
@@ -53,9 +60,53 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     })
   }
 
+  /** Map AccountFormState -> CreateAccountPayload */
+  function createAccountPayload(): ConnectCreateAccount {
+    return {
+      accessType: ConnectAccessType.REGULAR,
+      mailingAddress: {
+        city: accountFormState.address.city,
+        country: accountFormState.address.country,
+        region: accountFormState.address.region,
+        postalCode: accountFormState.address.postalCode,
+        street: accountFormState.address.street,
+        streetAdditional: accountFormState.address.streetAdditional || '',
+        deliveryInstructions: accountFormState.address.locationDescription || ''
+      },
+      name: accountFormState.accountName,
+      paymentInfo: { paymentMethod: ConnectPaymentMethod.DIRECT_PAY },
+      productSubscriptions: [{ productCode: ConnectProductCode.BUSINESS }]
+    }
+  }
+
+  /** Submit create account and user contact update requests */
+  async function submitCreateAccount(): Promise<void> {
+    try {
+      isLoading.value = true
+      // Create Account
+      const payload = createAccountPayload()
+      await createAccount({
+        payload,
+        // Update User Contact Info on create account success
+        successCb: async () => await updateUserContact({
+          email: accountFormState.emailAddress,
+          phone: accountFormState.phone.phoneNumber,
+          phoneExtension: accountFormState.phone.ext,
+          successCb: async () => await finalRedirect(useRoute()),
+          errorCb: async () => await finalRedirect(useRoute())
+        })
+      })
+    } catch (error) {
+      // Error handled in useAuthApi
+      console.error('Account Create Submission Error: ', error)
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   /** Set user name information */
   async function setUserName() {
-    const { data, refresh } = await authApi.getAuthUserProfile()
+    const { data, refresh } = await getAuthUserProfile()
     await refresh()
     if (data.value?.firstname && data.value?.lastname) {
       userFirstName.value = data.value.firstname
@@ -172,21 +223,23 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   return {
     accountFormState,
+    checkAccountStatus,
     clearAccountState,
+    submitCreateAccount,
+    isLoading,
     currentAccount,
     currentAccountName,
-    userAccounts,
-    pendingApprovalCount,
-    userFullName,
-    checkAccountStatus,
-    setUserName,
-    hasRoles,
-    isCurrentAccount,
-    setAccountInfo,
-    getUserAccounts,
-    switchCurrentAccount,
     getPendingApprovalCount,
+    getUserAccounts,
+    hasRoles,
     initAccountStore,
+    isCurrentAccount,
+    pendingApprovalCount,
+    setAccountInfo,
+    setUserName,
+    switchCurrentAccount,
+    userAccounts,
+    userFullName,
     $reset
   }
 },

@@ -3,9 +3,10 @@ import type { Form, FormError } from '@nuxt/ui'
 import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
 import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
 
-const { accountFormState, userFullName } = useConnectAccountStore()
-const accountProfileSchema = getAccountCreateSchema()
+const statusCode = ref<number | undefined>(undefined)
 
+const { accountFormState, submitCreateAccount, userFullName } = useConnectAccountStore()
+const accountProfileSchema = computed(() => getAccountCreateSchema(statusCode.value))
 const formRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form')
 
 const formErrors = computed<{
@@ -44,6 +45,7 @@ async function validate() {
       :schema="accountProfileSchema"
       :state="accountFormState"
       @error="onFormSubmitError"
+      @submit="submitCreateAccount()"
     >
       <!-- Legal Name -->
       <ConnectFormFieldWrapper
@@ -61,20 +63,10 @@ async function validate() {
       <USeparator orientation="horizontal" class="my-8" />
 
       <!-- Account Name -->
-      <ConnectFormFieldWrapper
-        class="pt-2 my-6"
-        :label="$t('connect.page.createAccount.accountNameLabel')"
-        orientation="horizontal"
+      <ConnectAccountCreateName
+        v-model:status-code="statusCode"
         :error="formErrors.accountName"
-      >
-        <ConnectFormInput
-          v-model="accountFormState.accountName"
-          name="accountName"
-          input-id="account-name-input"
-          :label="$t('connect.page.createAccount.accountNameLabel')"
-          :help="$t('connect.page.createAccount.accountNameHelp')"
-        />
-      </ConnectFormFieldWrapper>
+      />
 
       <!-- Account Email -->
       <ConnectFormFieldWrapper
@@ -98,16 +90,18 @@ async function validate() {
         :error="formErrors.phone"
       >
         <div class="flex flex-row gap-2">
-          <ConnectFormPhoneCountryCode
-            v-model:country-calling-code="accountFormState.phone.countryCode"
-            v-model:country-iso2="accountFormState.phone.countryIso2"
-            :is-invalid="!accountFormState.phone.countryIso2"
-            class="w-40 mt-[-20px]"
-          />
+          <!-- Disabling country code selection until Auth Model Supports individual property -->
+          <!-- <ConnectFormPhoneCountryCode -->
+          <!-- v-model:country-calling-code="accountFormState.phone.countryCode" -->
+          <!-- v-model:country-iso2="accountFormState.phone.countryIso2" -->
+          <!-- :is-invalid="!accountFormState.phone.countryIso2" -->
+          <!-- class="w-40 mt-[-20px]" -->
+          <!-- /> -->
           <ConnectFormInput
             v-model="accountFormState.phone.phoneNumber"
             name="phone.phoneNumber"
             input-id="phone-number-input"
+            class="flex-2"
             :label="$t('connect.page.createAccount.phonePlaceholder')"
             mask="(###) ###-####"
           />

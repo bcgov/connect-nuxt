@@ -10,6 +10,7 @@ const accountStore = useConnectAccountStore()
 const { authUser } = useConnectAuth()
 const { finalRedirect } = useConnectAccountFlowRedirect()
 const { clearAccountState } = useConnectAccountStore()
+const { isLoading } = storeToRefs(useConnectAccountStore())
 
 const addNew = ref(false)
 const pageTitle = computed(() =>
@@ -92,6 +93,7 @@ const toggleCreateNewAccount = () => {
       <UButton
         variant="outline"
         :label="$t('connect.label.back')"
+        :disabled="isLoading"
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
@@ -99,6 +101,7 @@ const toggleCreateNewAccount = () => {
       />
       <UButton
         :label="$t('connect.label.saveAndContinue')"
+        :loading="isLoading"
         form="account-create-form"
         class="w-full justify-center sm:w-min sm:justify-normal"
         trailing
