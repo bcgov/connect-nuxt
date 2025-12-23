@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.4.0
+
+### Minor Changes
+
+- [#114](https://github.com/bcgov/connect-nuxt/pull/114) [`fe3eef1`](https://github.com/bcgov/connect-nuxt/commit/fe3eef1b39cc5883cc5e8560efe0dd89d04d0455) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Minor styling update, lower level of error styling on FieldSet wrapper
+
 ## 0.3.0
 
 ### Minor Changes
