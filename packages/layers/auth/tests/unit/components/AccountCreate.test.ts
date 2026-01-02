@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { reactive } from 'vue'
@@ -46,7 +47,11 @@ const globalStubs = {
   UForm: {
     name: 'UForm',
     props: ['schema', 'state'],
-    template: '<form data-test="uform"><slot /></form>'
+    template: '<form data-test="uform"><slot /></form>',
+    methods: {
+      getErrors: vi.fn(() => []),
+      validate: vi.fn(async () => ({ valid: true }))
+    }
   },
   ConnectPageSection: {
     name: 'ConnectPageSection',
@@ -95,7 +100,7 @@ describe('ConnectAccountCreate', () => {
         config: {
           globalProperties: {
             $t: (key: string) => key
-          }
+          } as any
         }
       }
     })
