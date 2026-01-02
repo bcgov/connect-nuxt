@@ -8,6 +8,7 @@
   "dependencies": {
     "@nuxt/test-utils": "catalog:",
     "jsdom": "26.0.0",
-    "vitest": "3.2.3"
+    "vitest": "3.2.3",
+    "@testing-library/vue": "8.1.0"
   }
 }

@@ -25,11 +25,11 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "1.2.3",
-    "@nuxt/ui": "4.1.0",
+    "@nuxt/ui": "4.3.0",
     "@nuxtjs/i18n": "10.1.2",
     "@vueuse/core": "14.0.0",
     "@vueuse/nuxt": "14.0.0",
-    "dompurify": "3.3.0",
+    "dompurify": "3.3.1",
     "es-toolkit": "1.41.0",
     "launchdarkly-vue-client-sdk": "2.4.1",
     "luxon": "3.7.2",
