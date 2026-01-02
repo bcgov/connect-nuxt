@@ -36,11 +36,11 @@ importers:
         specifier: ^0.5.1
         version: 0.5.2
       '@changesets/cli':
-        specifier: 2.29.7
-        version: 2.29.7
+        specifier: 2.29.8
+        version: 2.29.8
       pkg-pr-new:
-        specifier: ^0.0.54
-        version: 0.0.54
+        specifier: 0.0.62
+        version: 0.0.62
 
   apps/demo/auth:
     dependencies:
@@ -392,6 +392,18 @@ importers:
 
 packages:
 
+  '@actions/core@1.11.1':
+    resolution: {integrity: sha512-hXJCSrkwfA46Vd9Z3q4cpEpHB1rL5NG04+/rbqW9d3+CSvtB1tYe8UTpAlixa1vj0m/ULglfEK2UKxMGxCxv5A==}
+
+  '@actions/exec@1.1.1':
+    resolution: {integrity: sha512-+sCcHHbVdk93a0XT19ECtO/gIXoxvdsgQLzb2fE2/5sIZmWQuluYyjPQtrtTHdU1YzTZ7bAPN4sITq2xi1679w==}
+
+  '@actions/http-client@2.2.3':
+    resolution: {integrity: sha512-mx8hyJi/hjFvbPokCg4uRd4ZX78t+YyRPtnKWwIl+RzNaVuFpQHfmlGVfsKEJN8LwTCvL+DfVgAM04XaHkm6bA==}
+
+  '@actions/io@1.1.3':
+    resolution: {integrity: sha512-wi9JjgKLYS7U/z8PPbco+PvTb/nRWjeoFlJ1Qer83k/3C5PHQi28hiVdeE2kHXmIL99mQFawx8qt/JPjZilJ8Q==}
+
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
@@ -572,8 +584,8 @@ packages:
   '@changesets/changelog-github@0.5.2':
     resolution: {integrity: sha512-HeGeDl8HaIGj9fQHo/tv5XKQ2SNEi9+9yl1Bss1jttPqeiASRXhfi0A2wv8yFKCp07kR1gpOI5ge6+CWNm1jPw==}
 
-  '@changesets/cli@2.29.7':
-    resolution: {integrity: sha512-R7RqWoaksyyKXbKXBTbT4REdy22yH81mcFK6sWtqSanxUCbUi9Uf+6aqxZtDQouIqPdem2W56CdxXgsxdq7FLQ==}
+  '@changesets/cli@2.29.8':
+    resolution: {integrity: sha512-1weuGZpP63YWUYjay/E84qqwcnt5yJMM0tep10Up7Q5cS/DGe2IZ0Uj3HNMxGhCINZuR7aO9WBMdKnPit5ZDPA==}
     hasBin: true
 
   '@changesets/config@3.1.2':
@@ -1058,6 +1070,10 @@ packages:
   '@eslint/plugin-kit@0.3.5':
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fastify/busboy@2.1.1':
+    resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
+    engines: {node: '>=14'}
 
   '@floating-ui/core@1.7.3':
     resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
@@ -5264,8 +5280,8 @@ packages:
       typescript:
         optional: true
 
-  pkg-pr-new@0.0.54:
-    resolution: {integrity: sha512-NkmmZbe3HrElqWcgvbwTuVm7wzHN+vpz1NFhBNcAKT33Co8YE95IiA/Vq7E+cka6z+qybI2pVYVidT5dhW+jMQ==}
+  pkg-pr-new@0.0.62:
+    resolution: {integrity: sha512-K2jtf1PLCJJFDimQIpasPXDdnRTZSYPy36Ldz+QhMpLz2YN1Wi0ZQkomVt5Wi3NdBZcYuYGXekyFWfJ6fAHYjg==}
     hasBin: true
 
   pkg-types@1.3.1:
@@ -6100,6 +6116,10 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  tunnel@0.0.6:
+    resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
+    engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
+
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -6134,6 +6154,10 @@ packages:
 
   unctx@2.5.0:
     resolution: {integrity: sha512-p+Rz9x0R7X+CYDkT+Xg8/GhpcShTlU8n+cf9OtOEf7zEQsNcCZO1dPKNRDqvUTaq+P32PMMkxWHwfrxkqfqAYg==}
+
+  undici@5.29.0:
+    resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==}
+    engines: {node: '>=14.0'}
 
   undici@6.22.0:
     resolution: {integrity: sha512-hU/10obOIu62MGYjdskASR3CUAiYaFTtC9Pa6vHyf//mAipSvSQg6od2CnJswq7fvzNS3zJhxoRkgNVaHurWKw==}
@@ -6748,6 +6772,22 @@ packages:
 
 snapshots:
 
+  '@actions/core@1.11.1':
+    dependencies:
+      '@actions/exec': 1.1.1
+      '@actions/http-client': 2.2.3
+
+  '@actions/exec@1.1.1':
+    dependencies:
+      '@actions/io': 1.1.3
+
+  '@actions/http-client@2.2.3':
+    dependencies:
+      tunnel: 0.0.6
+      undici: 5.29.0
+
+  '@actions/io@1.1.3': {}
+
   '@alloc/quick-lru@5.2.0': {}
 
   '@ampproject/remapping@2.3.0':
@@ -6995,7 +7035,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@changesets/cli@2.29.7':
+  '@changesets/cli@2.29.8':
     dependencies:
       '@changesets/apply-release-plan': 7.0.14
       '@changesets/assemble-release-plan': 6.0.9
@@ -7419,6 +7459,8 @@ snapshots:
     dependencies:
       '@eslint/core': 0.15.2
       levn: 0.4.1
+
+  '@fastify/busboy@2.1.1': {}
 
   '@floating-ui/core@1.7.3':
     dependencies:
@@ -12717,8 +12759,9 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  pkg-pr-new@0.0.54:
+  pkg-pr-new@0.0.62:
     dependencies:
+      '@actions/core': 1.11.1
       '@jsdevtools/ez-spawn': 3.0.4
       '@octokit/action': 6.1.0
       ignore: 5.3.2
@@ -13607,6 +13650,8 @@ snapshots:
 
   tslib@2.8.1: {}
 
+  tunnel@0.0.6: {}
+
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
@@ -13635,6 +13680,10 @@ snapshots:
       estree-walker: 3.0.3
       magic-string: 0.30.21
       unplugin: 2.3.11
+
+  undici@5.29.0:
+    dependencies:
+      '@fastify/busboy': 2.1.1
 
   undici@6.22.0: {}
 
