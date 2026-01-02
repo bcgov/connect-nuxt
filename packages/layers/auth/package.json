@@ -27,7 +27,6 @@
     "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
-    "@vitest/coverage-v8": "catalog:",
     "dotenv": "catalog:",
     "nuxt": "catalog:",
     "typescript": "catalog:",

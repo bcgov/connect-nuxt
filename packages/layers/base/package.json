@@ -42,7 +42,6 @@
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
     "@types/luxon": "3.7.1",
-    "@vitest/coverage-v8": "catalog:",
     "dotenv": "catalog:",
     "nuxt": "catalog:",
     "typescript": "catalog:",

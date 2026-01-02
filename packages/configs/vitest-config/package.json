@@ -9,6 +9,7 @@
     "@nuxt/test-utils": "catalog:",
     "jsdom": "26.0.0",
     "vitest": "3.2.4",
-    "@testing-library/vue": "8.1.0"
+    "@testing-library/vue": "8.1.0",
+    "@vitest/coverage-v8": "catalog:"
   }
 }

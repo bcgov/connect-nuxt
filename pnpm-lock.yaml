@@ -187,6 +187,9 @@ importers:
       '@testing-library/vue':
         specifier: 8.1.0
         version: 8.1.0(@vue/compiler-sfc@3.5.26)(vue@3.5.26(typescript@5.9.3))
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 3.2.4(vitest@3.2.4(jiti@2.6.1)(jsdom@26.0.0)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
       jsdom:
         specifier: 26.0.0
         version: 26.0.0
@@ -233,9 +236,6 @@ importers:
       '@sbc-connect/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
-      '@vitest/coverage-v8':
-        specifier: 'catalog:'
-        version: 3.2.4(vitest@3.2.4(jiti@2.6.1)(jsdom@26.0.0)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
@@ -300,9 +300,6 @@ importers:
       '@types/luxon':
         specifier: 3.7.1
         version: 3.7.1
-      '@vitest/coverage-v8':
-        specifier: 'catalog:'
-        version: 3.2.4(vitest@3.2.4(jiti@2.6.1)(jsdom@26.0.0)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
@@ -340,9 +337,6 @@ importers:
       '@sbc-connect/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
-      '@vitest/coverage-v8':
-        specifier: 'catalog:'
-        version: 3.2.4(vitest@3.2.4(jiti@2.6.1)(jsdom@26.0.0)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
@@ -374,9 +368,6 @@ importers:
       '@sbc-connect/vitest-config':
         specifier: workspace:*
         version: link:../../configs/vitest-config
-      '@vitest/coverage-v8':
-        specifier: 'catalog:'
-        version: 3.2.4(vitest@3.2.4(jiti@2.6.1)(jsdom@26.0.0)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
