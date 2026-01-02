@@ -7,7 +7,7 @@
   "private": true,
   "dependencies": {
     "@nuxt/test-utils": "catalog:",
-    "@playwright/test": "^1.52.0",
-    "@axe-core/playwright": "^4.10.2"
+    "@playwright/test": "1.52.0",
+    "@axe-core/playwright": "4.10.2"
   }
 }
