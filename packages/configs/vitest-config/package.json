@@ -7,7 +7,7 @@
   "private": true,
   "dependencies": {
     "@nuxt/test-utils": "catalog:",
-    "jsdom": "27.4.0",
+    "jsdom": "26.1.0",
     "vitest": "4.0.16",
     "@testing-library/vue": "8.1.0",
     "@vitest/coverage-v8": "4.0.16"
