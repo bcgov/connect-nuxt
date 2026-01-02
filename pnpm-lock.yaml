@@ -197,14 +197,14 @@ importers:
   packages/layers/auth:
     dependencies:
       '@pinia/colada':
-        specifier: 0.17.9
-        version: 0.17.9(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        specifier: 0.20.0
+        version: 0.20.0(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@pinia/colada-nuxt':
-        specifier: 0.2.4
-        version: 0.2.4(@pinia/colada@0.17.9(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3)))(magicast@0.5.1)
+        specifier: 0.3.0
+        version: 0.3.0(@pinia/colada@0.20.0(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3)))(magicast@0.5.1)
       '@pinia/nuxt':
-        specifier: 0.11.2
-        version: 0.11.2(magicast@0.5.1)(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))
+        specifier: 0.11.3
+        version: 0.11.3(magicast@0.5.1)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))
       '@sbc-connect/nuxt-base':
         specifier: workspace:*
         version: link:../base
@@ -212,14 +212,14 @@ importers:
         specifier: workspace:*
         version: link:../forms
       keycloak-js:
-        specifier: 26.2.1
-        version: 26.2.1
+        specifier: 26.2.2
+        version: 26.2.2
       pinia:
-        specifier: 3.0.3
-        version: 3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
+        specifier: 3.0.4
+        version: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
       pinia-plugin-persistedstate:
-        specifier: 4.5.0
-        version: 4.5.0(@nuxt/kit@4.2.2(magicast@0.5.1))(@pinia/nuxt@0.11.2(magicast@0.5.1)(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))))(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))
+        specifier: 4.7.1
+        version: 4.7.1(@nuxt/kit@4.2.2(magicast@0.5.1))(@pinia/nuxt@0.11.3(magicast@0.5.1)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))
     devDependencies:
       '@axe-core/playwright':
         specifier: 'catalog:'
@@ -2073,21 +2073,21 @@ packages:
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
 
-  '@pinia/colada-nuxt@0.2.4':
-    resolution: {integrity: sha512-gubRVgO8DXmSiAh+HO8gqUmLLFbP9Vcp5UUqSCki+0s4whoGlPhTFMUTP/dTxes55a20jZJfVDKsrpU2k2yUWw==}
+  '@pinia/colada-nuxt@0.3.0':
+    resolution: {integrity: sha512-vf6m8ffclFcgX1sK9w4iPh04RaQnno7qXHToiKDSEn2agnKId05lfotW6z6Dat9Pb0uwY7vCAXqrYhIxUdxrLw==}
     peerDependencies:
-      '@pinia/colada': '>=0.17.7'
+      '@pinia/colada': '>=0.20.0'
 
-  '@pinia/colada@0.17.9':
-    resolution: {integrity: sha512-AW3+816HMFCpwfEBinmPksNoqHW8PxVKR+iQLTg2qo7lvsVOI9M4KqUFefr9ZBIUAMItd7Tx5HO8tdB0aHJ62A==}
+  '@pinia/colada@0.20.0':
+    resolution: {integrity: sha512-IY8ssG7xsVlIq5uvnkQtPMKJ4NHxGeeP04HFKR46DOe58UY07JQFKvbDOj3d+nX/Ki+VAb3TGeHIqQdBWf0eWQ==}
     peerDependencies:
       pinia: ^2.2.6 || ^3.0.0
       vue: ^3.5.17
 
-  '@pinia/nuxt@0.11.2':
-    resolution: {integrity: sha512-CgvSWpbktxxWBV7ModhAcsExsQZqpPq6vMYEe9DexmmY6959ev8ukL4iFhr/qov2Nb9cQAWd7niFDnaWkN+FHg==}
+  '@pinia/nuxt@0.11.3':
+    resolution: {integrity: sha512-7WVNHpWx4qAEzOlnyrRC88kYrwnlR/PrThWT0XI1dSNyUAXu/KBv9oR37uCgYkZroqP5jn8DfzbkNF3BtKvE9w==}
     peerDependencies:
-      pinia: ^3.0.3
+      pinia: ^3.0.4
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -3570,9 +3570,6 @@ packages:
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
-  deep-pick-omit@1.2.1:
-    resolution: {integrity: sha512-2J6Kc/m3irCeqVG42T+SaUMesaK7oGWaedGnQQK/+O0gYc+2SP5bKh/KKTE7d7SJ+GCA9UUE1GRzh6oDe0EnGw==}
-
   deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
@@ -4609,8 +4606,8 @@ packages:
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
 
-  keycloak-js@26.2.1:
-    resolution: {integrity: sha512-bZt6fQj/TLBAmivXSxSlqAJxBx/knNZDQGJIW4ensGYGN4N6tUKV8Zj3Y7/LOV8eIpvWsvqV70fbACihK8Ze0Q==}
+  keycloak-js@26.2.2:
+    resolution: {integrity: sha512-ug7pNZ1xNkd7PPkerOJCEU2VnUhS7CYStDOCFJgqCNQ64h53ppxaKrh4iXH0xM8hFu5b1W6e6lsyYWqBMvaQFg==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -5257,8 +5254,8 @@ packages:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
 
-  pinia-plugin-persistedstate@4.5.0:
-    resolution: {integrity: sha512-QTkP1xJVyCdr2I2p3AKUZM84/e+IS+HktRxKGAIuDzkyaKKV48mQcYkJFVVDuvTxlI5j6X3oZObpqoVB8JnWpw==}
+  pinia-plugin-persistedstate@4.7.1:
+    resolution: {integrity: sha512-WHOqh2esDlR3eAaknPbqXrkkj0D24h8shrDPqysgCFR6ghqP/fpFfJmMPJp0gETHsvrh9YNNg6dQfo2OEtDnIQ==}
     peerDependencies:
       '@nuxt/kit': '>=3.0.0'
       '@pinia/nuxt': '>=0.10.0'
@@ -5271,11 +5268,11 @@ packages:
       pinia:
         optional: true
 
-  pinia@3.0.3:
-    resolution: {integrity: sha512-ttXO/InUULUXkMHpTdp9Fj4hLpD/2AoJdmAbAeW2yu1iy1k+pkFekQXw5VpC0/5p51IOR/jDaDRfRWRnMMsGOA==}
+  pinia@3.0.4:
+    resolution: {integrity: sha512-l7pqLUFTI/+ESXn6k3nu30ZIzW5E2WZF/LaHJEpoq6ElcLD+wduZoB2kBN19du6K/4FDpPMazY2wJr+IndBtQw==}
     peerDependencies:
-      typescript: '>=4.4.4'
-      vue: ^2.7.0 || ^3.5.11
+      typescript: '>=4.5.0'
+      vue: ^3.5.11
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -8965,23 +8962,23 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
 
-  '@pinia/colada-nuxt@0.2.4(@pinia/colada@0.17.9(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3)))(magicast@0.5.1)':
+  '@pinia/colada-nuxt@0.3.0(@pinia/colada@0.20.0(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3)))(magicast@0.5.1)':
     dependencies:
       '@nuxt/kit': 4.2.2(magicast@0.5.1)
-      '@pinia/colada': 0.17.9(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@pinia/colada': 0.20.0(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     transitivePeerDependencies:
       - magicast
 
-  '@pinia/colada@0.17.9(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@pinia/colada@0.20.0(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
       '@vue/devtools-api': 8.0.5
-      pinia: 3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
+      pinia: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
       vue: 3.5.26(typescript@5.9.3)
 
-  '@pinia/nuxt@0.11.2(magicast@0.5.1)(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))':
+  '@pinia/nuxt@0.11.3(magicast@0.5.1)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))':
     dependencies:
-      '@nuxt/kit': 3.20.2(magicast@0.5.1)
-      pinia: 3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
+      '@nuxt/kit': 4.2.2(magicast@0.5.1)
+      pinia: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
     transitivePeerDependencies:
       - magicast
 
@@ -10506,8 +10503,6 @@ snapshots:
 
   deep-is@0.1.4: {}
 
-  deep-pick-omit@1.2.1: {}
-
   deepmerge@4.3.1: {}
 
   default-browser-id@5.0.1: {}
@@ -11640,7 +11635,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  keycloak-js@26.2.1: {}
+  keycloak-js@26.2.2: {}
 
   keyv@4.5.4:
     dependencies:
@@ -12742,17 +12737,15 @@ snapshots:
 
   pify@4.0.1: {}
 
-  pinia-plugin-persistedstate@4.5.0(@nuxt/kit@4.2.2(magicast@0.5.1))(@pinia/nuxt@0.11.2(magicast@0.5.1)(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))))(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))):
+  pinia-plugin-persistedstate@4.7.1(@nuxt/kit@4.2.2(magicast@0.5.1))(@pinia/nuxt@0.11.3(magicast@0.5.1)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))):
     dependencies:
-      deep-pick-omit: 1.2.1
       defu: 6.1.4
-      destr: 2.0.5
     optionalDependencies:
       '@nuxt/kit': 4.2.2(magicast@0.5.1)
-      '@pinia/nuxt': 0.11.2(magicast@0.5.1)(pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))
-      pinia: 3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
+      '@pinia/nuxt': 0.11.3(magicast@0.5.1)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))
+      pinia: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
 
-  pinia@3.0.3(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)):
+  pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)):
     dependencies:
       '@vue/devtools-api': 7.7.9
       vue: 3.5.26(typescript@5.9.3)
