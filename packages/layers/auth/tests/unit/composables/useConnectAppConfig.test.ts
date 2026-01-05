@@ -142,7 +142,7 @@ describe('mergeAppConfigPresetOverrides()', () => {
     // idps replaced by preset, other fields retained
     expect(result.login.idps).toEqual([ConnectIdpHint.BCSC])
     expect(result.login.redirect).toBe('/extra')
-    expect((result.login as any).extraFlag).toBe(true)
+    expect((result.login).extraFlag).toBe(true)
 
     // header preserved
     expect(result.header).toEqual({ loginMenu: false })

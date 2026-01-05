@@ -19,10 +19,6 @@ test.describe('Login Page', () => {
     const count = await buttons.count()
     expect(count, 'expected at least one login option button').toEqual(3)
 
-    // Optional: log the accessible names to debug labels
-    const names = await buttons.allInnerTexts()
-    console.log('Login option button labels:', names)
-
     // Basic visibility check for each
     for (let i = 0; i < count; i++) {
       await expect(buttons.nth(i)).toBeVisible()
