@@ -8,12 +8,19 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   alias: {
+    'BCGovFonts': resolve('./public/fonts/BCSans'),
     'BCGovLogoSmEn': resolve('./public/BCGovLogo/gov_bc_logo_vert_en.png'),
     'BCGovLogoSmFr': resolve('./public/BCGovLogo/gov_bc_logo_vert_fr.png'),
     'BCGovLogoLgEn': resolve('./public/BCGovLogo/gov_bc_logo_horiz_en.png'),
     'BCGovLogoLgFr': resolve('./public/BCGovLogo/gov_bc_logo_horiz_fr.png'),
-    '#base': resolve('./')
+    '#base': resolve('./'),
+    '#connect-theme': resolve('./app/assets/css/connect-base-tw.css')
   },
+
+  css: [
+    resolve('./app/assets/css/connect-base-layout.css'),
+    resolve('./app/assets/css/connect-base-tw.css')
+  ],
 
   compatibilityDate: '2025-07-10',
 
@@ -23,7 +30,8 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/i18n',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
+    '@nuxt/ui'
   ],
 
   // For more details on i18n in layers: https://i18n.nuxtjs.org/docs/guide/layers
