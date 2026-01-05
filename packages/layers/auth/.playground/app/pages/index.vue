@@ -36,6 +36,28 @@ const composableExamples: DropdownMenuItem[] = [
     to: localePath('/examples/composables/useConnectLaunchDarkly/await-mode')
   }
 ]
+
+const componentExamples: DropdownMenuItem[] = [
+  {
+    label: 'Account Name',
+    to: localePath('/examples/components/Account/Create/name')
+  }
+]
+
+const pageExamples: DropdownMenuItem[] = [
+  {
+    label: 'Login',
+    to: localePath('/examples/pages/login')
+  },
+  {
+    label: 'Login - Colin User',
+    to: localePath('/examples/pages/login?preset=colinUser')
+  },
+  {
+    label: 'Account Select/Create',
+    to: localePath('/examples/pages/account/select')
+  }
+]
 </script>
 
 <template>
@@ -48,6 +70,30 @@ const composableExamples: DropdownMenuItem[] = [
       >
         <UButton
           label="Composable Examples"
+          icon="i-lucide-menu"
+          color="neutral"
+          variant="outline"
+        />
+      </UDropdownMenu>
+
+      <UDropdownMenu
+        :items="componentExamples"
+        :content="{ align: 'start' }"
+      >
+        <UButton
+          label="Component Examples"
+          icon="i-lucide-menu"
+          color="neutral"
+          variant="outline"
+        />
+      </UDropdownMenu>
+
+      <UDropdownMenu
+        :items="pageExamples"
+        :content="{ align: 'start' }"
+      >
+        <UButton
+          label="Page Examples"
           icon="i-lucide-menu"
           color="neutral"
           variant="outline"

@@ -5,12 +5,14 @@ definePageMeta({
   middleware: 'connect-auth'
 })
 
+const route = useRoute()
 const rtc = useRuntimeConfig().public
 const accountStore = useConnectAccountStore()
 const { authUser } = useConnectAuth()
 const { finalRedirect } = useConnectAccountFlowRedirect()
 const { clearAccountState } = useConnectAccountStore()
 const { isLoading } = storeToRefs(useConnectAccountStore())
+const isAccountCreateRoute = computed(() => route.path.includes('create'))
 
 const addNew = ref(false)
 const pageTitle = computed(() =>
@@ -27,7 +29,8 @@ function selectAndRedirect(id: number) {
 }
 
 onBeforeMount(() => {
-  if (accountStore.userAccounts.length === 0 && authUser.value.loginSource === ConnectLoginSource.BCSC) {
+  if ((accountStore.userAccounts.length === 0 && authUser.value.loginSource === ConnectLoginSource.BCSC)
+    || isAccountCreateRoute.value) {
     addNew.value = true
   }
 })
@@ -64,7 +67,11 @@ const toggleCreateNewAccount = () => {
     </ConnectTransitionFade>
 
     <!-- Select Account Actions -->
-    <div v-if="!addNew" class="flex justify-center">
+    <div
+      v-if="!addNew"
+      class="flex justify-center"
+      data-testid="select-account-button-wrapper"
+    >
       <UButton
         v-if="authUser.loginSource === ConnectLoginSource.BCSC"
         variant="outline"
@@ -89,7 +96,11 @@ const toggleCreateNewAccount = () => {
     </div>
 
     <!-- Create Account Actions -->
-    <div v-if="addNew" class="flex justify-end gap-x-3">
+    <div
+      v-if="addNew"
+      class="flex justify-end gap-x-3"
+      data-testid="create-account-button-wrapper"
+    >
       <UButton
         variant="outline"
         :label="$t('connect.label.back')"
