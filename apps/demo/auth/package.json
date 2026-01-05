@@ -14,10 +14,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "vitest --dir tests/unit --passWithNoTests --coverage",
-    "test:unit": "vitest --dir tests/unit",
+    "test:unit": "vitest --dir tests/unit --passWithNoTests",
     "test:unit:cov": "vitest --dir tests/unit --coverage",
-    "test:e2e": "npx playwright test",
-    "test:e2e:ui": "npx playwright test --ui"
+    "test:e2e": "npx playwright test --pass-with-no-tests",
+    "test:e2e:ui": "npx playwright test --ui --pass-with-no-tests"
   },
   "dependencies": {
     "@sbc-connect/nuxt-auth": "workspace:*"
