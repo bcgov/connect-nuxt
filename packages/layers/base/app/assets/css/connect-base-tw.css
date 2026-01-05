@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/* @source "../../../../app/"; */
-
 /* Customize Nuxt UI default tokens */
 /* Follows https://sites.google.com/bcdevexchange.org/designsystem/foundation-styles/colours */
 :root {
