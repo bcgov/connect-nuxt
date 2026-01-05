@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-@source "../../../../app/";
-
 /* Customize Nuxt UI default tokens */
 /* Follows https://sites.google.com/bcdevexchange.org/designsystem/foundation-styles/colours */
 :root {
@@ -181,8 +179,8 @@
   font-family: "BCSans";
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/BCSans/BCSans-Regular.woff2") format("woff2"),
-       url("/fonts/BCSans/BCSans-Regular.woff") format("woff"); /* Optimized for very modern browsers */
+  src: url("BCGovFonts/BCSans-Regular.woff2") format("woff2"),
+       url("BCGovFonts/BCSans-Regular.woff") format("woff"); /* Optimized for very modern browsers */
   font-display: swap;
 }
 
@@ -190,15 +188,15 @@
   font-family: "BCSans";
   font-style: italic;
   font-weight: 400;
-  src: url("/fonts/BCSans/BCSans-Italic.woff2") format("woff2"),
-       url("/fonts/BCSans/BCSans-Italic.woff") format("woff"); /* Optimized for very modern browsers */
+  src: url("BCGovFonts/BCSans-Italic.woff2") format("woff2"),
+       url("BCGovFonts/BCSans-Italic.woff") format("woff"); /* Optimized for very modern browsers */
   font-display: swap;
 }
 @font-face {
   font-family: "BCSans";
   font-weight: 700;
-  src: url("/fonts/BCSans/BCSans-Bold.woff2") format("woff2"),
-       url("/fonts/BCSans/BCSans-Bold.woff") format("woff"); /* Optimized for very modern browsers */
+  src: url("BCGovFonts/BCSans-Bold.woff2") format("woff2"),
+       url("BCGovFonts/BCSans-Bold.woff") format("woff"); /* Optimized for very modern browsers */
   font-display: swap;
 }
 
@@ -206,8 +204,8 @@
   font-family: "BCSans";
   font-style: italic;
   font-weight: 700;
-  src: url("/fonts/BCSans/BCSans-BoldItalic.woff2") format("woff2"),
-       url("/fonts/BCSans/BCSans-BoldItalic.woff") format("woff"); /* Optimized for very modern browsers */
+  src: url("BCGovFonts/BCSans-BoldItalic.woff2") format("woff2"),
+       url("BCGovFonts/BCSans-BoldItalic.woff") format("woff"); /* Optimized for very modern browsers */
   font-display: swap;
 }
 
