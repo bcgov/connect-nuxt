@@ -4,7 +4,7 @@ export interface ConnectPresetOverrides {
     redirect: string
     idps: ConnectIdpHint[]
     skipAccountRedirect: boolean
-    idpEnforcement?: 'strict' | 'soft'
+    idpEnforcement?: boolean
   }>
   header?: Partial<{
     loginMenu: boolean
@@ -22,7 +22,7 @@ export interface ConnectConfig {
     redirect: string
     idps: ConnectIdpHint[]
     skipAccountRedirect: boolean
-    idpEnforcement?: 'strict' | 'soft'
+    idpEnforcement?: boolean
   }
   logout: {
     redirect: string

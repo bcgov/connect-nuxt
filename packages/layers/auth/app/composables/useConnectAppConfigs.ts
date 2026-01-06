@@ -11,7 +11,8 @@ export const CONNECT_PRESETS: Record<ConnectPresetType, ConnectPresetOverrides |
   },
   colinUser: {
     login: {
-      idps: [ConnectIdpHint.BCSC]
+      idps: [ConnectIdpHint.BCSC],
+      idpEnforcement: true
     }
   }
 }

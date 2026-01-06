@@ -17,7 +17,7 @@ test.describe('Login Page', () => {
     // Find all login buttons inside the card
     const buttons = card.getByRole('button')
     const count = await buttons.count()
-    expect(count, 'expected at least one login option button').toEqual(3)
+    expect(count, 'expected 3 login options button').toEqual(3)
 
     // Basic visibility check for each
     for (let i = 0; i < count; i++) {
@@ -41,11 +41,10 @@ test.describe('Login Page', () => {
     // Find all login buttons inside the card
     const buttons = card.getByRole('button')
     const count = await buttons.count()
-    expect(count, 'expected at least one login option button').toEqual(1)
+    expect(count, 'expected 1 login option button').toEqual(1)
 
-    // Optional: log the accessible names to debug labels
-    const buttonLabels = await buttons.allInnerTexts()
-    expect(buttonLabels.includes('Login with BC Services Card')).toBe(true)
+    // Scope to the card (however you’re locating it)
+    await expect(card.getByRole('button', { name: /BC Services Card/i })).toBeVisible()
 
     // Basic visibility check for each
     for (let i = 0; i < count; i++) {

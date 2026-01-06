@@ -7,7 +7,7 @@ export default defineAppConfig({
       redirect: '/',
       idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
       skipAccountRedirect: false,
-      idpEnforcement: 'soft'
+      idpEnforcement: false
     },
     logout: {
       redirect: ''
