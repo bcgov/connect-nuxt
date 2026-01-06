@@ -1,32 +1,20 @@
-import { ConnectIdpHint } from '#auth/app/enums/connect-idp-hint'
+import { useAppConfig } from '#imports'
 import type { AppConfigInput } from 'nuxt/schema'
 import type { ConnectPresetOverrides } from '#auth/app/interfaces/connect-presets'
 
-/** app.config override presets: Anything in the base app.config can be overridden here */
-export const CONNECT_PRESETS: Record<ConnectPresetType, ConnectPresetOverrides | null> = {
-  default: {
-    login: {
-      idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR]
-    }
-  },
-  colinUser: {
-    login: {
-      idps: [ConnectIdpHint.BCSC],
-      idpEnforcement: true
-    }
-  }
-}
-
 /**
- * Merge preset overrides into the provided `baseConfig` config.
- * Returns `baseConfig` unchanged if there are no overrides for the preset.
+ * Merge preset overrides (from app.config.connectOverrides) into the provided baseConfig.
+ * If no override for the preset is found, baseConfig is returned unchanged.
  */
 export function mergeAppConfigPresetOverrides(
   baseConfig: ConnectConfig,
   presetName: ConnectPresetType
 ): AppConfigInput {
-  // Get overrides for the requested preset, or default if not found
-  const overrides = CONNECT_PRESETS[presetName] ?? CONNECT_PRESETS[ConnectPresetType.DEFAULT]
+  const appConfig = useAppConfig() as AppConfigInput & {
+    connectOverrides?: Record<string, ConnectPresetOverrides | null>
+  }
+
+  const overrides = appConfig.connectOverrides?.[presetName] ?? null
 
   return {
     ...baseConfig,

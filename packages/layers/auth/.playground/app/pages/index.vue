@@ -47,7 +47,7 @@ const componentExamples: DropdownMenuItem[] = [
 const pageExamples: DropdownMenuItem[] = [
   {
     label: 'Login',
-    to: localePath('/examples/pages/login')
+    to: localePath('/examples/pages/login?preset=defaultUser')
   },
   {
     label: 'Login - Colin User',

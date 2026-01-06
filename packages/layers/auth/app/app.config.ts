@@ -18,5 +18,19 @@ export default defineAppConfig({
       notifications: true,
       accountOptionsMenu: true
     }
+  },
+  connectOverrides: {
+    colinUser: {
+      login: {
+        idps: [ConnectIdpHint.BCSC],
+        idpEnforcement: true
+      }
+    },
+    defaultUser: {
+      login: {
+        idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
+        idpEnforcement: false
+      }
+    }
   }
 } as AppConfigInput)
