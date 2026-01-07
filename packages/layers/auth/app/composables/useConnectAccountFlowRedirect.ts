@@ -13,10 +13,6 @@ export const useConnectAccountFlowRedirect = () => {
       delete query.return
     }
 
-    if (query.allowedIdps) {
-      delete query.allowedIdps
-    }
-
     if (externalRedirectUrl) {
       return navigateTo(
         {

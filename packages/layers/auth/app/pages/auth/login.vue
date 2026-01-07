@@ -57,7 +57,10 @@ const loginOptions = computed(() => {
         :description="$t('connect.page.login.sessionExpiredAlert.description')"
         icon="i-mdi-alert"
       />
-      <UCard class="my-auto max-w-md">
+      <UCard
+        class="my-auto max-w-md"
+        data-testid="login-card"
+      >
         <img
           :src="loginImage"
           class="pb-4"
