@@ -10,7 +10,7 @@ import { mergeAppConfigPresetOverrides } from '#auth/app/composables/useConnectA
 // 1) Register the mock BEFORE importing the module under test.
 mockNuxtImport('useAppConfig', () => () => ({
   connectOverrides: {
-    colinUser: {
+    bcscUser: {
       login: {
         idps: [ConnectIdpHint.BCSC],
         idpEnforcement: true
@@ -54,8 +54,8 @@ describe('mergeAppConfigPresetOverrides (connectPresets)', () => {
     expect(result.login.redirect).toBe('/dashboard')
   })
 
-  it('applies "colinUser" shallow merge', async () => {
-    const result = mergeAppConfigPresetOverrides(BASE_CONFIG as any, 'colinUser')
+  it('applies "bcscUser" shallow merge', async () => {
+    const result = mergeAppConfigPresetOverrides(BASE_CONFIG as any, 'bcscUser')
 
     expect(result.login.idps).toEqual([ConnectIdpHint.BCSC])
     expect(result.login.idpEnforcement).toBe(true)

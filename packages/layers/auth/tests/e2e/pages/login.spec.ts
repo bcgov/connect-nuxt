@@ -26,7 +26,7 @@ test.describe('Login Page', () => {
   })
 
   test('shows login heading and IdP options for Colin User', async ({ page }) => {
-    await page.goto('./auth/login?preset=colinUser')
+    await page.goto('./auth/login?preset=bcscUser')
 
     // Heading exists (localization-friendly)
     const heading = page.getByRole('heading', { level: 1 })

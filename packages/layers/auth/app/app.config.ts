@@ -20,7 +20,7 @@ export default defineAppConfig({
     }
   },
   connectOverrides: {
-    colinUser: {
+    bcscUser: {
       login: {
         idps: [ConnectIdpHint.BCSC],
         idpEnforcement: true

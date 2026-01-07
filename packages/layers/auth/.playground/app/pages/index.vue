@@ -51,7 +51,7 @@ const pageExamples: DropdownMenuItem[] = [
   },
   {
     label: 'Login - Colin User',
-    to: localePath('/examples/pages/login?preset=colinUser')
+    to: localePath('/examples/pages/login?preset=bcscUser')
   },
   {
     label: 'Account Select/Create',

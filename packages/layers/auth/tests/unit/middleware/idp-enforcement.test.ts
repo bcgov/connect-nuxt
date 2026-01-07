@@ -2,7 +2,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import type { RouteLocationNormalizedGeneric } from 'vue-router'
-import idpEnforcementMiddleware from '#auth/app/middleware/05.idp-enforcement.global'
+import idpEnforcementMiddleware from '#auth/app/middleware/04.idp-enforcement.global'
 
 // Mocks
 // Auth composable: we only need authUser + logout for these tests
