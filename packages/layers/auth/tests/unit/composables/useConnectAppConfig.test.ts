@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { ConnectIdpHint } from '#auth/app/enums/connect-idp-hint'
 import type { ConnectConfig } from '#auth/app/interfaces/connect-presets'
+import { useConnectAppConfig } from '#auth/app/composables/useConnectAppConfig'
 
-// 2) Now import the composable that calls useAppConfig()
-import { mergeAppConfigPresetOverrides } from '#auth/app/composables/useConnectAppConfigs'
-
-// 1) Register the mock BEFORE importing the module under test.
 mockNuxtImport('useAppConfig', () => () => ({
   connectOverrides: {
     bcscUser: {
@@ -41,21 +38,18 @@ const BASE_CONFIG: ConnectConfig = {
   }
 }
 
-describe('mergeAppConfigPresetOverrides (connectPresets)', () => {
-  beforeEach(() => {
-    // If you change the mock per test, call vi.resetModules() and re-import.
-    // For a single static mock, this isn’t necessary.
-  })
+describe('mergeAppConfigOverrides (connectPresets)', () => {
+  const { mergeAppConfigOverrides } = useConnectAppConfig()
 
   it('applies "defaultUser" shallow merge', () => {
-    const result = mergeAppConfigPresetOverrides(BASE_CONFIG as any, 'defaultUser')
+    const result = mergeAppConfigOverrides(BASE_CONFIG as any, 'defaultUser')
     expect(result.login.idps).toEqual([ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR])
     expect(result.login.idpEnforcement).toBe(false)
     expect(result.login.redirect).toBe('/dashboard')
   })
 
   it('applies "bcscUser" shallow merge', async () => {
-    const result = mergeAppConfigPresetOverrides(BASE_CONFIG as any, 'bcscUser')
+    const result = mergeAppConfigOverrides(BASE_CONFIG as any, 'bcscUser')
 
     expect(result.login.idps).toEqual([ConnectIdpHint.BCSC])
     expect(result.login.idpEnforcement).toBe(true)
@@ -63,7 +57,7 @@ describe('mergeAppConfigPresetOverrides (connectPresets)', () => {
   })
 
   it('unknown preset → base unchanged', () => {
-    const result = mergeAppConfigPresetOverrides(BASE_CONFIG as any, 'unknown' as any)
+    const result = mergeAppConfigOverrides(BASE_CONFIG as any, 'unknown' as any)
     expect(result.login.idps).toEqual([ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR])
     expect(result.login.idpEnforcement).toBe(false)
     expect(result.login.redirect).toBe('/dashboard')

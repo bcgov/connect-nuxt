@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ConnectAccountCreateName } from '#components'
 import type { FormError } from '@nuxt/ui'
 
 definePageMeta({ layout: 'connect-auth' })
