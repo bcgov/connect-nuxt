@@ -44,6 +44,11 @@ export default {
         sessionExpiredAlert: {
           title: 'Session Expired',
           description: 'Your session has expired. Please log in again to continue.'
+        },
+        newBcscUserWelcome: {
+          title: 'Welcome to the new Business Registry',
+          description: 'To complete the move of your business, sign in or create an account using your BC Services'
+            + ' Card below.'
         }
       },
       termsOfUse: {
@@ -72,6 +77,10 @@ export default {
         main: 'Continue Session',
         aria: 'Your session is about to expire, press any key to continue your session.'
       }
+    },
+    invalidIdp: {
+      title: 'You\'re logged in with your',
+      content: 'To continue, you must sign in with your BC Services Card. Please log out and sign in again using your BC Services Card credentials.'
     },
     text: {
       alertExistingAccountFound: '{boldStart}Note:{boldEnd} It looks like you already have an account with Service BC Connect. You can use an existing account to proceed or create a new one.',

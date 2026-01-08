@@ -28,6 +28,11 @@ test.describe('Login Page', () => {
   test('shows login heading and IdP options for Colin User', async ({ page }) => {
     await page.goto('./auth/login?preset=bcscUser')
 
+    // New bcscUser preset shows welcome alert
+    const welcomeAlert = page.getByTestId('bcsc-user-welcome-alert')
+    await expect(welcomeAlert).toBeVisible()
+    await expect(welcomeAlert).toContainText(/Welcome to the new Business Registry/i)
+
     // Heading exists (localization-friendly)
     const heading = page.getByRole('heading', { level: 1 })
     await expect(heading).toBeVisible()

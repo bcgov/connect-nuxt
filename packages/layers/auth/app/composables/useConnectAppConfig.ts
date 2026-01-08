@@ -1,6 +1,5 @@
 import { useAppConfig } from '#imports'
-import type { AppConfigInput } from 'nuxt/schema'
-import type { ConnectPresetOverrides } from '#auth/app/interfaces/connect-presets'
+import type { AppConfig, AppConfigInput } from 'nuxt/schema'
 
 export const useConnectAppConfig = () => {
   /**
@@ -10,9 +9,9 @@ export const useConnectAppConfig = () => {
   function mergeAppConfigOverrides(
     baseConfig: ConnectConfig,
     presetName: ConnectPresetType
-  ): AppConfigInput {
-    const appConfig = useAppConfig() as AppConfigInput & {
-      connectOverrides?: Record<string, ConnectPresetOverrides | null>
+  ): ConnectConfig {
+    const appConfig = useAppConfig() as AppConfig & {
+      connectOverrides?: Record<string, AppConfigInput | null>
     }
 
     const overrides = appConfig.connectOverrides?.[presetName] ?? null

@@ -33,4 +33,4 @@ export default defineAppConfig({
       }
     }
   }
-} as AppConfigInput)
+} satisfies AppConfigInput) // validates input shape without losing inference
