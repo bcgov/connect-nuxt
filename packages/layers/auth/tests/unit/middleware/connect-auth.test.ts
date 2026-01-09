@@ -72,7 +72,13 @@ describe('connect-auth middleware', () => {
   it('should redirect to the login page if the user is NOT authenticated', async () => {
     mockIsAuthenticated.value = false
     await connectAuthMiddleware(to, from)
-    const expectedRedirectUrl = '/en-CA/auth/login?return=https://app.example.com/some-path'
+    const expectedRedirectUrl = {
+      path: '/en-CA/auth/login',
+      query: {
+        return: 'https://app.example.com/some-path'
+      }
+    }
+
     expect(mockNavigateTo).toHaveBeenCalledWith(expectedRedirectUrl)
   })
 

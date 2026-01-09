@@ -6,7 +6,14 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const { finalRedirect } = useConnectAccountFlowRedirect()
 
   if (!isAuthenticated.value && !rtc.playwright) {
-    return navigateTo(localePath(`/auth/login?return=${rtc.baseUrl}${to.fullPath.slice(1)}`))
+    return navigateTo({
+      path: localePath('/auth/login'),
+      query: {
+        // include preset when present
+        ...(to.query.preset ? { preset: String(to.query.preset) } : {}),
+        return: `${rtc.baseUrl}${to.fullPath.slice(1)}`
+      }
+    })
   }
 
   if (isAuthenticated.value) {

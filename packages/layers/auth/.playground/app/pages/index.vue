@@ -50,7 +50,7 @@ const pageExamples: DropdownMenuItem[] = [
     to: localePath('/examples/pages/login?preset=defaultUser')
   },
   {
-    label: 'Login - Colin User',
+    label: 'Login - BCSC User',
     to: localePath('/examples/pages/login?preset=bcscUser')
   },
   {

@@ -1,23 +1,16 @@
-declare module '@nuxt/schema' {
+declare module 'nuxt/schema' {
+  /** What users can write in app.config.ts */
   interface AppConfigInput {
-    connect?: {
-      login?: {
-        redirect?: string
-        idps?: ConnectValidIdps
-        skipAccountRedirect?: boolean
-        // idpEnforcement: 'strict' | 'none' - future potentially
-      }
-      logout?: {
-        redirect?: string
-      }
-      header?: {
-        loginMenu?: boolean
-        createAccount?: boolean
-        notifications?: boolean
-        accountOptionsMenu?: boolean
-      }
-    }
+    connect?: Partial<ConnectConfig>
+    connectOverrides?: Record<string, ConnectPresetOverrides | null>
   }
+
+  /** What useAppConfig() returns */
+  interface AppConfig {
+    connect: ConnectConfig
+    connectOverrides?: Record<string, ConnectPresetOverrides | null>
+  }
+
 }
 
 export {}

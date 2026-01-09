@@ -23,14 +23,20 @@ export default defineAppConfig({
     bcscUser: {
       login: {
         idps: [ConnectIdpHint.BCSC],
-        idpEnforcement: true
+        idpEnforcement: true,
+        alert: {
+          title: 'Welcome to the new Business Registry',
+          message: 'To complete the move of your business, sign in or create an account using your BC Services '
+            + 'Card below.'
+        }
       }
     },
     defaultUser: {
       login: {
         idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
-        idpEnforcement: false
+        idpEnforcement: false,
+        alert: null
       }
     }
   }
-} as AppConfigInput)
+} satisfies AppConfigInput) // validates input shape without losing inference
