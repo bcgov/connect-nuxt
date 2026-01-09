@@ -34,7 +34,8 @@ export default defineAppConfig({
     defaultUser: {
       login: {
         idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
-        idpEnforcement: false
+        idpEnforcement: false,
+        alert: null
       }
     }
   }
