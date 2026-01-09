@@ -44,11 +44,6 @@ export default {
         sessionExpiredAlert: {
           title: 'Session Expired',
           description: 'Your session has expired. Please log in again to continue.'
-        },
-        newBcscUserWelcome: {
-          title: 'Welcome to the new Business Registry',
-          description: 'To complete the move of your business, sign in or create an account using your BC Services'
-            + ' Card below.'
         }
       },
       termsOfUse: {

@@ -29,7 +29,7 @@ test.describe('Login Page', () => {
     await page.goto('./auth/login?preset=bcscUser')
 
     // New bcscUser preset shows welcome alert
-    const welcomeAlert = page.getByTestId('bcsc-user-welcome-alert')
+    const welcomeAlert = page.getByTestId('login-alert')
     await expect(welcomeAlert).toBeVisible()
     await expect(welcomeAlert).toContainText(/Welcome to the new Business Registry/i)
 

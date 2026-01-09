@@ -3,7 +3,6 @@ import loginImage from '#auth/public/img/BCReg_Generic_Login_image.jpg'
 
 const { t } = useI18n()
 const { login } = useConnectAuth()
-const route = useRoute()
 const ac = useAppConfig().connect.login
 
 useHead({
@@ -17,12 +16,6 @@ definePageMeta({
 })
 
 const isSessionExpired = sessionStorage.getItem(ConnectAuthStorageKey.CONNECT_SESSION_EXPIRED)
-
-/** Whether to show the BCSC new user alert */
-const displayBcscAlert = computed<boolean>(() => {
-  const queryPreset = route.query.preset as string | undefined
-  return queryPreset === ConnectPresetType.BCSC_USER
-})
 
 const loginOptions = computed(() => {
   const loginOptionsMap: Record<
@@ -53,14 +46,15 @@ const loginOptions = computed(() => {
 <template>
   <div class="flex grow flex-col items-center justify-center py-10">
     <div class="flex flex-col items-center gap-10">
+      <!-- Alert message from app config -->
       <UAlert
-        v-if="displayBcscAlert"
+        v-if="ac.alert"
         class="max-w-[35em]"
         color="warning"
         variant="subtle"
-        data-testid="bcsc-user-welcome-alert"
-        :title="$t('connect.page.login.newBcscUserWelcome.title')"
-        :description="$t('connect.page.login.newBcscUserWelcome.description')"
+        data-testid="login-alert"
+        :title="ac.alert.title"
+        :description="ac.alert.message"
         icon="i-mdi-check-circle"
         :ui="{
           icon: 'text-success',

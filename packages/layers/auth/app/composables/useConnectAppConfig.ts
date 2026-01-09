@@ -1,5 +1,4 @@
 import { useAppConfig } from '#imports'
-import type { AppConfig, AppConfigInput } from 'nuxt/schema'
 
 export const useConnectAppConfig = () => {
   /**
@@ -10,10 +9,7 @@ export const useConnectAppConfig = () => {
     baseConfig: ConnectConfig,
     presetName: ConnectPresetType
   ): ConnectConfig {
-    const appConfig = useAppConfig() as AppConfig & {
-      connectOverrides?: Record<string, AppConfigInput | null>
-    }
-
+    const appConfig = useAppConfig()
     const overrides = appConfig.connectOverrides?.[presetName] ?? null
 
     return {

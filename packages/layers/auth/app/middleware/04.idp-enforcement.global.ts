@@ -1,4 +1,5 @@
 import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
+import { withQuery } from 'ufo'
 import type { ConnectIdpHint } from '#imports'
 import { useAppConfig } from '#imports'
 import { ConnectModalInvalidIdp } from '#components'
@@ -22,9 +23,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
     // Prompt user with invalid IDP modal
     await modal.open({ currentIdp: authUser.value?.loginSource })
 
-    // Logout and Preserve any preset query param
-    const presetParam = to.query.preset ? `?preset=${to.query.preset}` : ''
-    const url = `${window.location.origin}${localePath('/auth/login')}${presetParam}`
+    // Logout and Preserve any query param
+    const pathWithQuery = withQuery(localePath('/auth/login'), to.query)
+
+    const url = `${window.location.origin}${pathWithQuery}`
     return await logout(url)
   }
 

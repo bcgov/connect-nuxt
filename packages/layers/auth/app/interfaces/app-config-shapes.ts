@@ -3,6 +3,10 @@ export interface ConnectLoginConfig {
   idps: ConnectIdpHint[]
   skipAccountRedirect: boolean
   idpEnforcement: boolean
+  alert?: {
+    title?: string
+    message?: string
+  }
 }
 
 export interface ConnectLogoutConfig {
