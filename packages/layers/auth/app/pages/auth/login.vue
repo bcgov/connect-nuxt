@@ -46,6 +46,20 @@ const loginOptions = computed(() => {
 <template>
   <div class="flex grow flex-col items-center justify-center py-10">
     <div class="flex flex-col items-center gap-10">
+      <!-- Alert message from app config -->
+      <UAlert
+        v-if="ac.alert"
+        class="max-w-[35em]"
+        color="warning"
+        variant="subtle"
+        data-testid="login-alert"
+        :title="ac.alert.title"
+        :description="ac.alert.message"
+        icon="i-mdi-check-circle"
+        :ui="{
+          icon: 'text-success',
+        }"
+      />
       <h1>
         {{ $t('connect.page.login.h1') }}
       </h1>
