@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+
 test.describe('Login Page', () => {
   test('shows login heading and IdP options by default', async ({ page }) => {
     await page.goto('./auth/login')
