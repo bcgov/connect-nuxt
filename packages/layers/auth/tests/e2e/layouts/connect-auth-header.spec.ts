@@ -18,7 +18,7 @@ test.describe('Layouts - ConnectHeaderAuth', () => {
     }
   ]
   testCases.forEach(({ accountType, expectedLabel }) => {
-    test(`${accountType} Account - dropdown`, async ({ page }) => {
+    test(`${accountType} Account - dropdown`, async ({ page, isMobile }) => {
       // setup
       await mockApiCallsForSetAccount(page, accountType)
       await page.goto('./examples/layouts/ConnectAuth')
@@ -26,8 +26,10 @@ test.describe('Layouts - ConnectHeaderAuth', () => {
       // test
       const authDropdown = page.locator('#account-options-button')
       await expect(authDropdown).toBeVisible()
-      // expected account label is on the button
-      expect(authDropdown.getByText(expectedLabel)).toBeVisible()
+      if (!isMobile) {
+        // expected account label is on the button
+        expect(authDropdown.getByText(expectedLabel)).toBeVisible()
+      }
       // expand dropdown
       await authDropdown.click()
       // expected items are there

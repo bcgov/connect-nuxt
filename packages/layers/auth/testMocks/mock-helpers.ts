@@ -4,7 +4,7 @@ import { getUserSettingsMock } from '#auth/testMocks/auth'
 
 export const mockApiCallsForSetAccount = async (
   page: Page,
-  accountType: 'PREMIUM' | 'STAFF' | 'SBC_STAFF' = 'PREMIUM'
+  accountType: AccountType = AccountType.PREMIUM
 ) => {
   page.route('**/users/**/settings', async (route) => {
     await route.fulfill({ json: getUserSettingsMock(accountType) })
