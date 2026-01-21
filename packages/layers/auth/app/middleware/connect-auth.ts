@@ -45,14 +45,19 @@ export default defineNuxtRouteMiddleware(async (to) => {
     }
     $connectAuth.authenticated = true
 
-    currentAccount.value = {
-      id: 1,
-      label: 'Playwright',
-      accountStatus: AccountStatus.ACTIVE,
-      accountType: AccountType.PREMIUM,
-      type: UserSettingsType.ACCOUNT,
-      urlorigin: '',
-      urlpath: ''
+    if (rtc.playwrightFetchTestAccount) {
+      // allows each test to mock the account information with its own data
+      await useConnectAccountStore().setAccountInfo()
+    } else {
+      currentAccount.value = {
+        id: 1,
+        label: 'Playwright',
+        accountStatus: AccountStatus.ACTIVE,
+        accountType: AccountType.PREMIUM,
+        type: UserSettingsType.ACCOUNT,
+        urlorigin: '',
+        urlpath: ''
+      }
     }
   }
 })

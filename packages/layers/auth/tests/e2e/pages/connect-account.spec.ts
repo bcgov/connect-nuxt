@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test'
+import { mockApiCallsForSetAccount } from '#auth/testMocks/mock-helpers'
 
 test.describe('Connect Account - Selection Flow', () => {
   test.beforeEach(async ({ page }) => {
+    await mockApiCallsForSetAccount(page)
     await page.goto('./auth/account/select')
   })
 
@@ -17,6 +19,7 @@ test.describe('Connect Account - Selection Flow', () => {
 
 test.describe('Connect Account - Create Flow', () => {
   test.beforeEach(async ({ page }) => {
+    await mockApiCallsForSetAccount(page)
     await page.goto('./auth/account/create')
   })
 
