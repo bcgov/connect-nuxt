@@ -77,7 +77,8 @@ export default defineNuxtConfig({
       tokenMinValidity: '',
       sessionInactivityTimeout: '',
       sessionModalTimeout: '',
-      playwright: process.env.playwright === 'true'
+      playwright: process.env.playwright === 'true',
+      playwrightFetchTestAccount: process.env.playwrightFetchTestAccount === 'true'
     }
   }
 })

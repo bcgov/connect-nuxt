@@ -58,6 +58,13 @@ const pageExamples: DropdownMenuItem[] = [
     to: localePath('/examples/pages/account/select')
   }
 ]
+
+const layoutExamples: DropdownMenuItem[] = [
+  {
+    label: 'ConnectAuth',
+    to: localePath('/examples/layouts/ConnectAuth')
+  }
+]
 </script>
 
 <template>
@@ -94,6 +101,18 @@ const pageExamples: DropdownMenuItem[] = [
       >
         <UButton
           label="Page Examples"
+          icon="i-lucide-menu"
+          color="neutral"
+          variant="outline"
+        />
+      </UDropdownMenu>
+
+      <UDropdownMenu
+        :items="layoutExamples"
+        :content="{ align: 'start' }"
+      >
+        <UButton
+          label="Layout Examples"
           icon="i-lucide-menu"
           color="neutral"
           variant="outline"

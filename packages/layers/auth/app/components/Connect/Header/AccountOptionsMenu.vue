@@ -10,7 +10,7 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
     id="account-options-menu"
     :items="loggedInUserOptions"
     :ui="{
-      content: 'max-w-[90dvw]',
+      content: 'max-w-[90dvw] account-options-menu-pw-selector',
     }"
   >
     <UButton

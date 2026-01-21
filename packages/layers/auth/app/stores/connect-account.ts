@@ -119,7 +119,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Get the user's account list */
   async function getUserAccounts(): Promise<ConnectAccount[] | undefined> {
-    if (!authUser.value?.keycloakGuid) {
+    if (!authUser.value?.keycloakGuid && !rtc.playwright) {
       return undefined
     }
     // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')

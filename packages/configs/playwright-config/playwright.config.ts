@@ -45,7 +45,8 @@ export default defineConfig<ConfigOptions>({
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
     env: {
-      playwright: 'true'
+      playwright: 'true',
+      playwrightFetchTestAccount: 'true'
     }
   }
 })
