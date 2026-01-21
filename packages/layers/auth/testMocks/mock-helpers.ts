@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test'
-
+import { AccountType } from '#auth/app/enums/account-type'
 import { getUserSettingsMock } from '#auth/testMocks/auth'
 
 export const mockApiCallsForSetAccount = async (
