@@ -1,5 +1,12 @@
 # nuxt-auth-demo-app
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`e4d8d9e`](https://github.com/bcgov/connect-nuxt/commit/e4d8d9e510af321a2cc7ba12ca270a5f018981e5)]:
+  - @sbc-connect/nuxt-auth@0.4.1
+
 ## 0.2.0
 
 ### Minor Changes

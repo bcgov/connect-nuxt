@@ -1,5 +1,11 @@
 # @sbc-connect/playwright-config
 
+## 0.1.1
+
+### Patch Changes
+
+- [#121](https://github.com/bcgov/connect-nuxt/pull/121) [`e4d8d9e`](https://github.com/bcgov/connect-nuxt/commit/e4d8d9e510af321a2cc7ba12ca270a5f018981e5) Thanks [@kialj876](https://github.com/kialj876)! - Updated account mocking so that tests can mock their own account instead of the hardcoded mock
+
 ## 0.1.0
 
 ### Minor Changes
