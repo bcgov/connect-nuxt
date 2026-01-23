@@ -1,5 +1,3 @@
-import type { ConnectCreateAccount } from '#auth/app/interfaces/connect-account'
-
 export const useAuthApi = () => {
   const { $authApi } = useNuxtApp()
   const queryCache = useQueryCache()
@@ -34,7 +32,10 @@ export const useAuthApi = () => {
    */
   const useCreateAccount = defineMutation(() => {
     const { mutateAsync, ...mutation } = useMutation({
-      mutation: (vars: { payload: ConnectCreateAccount, successCb?: () => Promise<unknown> }) => {
+      mutation: (vars: {
+        payload: ConnectCreateAccount
+        successCb?: (createRes: ConnectAuthProfile) => Promise<unknown>
+      }) => {
         return $authApi<ConnectAuthProfile>('/orgs', {
           method: 'POST',
           body: vars.payload
@@ -48,7 +49,7 @@ export const useAuthApi = () => {
       onSuccess: async (_, _vars) => {
         await queryCache.invalidateQueries({ key: ['auth-user-profile'], exact: true })
         if (_vars.successCb) {
-          await _vars.successCb()
+          await _vars.successCb(_)
         }
       }
     })

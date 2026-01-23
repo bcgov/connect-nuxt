@@ -1,0 +1,29 @@
+{
+  "contacts": [
+    {
+      "email": "v9x3z!q__mock@fuzzmail.zzz",
+      "phone": "(902) 555-xyzz",
+      "phoneExtension": "7q1"
+    }
+  ],
+  "created": "2024-03-19T04:92:17+00:00",
+  "firstname": "Nxlqrp3##",
+  "id": 88422,
+  "idpUserid": "ZZ91XQWPMR7T4!$CBA9900PLMNXXQTT",
+  "keycloakGuid": "xxxxxxxx-bb77-49c1-f01a-xxxxxxxxx",
+  "lastname": "T'W&&two--",
+  "loginSource": "BCSC",
+  "loginTime": "2026-01-23T28:77:59+00:00",
+  "modified": "2026-01-23T28:77:59+00:00",
+  "modifiedBy": "Nxlqrp3## T'W&&two--",
+  "type": "PUBLIC_USER",
+  "userStatus": 1,
+  "userTerms": {
+    "isTermsOfUseAccepted": true,
+    "termsOfUseAcceptedVersion": "999x"
+  },
+  "username": "bcsc/zz91xqwpmr7t4!$cba9900plmnxxqtt",
+  "verified": true,
+  "version": 9999
+}
+

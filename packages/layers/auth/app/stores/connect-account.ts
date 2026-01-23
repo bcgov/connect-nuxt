@@ -1,6 +1,5 @@
 import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
 import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
-import type { ConnectCreateAccount } from '#auth/app/interfaces/connect-account'
 
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
@@ -88,13 +87,22 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
       await createAccount({
         payload,
         // Update User Contact Info on create account success
-        successCb: async () => await updateUserContact({
-          email: accountFormState.emailAddress,
-          phone: accountFormState.phone.phoneNumber,
-          phoneExtension: accountFormState.phone.ext,
-          successCb: async () => await finalRedirect(useRoute()),
-          errorCb: async () => await finalRedirect(useRoute())
-        })
+        successCb: async (createResponse: ConnectAuthProfile) => {
+          // Refresh and switch to new account prior to redirect
+          if (createResponse?.id) {
+            await setAccountInfo()
+            switchCurrentAccount(createResponse.id)
+          }
+
+          // Update user contact and then redirect regardless of success or failure
+          await updateUserContact({
+            email: accountFormState.emailAddress,
+            phone: accountFormState.phone.phoneNumber,
+            phoneExtension: accountFormState.phone.ext,
+            successCb: async () => await finalRedirect(useRoute()),
+            errorCb: async () => await finalRedirect(useRoute())
+          })
+        }
       })
     } catch (error) {
       // Error handled in useAuthApi

@@ -12,7 +12,8 @@ useHead({
 definePageMeta({
   layout: 'connect-auth',
   hideBreadcrumbs: true,
-  middleware: 'connect-login-page'
+  middleware: 'connect-auth',
+  connectLogin: true
 })
 
 const isSessionExpired = sessionStorage.getItem(ConnectAuthStorageKey.CONNECT_SESSION_EXPIRED)

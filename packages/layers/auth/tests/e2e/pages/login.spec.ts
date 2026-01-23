@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test'
+import { mockApiCallsForSetAccount } from '#auth/testMocks/mock-helpers'
 
 test.describe('Login Page', () => {
   test('shows login heading and IdP options by default', async ({ page }) => {
+    await mockApiCallsForSetAccount(page)
     await page.goto('./auth/login')
 
     // Heading exists (localization-friendly)
