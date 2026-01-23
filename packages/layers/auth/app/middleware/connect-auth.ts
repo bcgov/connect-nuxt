@@ -5,27 +5,33 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const authApi = useAuthApi()
   const { finalRedirect } = useConnectAccountFlowRedirect()
 
-  if (!isAuthenticated.value && !rtc.playwright) {
-    return navigateTo({
-      path: localePath('/auth/login'),
-      query: {
-        // include preset when present
-        ...(to.query.preset ? { preset: String(to.query.preset) } : {}),
-        return: `${rtc.baseUrl}${to.fullPath.slice(1)}`
+  const isLoginPage = to.meta.connectLogin === true
+  const isTosPage = to.meta.connectTosPage === true
+
+  if (!isAuthenticated.value && !isLoginPage && !rtc.playwright) {
+    const defaultReturn = `${rtc.baseUrl}${to.fullPath.slice(1)}`
+    const returnUrl = (to.query.return && String(to.query.return)) || defaultReturn
+
+    return navigateTo(
+      {
+        path: localePath('/auth/login'),
+        query: {
+          ...to.query,
+          return: returnUrl
+        }
       }
-    })
+    )
   }
 
   if (isAuthenticated.value) {
     const { data, refresh } = await authApi.getAuthUserProfile()
     await refresh()
     const hasAccepted = data.value?.userTerms.isTermsOfUseAccepted
-    const isTosPage = to.meta.connectTosPage === true
     if (!hasAccepted && !isTosPage) {
       const query = { ...to.query }
       return navigateTo({ path: localePath('/auth/terms-of-use'), query })
-    } else if (hasAccepted && isTosPage) {
-      return finalRedirect(to)
+    } else if (hasAccepted && (isTosPage || isLoginPage)) {
+      return finalRedirect(to, true)
     }
   }
 
