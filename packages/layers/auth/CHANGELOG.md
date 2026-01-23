@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.5.0
+
+### Minor Changes
+
+- [#123](https://github.com/bcgov/connect-nuxt/pull/123) [`3c33132`](https://github.com/bcgov/connect-nuxt/commit/3c331327a27cfbd0613c268abf97842288d10f8c) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Auth Redirect Enhancements
+
 ## 0.4.1
 
 ### Patch Changes
