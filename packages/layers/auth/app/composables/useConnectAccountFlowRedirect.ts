@@ -3,18 +3,17 @@ import type { RouteLocationNormalizedGeneric } from '#vue-router'
 export const useConnectAccountFlowRedirect = () => {
   function finalRedirect(route: RouteLocationNormalizedGeneric, manageAccount = false) {
     const { authUser } = useConnectAuth()
-    const { userAccounts } = useConnectAccountStore()
+    const { currentAccount, userAccounts } = useConnectAccountStore()
     const localePath = useLocalePath()
     const ac = useAppConfig().connect.login
     const externalRedirectUrl = route.query.return as string | undefined
     const internalRedirectUrl = ac.redirect
-
     const query = { ...route.query }
 
-    if (manageAccount && userAccounts.length !== 1) {
-      const isBcscCreate
-        = userAccounts.length === 0
-          && authUser.value.loginSource === ConnectLoginSource.BCSC
+    // Redirect BCSC users to account creation if they have no existing accounts, otherwise to account selection
+    if (manageAccount && currentAccount.accountType !== AccountType.STAFF) {
+      const isBcscCreate = (!userAccounts.length || userAccounts.length === 0)
+        && authUser.value.loginSource === ConnectLoginSource.BCSC
 
       return isBcscCreate
         ? navigateTo({ path: localePath('/auth/account/create'), query })
@@ -30,7 +29,7 @@ export const useConnectAccountFlowRedirect = () => {
           path: appendUrlParam(
             externalRedirectUrl,
             'accountid',
-            useConnectAccountStore().currentAccount.id
+            currentAccount.id
           ),
           query: cleanQuery
         },
