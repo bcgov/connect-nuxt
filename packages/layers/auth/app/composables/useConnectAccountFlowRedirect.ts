@@ -10,14 +10,16 @@ export const useConnectAccountFlowRedirect = () => {
     const internalRedirectUrl = ac.redirect
     const query = { ...route.query }
 
-    // Redirect BCSC users to account creation if they have no existing accounts, otherwise to account selection
-    if (manageAccount && currentAccount.accountType !== AccountType.STAFF) {
-      const isBcscCreate = (!userAccounts.length || userAccounts.length === 0)
-        && authUser.value.loginSource === ConnectLoginSource.BCSC
+    const bypassAccounts = userAccounts.length === 1 && !query.populate
+    const isNonStaffAccount = ![AccountType.STAFF, AccountType.SBC_STAFF].includes(currentAccount.accountType)
+    const createOrSelectAccount = manageAccount && isNonStaffAccount && !bypassAccounts
 
-      return isBcscCreate
-        ? navigateTo({ path: localePath('/auth/account/create'), query })
-        : navigateTo({ path: localePath('/auth/account/select'), query })
+    if (createOrSelectAccount) {
+      const isBcscUserWithNoAccounts = (!userAccounts.length || userAccounts.length === 0)
+        && authUser.value.loginSource === ConnectLoginSource.BCSC
+      const redirectPath = isBcscUserWithNoAccounts ? '/auth/account/create' : '/auth/account/select'
+
+      return navigateTo({ path: localePath(redirectPath), query })
     }
 
     if (externalRedirectUrl) {
