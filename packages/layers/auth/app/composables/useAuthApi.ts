@@ -64,17 +64,18 @@ export const useAuthApi = () => {
    * Updates a users contact by PUTing the given payload to `/users/contacts`.
    * @returns Object containing mutation state and `updateUserContact` function.
    */
-  const useUpdateUserContact = defineMutation(() => {
+  const useUpdateOrCreateUserContact = defineMutation(() => {
     const { mutateAsync, ...mutation } = useMutation({
       mutation: (vars: {
         email: string
         phone: string
         phoneExtension: string | undefined
+        method?: 'POST' | 'PUT'
         successCb?: () => Promise<unknown>
         errorCb?: (error: unknown) => Promise<unknown>
       }) => {
         return $authApi<ConnectAuthProfile>('/users/contacts', {
-          method: 'PUT',
+          method: vars.method || 'PUT',
           body: {
             email: vars.email,
             phone: vars.phone,
@@ -101,7 +102,7 @@ export const useAuthApi = () => {
 
     return {
       ...mutation,
-      updateUserContact: mutateAsync
+      updateOrCreateUserContact: mutateAsync
     }
   })
 
@@ -149,7 +150,7 @@ export const useAuthApi = () => {
     getTermsOfUse,
     useCreateAccount,
     usePatchTermsOfUse,
-    useUpdateUserContact,
+    useUpdateOrCreateUserContact,
     verifyAccountName
   }
 }

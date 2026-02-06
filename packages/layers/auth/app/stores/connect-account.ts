@@ -5,7 +5,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
-  const { useCreateAccount, useUpdateUserContact, getAuthUserProfile } = useAuthApi()
+  const { useCreateAccount, useUpdateOrCreateUserContact, getAuthUserProfile } = useAuthApi()
   const { finalRedirect } = useConnectAccountFlowRedirect()
 
   // selected user account
@@ -21,7 +21,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   // Create account
   const isLoading = ref<boolean>(false)
   const { createAccount } = useCreateAccount()
-  const { updateUserContact } = useUpdateUserContact()
+  const { updateOrCreateUserContact } = useUpdateOrCreateUserContact()
   const createAccountProfileSchema = getAccountCreateSchema()
   const accountFormState = reactive<AccountProfileSchema>(createAccountProfileSchema.parse({}))
   /**
@@ -94,11 +94,12 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
             switchCurrentAccount(createResponse.id)
           }
 
-          // Update user contact and then redirect regardless of success or failure
-          await updateUserContact({
+          // Update or create user contact and then redirect regardless of success or failure
+          await updateOrCreateUserContact({
             email: accountFormState.emailAddress,
             phone: accountFormState.phone.phoneNumber,
             phoneExtension: accountFormState.phone.ext,
+            method: userAccounts.value.length === 1 ? 'POST' : 'PUT', // if only 1 account exists then contact is new
             successCb: async () => await finalRedirect(useRoute()),
             errorCb: async () => await finalRedirect(useRoute())
           })
