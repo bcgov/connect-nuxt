@@ -49,7 +49,7 @@ const mockUpdateUserContact = vi.fn()
 mockNuxtImport('useAuthApi', () => () => ({
   getAuthUserProfile: mockGetAuthUserProfile,
   useCreateAccount: () => ({ createAccount: mockCreateAccount }),
-  useUpdateUserContact: () => ({ updateUserContact: mockUpdateUserContact })
+  useUpdateOrCreateUserContact: () => ({ updateOrCreateUserContact: mockUpdateUserContact })
 }))
 
 //  Account flow redirect composable
