@@ -25,8 +25,8 @@ const rightAlertText = computed(() => buttonControl.value?.rightGroup.alertText 
           data-testid="left-buttons"
         >
           <div
-            class="relative flex flex-col flex-wrap gap-4 justify-center"
-            :class="leftGroup.stacked ? '' : 'flex-row'"
+            class="relative grow flex flex-col flex-wrap gap-4 @3xl:shrink"
+            :class="(leftGroup.class || '') + (leftGroup.stacked ? '' : ' flex-row')"
           >
             <div
               v-if="leftAlertText"
@@ -42,12 +42,12 @@ const rightAlertText = computed(() => buttonControl.value?.rightGroup.alertText 
       </div>
       <div>
         <div
-          class="flex justify-center @3xl:justify-end"
+          class="flex grow justify-center @3xl:justify-end"
           data-testid="right-buttons"
         >
           <div
-            class="relative flex flex-col flex-wrap gap-4 justify-center"
-            :class="rightGroup.stacked ? '' : 'flex-row'"
+            class="relative grow flex flex-col flex-wrap gap-4 @3xl:shrink"
+            :class="(rightGroup.class || '') + (rightGroup.stacked ? '' : ' flex-row')"
           >
             <div
               v-if="rightAlertText"

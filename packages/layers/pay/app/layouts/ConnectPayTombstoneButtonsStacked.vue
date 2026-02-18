@@ -12,7 +12,7 @@
         <template #actions>
           <!-- expose actions -->
           <slot name="actions">
-            <ConnectButtonControl />
+            <ConnectButtonControl class="mt-4" />
           </slot>
         </template>
       </ConnectLayoutPayBody>

@@ -8,6 +8,7 @@ export interface ConnectButton extends ButtonProps {
 export interface ConnectButtonGroup {
   alertText?: string
   buttons: ConnectButton[]
+  class?: string
   stacked?: boolean
 }
 

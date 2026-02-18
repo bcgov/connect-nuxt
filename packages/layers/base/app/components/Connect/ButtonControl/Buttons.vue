@@ -15,9 +15,10 @@ const removeButtonAttrs = (button: ConnectButton) => {
     v-for="(button, i) in buttons"
     :key="`${position}-button-${i}`"
     data-testid="button-wrapper"
+    class="flex flex-col grow"
   >
     <UButton
-      class="max-w-fit px-7 py-3 mb-1"
+      class="grow px-7 py-3 mb-1 justify-center"
       v-bind="removeButtonAttrs(button)"
     />
     <p :class="['text-center', !button.removeAlertSpacing ? 'h-[1.25rem]' : '']">
