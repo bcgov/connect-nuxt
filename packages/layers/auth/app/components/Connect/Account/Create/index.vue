@@ -47,6 +47,7 @@ watch(() => statusCode.value, async () => {
       id="account-create-form"
       ref="account-create-form"
       class="p-8"
+      no-validate
       :validate-on="['input', 'change']"
       :schema="accountProfileSchema"
       :state="accountFormState"
