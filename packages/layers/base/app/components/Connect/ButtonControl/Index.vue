@@ -18,14 +18,14 @@ const rightAlertText = computed(() => buttonControl.value?.rightGroup.alertText 
     class="@container"
     data-testid="connect-button-control"
   >
-    <div class="grid grid-cols-1 gap-4 @3xl:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 @4xl:grid-cols-2">
       <div>
         <div
-          class="flex justify-center @3xl:justify-start"
+          class="flex justify-center @4xl:justify-start"
           data-testid="left-buttons"
         >
           <div
-            class="relative grow flex flex-col flex-wrap gap-4 @3xl:shrink"
+            class="relative grow flex flex-col flex-wrap gap-4 @4xl:shrink"
             :class="(leftGroup.class || '') + (leftGroup.stacked ? '' : ' flex-row')"
           >
             <div
@@ -42,11 +42,11 @@ const rightAlertText = computed(() => buttonControl.value?.rightGroup.alertText 
       </div>
       <div>
         <div
-          class="flex grow justify-center @3xl:justify-end"
+          class="flex grow justify-center @4xl:justify-end"
           data-testid="right-buttons"
         >
           <div
-            class="relative grow flex flex-col flex-wrap gap-4 @3xl:shrink"
+            class="relative grow flex flex-col flex-wrap gap-4 @4xl:shrink"
             :class="(rightGroup.class || '') + (rightGroup.stacked ? '' : ' flex-row')"
           >
             <div

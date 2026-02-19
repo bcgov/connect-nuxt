@@ -21,12 +21,14 @@ feeStore.addReplaceFee(exampleFeeCode)
 const buttonControl = useConnectButtonControl()
 buttonControl.setButtonControl({
   leftGroup: {
+    class: 'max-w-[400px]',
     buttons: [
       { label: 'Left Button 1', variant: 'link', icon: 'i-mdi-world' },
       { label: 'Left Button 2' }
     ]
   },
   rightGroup: {
+    class: 'max-w-[400px]',
     buttons: [
       { label: 'Right Button 1', color: 'error', variant: 'outline' },
       { label: 'Right Button 2', color: 'success', trailingIcon: 'i-mdi-chevron-right' }

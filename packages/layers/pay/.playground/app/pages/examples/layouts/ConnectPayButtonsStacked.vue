@@ -21,25 +21,36 @@ feeStore.addReplaceFee(exampleFeeCode)
 const buttonControl = useConnectButtonControl()
 
 buttonControl.setButtonControl({
-  leftGroup: { buttons: [] },
+  leftGroup: {
+    buttons: [
+      {
+        label: 'Left 1',
+        icon: 'i-mdi-chevron-left',
+        removeAlertSpacing: true,
+        variant: 'outline'
+      },
+      {
+        label: 'Left 2',
+        trailingIcon: 'i-mdi-chevron-right',
+        removeAlertSpacing: true
+      }
+    ]
+  },
   rightGroup: {
     buttons: [
       {
         label: 'Right Button 1',
-        class: 'min-w-[300px] justify-center',
         trailingIcon: 'i-mdi-chevron-right',
         removeAlertSpacing: true
       },
       {
         label: 'Right Button 2',
-        class: 'min-w-[300px] justify-center',
         color: 'error',
         variant: 'soft',
         removeAlertSpacing: true
       },
       {
         label: 'Right Button 3',
-        class: 'min-w-[300px] justify-center',
         color: 'error',
         variant: 'outline'
       }
