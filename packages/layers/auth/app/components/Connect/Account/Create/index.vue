@@ -24,9 +24,16 @@ const formErrors = computed<{
   }
 })
 
-async function validate() {
-  return formRef.value?.validate({ silent: true })
+async function validate(fieldName?: keyof AccountProfileSchema) {
+  return formRef.value?.validate({ name: fieldName, silent: true })
 }
+
+watch(() => statusCode.value, async () => {
+  if (statusCode.value !== undefined) {
+    await nextTick()
+    await validate('accountName')
+  }
+})
 </script>
 
 <template>

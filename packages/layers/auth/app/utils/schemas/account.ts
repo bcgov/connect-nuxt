@@ -6,7 +6,7 @@ export function getAccountNameSchema(status?: number | undefined) {
 
   return z.string().min(1, t('connect.validation.requiredAccountName'))
     .superRefine((val, ctx) => {
-      // Only run if we have a value and a statusCode
+      // Validate account name uniqueness based on API response status code
       if (val && status !== undefined) {
         if (status === 200) {
           ctx.addIssue({
