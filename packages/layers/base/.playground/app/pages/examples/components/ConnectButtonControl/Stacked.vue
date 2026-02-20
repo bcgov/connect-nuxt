@@ -15,22 +15,18 @@ buttonControl.setButtonControl({
       {
         label: 'Left 1',
         icon: 'i-mdi-chevron-up',
-        class: 'min-w-[300px] justify-center',
         color: 'success',
         onClick: () => buttonControl.setAlertText('Alert text no jump', 'left', 0)
       },
       {
         label: 'Left 2',
         icon: 'i-mdi-chevron-left',
-        class: 'min-w-[142px] justify-center',
         variant: 'outline',
-        removeAlertSpacing: true,
         onClick: () => delay(1000)
       },
       {
         label: 'Left 3',
         icon: 'i-mdi-world',
-        class: 'min-w-[142px] justify-center',
         variant: 'ghost',
         removeAlertSpacing: true,
         onClick: () => buttonControl.setAlertText('Left 3 click sets alert text on Right Button 3', 'right', 2)
@@ -41,14 +37,12 @@ buttonControl.setButtonControl({
     buttons: [
       {
         label: 'Right Button 1',
-        class: 'min-w-[300px] justify-center',
         trailingIcon: 'i-mdi-chevron-right',
         removeAlertSpacing: true,
         onClick: () => buttonControl.setAlertText('Alert text jump', 'right', 0)
       },
       {
         label: 'Right Button 2',
-        class: 'min-w-[300px] justify-center',
         color: 'error',
         variant: 'soft',
         removeAlertSpacing: true,
@@ -56,7 +50,6 @@ buttonControl.setButtonControl({
       },
       {
         label: 'Right Button 3',
-        class: 'min-w-[300px] justify-center',
         color: 'error',
         variant: 'outline',
         onClick: () => buttonControl.setAlertText('Right Button 3 alert text', 'right', 2)

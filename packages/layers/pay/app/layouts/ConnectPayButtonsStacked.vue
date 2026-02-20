@@ -7,7 +7,7 @@
       <ConnectLayoutPayBody>
         <slot />
         <template #actions>
-          <ConnectButtonControl />
+          <ConnectButtonControl class="mt-4" />
         </template>
       </ConnectLayoutPayBody>
     </template>

@@ -27,10 +27,10 @@ const handleClick = async (position: 'left' | 'right', index: number) => {
 buttonControl.setButtonControl({
   leftGroup: {
     buttons: [
-      { label: 'Left Button 1', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 0) },
-      { label: 'Left Button 2', onClick: () => handleClick('left', 1) },
+      { label: 'Left 1', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 0) },
+      { label: 'Left 2', onClick: () => handleClick('left', 1) },
       {
-        label: 'Left Button 3 Link',
+        label: 'Left 3 Link',
         to: localePath('/examples/components/ConnectButtonControl/Default?query=' + Math.random().toString()),
         variant: 'soft'
       }
@@ -38,9 +38,9 @@ buttonControl.setButtonControl({
   },
   rightGroup: {
     buttons: [
-      { label: 'Right Button 1', color: 'error', variant: 'outline', onClick: () => handleClick('right', 0) },
+      { label: 'Right 1', color: 'error', variant: 'outline', onClick: () => handleClick('right', 0) },
       {
-        label: 'Right Button 2',
+        label: 'Right 2',
         color: 'success',
         trailingIcon: 'i-mdi-chevron-right',
         onClick: () => handleClick('right', 1)
