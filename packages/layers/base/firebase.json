@@ -1,7 +1,7 @@
 {
   "hosting":
     {
-      "site": "connect-nuxt-base-dev",
+      "site": "connect-nuxt-layer-base-dev",
       "public": "dist",
       "ignore": ["**/devops/**", "**/.*", "**/node_modules/**"],
       "rewrites": [
