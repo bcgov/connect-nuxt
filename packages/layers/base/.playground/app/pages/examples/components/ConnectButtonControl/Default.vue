@@ -26,7 +26,6 @@ const handleClick = async (position: 'left' | 'right', index: number) => {
 }
 buttonControl.setButtonControl({
   leftGroup: {
-    class: 'max-w-[400px]',
     buttons: [
       { label: 'Left 1', variant: 'link', icon: 'i-mdi-world', onClick: () => handleClick('left', 0) },
       { label: 'Left 2', onClick: () => handleClick('left', 1) },
@@ -38,7 +37,6 @@ buttonControl.setButtonControl({
     ]
   },
   rightGroup: {
-    class: 'max-w-[350px]',
     buttons: [
       { label: 'Right 1', color: 'error', variant: 'outline', onClick: () => handleClick('right', 0) },
       {

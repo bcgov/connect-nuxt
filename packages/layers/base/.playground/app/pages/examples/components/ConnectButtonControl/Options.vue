@@ -12,7 +12,6 @@ const controlManualAlert = useConnectButtonControl('manual-alert', { clearAlertT
 
 controlManualLoading.setButtonControl({
   leftGroup: {
-    class: 'max-w-[400px]',
     buttons: [
       {
         label: 'Manual Loading',
@@ -31,7 +30,6 @@ controlManualLoading.setButtonControl({
     ]
   },
   rightGroup: {
-    class: 'max-w-[200px]',
     buttons: [
       {
         label: 'Set Alert',
@@ -43,7 +41,6 @@ controlManualLoading.setButtonControl({
 
 controlManualAlert.setButtonControl({
   leftGroup: {
-    class: 'max-w-[200px]',
     buttons: [
       {
         label: 'Set Alert',
@@ -52,7 +49,6 @@ controlManualAlert.setButtonControl({
     ]
   },
   rightGroup: {
-    class: 'max-w-[400px]',
     buttons: [
       {
         label: 'This will not reset the left alert',
