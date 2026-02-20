@@ -2,7 +2,7 @@
   "name": "nuxt-base-demo-app",
   "private": true,
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build-check": "nuxt build",

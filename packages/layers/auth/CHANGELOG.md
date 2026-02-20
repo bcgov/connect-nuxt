@@ -1,5 +1,19 @@
 # @sbc-connect/nuxt-auth
 
+## 0.6.0
+
+### Minor Changes
+
+- [#127](https://github.com/bcgov/connect-nuxt/pull/127) [`63409ea`](https://github.com/bcgov/connect-nuxt/commit/63409eab3ef9072fe8e05662b44f61bb8be6cff4) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Improved name lookup validations
+
+- [#125](https://github.com/bcgov/connect-nuxt/pull/125) [`fda1d48`](https://github.com/bcgov/connect-nuxt/commit/fda1d48ed55838aeece70aa04a82440153a3db24) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Includes contact POST and minor redirect refactors
+
+### Patch Changes
+
+- Updated dependencies [[`8cc8cc0`](https://github.com/bcgov/connect-nuxt/commit/8cc8cc09aad741dc841a864998129c6ac5a6af2f)]:
+  - @sbc-connect/nuxt-base@0.6.1
+  - @sbc-connect/nuxt-forms@0.4.1
+
 ## 0.5.0
 
 ### Minor Changes

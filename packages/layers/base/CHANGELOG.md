@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.6.1
+
+### Patch Changes
+
+- [#128](https://github.com/bcgov/connect-nuxt/pull/128) [`8cc8cc0`](https://github.com/bcgov/connect-nuxt/commit/8cc8cc09aad741dc841a864998129c6ac5a6af2f) Thanks [@kialj876](https://github.com/kialj876)! - Updates to connect button styling
+
 ## 0.6.0
 
 ### Minor Changes
