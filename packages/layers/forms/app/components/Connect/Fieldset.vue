@@ -2,17 +2,16 @@
 import type { FormError } from '@nuxt/ui'
 
 const {
-  orientation = 'vertical',
+  orientation = 'horizontal',
   bodyVariant = 'none'
 } = defineProps<{
   label?: string
   description?: string
-  error?: FormError
+  error?: FormError | boolean
   showErrorMsg?: boolean
   orientation?: 'vertical' | 'horizontal'
   bodyVariant?: FieldsetBodyVariant
 }>()
-// TODO: figure out why text-error doesnt work on the legend text
 
 const id = useId()
 const legendId = id + '-legend'
@@ -29,8 +28,11 @@ const bodyClass = bodyClassMap[bodyVariant]
 <template>
   <fieldset :aria-labelledby="legendId" :aria-describedby="descriptionId">
     <div
-      class="flex"
-      :class="[orientation === 'horizontal' ? 'flex-col gap-6 sm:flex-row sm:gap-4' : 'flex-col gap-6']"
+      :class="[
+        'py-6 px-4 sm:py-10 sm:px-8 flex gap-4 sm:gap-6',
+        orientation === 'horizontal' ? 'flex-col sm:flex-row' : 'flex-col',
+        (error && bodyVariant === 'none') ? 'border-error border-l-3' : 'border-transparent border-l-3',
+      ]"
     >
       <div
         class="flex flex-col gap-1"
@@ -41,14 +43,11 @@ const bodyClass = bodyClassMap[bodyVariant]
           class="text-base text-neutral-highlighted font-bold"
         >
           <slot name="label">
-            <div
-              class="flex flex-wrap gap-4"
-              :class="[{ 'text-red-600': !!error }]"
-            >
+            <div class="flex flex-wrap gap-4">
               <span>{{ label }}</span>
               <span
-                v-if="!!error && showErrorMsg"
-                class="font-normal"
+                v-if="error && typeof error === 'object' && 'message' in error && showErrorMsg"
+                class="font-normal text-error"
               >
                 {{ error.message }}
               </span>
@@ -66,7 +65,10 @@ const bodyClass = bodyClassMap[bodyVariant]
 
       <div
         class="flex-1"
-        :class="bodyClass"
+        :class="[
+          bodyClass,
+          (error && bodyVariant === 'card') ? 'border-error border-l-3' : 'border-transparent border-l-3',
+        ]"
       >
         <slot />
       </div>

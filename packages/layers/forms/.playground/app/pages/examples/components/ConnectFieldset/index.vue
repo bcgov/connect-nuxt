@@ -36,7 +36,7 @@ definePageMeta({
       </ul>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFieldset (default)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFieldset (default)' }" ui-body="space-y-4">
       <ConnectFieldset label="Fieldset Label">
         <div class="border border-black p-10">
           Slot Content
@@ -44,7 +44,7 @@ definePageMeta({
       </ConnectFieldset>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFieldset (with description)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFieldset (with description)' }" ui-body="space-y-4">
       <ConnectFieldset
         label="Fieldset Label"
         description="A fieldset description"
@@ -55,7 +55,7 @@ definePageMeta({
       </ConnectFieldset>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFieldset (with error)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFieldset (with error)' }" ui-body="space-y-4">
       <ConnectFieldset label="Fieldset Label" :error="{ name: 'some-formfield', message: 'Error' }">
         <div class="border border-black p-10">
           Slot Content
@@ -63,7 +63,7 @@ definePageMeta({
       </ConnectFieldset>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFieldset (display error message)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFieldset (display error message)' }" ui-body="space-y-4">
       <ConnectFieldset
         label="Fieldset Label"
         :error="{ name: 'some-formfield', message: 'Field Required' }"
@@ -77,7 +77,7 @@ definePageMeta({
 
     <ConnectPageSection
       :heading="{ label: 'ConnectFieldset (display error message and description)' }"
-      ui-body="sm:p-6 space-y-4"
+      ui-body="space-y-4"
     >
       <ConnectFieldset
         label="Fieldset Label"
@@ -91,21 +91,19 @@ definePageMeta({
       </ConnectFieldset>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFieldset (horizontal)' }" ui-body="sm:p-6 space-y-4">
-      <p>When horizontal, the label takes up 1/4 of the space.</p>
-      <ConnectFieldset label="Fieldset Label" orientation="horizontal">
+    <ConnectPageSection :heading="{ label: 'ConnectFieldset (vertical)' }" ui-body="space-y-4">
+      <ConnectFieldset label="Fieldset Label" orientation="vertical">
         <div class="border border-black p-10">
           Slot Content
         </div>
       </ConnectFieldset>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFieldset (horizontal with decription)' }" ui-body="sm:p-6 space-y-4">
-      <p>When horizontal, the label takes up 1/4 of the space.</p>
+    <ConnectPageSection :heading="{ label: 'ConnectFieldset (vertical with decription)' }" ui-body="space-y-4">
       <ConnectFieldset
         label="Fieldset Label"
         description="A fieldset description"
-        orientation="horizontal"
+        orientation="vertical"
       >
         <div class="border border-black p-10">
           Slot Content
@@ -113,12 +111,12 @@ definePageMeta({
       </ConnectFieldset>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFieldset (horizontal and error)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFieldset (vertical and error)' }" ui-body="space-y-4">
       <ConnectFieldset
         label="Fieldset Label"
         :error="{ name: 'some-formfield', message: 'Field Required' }"
         :show-error-msg="true"
-        orientation="horizontal"
+        orientation="vertical"
       >
         <div class="border border-black p-10">
           Slot Content
@@ -127,15 +125,15 @@ definePageMeta({
     </ConnectPageSection>
 
     <ConnectPageSection
-      :heading="{ label: 'ConnectFieldset (horizontal, error text and description)' }"
-      ui-body="sm:p-6 space-y-4"
+      :heading="{ label: 'ConnectFieldset (vertical, error text and description)' }"
+      ui-body="space-y-4"
     >
       <ConnectFieldset
         label="Fieldset Label"
         description="A fieldset description"
         :error="{ name: 'some-formfield', message: 'Field Required' }"
         :show-error-msg="true"
-        orientation="horizontal"
+        orientation="vertical"
       >
         <div class="border border-black p-10">
           Slot Content
@@ -145,7 +143,7 @@ definePageMeta({
 
     <ConnectPageSection
       :heading="{ label: 'ConnectFieldset (label slot)' }"
-      ui-body="sm:p-6 space-y-4"
+      ui-body="space-y-4"
     >
       <ConnectFieldset>
         <template #label>
@@ -164,7 +162,7 @@ definePageMeta({
 
     <ConnectPageSection
       :heading="{ label: 'ConnectFieldset (description slot)' }"
-      ui-body="sm:p-6 space-y-4"
+      ui-body="space-y-4"
     >
       <ConnectFieldset label="Fieldset with Custom Description Slot">
         <template #description>
@@ -183,7 +181,7 @@ definePageMeta({
 
     <ConnectPageSection
       :heading="{ label: 'ConnectFieldset (description slot horizontal)' }"
-      ui-body="sm:p-6 space-y-4"
+      ui-body="space-y-4"
     >
       <ConnectFieldset label="Fieldset with Custom Description Slot" orientation="horizontal">
         <template #description>
@@ -203,9 +201,44 @@ definePageMeta({
     <ConnectPageSection
       class="bg-transparent border-4 border-shade-secondary"
       :heading="{ label: 'ConnectFieldset (bodyVariant = card)' }"
-      ui-body="sm:p-6 space-y-4"
+      ui-body="space-y-4"
     >
       <ConnectFieldset label="Fieldset Label" body-variant="card">
+        <div class="border border-black p-10">
+          Slot Content
+        </div>
+      </ConnectFieldset>
+    </ConnectPageSection>
+
+    <ConnectPageSection
+      class="bg-transparent border-4 border-shade-secondary"
+      :heading="{ label: 'ConnectFieldset (bodyVariant = card), vertical' }"
+      ui-body="space-y-4"
+    >
+      <ConnectFieldset
+        label="Fieldset Label"
+        body-variant="card"
+        orientation="vertical"
+      >
+        <div class="border border-black p-10">
+          Slot Content
+        </div>
+      </ConnectFieldset>
+    </ConnectPageSection>
+
+    <ConnectPageSection
+      class="bg-transparent border-4 border-shade-secondary"
+      :heading="{ label: 'ConnectFieldset (bodyVariant = card), vertical, error, description' }"
+      ui-body="space-y-4"
+    >
+      <ConnectFieldset
+        label="Fieldset Label"
+        body-variant="card"
+        orientation="vertical"
+        :error="{ message: 'Field Required' }"
+        description="Some fancy description text"
+        :show-error-msg="true"
+      >
         <div class="border border-black p-10">
           Slot Content
         </div>

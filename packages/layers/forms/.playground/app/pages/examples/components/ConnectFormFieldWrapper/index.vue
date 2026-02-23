@@ -28,13 +28,13 @@ definePageMeta({
     <ConnectPageSection :heading="{ label: 'Props' }" ui-body="sm:p-6 space-y-4">
       <ul>
         <li>`label` - string - required</li>
-        <li>`error` - FormError - optional</li>
+        <li>`error` - FormError | boolean - optional</li>
         <li>`showErrorMsg` - boolean - optional</li>
         <li>`orientation` - 'vertical' | 'horizontal' - default: vertical</li>
       </ul>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (default)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (default)' }" ui-body="space-y-4">
       <ConnectFormFieldWrapper label="Wrapper Label">
         <div class="border border-black p-10">
           Slot Content
@@ -42,7 +42,7 @@ definePageMeta({
       </ConnectFormFieldWrapper>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (with error)' }" ui-body="sm:p-6 space-y-4">
+    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (with error)' }" ui-body="space-y-4">
       <ConnectFormFieldWrapper label="Wrapper Label" :error="{ name: 'some-formfield', message: 'Error' }">
         <div class="border border-black p-10">
           Slot Content
@@ -52,7 +52,7 @@ definePageMeta({
 
     <ConnectPageSection
       :heading="{ label: 'ConnectFormFieldWrapper (display error message)' }"
-      ui-body="sm:p-6 space-y-4"
+      ui-body="space-y-4"
     >
       <ConnectFormFieldWrapper
         label="Wrapper Label"
@@ -65,9 +65,8 @@ definePageMeta({
       </ConnectFormFieldWrapper>
     </ConnectPageSection>
 
-    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (horizontal)' }" ui-body="sm:p-6 space-y-4">
-      <p>When horizontal, the label takes up 1/4 of the space.</p>
-      <ConnectFormFieldWrapper label="Wrapper Label" orientation="horizontal">
+    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (vertical)' }" ui-body="space-y-4">
+      <ConnectFormFieldWrapper label="Wrapper Label" orientation="vertical">
         <div class="border border-black p-10">
           Slot Content
         </div>
@@ -75,14 +74,14 @@ definePageMeta({
     </ConnectPageSection>
 
     <ConnectPageSection
-      :heading="{ label: 'ConnectFormFieldWrapper (horizontal and error)' }"
-      ui-body="sm:p-6 space-y-4"
+      :heading="{ label: 'ConnectFormFieldWrapper (vertical and error)' }"
+      ui-body="space-y-4"
     >
       <ConnectFormFieldWrapper
         label="Wrapper Label"
         :error="{ name: 'some-formfield', message: 'Field Required' }"
         :show-error-msg="true"
-        orientation="horizontal"
+        orientation="vertical"
       >
         <div class="border border-black p-10">
           Slot Content
