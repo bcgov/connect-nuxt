@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.5.0
+
+### Minor Changes
+
+- [#129](https://github.com/bcgov/connect-nuxt/pull/129) [`93c5650`](https://github.com/bcgov/connect-nuxt/commit/93c5650be9a6b48e51d876d522f168d885d006c4) Thanks [@deetz99](https://github.com/deetz99)! - ConnectFieldset and ConnectFormFieldWrapper: Update error styling to be border only, remove title error styling, add padding to body, make orientation horizontal by default.
+
 ## 0.4.1
 
 ### Patch Changes
