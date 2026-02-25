@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.6.2
+
+### Patch Changes
+
+- [#131](https://github.com/bcgov/connect-nuxt/pull/131) [`f649e93`](https://github.com/bcgov/connect-nuxt/commit/f649e930fcb08a4e363e2b6632cb337466f21150) Thanks [@kialj876](https://github.com/kialj876)! - Update useConnectAccountFlowRedirect to add accountid to the query and remove modal in idp-enforcement middleware
+
 ## 0.6.1
 
 ### Patch Changes
