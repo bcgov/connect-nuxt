@@ -21,7 +21,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   /** Show Invalid IDP Modal and Logout on modal close */
   async function showInvalidIdpModal() {
     // Prompt user with invalid IDP modal
-    // FUTURE: Fix this. Currently it doesn't work - loading overlay covers it.
+    // FUTURE: Fix this in #32610. Currently it doesn't work - loading overlay covers it.
     // await modal.open({ currentIdp: authUser.value?.loginSource })
 
     // Logout and Preserve any query param
