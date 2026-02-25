@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, test } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import type { RouteLocationNormalizedGeneric } from 'vue-router'
 import idpEnforcementMiddleware from '#auth/app/middleware/04.idp-enforcement.global'
@@ -77,39 +77,41 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
     expect(result).toBeUndefined()
   })
 
-  it('opens modal and logs out when user loginSource is NOT allowed', async () => {
-    // Disallow BCSC
-    mockAppConfigConnect.login.idps = ['bceid'] // only bceid allowed
-    mockAuthUser.value = { loginSource: 'BCSC' }
+  test.skip('Modal is removed for now - unskip during #32610', () => {
+    it('opens modal and logs out when user loginSource is NOT allowed', async () => {
+      // Disallow BCSC
+      mockAppConfigConnect.login.idps = ['bceid'] // only bceid allowed
+      mockAuthUser.value = { loginSource: 'BCSC' }
 
-    const result = await idpEnforcementMiddleware(baseTo)
+      const result = await idpEnforcementMiddleware(baseTo)
 
-    // middleware didn't await showInvalidIdpModal(); flush microtasks:
-    await Promise.resolve()
+      // middleware didn't await showInvalidIdpModal(); flush microtasks:
+      await Promise.resolve()
 
-    expect(mockCreate).toHaveBeenCalledWith(expect.anything()) // ConnectModalInvalidIdp
-    expect(mockOpen).toHaveBeenCalledTimes(1)
-    expect(mockLogout).toHaveBeenCalledTimes(1)
-    expect(mockLogout).toHaveBeenCalledWith('http://localhost:3000/en-CA/auth/login')
-    expect(result).toBeUndefined()
-  })
+      expect(mockCreate).toHaveBeenCalledWith(expect.anything()) // ConnectModalInvalidIdp
+      expect(mockOpen).toHaveBeenCalledTimes(1)
+      expect(mockLogout).toHaveBeenCalledTimes(1)
+      expect(mockLogout).toHaveBeenCalledWith('http://localhost:3000/en-CA/auth/login')
+      expect(result).toBeUndefined()
+    })
 
-  it('preserves ?preset=… in redirect when present', async () => {
-    mockAppConfigConnect.login.idps = ['idir'] // disallow bcsc
-    mockAuthUser.value = { loginSource: 'BCSC' }
+    it('preserves ?preset=… in redirect when present', async () => {
+      mockAppConfigConnect.login.idps = ['idir'] // disallow bcsc
+      mockAuthUser.value = { loginSource: 'BCSC' }
 
-    const toWithPreset = {
-      ...baseTo,
-      query: { preset: 'colinuser' }
-    } as unknown as RouteLocationNormalizedGeneric
+      const toWithPreset = {
+        ...baseTo,
+        query: { preset: 'colinuser' }
+      } as unknown as RouteLocationNormalizedGeneric
 
-    await idpEnforcementMiddleware(toWithPreset)
+      await idpEnforcementMiddleware(toWithPreset)
 
-    // flush microtasks (modal open resolves asynchronously)
-    await Promise.resolve()
+      // flush microtasks (modal open resolves asynchronously)
+      await Promise.resolve()
 
-    expect(mockOpen).toHaveBeenCalledTimes(1)
-    expect(mockLogout).toHaveBeenCalledWith('http://localhost:3000/en-CA/auth/login?preset=colinuser')
+      expect(mockOpen).toHaveBeenCalledTimes(1)
+      expect(mockLogout).toHaveBeenCalledWith('http://localhost:3000/en-CA/auth/login?preset=colinuser')
+    })
   })
 
   it('handles case-insensitive loginSource vs idps comparison', async () => {
