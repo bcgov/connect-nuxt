@@ -9,8 +9,9 @@ export const useConnectAccountFlowRedirect = () => {
     const externalRedirectUrl = route.query.return as string | undefined
     const internalRedirectUrl = ac.redirect
     const query = { ...route.query }
+    query.accountid = String(currentAccount.id)
 
-    const bypassAccounts = userAccounts.length === 1 && !query.populate
+    const bypassAccounts = userAccounts.length === 1 && !query.token
     const isNonStaffAccount = ![AccountType.STAFF, AccountType.SBC_STAFF].includes(currentAccount.accountType)
     const createOrSelectAccount = manageAccount && isNonStaffAccount && !bypassAccounts
 
