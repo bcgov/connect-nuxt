@@ -91,7 +91,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
           // Refresh and switch to new account prior to redirect
           if (createResponse?.id) {
             await setAccountInfo()
-            switchCurrentAccount(createResponse.id)
+            await switchCurrentAccount(createResponse.id)
           }
 
           // Update or create user contact and then redirect regardless of success or failure
@@ -148,10 +148,11 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Switch the current account to the given account ID if it exists in the user's account list */
-  function switchCurrentAccount(accountId: number) {
+  async function switchCurrentAccount(accountId: number) {
     const account = userAccounts.value.find(account => account.id === accountId)
     if (account) {
       currentAccount.value = account
+      await checkAccountStatus()
     }
   }
 

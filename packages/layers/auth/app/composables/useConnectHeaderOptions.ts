@@ -85,15 +85,15 @@ export function useConnectHeaderOptions() {
         const isActive = accountStore.currentAccount.id === account.id
         options.push({
           label: account.label,
-          onSelect: () => {
+          onSelect: async () => {
             if (!isActive && account.id) {
               if (route.meta.onAccountChange) {
                 const allowAccountChange = route.meta.onAccountChange(accountStore.currentAccount, account)
                 if (allowAccountChange) {
-                  accountStore.switchCurrentAccount(account.id)
+                  await accountStore.switchCurrentAccount(account.id)
                 }
               } else {
-                accountStore.switchCurrentAccount(account.id)
+                await accountStore.switchCurrentAccount(account.id)
               }
             }
           },

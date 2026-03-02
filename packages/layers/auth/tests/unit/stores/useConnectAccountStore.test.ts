@@ -243,12 +243,41 @@ describe('useConnectAccountStore', () => {
   })
 
   describe('Actions', () => {
-    it('switchCurrentAccount should switch the current account', () => {
+    it('switchCurrentAccount should switch the current account', async () => {
       store.userAccounts = mockAccounts
       store.currentAccount = mockAccounts[0]
       expect(store.currentAccount.label).toEqual('Account 1')
-      store.switchCurrentAccount(3)
+      await store.switchCurrentAccount(3)
       expect(store.currentAccount.label).toEqual('Account 3')
+    })
+
+    it('switchCurrentAccount should run checkAccountStatus after switching (active account does not redirect)', async () => {
+      store.userAccounts = mockAccounts
+      store.currentAccount = mockAccounts[0]
+      await store.switchCurrentAccount(2)
+      expect(store.currentAccount.label).toEqual('Account 2')
+      // Active account should not trigger a redirect
+      expect(mockNavigateTo).not.toHaveBeenCalled()
+    })
+
+    it('switchCurrentAccount should redirect when switching to a suspended account', async () => {
+      const suspendedAccount = { ...mockAccounts[1], accountStatus: AccountStatus.SUSPENDED }
+      store.userAccounts = [mockAccounts[0], suspendedAccount]
+      store.currentAccount = mockAccounts[0]
+      await store.switchCurrentAccount(suspendedAccount.id!)
+      expect(store.currentAccount.accountStatus).toEqual(AccountStatus.SUSPENDED)
+      expect(mockNavigateTo).toHaveBeenCalledWith(
+        expect.stringContaining('account-freeze'),
+        expect.any(Object)
+      )
+    })
+
+    it('switchCurrentAccount should not run checkAccountStatus if account not found', async () => {
+      store.userAccounts = mockAccounts
+      store.currentAccount = mockAccounts[0]
+      await store.switchCurrentAccount(999)
+      expect(store.currentAccount.label).toEqual('Account 1')
+      expect(mockNavigateTo).not.toHaveBeenCalled()
     })
 
     it('$reset should clear all store state', () => {
