@@ -49,11 +49,12 @@ describe('useConnectAuth', () => {
   let composable: ReturnType<typeof useConnectAuth>
 
   beforeEach(() => {
-    // vi.resetAllMocks()
+    vi.clearAllMocks()
     composable = useConnectAuth()
+    mockSiteminderUrl = 'https://siteminder.example.com/logout'
 
     vi.spyOn(window, 'location', 'get').mockReturnValue(
-      { href: 'http://localhost:3000/test' } as typeof window.location
+      { href: 'http://localhost:3000/test', search: '' } as typeof window.location
     )
 
     mockAuthenticated = false
@@ -97,6 +98,32 @@ describe('useConnectAuth', () => {
       expect(mockConnectAuth.logout).toHaveBeenCalledWith({
         redirectUri: expect.not.stringContaining('siteminder.example.com')
       })
+    })
+
+    it('should include current query params in the returl when siteminder URL is configured', () => {
+      vi.spyOn(window, 'location', 'get').mockReturnValue(
+        {
+          href: 'http://localhost:3000/test?returnUrl=http://app.example.com&lang=en',
+          search: '?returnUrl=http://app.example.com&lang=en'
+        } as typeof window.location
+      )
+      composable.logout()
+      const call = mockConnectAuth.logout.mock.calls[0][0]
+      // returl should contain the cleaned href + query string appended
+      expect(call.redirectUri).toContain('returl=')
+      expect(call.redirectUri).toContain('returnUrl=http://app.example.com&lang=en')
+      expect(call.redirectUri).toContain('siteminder.example.com')
+    })
+
+    it('should not duplicate query separator in returl when no query params are present', () => {
+      vi.spyOn(window, 'location', 'get').mockReturnValue(
+        { href: 'http://localhost:3000/test', search: '' } as typeof window.location
+      )
+      composable.logout()
+      const call = mockConnectAuth.logout.mock.calls[0][0]
+      // Extract the returl param from the full siteminder redirect URL
+      const returl = call.redirectUri.match(/returl=([^&]*)/)?.[1]
+      expect(returl).toBe('http://localhost:3000/test')
     })
   })
 

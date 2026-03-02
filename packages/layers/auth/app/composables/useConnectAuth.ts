@@ -29,7 +29,10 @@ export const useConnectAuth = () => {
     let redirectUri = redirect ?? window.location.href
 
     if (siteminderUrl) {
-      redirectUri = `${siteminderUrl}?returl=${redirectUri.replace(/(https?:\/\/)|(\/)+/g, '$1$2')}&retnow=1`
+      const cleanedUri = redirectUri.replace(/(https?:\/\/)|(\/)+/g, '$1$2')
+      const queryString = window.location.search
+      const returlValue = queryString ? `${cleanedUri}${queryString}` : cleanedUri
+      redirectUri = `${siteminderUrl}?returl=${returlValue}&retnow=1`
     }
 
     resetPiniaStores()
