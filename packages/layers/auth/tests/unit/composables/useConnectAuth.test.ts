@@ -98,6 +98,30 @@ describe('useConnectAuth', () => {
         redirectUri: expect.not.stringContaining('siteminder.example.com')
       })
     })
+
+    it('should include current query params in the returl when siteminder URL is configured', () => {
+      vi.spyOn(window, 'location', 'get').mockReturnValue(
+        { href: 'http://localhost:3000/test', search: '?returnUrl=http://app.example.com&lang=en' } as typeof window.location
+      )
+      composable.logout()
+      expect(mockConnectAuth.logout).toHaveBeenCalledWith({
+        redirectUri: expect.stringContaining('?returnUrl=http://app.example.com&lang=en')
+      })
+      expect(mockConnectAuth.logout).toHaveBeenCalledWith({
+        redirectUri: expect.stringMatching(/returl=.*\?returnUrl=http:\/\/app\.example\.com&lang=en&retnow=1$/)
+      })
+    })
+
+    it('should not duplicate query separator in returl when no query params are present', () => {
+      vi.spyOn(window, 'location', 'get').mockReturnValue(
+        { href: 'http://localhost:3000/test', search: '' } as typeof window.location
+      )
+      composable.logout()
+      const call = mockConnectAuth.logout.mock.calls[0][0]
+      const returl = new URL(call.redirectUri).searchParams.get('returl')
+      expect(returl).not.toContain('?')
+      expect(returl).toBe('http://localhost:3000/test')
+    })
   })
 
   describe('getToken', () => {
