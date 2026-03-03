@@ -9,4 +9,5 @@ export interface ConnectAddress {
   streetName?: string
   streetNumber?: string
   unitNumber?: string
+  deliveryInstructions?: string
 }

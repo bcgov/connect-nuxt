@@ -175,11 +175,11 @@ describe('useConnectHeaderOptions', () => {
       await nextTick()
       const options = composable.switchAccountOptions.value
       expect(options).toHaveLength(3)
-      expect(options[0]).toEqual({ label: 'Switch Account', type: 'label' })
-      expect(options[1].label).toBe('Account 1')
-      expect(options[1].icon).toBe('i-mdi-check')
-      expect(options[2].label).toBe('Account 2')
-      expect(options[2].icon).toBe('')
+      expect(options![0]).toEqual({ label: 'Switch Account', type: 'label' })
+      expect(options![1]!.label).toBe('Account 1')
+      expect(options![1]!.icon).toBe('i-mdi-check')
+      expect(options![2]!.label).toBe('Account 2')
+      expect(options![2]!.icon).toBe('')
     })
 
     it('should not switch accounts when isActive', () => {
@@ -187,7 +187,7 @@ describe('useConnectHeaderOptions', () => {
       const options = composable.switchAccountOptions.value
       const activeOption = options?.find(o => o.label === 'Account 1')
       if (activeOption) {
-        activeOption.onSelect()
+        activeOption.onSelect!(new Event('select'))
         expect(mockSwitchCurrentAccount).not.toHaveBeenCalled()
       }
     })
@@ -197,7 +197,7 @@ describe('useConnectHeaderOptions', () => {
       const options = composable.switchAccountOptions.value
       const inactiveOption = options?.find(o => o.label === 'Account 2')
       if (inactiveOption) {
-        inactiveOption.onSelect()
+        inactiveOption.onSelect!(new Event('select'))
         expect(mockSwitchCurrentAccount).toHaveBeenCalledWith('account2')
       }
     })

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { ref } from 'vue'
+import type { RouteLocationNormalizedGeneric } from 'vue-router'
 import initAccountMiddleware from '../../../app/middleware/01.setup-accounts.global'
 
 vi.stubGlobal('import.meta', { client: true })
@@ -15,7 +16,7 @@ mockNuxtImport('useConnectAccountStore', () => () => ({
 
 describe('Setup accounts middleware', () => {
   const to: { query: { accountid?: string } } = { query: {} }
-  const from = {}
+  const from = {} as unknown as RouteLocationNormalizedGeneric
 
   beforeEach(() => {
     vi.clearAllMocks()
@@ -25,14 +26,14 @@ describe('Setup accounts middleware', () => {
 
   it('should do nothing if the user is not authenticated', async () => {
     mockIsAuthenticated.value = false
-    await initAccountMiddleware(to, from)
+    await initAccountMiddleware(to as unknown as RouteLocationNormalizedGeneric, from)
     expect(mockInitAccountStore).not.toHaveBeenCalled()
     expect(mockSwitchCurrentAccount).not.toHaveBeenCalled()
   })
 
   it('should initialize the account store if the user is authenticated (no accountid)', async () => {
     mockIsAuthenticated.value = true
-    await initAccountMiddleware(to, from)
+    await initAccountMiddleware(to as unknown as RouteLocationNormalizedGeneric, from)
     expect(mockInitAccountStore).toHaveBeenCalled()
     expect(mockSwitchCurrentAccount).not.toHaveBeenCalled()
   })
@@ -40,7 +41,7 @@ describe('Setup accounts middleware', () => {
   it('should switch accounts and initialize store if authenticated with an accountid', async () => {
     mockIsAuthenticated.value = true
     to.query.accountid = '123'
-    await initAccountMiddleware(to, from)
+    await initAccountMiddleware(to as unknown as RouteLocationNormalizedGeneric, from)
     expect(mockInitAccountStore).toHaveBeenCalled()
     expect(mockSwitchCurrentAccount).toHaveBeenCalledWith(123)
   })

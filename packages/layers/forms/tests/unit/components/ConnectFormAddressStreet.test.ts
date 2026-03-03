@@ -27,6 +27,7 @@ describe('ConnectFormAddressStreet.vue', () => {
         parentId: 'test',
         schemaPrefix: 'shipping',
         country: 'CA',
+        modelValue: '',
         ...props
       }
     })

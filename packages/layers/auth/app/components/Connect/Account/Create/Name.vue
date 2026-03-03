@@ -20,7 +20,8 @@ const validateName = useDebounceFn(async (accountName: string) => {
       const { data } = await refetch()
       statusCode.value = data?.status
     } catch (err: unknown) {
-      statusCode.value = err?.response?.status || 500
+      const error = err as { response?: { status?: number } }
+      statusCode.value = error?.response?.status || 500
     } finally {
       isLoading.value = false
     }

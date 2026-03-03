@@ -20,7 +20,7 @@ const statusCode = computed((): number | undefined => {
 })
 
 // Mock Error message
-const errorMessage = computed<FormError>(() => {
+const errorMessage = computed<FormError | undefined>(() => {
   if (!mockEnabled.value) {
     // In real mode, let the component manage its own error (keep undefined)
     return undefined

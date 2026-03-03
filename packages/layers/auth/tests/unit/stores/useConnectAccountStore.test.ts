@@ -82,29 +82,35 @@ vi.mock('#auth/app/utils/schemas/account', () => {
 
 describe('useConnectAccountStore', () => {
   let store: ReturnType<typeof useConnectAccountStore>
-  const mockAccounts: Array<Partial<ConnectAccount>> = [
+  const mockAccounts = [
     {
       type: UserSettingsType.ACCOUNT,
       id: 1,
       accountType: AccountType.PREMIUM,
       accountStatus: AccountStatus.ACTIVE,
-      label: 'Account 1'
+      label: 'Account 1',
+      urlpath: '',
+      urlorigin: ''
     },
     {
       type: UserSettingsType.ACCOUNT,
       id: 2,
       accountType: AccountType.BASIC,
       accountStatus: AccountStatus.ACTIVE,
-      label: 'Account 2'
+      label: 'Account 2',
+      urlpath: '',
+      urlorigin: ''
     },
     {
       type: UserSettingsType.ACCOUNT,
       id: 3,
       accountType: AccountType.PREMIUM,
       accountStatus: AccountStatus.ACTIVE,
-      label: 'Account 3'
+      label: 'Account 3',
+      urlpath: '',
+      urlorigin: ''
     }
-  ]
+  ] as ConnectAccount[]
 
   beforeEach(() => {
     setActivePinia(createPinia())
@@ -128,7 +134,7 @@ describe('useConnectAccountStore', () => {
 
   describe('Computed properties', () => {
     it('hasRoles should return true if account or user has the role', () => {
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0]!
       mockAuthUser.value = { roles: ['viewer'] } as ConnectAuthUser
       expect(store.hasRoles(['PREMIUM'])).toBe(true)
       expect(store.hasRoles(['viewer'])).toBe(true)
@@ -136,13 +142,13 @@ describe('useConnectAccountStore', () => {
     })
 
     it('isCurrentAccount should return true for the active account ID', () => {
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0]!
       expect(store.isCurrentAccount(1)).toBe(true)
       expect(store.isCurrentAccount(2)).toBe(false)
     })
 
     it('currentAccountName should return the label of the current account', () => {
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0]!
       expect(store.currentAccountName).toEqual('Account 1')
     })
   })
@@ -161,7 +167,7 @@ describe('useConnectAccountStore', () => {
 
     it('setAccountInfo should set user accounts and current account', async () => {
       mockAuthUser.value.keycloakGuid = 'test-guid'
-      const accounts = [mockAccounts[0], mockAccounts[1]]
+      const accounts = [mockAccounts[0]!, mockAccounts[1]!]
       mockAuthApi.mockResolvedValueOnce(accounts)
 
       await store.setAccountInfo()
@@ -211,32 +217,32 @@ describe('useConnectAccountStore', () => {
 
   describe('checkAccountStatus', () => {
     it('should not redirect for an active account', async () => {
-      store.currentAccount = { ...mockAccounts[0], accountStatus: AccountStatus.ACTIVE } as ConnectAccount
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.ACTIVE } as ConnectAccount
       await store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
 
     it('should redirect for a suspended account', async () => {
-      store.currentAccount = { ...mockAccounts[0], accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
       await store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
     })
 
     it('should redirect for an NSF suspended account', async () => {
-      store.currentAccount = { ...mockAccounts[0], accountStatus: AccountStatus.NSF_SUSPENDED } as ConnectAccount
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.NSF_SUSPENDED } as ConnectAccount
       await store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
     })
 
     it('should redirect for a pending staff review account', async () => {
-      store.currentAccount = { ...mockAccounts[0], accountStatus: AccountStatus.PENDING_STAFF_REVIEW } as ConnectAccount
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW } as ConnectAccount
       await store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith(expect.stringContaining('pendingapproval'), expect.any(Object))
     })
 
     it('should not redirect for a pending staff review account on an allowed path', async () => {
       mockRoute.value.path = '/setup-non-bcsc-account'
-      store.currentAccount = { ...mockAccounts[0], accountStatus: AccountStatus.PENDING_STAFF_REVIEW } as ConnectAccount
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW } as ConnectAccount
       await store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
@@ -245,7 +251,7 @@ describe('useConnectAccountStore', () => {
   describe('Actions', () => {
     it('switchCurrentAccount should switch the current account', async () => {
       store.userAccounts = mockAccounts
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0]!
       expect(store.currentAccount.label).toEqual('Account 1')
       await store.switchCurrentAccount(3)
       expect(store.currentAccount.label).toEqual('Account 3')
@@ -254,7 +260,7 @@ describe('useConnectAccountStore', () => {
     it('switchCurrentAccount should run checkAccountStatus after switching (active account does not redirect)',
       async () => {
         store.userAccounts = mockAccounts
-        store.currentAccount = mockAccounts[0]
+        store.currentAccount = mockAccounts[0]!
         await store.switchCurrentAccount(2)
         expect(store.currentAccount.label).toEqual('Account 2')
         // Active account should not trigger a redirect
@@ -262,10 +268,10 @@ describe('useConnectAccountStore', () => {
       })
 
     it('switchCurrentAccount should redirect when switching to a suspended account', async () => {
-      const suspendedAccount = { ...mockAccounts[1], accountStatus: AccountStatus.SUSPENDED }
-      store.userAccounts = [mockAccounts[0], suspendedAccount]
-      store.currentAccount = mockAccounts[0]
-      await store.switchCurrentAccount(suspendedAccount.id!)
+      const suspendedAccount = { ...mockAccounts[1]!, accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
+      store.userAccounts = [mockAccounts[0]!, suspendedAccount]
+      store.currentAccount = mockAccounts[0]!
+      await store.switchCurrentAccount(suspendedAccount.id)
       expect(store.currentAccount.accountStatus).toEqual(AccountStatus.SUSPENDED)
       expect(mockNavigateTo).toHaveBeenCalledWith(
         expect.stringContaining('account-freeze'),
@@ -275,7 +281,7 @@ describe('useConnectAccountStore', () => {
 
     it('switchCurrentAccount should not run checkAccountStatus if account not found', async () => {
       store.userAccounts = mockAccounts
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0]!
       await store.switchCurrentAccount(999)
       expect(store.currentAccount.label).toEqual('Account 1')
       expect(mockNavigateTo).not.toHaveBeenCalled()
@@ -283,7 +289,7 @@ describe('useConnectAccountStore', () => {
 
     it('$reset should clear all store state', () => {
       store.userAccounts = mockAccounts
-      store.currentAccount = mockAccounts[0]
+      store.currentAccount = mockAccounts[0]!
       store.pendingApprovalCount = 5
       store.$reset()
       expect(store.currentAccount).toEqual({})

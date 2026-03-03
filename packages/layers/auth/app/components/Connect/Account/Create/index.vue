@@ -25,7 +25,8 @@ const formErrors = computed<{
 })
 
 async function validate(fieldName?: keyof AccountProfileSchema) {
-  return formRef.value?.validate({ name: fieldName, silent: true })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return formRef.value?.validate({ name: fieldName ? [fieldName] : undefined, silent: true } as any)
 }
 
 watch(() => statusCode.value, async () => {

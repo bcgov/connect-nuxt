@@ -114,8 +114,8 @@ describe('ConnectPageSection Component', () => {
   describe('Actions Prop', () => {
     test('renders multiple action buttons with correct props', async () => {
       const actions = [
-        { label: 'Cancel', variant: 'outline', color: 'red' },
-        { label: 'Save', variant: 'solid', color: 'primary' }
+        { label: 'Cancel', variant: 'outline' as const, color: 'error' as const },
+        { label: 'Save', variant: 'solid' as const, color: 'primary' as const }
       ]
       const wrapper = await mountSuspended(ConnectPageSection, {
         global: { stubs },
@@ -127,10 +127,10 @@ describe('ConnectPageSection Component', () => {
 
       const buttons = wrapper.findAllComponents(MockUButton)
       expect(buttons).toHaveLength(2)
-      expect(buttons[0].props('label')).toBe('Cancel')
-      expect(buttons[0].props('variant')).toBe('outline')
-      expect(buttons[1].props('label')).toBe('Save')
-      expect(buttons[1].props('color')).toBe('primary')
+      expect(buttons[0]!.props('label')).toBe('Cancel')
+      expect(buttons[0]!.props('variant')).toBe('outline')
+      expect(buttons[1]!.props('label')).toBe('Save')
+      expect(buttons[1]!.props('color')).toBe('primary')
     })
   })
 

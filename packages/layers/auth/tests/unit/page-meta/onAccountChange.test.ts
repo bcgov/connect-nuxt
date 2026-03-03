@@ -3,7 +3,10 @@ import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 
 const mockRoute = {
   meta: {
-    onAccountChange: (oldAccount, _newAccount) => oldAccount.accountType === 'basic'
+    onAccountChange: (
+      oldAccount: { accountType: string },
+      _newAccount: { accountType: string }
+    ) => oldAccount.accountType === 'basic'
   }
 }
 mockNuxtImport('useRoute', () => () => mockRoute)

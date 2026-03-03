@@ -35,7 +35,7 @@ describe('useConnectTombstone', () => {
   it('should initialize with a custom default state', () => {
     const customInitialState = {
       loading: true,
-      title: { text: 'Initial Title', as: 'span' }
+      title: { text: 'Initial Title', as: 'span' as const }
     }
 
     const { tombstone } = useConnectTombstone('custom-key', customInitialState)
@@ -90,7 +90,7 @@ describe('useConnectTombstone', () => {
   it('should reset to the custom default state when $reset is called', () => {
     const customInitialState = {
       loading: true,
-      title: { text: 'Initial Title', as: 'span' }
+      title: { text: 'Initial Title', as: 'span' as const }
     }
 
     const { tombstone, $reset } = useConnectTombstone('custom-reset-key', customInitialState)

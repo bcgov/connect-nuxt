@@ -1,11 +1,11 @@
 export default defineNuxtPlugin((nuxtApp) => {
   const rtc = nuxtApp.$config.public
-  const payApiUrl = rtc.payApiUrl + rtc.payApiVersion
-  const appName = rtc.appName
-  const xApiKey = rtc.xApiKey
+  const payApiUrl = `${rtc.payApiUrl}${rtc.payApiVersion}`
+  const appName = String(rtc.appName ?? '')
+  const xApiKey = String(rtc.xApiKey ?? '')
 
   const api = $fetch.create({
-    baseURL: payApiUrl,
+    baseURL: payApiUrl as string,
     async onRequest({ options }) {
       const auth = useConnectAuth()
       const accountStore = useConnectAccountStore()

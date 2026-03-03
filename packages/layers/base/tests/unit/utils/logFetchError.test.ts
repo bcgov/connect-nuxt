@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { logFetchError } from '../../../app/utils/logFetchError'
 
 describe('logFetchError', () => {
-  let consoleSpy
+  let consoleSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
     consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})

@@ -29,7 +29,7 @@ describe('<ConnectTombstoneItem />', () => {
   })
 
   it('renders a badge when badge prop is provided', async () => {
-    const badgeProps = { label: 'Active', color: 'green' }
+    const badgeProps = { label: 'Active', color: 'success' as const }
     const wrapper = await mountSuspended(ConnectTombstoneItem, {
       props: { badge: badgeProps }
     })

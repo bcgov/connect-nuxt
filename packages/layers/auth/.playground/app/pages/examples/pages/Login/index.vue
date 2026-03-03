@@ -31,7 +31,7 @@ onMounted(() => {
       login: {
         idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
         idpEnforcement: false,
-        alert: null
+        alert: undefined
       }
     }
   }

@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
+import { ConnectIdpHint } from '#auth/app/enums/connect-idp-hint'
 import { useConnectAuth } from '../../../app/composables/useConnectAuth'
 
 let mockAuthenticated = false
@@ -63,7 +64,7 @@ describe('useConnectAuth', () => {
 
   describe('login', () => {
     it('should call $connectAuth.login with the correct hint and redirect URI', () => {
-      composable.login('bcsc', 'http://example.com/redirect')
+      composable.login(ConnectIdpHint.BCSC, 'http://example.com/redirect')
       expect(mockConnectAuth.login).toHaveBeenCalledWith({
         idpHint: 'bcsc',
         redirectUri: 'http://example.com/redirect'
@@ -71,7 +72,7 @@ describe('useConnectAuth', () => {
     })
 
     it('should use default redirect URL if none is provided', () => {
-      composable.login('idir')
+      composable.login(ConnectIdpHint.IDIR)
       expect(mockConnectAuth.login).toHaveBeenCalledWith({
         idpHint: 'idir',
         redirectUri: 'http://localhost:3000/test'
@@ -108,7 +109,7 @@ describe('useConnectAuth', () => {
         } as typeof window.location
       )
       composable.logout()
-      const call = mockConnectAuth.logout.mock.calls[0][0]
+      const call = mockConnectAuth.logout.mock.calls[0]![0]
       // returl should contain the cleaned href + query string appended
       expect(call.redirectUri).toContain('returl=')
       expect(call.redirectUri).toContain('returnUrl=http://app.example.com&lang=en')
@@ -120,7 +121,7 @@ describe('useConnectAuth', () => {
         { href: 'http://localhost:3000/test', search: '' } as typeof window.location
       )
       composable.logout()
-      const call = mockConnectAuth.logout.mock.calls[0][0]
+      const call = mockConnectAuth.logout.mock.calls[0]![0]
       // Extract the returl param from the full siteminder redirect URL
       const returl = call.redirectUri.match(/returl=([^&]*)/)?.[1]
       expect(returl).toBe('http://localhost:3000/test')
