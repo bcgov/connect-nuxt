@@ -23,8 +23,8 @@ useHead({
   title: pageTitle
 })
 
-function selectAndRedirect(id: number) {
-  accountStore.switchCurrentAccount(id)
+async function selectAndRedirect(id: number) {
+  await accountStore.switchCurrentAccount(id)
   finalRedirect(useRoute())
 }
 
