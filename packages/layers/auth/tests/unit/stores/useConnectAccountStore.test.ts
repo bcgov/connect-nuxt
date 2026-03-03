@@ -235,14 +235,18 @@ describe('useConnectAccountStore', () => {
     })
 
     it('should redirect for a pending staff review account', async () => {
-      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW } as ConnectAccount
+      store.currentAccount = {
+        ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW
+      } as ConnectAccount
       await store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith(expect.stringContaining('pendingapproval'), expect.any(Object))
     })
 
     it('should not redirect for a pending staff review account on an allowed path', async () => {
       mockRoute.value.path = '/setup-non-bcsc-account'
-      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW } as ConnectAccount
+      store.currentAccount = {
+        ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW
+      } as ConnectAccount
       await store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
