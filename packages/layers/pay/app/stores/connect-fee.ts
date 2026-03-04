@@ -1,5 +1,5 @@
 export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
-  const { $payApi } = useNuxtApp() as unknown as { $payApi: typeof $fetch }
+  const { $payApi } = useNuxtApp()
   const { t } = useNuxtApp().$i18n
   const { baseModal } = useConnectModal()
 
