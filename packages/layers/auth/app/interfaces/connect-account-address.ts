@@ -1,1 +1,3 @@
-export type ConnectAccountAddress = Pick<ConnectAddress, Exclude<keyof ConnectAddress, 'locationDescription'>>
+export type ConnectAccountAddress = Pick<ConnectAddress, Exclude<keyof ConnectAddress, 'locationDescription'>> & {
+  deliveryInstructions?: string
+}

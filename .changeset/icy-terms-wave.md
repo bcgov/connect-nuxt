@@ -5,4 +5,4 @@
 "@sbc-connect/nuxt-pay": minor
 ---
 
-Typecheck fixes and e2e refactors for CI
+Misc typing and e2e test fixes
