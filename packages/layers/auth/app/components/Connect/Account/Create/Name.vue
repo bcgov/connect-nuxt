@@ -57,10 +57,10 @@ provide('UInput-props-account-name-input', uInputProps)
 
 <template>
   <ConnectFormFieldWrapper
-    class="pt-2 my-6"
     :label="$t('connect.page.createAccount.accountNameLabel')"
     orientation="horizontal"
     :error
+    padding-class="pt-6 pb-4 px-4 sm:pb-4 sm:pt-8 sm:px-8"
   >
     <ConnectFormInput
       v-model="accountFormState.accountName"
