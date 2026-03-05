@@ -1,5 +1,18 @@
 # @sbc-connect/nuxt-forms
 
+## 0.6.0
+
+### Minor Changes
+
+- [#137](https://github.com/bcgov/connect-nuxt/pull/137) [`9c10812`](https://github.com/bcgov/connect-nuxt/commit/9c10812d8ecde646eb185310376cabd3319a414d) Thanks [@deetz99](https://github.com/deetz99)! - ConnectFieldset and ConnectFormFieldWrapper: update padding to be configurable
+
+- [#136](https://github.com/bcgov/connect-nuxt/pull/136) [`7e3a970`](https://github.com/bcgov/connect-nuxt/commit/7e3a9701ddd5304851c8d55c9fc940b2da656cbf) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Misc typing and e2e test fixes
+
+### Patch Changes
+
+- Updated dependencies [[`7e3a970`](https://github.com/bcgov/connect-nuxt/commit/7e3a9701ddd5304851c8d55c9fc940b2da656cbf)]:
+  - @sbc-connect/nuxt-base@0.7.0
+
 ## 0.5.0
 
 ### Minor Changes

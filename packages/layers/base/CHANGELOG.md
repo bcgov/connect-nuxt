@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.7.0
+
+### Minor Changes
+
+- [#136](https://github.com/bcgov/connect-nuxt/pull/136) [`7e3a970`](https://github.com/bcgov/connect-nuxt/commit/7e3a9701ddd5304851c8d55c9fc940b2da656cbf) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Misc typing and e2e test fixes
+
 ## 0.6.1
 
 ### Patch Changes
