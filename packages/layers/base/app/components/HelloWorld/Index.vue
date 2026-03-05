@@ -8,7 +8,7 @@ const { myLayer } = useAppConfig()
     <h1>Hello World!</h1>
     <pre>{{ myLayer }}</pre>
     <p class="text-gray-900">
-      Hello World text base should be gray-900
+      Hello World text base should be gray-900 test
     </p>
   </div>
 </template>
