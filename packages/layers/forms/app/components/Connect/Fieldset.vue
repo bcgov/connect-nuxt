@@ -3,7 +3,8 @@ import type { FormError } from '@nuxt/ui'
 
 const {
   orientation = 'horizontal',
-  bodyVariant = 'none'
+  bodyVariant = 'none',
+  paddingClass = 'x-default'
 } = defineProps<{
   label?: string
   description?: string
@@ -11,6 +12,7 @@ const {
   showErrorMsg?: boolean
   orientation?: 'vertical' | 'horizontal'
   bodyVariant?: FieldsetBodyVariant
+  paddingClass?: 'x-default' | 'xy-default' | string
 }>()
 
 const id = useId()
@@ -19,17 +21,24 @@ const descriptionId = id + '-description'
 
 const bodyClassMap: Record<FieldsetBodyVariant, string> = {
   none: '',
-  card: 'p-4 sm:p-6 bg-white rounded shadow-xs'
+  card: 'bg-white rounded shadow-xs'
 }
 
 const bodyClass = bodyClassMap[bodyVariant]
+
+const padding = paddingClass === 'x-default'
+  ? 'px-4 sm:px-8'
+  : paddingClass === 'xy-default'
+    ? 'py-6 px-4 sm:py-10 sm:px-8'
+    : paddingClass
 </script>
 
 <template>
   <fieldset :aria-labelledby="legendId" :aria-describedby="descriptionId">
     <div
       :class="[
-        'py-6 px-4 sm:py-10 sm:px-8 flex gap-4 sm:gap-6',
+        'flex gap-4 sm:gap-6',
+        bodyVariant === 'none' ? padding : '',
         orientation === 'horizontal' ? 'flex-col sm:flex-row' : 'flex-col',
         (error && bodyVariant === 'none') ? 'border-error border-l-3' : 'border-transparent border-l-3',
       ]"
@@ -65,10 +74,7 @@ const bodyClass = bodyClassMap[bodyVariant]
 
       <div
         class="flex-1"
-        :class="[
-          bodyClass,
-          (error && bodyVariant === 'card') ? 'border-error border-l-3' : 'border-transparent border-l-3',
-        ]"
+        :class="bodyClass"
       >
         <slot />
       </div>

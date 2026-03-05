@@ -45,11 +45,11 @@ watch(() => statusCode.value, async () => {
       label: $t('connect.label.accountInformation'),
       labelClass: 'font-bold md:ml-4',
     }"
+    ui-body="p-0 sm:p-0"
   >
     <UForm
       id="account-create-form"
       ref="account-create-form"
-      class="p-8"
       no-validate
       :validate-on="['input', 'change']"
       :schema="accountProfileSchema"
@@ -61,6 +61,7 @@ watch(() => statusCode.value, async () => {
       <ConnectFormFieldWrapper
         :label="$t('connect.page.createAccount.yourNameLabel')"
         orientation="horizontal"
+        class="py-6 sm:py-8"
       >
         <p class="font-bold">
           {{ userFullName }}
@@ -70,7 +71,7 @@ watch(() => statusCode.value, async () => {
         </p>
       </ConnectFormFieldWrapper>
 
-      <USeparator orientation="horizontal" class="my-8" />
+      <USeparator orientation="horizontal" />
 
       <!-- Account Name -->
       <ConnectAccountCreateName
@@ -80,10 +81,10 @@ watch(() => statusCode.value, async () => {
 
       <!-- Account Email -->
       <ConnectFormFieldWrapper
-        class="my-6"
         :label="$t('connect.page.createAccount.emailLabel')"
         orientation="horizontal"
         :error="formErrors.emailAddress"
+        padding-class="py-1 px-4 sm:py-2 sm:px-8"
       >
         <ConnectFormInput
           v-model="accountFormState.emailAddress"
@@ -98,6 +99,7 @@ watch(() => statusCode.value, async () => {
         :label="$t('connect.page.createAccount.phoneLabel')"
         orientation="horizontal"
         :error="formErrors.phone"
+        padding-class="py-1 px-4 sm:py-2 sm:px-8"
       >
         <div class="flex flex-row gap-2">
           <!-- Disabling country code selection until Auth Model Supports individual property -->
@@ -126,10 +128,10 @@ watch(() => statusCode.value, async () => {
 
       <!-- Account Address -->
       <ConnectFieldset
-        class="my-6"
         :label="$t('connect.page.createAccount.addressLabel')"
         orientation="horizontal"
         :error="formErrors.address"
+        padding-class="py-1 px-4 sm:pt-2 sm:pb-4 sm:px-8"
       >
         <ConnectFormAddress
           id="account-address"

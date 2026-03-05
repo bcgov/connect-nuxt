@@ -30,7 +30,8 @@ definePageMeta({
         <li>`label` - string - required</li>
         <li>`error` - FormError | boolean - optional</li>
         <li>`showErrorMsg` - boolean - optional</li>
-        <li>`orientation` - 'vertical' | 'horizontal' - default: vertical</li>
+        <li>`orientation` - 'vertical' | 'horizontal' - default: horizontal</li>
+        <li>`paddingClass` - 'x-default' | 'xy-default' | string - default: 'x-default'</li>
       </ul>
     </ConnectPageSection>
 
@@ -82,6 +83,20 @@ definePageMeta({
         :error="{ name: 'some-formfield', message: 'Field Required' }"
         :show-error-msg="true"
         orientation="vertical"
+      >
+        <div class="border border-black p-10">
+          Slot Content
+        </div>
+      </ConnectFormFieldWrapper>
+    </ConnectPageSection>
+
+    <ConnectPageSection
+      :heading="{ label: 'ConnectFormFieldWrapper (custom padding)' }"
+      ui-body="space-y-4"
+    >
+      <ConnectFormFieldWrapper
+        label="Wrapper Label"
+        padding-class="px-10 py-6"
       >
         <div class="border border-black p-10">
           Slot Content
