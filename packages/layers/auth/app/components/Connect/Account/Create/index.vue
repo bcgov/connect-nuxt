@@ -25,7 +25,10 @@ const formErrors = computed<{
 })
 
 async function validate(fieldName?: keyof AccountProfileSchema) {
-  return formRef.value?.validate({ name: fieldName, silent: true })
+  return formRef.value?.validate({
+    name: fieldName as never,
+    silent: true
+  })
 }
 
 watch(() => statusCode.value, async () => {

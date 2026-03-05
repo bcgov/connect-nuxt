@@ -14,7 +14,7 @@ mockNuxtImport('useRuntimeConfig', () => () => ({
   }
 }))
 
-const ldFlags = {
+const ldFlags: Record<string, string> = {
   'test-flag': 'TEST,PASS'
 }
 
@@ -51,7 +51,7 @@ describe('useConnectLaunchdarkly', () => {
 
     test('should set ldInitialized to true on successful initialization', async () => {
       const { ldInitialized, ldFlagSet } = useLd()
-      const mockLdClientInstance = vi.mocked(initialize).mock.results[0].value
+      const mockLdClientInstance = vi.mocked(initialize).mock.results[0]!.value
       vi.mocked(mockLdClientInstance.allFlags).mockReturnValue(ldFlags)
 
       onInitializedCallback()

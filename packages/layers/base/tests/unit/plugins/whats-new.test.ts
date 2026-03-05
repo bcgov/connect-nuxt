@@ -8,6 +8,9 @@ import { isEqual } from 'es-toolkit'
 vi.mock('@vueuse/core')
 vi.mock('es-toolkit')
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const runPlugin = (app: unknown) => whatsNewPlugin.setup!(app as any)
+
 let mockAppConfig = true
 mockNuxtImport('useAppConfig', () => () => ({
   connect: { header: { whatsNew: mockAppConfig } }
@@ -25,7 +28,7 @@ const mockFetch = vi.fn()
 vi.stubGlobal('$fetch', mockFetch)
 
 describe("What's New Plugin", () => {
-  let mockNuxtApp: unknown
+  let mockNuxtApp: { hook: ReturnType<typeof vi.fn> }
   let appMountedCallback: () => Promise<void>
   const mockStorageRef = ref({ viewed: false, items: [] })
 
@@ -43,7 +46,7 @@ describe("What's New Plugin", () => {
 
     // mock nuxt app with hook
     mockNuxtApp = {
-      hook: vi.fn((event, callback) => {
+      hook: vi.fn((event: string, callback: () => Promise<void>) => {
         if (event === 'app:mounted') {
           appMountedCallback = callback
         }
@@ -54,19 +57,16 @@ describe("What's New Plugin", () => {
   test('should do nothing if the feature is disabled in app config', () => {
     mockAppConfig = false // disable whats new
     // run plugin
-    whatsNewPlugin.setup(mockNuxtApp, {})
+    runPlugin(mockNuxtApp)
     // hook should not be called
-    // @ts-expect-error - 'mockNuxtApp' is of type 'unknown'
     expect(mockNuxtApp.hook).not.toHaveBeenCalled()
   })
 
   test('should register the app:mounted hook if the feature is enabled', () => {
     // run plugin
-    whatsNewPlugin.setup(mockNuxtApp, {})
+    runPlugin(mockNuxtApp)
     // hook should be called
-    // @ts-expect-error - 'mockNuxtApp' is of type 'unknown'
     expect(mockNuxtApp.hook).toHaveBeenCalledOnce()
-    // @ts-expect-error - 'mockNuxtApp' is of type 'unknown'
     expect(mockNuxtApp.hook).toHaveBeenCalledWith('app:mounted', expect.any(Function))
   })
 
@@ -79,7 +79,7 @@ describe("What's New Plugin", () => {
       vi.mocked(isEqual).mockReturnValue(false)
 
       // run plugin
-      whatsNewPlugin.setup(mockNuxtApp, {})
+      runPlugin(mockNuxtApp)
       await appMountedCallback()
 
       // assert fetch was triggered
@@ -97,7 +97,7 @@ describe("What's New Plugin", () => {
       vi.mocked(isEqual).mockReturnValue(true)
 
       // run plugin
-      whatsNewPlugin.setup(mockNuxtApp, {})
+      runPlugin(mockNuxtApp)
       await appMountedCallback()
 
       // assert fetch was triggered
@@ -112,7 +112,7 @@ describe("What's New Plugin", () => {
       mockFetch.mockRejectedValue(new Error('API is down'))
 
       // run plugin
-      whatsNewPlugin.setup(mockNuxtApp, {})
+      runPlugin(mockNuxtApp)
       await appMountedCallback()
 
       // assert fetch was called
@@ -128,7 +128,7 @@ describe("What's New Plugin", () => {
       vi.mocked(isEqual).mockReturnValue(false)
 
       // run plugin
-      whatsNewPlugin.setup(mockNuxtApp, {})
+      runPlugin(mockNuxtApp)
       await appMountedCallback()
 
       // assert fetch was called
@@ -145,7 +145,7 @@ describe("What's New Plugin", () => {
       vi.mocked(isEqual).mockReturnValue(false)
 
       // run plugin
-      whatsNewPlugin.setup(mockNuxtApp, {})
+      runPlugin(mockNuxtApp)
       await appMountedCallback()
 
       // assert state has new items

@@ -43,14 +43,14 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
   ) => {
     loading.value = true
     // Get all the fee information for each fee code from the pay api
-    const feePromises = []
+    const feePromises: Promise<ConnectFeeItem | undefined>[] = []
     for (const feeInfo of feeCodes) {
       feePromises.push(getFee(feeInfo.entityType, feeInfo.code))
     }
-    const feesResolved = (await Promise.all(feePromises)).filter(fee => !!fee)
+    const feesResolved = (await Promise.all(feePromises)).filter((fee): fee is ConnectFeeItem => !!fee)
 
     // Add all fee information for each code to the store
-    feesCached.value = feesResolved.reduce((reducedFees, fee) => {
+    feesCached.value = feesResolved.reduce((reducedFees: ConnectFees, fee: ConnectFeeItem) => {
       return {
         ...reducedFees,
         [fee.filingTypeCode]: {

@@ -66,8 +66,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
       mailingAddress: {
         city: accountFormState.address.city,
         country: accountFormState.address.country,
-        region: accountFormState.address.region,
-        postalCode: accountFormState.address.postalCode,
+        region: accountFormState.address.region ?? '',
+        postalCode: accountFormState.address.postalCode ?? '',
         street: accountFormState.address.street,
         streetAdditional: accountFormState.address.streetAdditional || '',
         deliveryInstructions: accountFormState.address.locationDescription || ''

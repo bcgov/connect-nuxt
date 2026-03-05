@@ -40,13 +40,17 @@ const _countryListOptions = countryList.customList(
   'countryCode', '{countryCallingCode},{countryNameEn},{countryNameLocal}')
 
 const manualInput = (event: Event) => {
+  const target = event.target as HTMLInputElement
   selectedCountry.value = {
-    callingCode: event.target.value
+    callingCode: target.value
   }
 }
 
 const countryListOptions: Array<PhoneCountry> = Object.keys(_countryListOptions).map((key) => {
-  const [callingCode, nameEn, nameLocal] = _countryListOptions[key].split(',')
+  const parts = (_countryListOptions[key] ?? '').split(',')
+  const callingCode = parts[0] ?? ''
+  const nameEn = parts[1]
+  const nameLocal = parts[2]
   return {
     iso2: key,
     callingCode,
@@ -90,9 +94,9 @@ onMounted(() => {
   <UInputMenu
     v-model="selectedCountry"
     :items="countryListOptions"
-    :color="selectedCountry?.callingCode ? 'primary' : ''"
+    :color="selectedCountry?.callingCode ? 'primary' : undefined"
     :search="search"
-    :label-key="''"
+    :label-key="undefined"
     :trailing-icon="'i-mdi-chevron-down'"
     class="cursor-pointer"
     :aria-required="true"
@@ -106,18 +110,18 @@ onMounted(() => {
           :tooltip-text="selectedCountry?.nameEn"
           :country-code-iso2letter="selectedCountry?.iso2"
         />
-        <span class="ml-2 mt-2 truncate">{{ modelValue.label }}</span>
+        <span class="ml-2 mt-2 truncate">{{ (modelValue as PhoneCountry)?.label }}</span>
       </div>
     </template>
 
     <template #item="{ item }">
-      <div class="flex items-end cursor-pointer">
+      <div v-if="item" class="flex items-end cursor-pointer">
         <CountryFlag
-          :tooltip-text="item.nameLocal"
-          :country-code-iso2letter="item.iso2"
+          :tooltip-text="(item as PhoneCountry).nameLocal"
+          :country-code-iso2letter="(item as PhoneCountry).iso2 ?? ''"
         />
-        <span class="ml-2 truncate">{{ item.label }}</span>
-        <span class="sr-only">{{ item.nameLocal }}</span>
+        <span class="ml-2 truncate">{{ (item as PhoneCountry).label }}</span>
+        <span class="sr-only">{{ (item as PhoneCountry).nameLocal }}</span>
       </div>
     </template>
   </UInputMenu>

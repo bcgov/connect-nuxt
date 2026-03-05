@@ -65,7 +65,7 @@ describe('<ConnectLocaleSelect />', () => {
 
     // click 'english' in dropdown menu
     const buttonEn = screen.getAllByText('English')
-    await fireEvent.click(buttonEn[0])
+    await fireEvent.click(buttonEn[0]!)
 
     // locale should be en-CA
     expect(setLocaleMock).toHaveBeenCalledOnce()
@@ -74,7 +74,7 @@ describe('<ConnectLocaleSelect />', () => {
     // click 'french' in dropdown menu
     // unsure why its rendering 2 'French' options in the vitest
     const buttonFr = screen.getAllByText('French')
-    await fireEvent.click(buttonFr[0])
+    await fireEvent.click(buttonFr[0]!)
 
     // locale should now be fr-CA
     expect(setLocaleMock).toHaveBeenCalledTimes(2)

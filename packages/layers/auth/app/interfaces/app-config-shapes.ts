@@ -14,16 +14,23 @@ export interface ConnectLogoutConfig {
 }
 
 export interface ConnectHeaderConfig {
-  loginMenu: boolean
-  createAccount: boolean
-  notifications: boolean
-  accountOptionsMenu: boolean
+  loginMenu?: boolean
+  createAccount?: boolean
+  notifications?: boolean
+  accountOptionsMenu?: boolean
+  localeSelect?: boolean
+  whatsNew?: boolean
+}
+
+export interface ConnectFooterConfig {
+  versions?: string[]
 }
 
 export interface ConnectConfig {
   login: ConnectLoginConfig
   logout: ConnectLogoutConfig
   header: ConnectHeaderConfig
+  footer?: ConnectFooterConfig
 }
 
 export interface ConnectPresetOverrides {

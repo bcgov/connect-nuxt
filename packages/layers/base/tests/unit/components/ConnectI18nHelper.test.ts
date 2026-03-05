@@ -3,7 +3,7 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import ConnectI18nHelper from '../../../app/components/Connect/I18n/Helper.vue'
 import { i18nMock } from '../mocks/i18n'
 
-const $sanitize = (value) => {
+const $sanitize = (value: string) => {
   return value
 }
 

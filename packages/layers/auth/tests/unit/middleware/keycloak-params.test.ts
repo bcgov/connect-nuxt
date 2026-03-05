@@ -1,7 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
+import type { RouteLocationNormalizedGeneric } from 'vue-router'
 import paramsMiddleware from '../../../app/middleware/02.keycloak-params.global'
 
 vi.stubGlobal('import.meta', { server: false })
+
+const dummyFrom = {} as unknown as RouteLocationNormalizedGeneric
 
 describe('keycloak params middleware', () => {
   it('should remove keycloak-specific query parameters from the URL', () => {
@@ -17,7 +20,7 @@ describe('keycloak params middleware', () => {
       hash: ''
     }
 
-    paramsMiddleware(to)
+    paramsMiddleware(to as unknown as RouteLocationNormalizedGeneric, dummyFrom)
     expect(to.fullPath).toBe('/dashboard?other_param=456')
   })
 
@@ -31,7 +34,7 @@ describe('keycloak params middleware', () => {
       hash: ''
     }
 
-    paramsMiddleware(to)
+    paramsMiddleware(to as unknown as RouteLocationNormalizedGeneric, dummyFrom)
     expect(to.fullPath).toBe('/dashboard?other_param=456')
   })
 
@@ -43,7 +46,7 @@ describe('keycloak params middleware', () => {
       hash: ''
     }
 
-    paramsMiddleware(to)
+    paramsMiddleware(to as unknown as RouteLocationNormalizedGeneric, dummyFrom)
     expect(to.fullPath).toBe('/dashboard')
   })
 })

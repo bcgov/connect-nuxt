@@ -3,6 +3,7 @@ import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { initialize } from 'launchdarkly-js-client-sdk'
 import { nextTick, ref } from 'vue'
 import type { LDClient } from 'launchdarkly-js-client-sdk'
+import { ConnectLoginSource } from '#auth/app/enums/connect-login-source'
 import type { ConnectAuthUser } from '../../../app/interfaces/connect-auth-user'
 import type {
   useConnectLaunchDarkly as UseConnectLaunchdarklyType
@@ -16,7 +17,7 @@ mockNuxtImport('useRuntimeConfig', () => () => ({
   }
 }))
 
-const ldFlags = {
+const ldFlags: Record<string, string> = {
   'test-flag': 'TEST,PASS'
 }
 
@@ -68,7 +69,7 @@ describe('useConnectLaunchdarkly', () => {
 
     test('should set ldInitialized to true on successful initialization', async () => {
       const { ldInitialized, ldFlagSet } = useLd()
-      const mockLdClientInstance = vi.mocked(initialize).mock.results[0].value
+      const mockLdClientInstance = vi.mocked(initialize).mock.results[0]!.value
       vi.mocked(mockLdClientInstance.allFlags).mockReturnValue(ldFlags)
 
       onInitializedCallback()
@@ -97,7 +98,7 @@ describe('useConnectLaunchdarkly', () => {
         lastName: 'Doe',
         email: 'john.doe@example.com',
         roles: ['user'],
-        loginSource: 'idir'
+        loginSource: ConnectLoginSource.IDIR
       }
 
       await nextTick()

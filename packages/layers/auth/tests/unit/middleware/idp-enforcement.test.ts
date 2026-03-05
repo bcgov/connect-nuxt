@@ -2,6 +2,7 @@
 import { describe, it, expect, vi, beforeEach, test } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import type { RouteLocationNormalizedGeneric } from 'vue-router'
+import { ConnectIdpHint } from '#auth/app/enums/connect-idp-hint'
 import idpEnforcementMiddleware from '#auth/app/middleware/04.idp-enforcement.global'
 
 // Auth composable
@@ -44,13 +45,16 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockAuthUser.value = { loginSource: 'BCSC' }
-    mockAppConfigConnect.login = { idpEnforcement: true, idps: ['bcsc', 'bceid', 'idir'] }
+    mockAppConfigConnect.login = {
+      idpEnforcement: true,
+      idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR]
+    } as ConnectLoginConfig
   })
 
   it('does nothing when idpEnforcement is disabled', async () => {
     mockAppConfigConnect.login.idpEnforcement = false
 
-    const result = await idpEnforcementMiddleware(baseTo)
+    const result = await idpEnforcementMiddleware(baseTo, baseTo as any)
 
     expect(mockOpen).not.toHaveBeenCalled()
     expect(mockLogout).not.toHaveBeenCalled()
@@ -60,7 +64,7 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
   it('does nothing when authUser has no loginSource', async () => {
     mockAuthUser.value = { loginSource: undefined }
 
-    const result = await idpEnforcementMiddleware(baseTo)
+    const result = await idpEnforcementMiddleware(baseTo, baseTo as any)
 
     expect(mockOpen).not.toHaveBeenCalled()
     expect(mockLogout).not.toHaveBeenCalled()
@@ -70,7 +74,7 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
   it('does nothing when user loginSource is allowed', async () => {
     mockAuthUser.value = { loginSource: 'BCSC' } // allowed by default
 
-    const result = await idpEnforcementMiddleware(baseTo)
+    const result = await idpEnforcementMiddleware(baseTo, baseTo as any)
 
     expect(mockOpen).not.toHaveBeenCalled()
     expect(mockLogout).not.toHaveBeenCalled()
@@ -80,10 +84,10 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
   test.skip('Modal is removed for now - unskip during #32610', () => {
     it('opens modal and logs out when user loginSource is NOT allowed', async () => {
       // Disallow BCSC
-      mockAppConfigConnect.login.idps = ['bceid'] // only bceid allowed
+      mockAppConfigConnect.login.idps = [ConnectIdpHint.BCEID] // only bceid allowed
       mockAuthUser.value = { loginSource: 'BCSC' }
 
-      const result = await idpEnforcementMiddleware(baseTo)
+      const result = await idpEnforcementMiddleware(baseTo, baseTo as any)
 
       // middleware didn't await showInvalidIdpModal(); flush microtasks:
       await Promise.resolve()
@@ -96,7 +100,7 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
     })
 
     it('preserves ?preset=… in redirect when present', async () => {
-      mockAppConfigConnect.login.idps = ['idir'] // disallow bcsc
+      mockAppConfigConnect.login.idps = [ConnectIdpHint.IDIR] // disallow bcsc
       mockAuthUser.value = { loginSource: 'BCSC' }
 
       const toWithPreset = {
@@ -104,7 +108,7 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
         query: { preset: 'colinuser' }
       } as unknown as RouteLocationNormalizedGeneric
 
-      await idpEnforcementMiddleware(toWithPreset)
+      await idpEnforcementMiddleware(toWithPreset, baseTo as any)
 
       // flush microtasks (modal open resolves asynchronously)
       await Promise.resolve()
@@ -115,10 +119,10 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
   })
 
   it('handles case-insensitive loginSource vs idps comparison', async () => {
-    mockAppConfigConnect.login.idps = ['bcsc']
+    mockAppConfigConnect.login.idps = [ConnectIdpHint.BCSC]
     mockAuthUser.value = { loginSource: 'BcSc' } // mixed case
 
-    const result = await idpEnforcementMiddleware(baseTo)
+    const result = await idpEnforcementMiddleware(baseTo, baseTo as any)
 
     // Should not open modal or logout as it's allowed
     expect(mockOpen).not.toHaveBeenCalled()

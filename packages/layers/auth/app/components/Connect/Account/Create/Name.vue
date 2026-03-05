@@ -18,9 +18,9 @@ const validateName = useDebounceFn(async (accountName: string) => {
     try {
       const { refetch } = authApi.verifyAccountName(accountName)
       const { data } = await refetch()
-      statusCode.value = data?.status
+      statusCode.value = data?.status ?? 500 // fallback as undefined is not considered an exception
     } catch (err: unknown) {
-      statusCode.value = err?.response?.status || 500
+      statusCode.value = getErrorStatus(err) ?? 500
     } finally {
       isLoading.value = false
     }

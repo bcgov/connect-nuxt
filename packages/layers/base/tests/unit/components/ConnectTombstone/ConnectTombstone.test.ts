@@ -28,7 +28,6 @@ const createInitialState = (): ConnectTombstoneState => ({
 
 describe('ConnectTombstone.vue', () => {
   beforeEach(() => {
-    // @ts-expect-error - ts complains about type being too large
     mockTombstoneState = ref(createInitialState())
   })
 
