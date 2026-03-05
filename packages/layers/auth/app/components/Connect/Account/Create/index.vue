@@ -45,11 +45,12 @@ watch(() => statusCode.value, async () => {
       label: $t('connect.label.accountInformation'),
       labelClass: 'font-bold md:ml-4',
     }"
+    ui-body="p-0 sm:p-0"
   >
     <UForm
       id="account-create-form"
       ref="account-create-form"
-      class="p-8"
+      class="py-8"
       no-validate
       :validate-on="['input', 'change']"
       :schema="accountProfileSchema"

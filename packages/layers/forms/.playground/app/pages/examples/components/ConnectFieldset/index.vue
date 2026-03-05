@@ -21,10 +21,11 @@ definePageMeta({
       <ul>
         <li>`label` - string - required</li>
         <li>`description` - string - optional</li>
-        <li>`error` - FormError - optional</li>
+        <li>`error` - FormError | boolean - optional</li>
         <li>`showErrorMsg` - boolean - optional</li>
-        <li>`orientation` - 'vertical' | 'horizontal' - default: vertical</li>
+        <li>`orientation` - 'vertical' | 'horizontal' - default: horizontal</li>
         <li>`bodyVariant` - 'card' | 'none' - default: none</li>
+        <li>`paddingClass` - 'x-default' | 'xy-default' | string - default: 'x-default'</li>
       </ul>
     </ConnectPageSection>
 
@@ -238,6 +239,21 @@ definePageMeta({
         :error="{ message: 'Field Required' }"
         description="Some fancy description text"
         :show-error-msg="true"
+      >
+        <div class="border border-black p-10">
+          Slot Content
+        </div>
+      </ConnectFieldset>
+    </ConnectPageSection>
+
+    <ConnectPageSection
+      class="bg-transparent border-4 border-shade-secondary"
+      :heading="{ label: 'ConnectFieldset (custom padding)' }"
+      ui-body="space-y-4"
+    >
+      <ConnectFieldset
+        label="Fieldset Label"
+        padding-class="px-10 py-6"
       >
         <div class="border border-black p-10">
           Slot Content
