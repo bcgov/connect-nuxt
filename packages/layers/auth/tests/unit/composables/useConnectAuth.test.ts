@@ -102,18 +102,15 @@ describe('useConnectAuth', () => {
     })
 
     it('should include current query params in the returl when siteminder URL is configured', () => {
-      vi.spyOn(window, 'location', 'get').mockReturnValue(
-        {
-          href: 'http://localhost:3000/test?returnUrl=http://app.example.com&lang=en',
-          search: '?returnUrl=http://app.example.com&lang=en'
-        } as typeof window.location
-      )
-      composable.logout()
+      composable.logout('http://localhost:3000/test?returnUrl=http://app.example.com&lang=en')
       const call = mockConnectAuth.logout.mock.calls[0]![0]
-      // returl should contain the cleaned href + query string appended
+      // returl should be the full encoded redirect URI
       expect(call.redirectUri).toContain('returl=')
-      expect(call.redirectUri).toContain('returnUrl=http://app.example.com&lang=en')
       expect(call.redirectUri).toContain('siteminder.example.com')
+      // decode the returl to verify query params are preserved
+      const returl = decodeURIComponent(call.redirectUri.match(/returl=([^&]*)/)?.[1] ?? '')
+      expect(returl).toContain('returnUrl=http://app.example.com')
+      expect(returl).toContain('lang=en')
     })
 
     it('should not duplicate query separator in returl when no query params are present', () => {
@@ -122,8 +119,8 @@ describe('useConnectAuth', () => {
       )
       composable.logout()
       const call = mockConnectAuth.logout.mock.calls[0]![0]
-      // Extract the returl param from the full siteminder redirect URL
-      const returl = call.redirectUri.match(/returl=([^&]*)/)?.[1]
+      // Extract and decode the returl param from the full siteminder redirect URL
+      const returl = decodeURIComponent(call.redirectUri.match(/returl=([^&]*)/)?.[1] ?? '')
       expect(returl).toBe('http://localhost:3000/test')
     })
   })

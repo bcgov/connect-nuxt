@@ -15,6 +15,19 @@ export default defineNuxtPlugin(async () => {
   const tokenMinValidity = rtc.tokenMinValidity ? Number(rtc.tokenMinValidity) / 1000 : 120
   const sessionInactivityTimeout = rtc.sessionInactivityTimeout ? Number(rtc.sessionInactivityTimeout) : 1800000
 
+  // Logout via Keycloak, redirecting to the login page with a return param preserving the user's current URL.
+  // The return value is double-encoded so it survives the Keycloak redirect decode
+  // without the original query params bleeding into the login page's query string.
+  function logoutWithReturn(kc: Keycloak) {
+    const localePath = useLocalePath()
+    const route = useRoute()
+    const loginPath = localePath('/auth/login')
+    const currentUrl = `${window.location.origin}${route.fullPath}`
+    const returnUrl = encodeURIComponent(encodeURIComponent(currentUrl))
+    const redirectUri = `${window.location.origin}${loginPath}?return=${returnUrl}`
+    kc.logout({ redirectUri })
+  }
+
   try {
     // default behaviour when keycloak session expires
     // try to update token - log out if token update fails
@@ -27,7 +40,7 @@ export default defineNuxtPlugin(async () => {
         console.info('[Auth] Token refreshed.')
       } catch (error) {
         console.error('[Auth] Failed to refresh token on expiration; logging out.', error)
-        keycloak.logout()
+        logoutWithReturn(keycloak)
       }
     }
 
@@ -62,7 +75,7 @@ export default defineNuxtPlugin(async () => {
           console.info('[Auth] Token refreshed.')
         } catch (error) {
           console.error('[Auth] Failed to refresh token; logging out.', error)
-          keycloak.logout() // log user out if token update fails
+          logoutWithReturn(keycloak)
         }
       }
 
