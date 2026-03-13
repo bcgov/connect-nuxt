@@ -6,7 +6,9 @@ export const useConnectAccountFlowRedirect = () => {
     const { currentAccount, userAccounts } = useConnectAccountStore()
     const localePath = useLocalePath()
     const ac = useAppConfig().connect.login
-    const externalRedirectUrl = route.query.return as string | undefined
+    const externalRedirectUrl = route.query.return
+      ? decodeURIComponent(route.query.return as string)
+      : undefined
     const internalRedirectUrl = ac.redirect
     const query = { ...route.query }
     query.accountid = String(currentAccount.id)
