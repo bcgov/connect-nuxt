@@ -33,7 +33,7 @@ const padding = paddingClass === 'x-default'
       class="text-base text-neutral-highlighted font-bold"
       :class="{ 'w-full sm:basis-1/4': orientation === 'horizontal' }"
     >
-      <div class="flex gap-2.5" :class="orientation === 'horizontal' ? 'flex-col' : 'flex-wrap'">
+      <div class="flex flex-col gap-1">
         <span>{{ label }}</span>
         <span
           v-if="error && typeof error === 'object' && 'message' in error && showErrorMsg"

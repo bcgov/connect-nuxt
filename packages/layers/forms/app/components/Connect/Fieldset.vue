@@ -52,7 +52,7 @@ const padding = paddingClass === 'x-default'
           class="text-base text-neutral-highlighted font-bold"
         >
           <slot name="label">
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-col gap-1">
               <span>{{ label }}</span>
               <span
                 v-if="error && typeof error === 'object' && 'message' in error && showErrorMsg"
