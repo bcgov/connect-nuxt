@@ -21,7 +21,7 @@ const legendId = id + '-legend'
 const descriptionId = id + '-description'
 
 const bodyClassMap = computed<Record<FieldsetBodyVariant, string>>(() => {
-  const cardError = !error ? 'border-transparent border-l-3' : 'border-error border-l-3'
+  const cardError = error ? 'border-error border-l-3' : 'border-transparent border-l-3'
   return {
     none: '',
     card: 'bg-white rounded shadow-xs ' + cardError
