@@ -4,7 +4,8 @@ import type { FormError } from '@nuxt/ui'
 const {
   orientation = 'horizontal',
   bodyVariant = 'none',
-  paddingClass = 'x-default'
+  paddingClass = 'x-default',
+  error
 } = defineProps<{
   label?: string
   description?: string
@@ -19,12 +20,15 @@ const id = useId()
 const legendId = id + '-legend'
 const descriptionId = id + '-description'
 
-const bodyClassMap: Record<FieldsetBodyVariant, string> = {
-  none: '',
-  card: 'bg-white rounded shadow-xs'
-}
+const bodyClassMap = computed<Record<FieldsetBodyVariant, string>>(() => {
+  const cardError = error ? 'border-error border-l-3' : 'border-transparent border-l-3'
+  return {
+    none: '',
+    card: 'bg-white rounded shadow-xs ' + cardError
+  }
+})
 
-const bodyClass = bodyClassMap[bodyVariant]
+const bodyClass = computed(() => bodyClassMap.value[bodyVariant])
 
 const padding = paddingClass === 'x-default'
   ? 'px-4 sm:px-8'
@@ -52,7 +56,7 @@ const padding = paddingClass === 'x-default'
           class="text-base text-neutral-highlighted font-bold"
         >
           <slot name="label">
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-col gap-1">
               <span>{{ label }}</span>
               <span
                 v-if="error && typeof error === 'object' && 'message' in error && showErrorMsg"
