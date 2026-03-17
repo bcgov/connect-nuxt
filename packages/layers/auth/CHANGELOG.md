@@ -1,5 +1,16 @@
 # @sbc-connect/nuxt-auth
 
+## 0.8.0
+
+### Minor Changes
+
+- [#140](https://github.com/bcgov/connect-nuxt/pull/140) [`7704fda`](https://github.com/bcgov/connect-nuxt/commit/7704fda8e016b67d0928964652e94f0bb792ff6c) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Param preservation in expiry logout and header login
+
+### Patch Changes
+
+- Updated dependencies [[`83c5627`](https://github.com/bcgov/connect-nuxt/commit/83c5627689a50d6fa27f12f2ab7b2ef65e752d0e)]:
+  - @sbc-connect/nuxt-forms@0.6.2
+
 ## 0.7.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.6.2
+
+### Patch Changes
+
+- [#141](https://github.com/bcgov/connect-nuxt/pull/141) [`83c5627`](https://github.com/bcgov/connect-nuxt/commit/83c5627689a50d6fa27f12f2ab7b2ef65e752d0e) Thanks [@deetz99](https://github.com/deetz99)! - ConnectFieldset, ConnectFormFieldWrapper: Move error text to always be under label instead of wrapping. ConnectFieldset: add error border styling to card bodyVariant
+
 ## 0.6.1
 
 ### Patch Changes
