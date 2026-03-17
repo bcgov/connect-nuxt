@@ -4,10 +4,24 @@ const rtc = useRuntimeConfig().public
 const modalTimeout = rtc.sessionModalTimeout ? Number(rtc.sessionModalTimeout) : 120000
 const { t } = useI18n()
 const route = useRoute()
+const localePath = useLocalePath()
 
 const emit = defineEmits<{ close: [] }>()
 
 const timeRemaining = ref(toValue((modalTimeout) / 1000))
+
+// Capture the user's current location when the modal opens, before any potential URL changes
+const capturedUrl = `${window.location.origin}${route.fullPath}`
+
+/** Build a login page URL with a return param preserving the user's current location.
+ *  The return value is double-encoded so it survives the Keycloak redirect decode
+ *  without the original query params bleeding into the login page's query string.
+ */
+function getSessionExpiredRedirect(): string {
+  const loginPath = localePath('/auth/login')
+  const returnUrl = encodeURIComponent(encodeURIComponent(capturedUrl))
+  return `${window.location.origin}${loginPath}?return=${returnUrl}`
+}
 
 const intervalId = setInterval(async () => {
   const value = timeRemaining.value - 1
@@ -18,7 +32,7 @@ const intervalId = setInterval(async () => {
       await route.meta.onBeforeSessionExpired()
     }
     sessionStorage.setItem(ConnectAuthStorageKey.CONNECT_SESSION_EXPIRED, 'true')
-    await useConnectAuth().logout()
+    await useConnectAuth().logout(getSessionExpiredRedirect())
   }
 }, 1000)
 

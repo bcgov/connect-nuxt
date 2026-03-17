@@ -10,7 +10,7 @@ export function useConnectHeaderOptions() {
   const ac = useAppConfig().connect
   const route = useRoute()
   const overlay = useOverlay()
-  const { t, locale: { value: locale } } = useNuxtApp().$i18n
+  const { t } = useNuxtApp().$i18n
   const { login, isAuthenticated, authUser } = useConnectAuth()
   const accountStore = useConnectAccountStore()
   const localePath = useLocalePath()
@@ -135,9 +135,13 @@ export function useConnectHeaderOptions() {
     return options
   })
 
-  const loginRedirectUrl = ac.login.redirect
-    ? appBaseUrl + locale + ac.login.redirect
-    : undefined
+  // Build a redirect URL through the login page so the connect-auth middleware
+  // processes query params (e.g. 'return') after Keycloak authentication
+  function getLoginRedirectUrl(): string {
+    const loginPath = localePath('/auth/login')
+    const queryString = window.location.search
+    return `${appBaseUrl}${loginPath.startsWith('/') ? loginPath.slice(1) : loginPath}${queryString}`
+  }
 
   const loginOptionsMap: Record<'bcsc' | 'bceid' | 'idir',
     { label: string, icon: string, onSelect: () => Promise<void> }
@@ -145,17 +149,17 @@ export function useConnectHeaderOptions() {
     bcsc: {
       label: t('connect.label.bcsc'),
       icon: 'i-mdi-account-card-details-outline',
-      onSelect: () => login(ConnectIdpHint.BCSC, loginRedirectUrl)
+      onSelect: () => login(ConnectIdpHint.BCSC, getLoginRedirectUrl())
     },
     bceid: {
       label: t('connect.label.bceid'),
       icon: 'i-mdi-two-factor-authentication',
-      onSelect: () => login(ConnectIdpHint.BCEID, loginRedirectUrl)
+      onSelect: () => login(ConnectIdpHint.BCEID, getLoginRedirectUrl())
     },
     idir: {
       label: t('connect.label.idir'),
       icon: 'i-mdi-account-group-outline',
-      onSelect: () => login(ConnectIdpHint.IDIR, loginRedirectUrl)
+      onSelect: () => login(ConnectIdpHint.IDIR, getLoginRedirectUrl())
     }
   }
 
