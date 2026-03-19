@@ -2,6 +2,9 @@
   "name": "stackblitz-template",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "version": "0.2.0",
   "scripts": {
     "build-check": "nuxt build",
