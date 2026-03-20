@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.7.0
+
+### Minor Changes
+
+- [#144](https://github.com/bcgov/connect-nuxt/pull/144) [`3b9fddb`](https://github.com/bcgov/connect-nuxt/commit/3b9fddb1c634fa48c8f4426954cbb2a043f78ff1) Thanks [@eve-git](https://github.com/eve-git)! - Fix issue where postal code was not optional for certain countries.
+
 ## 0.6.2
 
 ### Patch Changes
