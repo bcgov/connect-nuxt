@@ -163,14 +163,20 @@ describe('zod schemas - address validation', () => {
         expect(result.success).toBe(false)
       })
 
-      it('should pass an empty postal code with a non CA or US country', () => {
+      it('should fail an empty postal code with a country not in no-postal-code list (eg, XX)', () => {
         const validPCAddress = { ...validAddress, postalCode: '', country: 'XX', region: 'XX' }
         const result = schema.safeParse(validPCAddress)
-        expect(result.success).toBe(true)
+        expect(result.success).toBe(false)
       })
 
-      it('should pass an undefined postal code with a non CA or US country', () => {
+      it('should fail an undefined postal code with a country not in no-postal-code list (eg, XX)', () => {
         const validPCAddress = { ...validAddress, postalCode: undefined, country: 'XX', region: 'XX' }
+        const result = schema.safeParse(validPCAddress)
+        expect(result.success).toBe(false)
+      })
+
+      it('should pass an empty postal code for a country in no-postal-code list (eg, HK)', () => {
+        const validPCAddress = { ...validAddress, postalCode: '', country: 'HK', region: 'HK' }
         const result = schema.safeParse(validPCAddress)
         expect(result.success).toBe(true)
       })

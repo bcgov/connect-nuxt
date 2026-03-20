@@ -2034,3 +2034,15 @@ export const isoCountriesListSortedByName = isoCountriesList.toSorted(
     return 0
   }
 )
+
+const NO_POSTAL_CODE_COUNTRY_CODES = [
+  'AO', 'AG', 'AW', 'BS', 'BZ', 'BJ', 'BM', 'BO', 'BQ', 'BW', 'BF', 'BI',
+  'CM', 'CF', 'TD', 'KM', 'CG', 'CD', 'CK', 'CI', 'CW', 'DJ', 'DM', 'GQ',
+  'ER', 'FJ', 'TF', 'GA', 'GM', 'GH', 'GD', 'GY', 'HM', 'HK',
+  'KI', 'KP', 'LY', 'MO', 'MW', 'ML', 'MR', 'NR',
+  'AN', 'NU', 'QA', 'RW', 'KN', 'ST', 'SC', 'SL', 'SX', 'SB', 'SO', 'SR', 'SY',
+  'TL', 'TG', 'TK', 'TO', 'TT', 'TV', 'UG', 'AE', 'VU', 'YE', 'ZW'
+]
+export function isNoPostalCodeCountry(countryCode: string): boolean {
+  return NO_POSTAL_CODE_COUNTRY_CODES.indexOf(countryCode) !== -1
+}

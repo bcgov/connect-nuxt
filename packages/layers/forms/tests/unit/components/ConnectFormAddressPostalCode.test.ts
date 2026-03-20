@@ -39,6 +39,15 @@ describe('ConnectFormAddressPostalCode.vue', () => {
     expect(formInput.props('mask')).toBe('*** ***')
   })
 
+  it('displays the "Postal Code (Optional)" label and disables required for no-postal-code countries', async () => {
+    const wrapper = await mountComponent({ country: 'HK', required: true })
+    const formInput = wrapper.findComponent(ConnectFormInput)
+
+    expect(formInput.props('label')).toBe('Postal Code (Optional)')
+    expect(formInput.props('required')).toBe(false)
+    expect(formInput.props('mask')).toBeUndefined()
+  })
+
   it('converts the model value to uppercase on set', async () => {
     const wrapper = await mountComponent()
     const formInput = wrapper.findComponent(ConnectFormInput)

@@ -7,6 +7,14 @@ defineProps<{
   required?: boolean
 }>()
 
+const isOptionalPostalCodeCountry = (country?: string) => {
+  if (!country) {
+    return false
+  }
+
+  return isNoPostalCodeCountry(country)
+}
+
 const model = defineModel<string | undefined>({
   set(value) {
     if (value) {
@@ -24,10 +32,12 @@ const model = defineModel<string | undefined>({
     :data-testid="`${parentId}-field-postalCode`"
     :input-id="`${parentId}-input-postalCode`"
     :disabled
-    :required
+    :required="required && !isOptionalPostalCodeCountry(country)"
     :label="country === 'US'
       ? $t('connect.label.zipCode')
-      : $t('connect.label.postalCode')
+      : isOptionalPostalCodeCountry(country)
+        ? $t('connect.label.postalCodeOpt')
+        : $t('connect.label.postalCode')
     "
     :mask="country === 'CA'
       ? '*** ***'
