@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { isNoPostalCodeCountry } from '../../../../utils/isoCountriesList'
-
 defineProps<{
   parentId: string
   schemaPrefix: string
@@ -39,7 +37,7 @@ const model = defineModel<string | undefined>({
       ? $t('connect.label.zipCode')
       : isOptionalPostalCodeCountry(country)
         ? $t('connect.label.postalCodeOpt')
-      : $t('connect.label.postalCode')
+        : $t('connect.label.postalCode')
     "
     :mask="country === 'CA'
       ? '*** ***'

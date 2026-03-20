@@ -55,6 +55,7 @@ export function getRequiredAddressSchema() {
     }
 
     const isRequiredRegion = country === 'US' || country === 'CA'
+    const isRequiredPostalCode = !!country && !isNoPostalCodeCountry(country)
 
     if (isRequiredRegion) {
       if (!region) {
@@ -65,13 +66,14 @@ export function getRequiredAddressSchema() {
         })
       }
 
-      if (!postalCode) {
-        ctx.addIssue({
-          code: 'custom',
-          message: t('connect.validation.fieldRequired'),
-          path: ['postalCode']
-        })
-      }
+    }
+
+    if (isRequiredPostalCode && !postalCode) {
+      ctx.addIssue({
+        code: 'custom',
+        message: t('connect.validation.fieldRequired'),
+        path: ['postalCode']
+      })
     }
 
     if (!postalCode) {
