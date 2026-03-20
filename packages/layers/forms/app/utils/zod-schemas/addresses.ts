@@ -65,7 +65,6 @@ export function getRequiredAddressSchema() {
           path: ['region']
         })
       }
-
     }
 
     if (isRequiredPostalCode && !postalCode) {
