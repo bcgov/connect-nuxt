@@ -14,6 +14,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const currentAccountName = computed<string>(() => currentAccount.value?.label || '')
   const pendingApprovalCount = ref<number>(0)
   const user = computed(() => authUser.value)
+  const userEmail = ref<string>('')
   const userFirstName = ref<string>(user.value?.firstName || '-')
   const userLastName = ref<string>(user.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
@@ -113,17 +114,26 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-  /** Set user name information */
+  /** Set user name and default email from profile */
   async function setUserName() {
     const { data, refresh } = await getAuthUserProfile()
     await refresh()
     if (data.value?.firstname && data.value?.lastname) {
       userFirstName.value = data.value.firstname
       userLastName.value = data.value.lastname
-      return
+    } else {
+      userFirstName.value = user.value?.firstName || '-'
+      userLastName.value = user.value?.lastName || ''
     }
-    userFirstName.value = user.value?.firstName || '-'
-    userLastName.value = user.value?.lastName || ''
+
+    // Pre-populate email from the user's existing contact if available
+    const contactEmail = data.value?.contacts?.[0]?.email
+    if (contactEmail) {
+      userEmail.value = contactEmail
+      if (!accountFormState.emailAddress) {
+        accountFormState.emailAddress = contactEmail
+      }
+    }
   }
 
   /** Get the user's account list */
@@ -229,6 +239,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   function clearAccountState() {
     Object.assign(accountFormState, createAccountProfileSchema.parse({}))
+    if (userEmail.value) {
+      accountFormState.emailAddress = userEmail.value
+    }
   }
 
   return {
