@@ -122,6 +122,31 @@ describe('connect-auth middleware', () => {
     })
     await connectAuthMiddleware(to, from)
     expect(mockAuthApi).toHaveBeenCalledOnce()
-    expect(mockNavigateTo).toHaveBeenCalledWith(expect.objectContaining({ path: '/en-CA/auth/terms-of-use' }))
+    expect(mockNavigateTo).toHaveBeenCalledWith({
+      path: '/en-CA/auth/terms-of-use',
+      query: {
+        return: 'https://app.example.com/some-path'
+      }
+    })
+  })
+
+  it('should preserve existing return query param when redirecting to the TOS page', async () => {
+    mockIsAuthenticated.value = true
+    mockAuthApi.mockResolvedValue({
+      userTerms: {
+        isTermsOfUseAccepted: false
+      }
+    })
+    const toWithReturn = {
+      ...to,
+      query: { return: 'https://app.example.com/original-destination' }
+    } as unknown as RouteLocationNormalizedGeneric
+    await connectAuthMiddleware(toWithReturn, from)
+    expect(mockNavigateTo).toHaveBeenCalledWith({
+      path: '/en-CA/auth/terms-of-use',
+      query: {
+        return: 'https://app.example.com/original-destination'
+      }
+    })
   })
 })
