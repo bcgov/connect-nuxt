@@ -13,11 +13,10 @@ export default {
       bcsc: 'BC Services Card',
       createAccount: 'Create Account',
       createNewAccount: 'Create New Account',
-      createNewAccountCont: 'Create a new account to continue',
       decline: 'Decline',
       declineTermsOfUse: 'Decline Terms of Use',
       editProfile: 'Edit Profile',
-      existingAccountFound: 'Existing Account Found',
+      existingAccountFound: 'Select Your Account or Create a New One',
       idir: 'IDIR',
       logout: 'Log out',
       login: 'Log in',
@@ -38,9 +37,10 @@ export default {
       login: {
         h1: 'SBC Connect Account Login',
         title: 'Log in - SBC Connect',
-        loginBCSC: 'Login with BC Services Card',
-        loginBCEID: 'Login with BCeID',
-        loginIDIR: 'Login with IDIR',
+        description: '',
+        loginBCSC: 'Continue with BC Services Card',
+        loginBCEID: 'Continue with BCeID',
+        loginIDIR: 'Continue with IDIR',
         sessionExpiredAlert: {
           title: 'Session Expired',
           description: 'Your session has expired. Please log in again to continue.'
@@ -51,10 +51,10 @@ export default {
         title: 'Terms of Use - Service BC Connect'
       },
       createAccount: {
-        yourNameLabel: 'Your Name',
+        contactLabel: 'Primary Contact',
         yourNameHelp: 'This is your legal name as it appears on your BC Services Card.',
         accountNameLabel: 'Account Name',
-        accountNameHelp: 'This is your default login name.',
+        accountNameHelp: 'Create a unique name for your account e.g., Andy’s Business',
         emailLabel: 'Email',
         emailPlaceholder: 'Enter email address',
         phoneLabel: 'Phone',

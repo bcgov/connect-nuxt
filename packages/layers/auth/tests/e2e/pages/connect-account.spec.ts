@@ -10,7 +10,7 @@ test.describe('Connect Account - Selection Flow', () => {
   test('loads selection view with heading and create new account button', async ({ page }) => {
     const heading = page.getByRole('heading', { level: 1 })
     await expect(heading).toBeVisible()
-    await expect(heading).toContainText(/existing account found/i)
+    await expect(heading).toContainText(/select your account or create a new one/i)
 
     const selectButtons = page.getByTestId('select-account-button-wrapper')
     await expect(selectButtons).toBeVisible()

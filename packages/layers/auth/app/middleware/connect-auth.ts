@@ -29,6 +29,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
     const hasAccepted = data.value?.userTerms.isTermsOfUseAccepted
     if (!hasAccepted && !isTosPage) {
       const query = { ...to.query }
+      if (!query.return) {
+        query.return = `${rtc.baseUrl}${to.fullPath.slice(1)}`
+      }
       return navigateTo({ path: localePath('/auth/terms-of-use'), query })
     } else if (hasAccepted && (isTosPage || isLoginPage)) {
       return finalRedirect(to, true)
