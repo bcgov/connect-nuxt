@@ -1,6 +1,3 @@
-import { useAppConfig } from '#imports'
-import { useConnectAppConfig } from '#auth/app/composables/useConnectAppConfig'
-
 export default defineNuxtRouteMiddleware((to) => {
   const appConfig = useAppConfig()
   const { mergeAppConfigOverrides } = useConnectAppConfig()

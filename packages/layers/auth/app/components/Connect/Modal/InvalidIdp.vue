@@ -1,12 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
   currentIdp: ConnectLoginSource
+  redirectUrl: string
 }>()
-const emit = defineEmits<{ close: [] }>()
-
-function closeModal() {
-  emit('close')
-}
 </script>
 
 <template>
@@ -36,7 +32,7 @@ function closeModal() {
             :aria-label="$t('connect.label.logout')"
             size="xl"
             class="font-bold"
-            @click="closeModal"
+            @click="useConnectAuth().logout(redirectUrl)"
           />
         </div>
       </div>
