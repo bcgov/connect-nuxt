@@ -13,7 +13,6 @@ export default {
       bcsc: 'BC Services Card',
       createAccount: 'Create Account',
       createNewAccount: 'Create New Account',
-      createNewAccountCont: 'Create a new account to continue',
       decline: 'Decline',
       declineTermsOfUse: 'Decline Terms of Use',
       editProfile: 'Edit Profile',
