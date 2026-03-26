@@ -33,12 +33,12 @@
     "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@pinia/colada": "0.20.0",
-    "@pinia/colada-nuxt": "0.3.0",
+    "@pinia/colada": "1.0.0",
+    "@pinia/colada-nuxt": "0.3.2",
     "@pinia/nuxt": "0.11.3",
     "@sbc-connect/nuxt-base": "workspace:*",
     "@sbc-connect/nuxt-forms": "workspace:*",
-    "keycloak-js": "26.2.2",
+    "keycloak-js": "26.2.3",
     "pinia": "3.0.4",
     "pinia-plugin-persistedstate": "4.7.1"
   }
