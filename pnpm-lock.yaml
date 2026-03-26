@@ -270,8 +270,8 @@ importers:
         specifier: 1.43.0
         version: 1.43.0
       launchdarkly-vue-client-sdk:
-        specifier: 2.4.1
-        version: 2.4.1(vue@3.5.30(typescript@5.9.3))
+        specifier: 2.5.0
+        version: 2.5.0(vue@3.5.30(typescript@5.9.3))
       luxon:
         specifier: 3.7.2
         version: 3.7.2
@@ -4669,14 +4669,14 @@ packages:
   launch-editor@2.13.2:
     resolution: {integrity: sha512-4VVDnbOpLXy/s8rdRCSXb+zfMeFR0WlJWpET1iA9CQdlZDfwyLjUuGQzXU4VeOoey6AicSAluWan7Etga6Kcmg==}
 
-  launchdarkly-js-client-sdk@3.8.1:
-    resolution: {integrity: sha512-Y05FXM8FAXAMbbJqeI+ffr6a4m2M/TBUccgI9ejWPSxQS+/b2t+FBWZzfmc7wXuOOYzgGkpHHfQ6bFDU9NKPWQ==}
+  launchdarkly-js-client-sdk@3.9.0:
+    resolution: {integrity: sha512-uPL9il6dOZrVQqEcpjDYc2c7HtBTlKpLJb1Q0187i4UokBVZwBXWKjTnNk9hkwaDD5PGD4puoe7POikrR8ACwQ==}
 
-  launchdarkly-js-sdk-common@5.7.1:
-    resolution: {integrity: sha512-RFFeoYVL764zarFpU16lDt1yHzUCt0rnYYKlX5LLtZ5Nhq+2fzE33xRolP/sjxAYVInD0o5z6jKTlDe8gtcDYg==}
+  launchdarkly-js-sdk-common@5.8.0:
+    resolution: {integrity: sha512-9X70K3kN1fuR6ZnRudkH7etMgFhi3sEU0mnJ+y2nhID+DpfkNDVnYUGnUs8/s4tsSDs7Q7Gpm4qnr3oqOqT9+A==}
 
-  launchdarkly-vue-client-sdk@2.4.1:
-    resolution: {integrity: sha512-t+bMS31QocTHs8AW2lSgYHvLVf9Nu+jdkLGTtcI6iDjJdww8Uqq323atPT8yecTxcgZmiQM0PXDTmztxr0O1Bg==}
+  launchdarkly-vue-client-sdk@2.5.0:
+    resolution: {integrity: sha512-KIKrNxhiHrVgXELaBrviket13qzShxbyjvuvWFWfi4DVgbN+w6wjj2/nkUZQ+1qtvKomOL0aDfImYdRWnn6Cww==}
     engines: {node: '>=16.15.1', npm: '>=8.11.0'}
     peerDependencies:
       vue: ^3.2.36
@@ -11696,20 +11696,20 @@ snapshots:
       picocolors: 1.1.1
       shell-quote: 1.8.3
 
-  launchdarkly-js-client-sdk@3.8.1:
+  launchdarkly-js-client-sdk@3.9.0:
     dependencies:
       escape-string-regexp: 4.0.0
-      launchdarkly-js-sdk-common: 5.7.1
+      launchdarkly-js-sdk-common: 5.8.0
 
-  launchdarkly-js-sdk-common@5.7.1:
+  launchdarkly-js-sdk-common@5.8.0:
     dependencies:
       base64-js: 1.5.1
       fast-deep-equal: 2.0.1
       uuid: 8.3.2
 
-  launchdarkly-vue-client-sdk@2.4.1(vue@3.5.30(typescript@5.9.3)):
+  launchdarkly-vue-client-sdk@2.5.0(vue@3.5.30(typescript@5.9.3)):
     dependencies:
-      launchdarkly-js-client-sdk: 3.8.1
+      launchdarkly-js-client-sdk: 3.9.0
       vue: 3.5.30(typescript@5.9.3)
 
   lazystream@1.0.1:
