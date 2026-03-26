@@ -9,22 +9,25 @@ const props = defineProps<{
   autoFocus?: boolean
 }>()
 
-const model = defineModel<string | number | bigint | null | undefined>({ required: true })
+const model = defineModel<InputProps['modelValue']>({ required: true })
 
 // Inject props
-const injectedProps = inject<InputProps>(
+const injectedProps = toRef(inject<InputProps>(
   `UInput-props${props.id ? `-${props.id}` : ''}`,
   {} as InputProps
-)
+))
 
 // Inject slots
 const injectedSlots = inject<{ [key: string]: VNode }>(
   `UInput-slots${props.id ? `-${props.id}` : ''}`,
   {}
 )
+
+// vue ignore reason - type mismatch between model and defaultValue prop caused by strict generics
 </script>
 
 <template>
+  <!-- @vue-ignore -->
   <UInput
     v-bind="{
       id,

@@ -28,9 +28,15 @@ export default {
       goBack: 'Retour',
       home: 'Accueil',
       localeSelect: 'Sélectionnez une langue, langue courante: Français',
-      privacy: 'Confidentialité'
+      privacy: 'Confidentialité',
+      whatsNew: 'Nouveautés',
+      whatsNewAria: 'Nouveautés, {count} non lues',
+      whatsNewSlideover: 'Nouveautés — Registres de la CB'
     },
-    text: {}
+    text: {
+      whatsNewSlideoverDescription: ' ',
+      whatsNewSlideoverEmpty: 'Aucune nouveauté.'
+    }
   },
   btn: {
     bcRegHome: 'Accueil des Registres de la CB',
