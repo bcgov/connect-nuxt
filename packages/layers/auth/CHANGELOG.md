@@ -1,5 +1,13 @@
 # @sbc-connect/nuxt-auth
 
+## 0.9.0
+
+### Minor Changes
+
+- [#147](https://github.com/bcgov/connect-nuxt/pull/147) [`d96fef6`](https://github.com/bcgov/connect-nuxt/commit/d96fef61258f7749b8097aad9f1ae73bca3a0702) Thanks [@deetz99](https://github.com/deetz99)! - Fix IDP Enforcement modal being hidden by loading spinner
+
+- [#146](https://github.com/bcgov/connect-nuxt/pull/146) [`32f2375`](https://github.com/bcgov/connect-nuxt/commit/32f23755ab656239730599f02d9802b491469d7e) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Minor text and layout changes to Auth Login, Select and Create
+
 ## 0.8.1
 
 ### Patch Changes
