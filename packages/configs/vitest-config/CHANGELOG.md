@@ -1,5 +1,11 @@
 # @sbc-connect/vitest-config
 
+## 0.1.1
+
+### Patch Changes
+
+- [#149](https://github.com/bcgov/connect-nuxt/pull/149) [`467e679`](https://github.com/bcgov/connect-nuxt/commit/467e679f8bf4b2f3b9ec2294fd28a2a6c5ef3dba) Thanks [@deetz99](https://github.com/deetz99)! - Update dependencies
+
 ## 0.1.0
 
 ### Minor Changes
