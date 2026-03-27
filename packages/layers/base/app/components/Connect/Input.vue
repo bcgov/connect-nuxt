@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { InputProps } from '@nuxt/ui'
-import type { UInput } from '#components'
 
 const {
   id,
