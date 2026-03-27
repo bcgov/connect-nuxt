@@ -2,7 +2,10 @@
 import type { InputProps } from '@nuxt/ui'
 import type { UInput } from '#components'
 
-const props = defineProps<{
+const {
+  id,
+  autoFocus = false
+} = defineProps<{
   id: string
   label: string
   mask?: string
@@ -15,13 +18,13 @@ const inputRef = useTemplateRef('input-ref')
 
 // Inject props
 const injectedProps = inject<InputProps>(
-  `UInput-props${props.id ? `-${props.id}` : ''}`,
+  `UInput-props${id ? `-${id}` : ''}`,
   {} as InputProps
 )
 
 // Inject slots
 const injectedSlots = inject<{ [key: string]: VNode }>(
-  `UInput-slots${props.id ? `-${props.id}` : ''}`,
+  `UInput-slots${id ? `-${id}` : ''}`,
   {}
 )
 
@@ -37,7 +40,7 @@ defineExpose({ input: inputRef })
     v-bind="{
       id,
       disabled,
-      autoFocus,
+      autofocus: autoFocus,
       ...injectedProps, // injected props will default when provided
     }"
     v-model.trim="model"
