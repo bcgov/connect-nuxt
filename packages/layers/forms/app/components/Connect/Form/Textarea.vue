@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { TextareaProps } from '@nuxt/ui'
+
 defineProps<{
   name: string
   label: string
@@ -9,7 +11,7 @@ defineProps<{
   help?: string
 }>()
 
-const model = defineModel<null | string | number | undefined>({ required: true })
+const model = defineModel<Exclude<TextareaProps['modelValue'], null>>({ required: true })
 </script>
 
 <template>

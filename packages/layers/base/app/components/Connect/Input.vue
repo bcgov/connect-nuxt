@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { InputProps } from '@nuxt/ui'
 
-const props = defineProps<{
+const {
+  id,
+  autoFocus = false
+} = defineProps<{
   id: string
   label: string
   mask?: string
@@ -9,27 +12,34 @@ const props = defineProps<{
   autoFocus?: boolean
 }>()
 
-const model = defineModel<string | number | bigint | null | undefined>({ required: true })
+const model = defineModel<InputProps['modelValue']>({ required: true })
+const inputRef = useTemplateRef('input-ref')
 
 // Inject props
 const injectedProps = inject<InputProps>(
-  `UInput-props${props.id ? `-${props.id}` : ''}`,
+  `UInput-props${id ? `-${id}` : ''}`,
   {} as InputProps
 )
 
 // Inject slots
 const injectedSlots = inject<{ [key: string]: VNode }>(
-  `UInput-slots${props.id ? `-${props.id}` : ''}`,
+  `UInput-slots${id ? `-${id}` : ''}`,
   {}
 )
+
+defineExpose({ input: inputRef })
+
+// vue ignore reason - type mismatch between model and defaultValue prop caused by strict generics
 </script>
 
 <template>
+  <!-- @vue-ignore -->
   <UInput
+    ref="input-ref"
     v-bind="{
       id,
       disabled,
-      autoFocus,
+      autofocus: autoFocus,
       ...injectedProps, // injected props will default when provided
     }"
     v-model.trim="model"

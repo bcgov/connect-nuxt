@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const model = defineModel<null | string | number | undefined>({ required: true })
+import type { TextareaProps } from '@nuxt/ui'
+
+const model = defineModel<Exclude<TextareaProps['modelValue'], null>>({ required: true })
 
 defineProps<{
   id: string

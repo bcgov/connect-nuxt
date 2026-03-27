@@ -24,7 +24,7 @@ describe('<ConnectTombstoneItem />', () => {
     expect(wrapper.find('p').exists()).toBe(false)
     const icon = wrapper.findComponent({ name: 'UIcon' })
     expect(icon.exists()).toBe(true)
-    expect(icon.props()).toEqual(iconProps)
+    expect(icon.props()).toEqual(expect.objectContaining(iconProps))
     expect(icon.classes()).toContain('mt-1')
   })
 

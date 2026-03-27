@@ -46,17 +46,14 @@ const calendarRef = useTemplateRef('calendar-ref')
 const inputRef = useTemplateRef<InstanceType<typeof ConnectInput>>('input-ref')
 
 function focusCalendar() {
-  const button = (calendarRef.value as any).$el.querySelector('button')
+  const button = (calendarRef.value as any)?.$el?.querySelector('button')
   if (button) {
     (button as HTMLButtonElement).focus()
   }
 }
 
 function focusInput() {
-  const input = (inputRef.value as any).$el.querySelector('input')
-  if (input) {
-    (input as HTMLInputElement).focus()
-  }
+  inputRef.value?.input?.inputRef?.focus()
   open.value = false
   emit('blur')
 }
