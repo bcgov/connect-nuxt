@@ -53,10 +53,7 @@ function focusCalendar() {
 }
 
 function focusInput() {
-  const input = (inputRef.value as any).$el.querySelector('input')
-  if (input) {
-    (input as HTMLInputElement).focus()
-  }
+  inputRef.value?.input?.inputRef?.focus()
   open.value = false
   emit('blur')
 }
