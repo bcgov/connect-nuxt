@@ -9,6 +9,7 @@ export default {
       accountOptionsMenu: 'Account Options Menu',
       accountSettings: 'Account Settings',
       back: 'Back',
+      bcros: 'BCROS',
       bceid: 'BCeID',
       bcsc: 'BC Services Card',
       createAccount: 'Create Account',
@@ -74,8 +75,8 @@ export default {
       }
     },
     invalidIdp: {
-      title: 'You\'re logged in with your',
-      content: 'To continue, you must sign in with your BC Services Card. Please log out and sign in again using your BC Services Card credentials.'
+      title: 'You\'re logged in with your {idp}',
+      content: 'To continue, please log out and sign in again using your {allowedIdps} Account credentials.'
     },
     text: {
       alertExistingAccountFound: '{boldStart}Note:{boldEnd} It looks like you already have an account with Service BC Connect. You can use an existing account to proceed or create a new one.',
@@ -83,6 +84,7 @@ export default {
       declineTOSCantAccessService: 'By declining the Terms of Use, you won’t be able to access this service. Do you wish to proceed?',
       iHaveReadAndAcceptTermsOfUse: 'I have read and accept the Terms of Use',
       imageAltGenericLogin: 'Generic Login Image',
+      or: 'or',
       notifications: {
         none: 'No Notifications',
         teamMemberApproval: '{count} team member requires approval to access this account. | {count} team members require approval to access this account.'
