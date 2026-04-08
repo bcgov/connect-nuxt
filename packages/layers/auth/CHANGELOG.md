@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.9.2
+
+### Patch Changes
+
+- [#151](https://github.com/bcgov/connect-nuxt/pull/151) [`90714ac`](https://github.com/bcgov/connect-nuxt/commit/90714ac914683d730c911725e38a83b0d1f5d8f2) Thanks [@deetz99](https://github.com/deetz99)! - Invalid IDP Modal: Text update to modal content.
+
 ## 0.9.1
 
 ### Patch Changes
