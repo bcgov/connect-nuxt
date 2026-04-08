@@ -84,7 +84,6 @@ export default {
       declineTOSCantAccessService: 'By declining the Terms of Use, you won’t be able to access this service. Do you wish to proceed?',
       iHaveReadAndAcceptTermsOfUse: 'I have read and accept the Terms of Use',
       imageAltGenericLogin: 'Generic Login Image',
-      or: 'or',
       notifications: {
         none: 'No Notifications',
         teamMemberApproval: '{count} team member requires approval to access this account. | {count} team members require approval to access this account.'
