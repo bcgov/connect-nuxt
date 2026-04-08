@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "version": "0.2.12",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build-check": "nuxt build",
