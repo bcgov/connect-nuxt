@@ -65,6 +65,13 @@ const layoutExamples: DropdownMenuItem[] = [
     to: localePath('/examples/layouts/ConnectAuth')
   }
 ]
+
+const userFlowExamples: DropdownMenuItem[] = [
+  {
+    label: 'IDP Enforcement',
+    to: localePath('/examples/user-flows/idp-enforcement?preset=bcscOnly')
+  }
+]
 </script>
 
 <template>
@@ -113,6 +120,18 @@ const layoutExamples: DropdownMenuItem[] = [
       >
         <UButton
           label="Layout Examples"
+          icon="i-lucide-menu"
+          color="neutral"
+          variant="outline"
+        />
+      </UDropdownMenu>
+
+      <UDropdownMenu
+        :items="userFlowExamples"
+        :content="{ align: 'start' }"
+      >
+        <UButton
+          label="User Flow Examples"
           icon="i-lucide-menu"
           color="neutral"
           variant="outline"

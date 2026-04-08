@@ -1,40 +1,30 @@
-import { useConnectAuth } from '#auth/app/composables/useConnectAuth'
 import { withQuery } from 'ufo'
-import type { ConnectIdpHint } from '#imports'
-import { useAppConfig } from '#imports'
-// import { ConnectModalInvalidIdp } from '#components'
+import { ConnectModalInvalidIdp } from '#components'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const localePath = useLocalePath()
   const appConfig = useAppConfig()
-  const { authUser, logout } = useConnectAuth()
+  const { authUser } = useConnectAuth()
 
   // IDP Enforcement Config
   const connectConfig = appConfig.connect as ConnectConfig
   const idpEnforcement = connectConfig?.login?.idpEnforcement
   const allowedIdps = connectConfig?.login?.idps
 
-  // Idp overlay
-  // const overlay = useOverlay()
-  // const modal = overlay.create(ConnectModalInvalidIdp)
-
-  /** Show Invalid IDP Modal and Logout on modal close */
-  async function showInvalidIdpModal() {
-    // Prompt user with invalid IDP modal
-    // FUTURE: Fix this in #32610. Currently it doesn't work - loading overlay covers it.
-    // await modal.open({ currentIdp: authUser.value?.loginSource })
-
-    // Logout and Preserve any query param
-    const pathWithQuery = withQuery(localePath('/auth/login'), to.query)
-
-    const url = `${window.location.origin}${pathWithQuery}`
-    return await logout(url)
-  }
-
   if (idpEnforcement && authUser.value?.loginSource) {
-    // User's IDP is not allowed, log them out and redirect to login page
+    // User's IDP is not allowed, display idp enforcement modal
     if (!allowedIdps?.includes(authUser.value?.loginSource.toLowerCase() as unknown as ConnectIdpHint)) {
-      await showInvalidIdpModal()
+      // Pass redirect url to preserve any query params
+      const pathWithQuery = withQuery(localePath('/auth/login'), to.query)
+      const url = `${window.location.origin}${pathWithQuery}`
+
+      const overlay = useOverlay()
+      const modal = overlay.create(ConnectModalInvalidIdp)
+
+      modal.open({
+        currentIdp: authUser.value?.loginSource,
+        redirectUrl: url
+      })
     }
   }
 })

@@ -203,6 +203,53 @@ describe('useConnectAccountStore', () => {
       expect(store.userFullName).toEqual('Fallback ')
     })
 
+    it('setUserName should pre-populate email from contacts[0].email', async () => {
+      const mockApiData = {
+        firstname: 'API',
+        lastname: 'User',
+        contacts: [{ email: 'contact@example.com', phone: '', phoneExtension: '' }]
+      }
+      mockGetAuthUserProfile.mockResolvedValue({
+        data: { value: mockApiData },
+        refresh: vi.fn()
+      })
+      store.accountFormState.emailAddress = ''
+
+      await store.setUserName()
+
+      expect(store.accountFormState.emailAddress).toEqual('contact@example.com')
+    })
+
+    it('setUserName should not overwrite email if already set', async () => {
+      const mockApiData = {
+        firstname: 'API',
+        lastname: 'User',
+        contacts: [{ email: 'contact@example.com', phone: '', phoneExtension: '' }]
+      }
+      mockGetAuthUserProfile.mockResolvedValue({
+        data: { value: mockApiData },
+        refresh: vi.fn()
+      })
+      store.accountFormState.emailAddress = 'existing@example.com'
+
+      await store.setUserName()
+
+      expect(store.accountFormState.emailAddress).toEqual('existing@example.com')
+    })
+
+    it('setUserName should not set email when contacts array is empty', async () => {
+      const mockApiData = { firstname: 'API', lastname: 'User', contacts: [] }
+      mockGetAuthUserProfile.mockResolvedValue({
+        data: { value: mockApiData },
+        refresh: vi.fn()
+      })
+      store.accountFormState.emailAddress = ''
+
+      await store.setUserName()
+
+      expect(store.accountFormState.emailAddress).toEqual('')
+    })
+
     it('getPendingApprovalCount should set the count', async () => {
       store.currentAccount = { id: 1 } as ConnectAccount
       mockAuthUser.value.keycloakGuid = 'test-guid'

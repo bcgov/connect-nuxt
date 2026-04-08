@@ -46,9 +46,6 @@ const toggleCreateNewAccount = () => {
     <ConnectTransitionFade>
       <div class="space-y-6 sm:space-y-10">
         <h1>{{ !addNew ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation') }}</h1>
-        <p v-if="addNew">
-          {{ $t('connect.label.createNewAccountCont') }}
-        </p>
         <ConnectAccountExistingAlert v-if="!addNew" />
       </div>
     </ConnectTransitionFade>

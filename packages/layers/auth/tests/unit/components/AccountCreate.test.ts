@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { z } from 'zod'
 import { ConnectAccountCreate, ConnectAccountCreateName } from '#components'
 
@@ -20,7 +20,7 @@ const accountFormState = reactive({
 
 mockNuxtImport('useConnectAccountStore', () => () => ({
   accountFormState,
-  userFullName: 'MockUser Abc123'
+  userFullName: computed(() => 'MockUser Abc123')
 }))
 
 /** Schema utility mock */
@@ -108,7 +108,7 @@ describe('ConnectAccountCreate', () => {
 
   it('should display legal name label and userFullName', async () => {
     const wrapper = await mount()
-    expect(wrapper.text()).toContain('connect.page.createAccount.yourNameLabel')
+    expect(wrapper.text()).toContain('connect.page.createAccount.contactLabel')
     expect(wrapper.text()).toContain('MockUser Abc123')
     expect(wrapper.text()).toContain('connect.page.createAccount.yourNameHelp')
   })
@@ -148,6 +148,6 @@ describe('ConnectAccountCreate', () => {
     const uform = wrapper.find('[data-test="uform"]')
     expect(uform.exists()).toBe(true)
     // presence of labels indicates slot rendered inside stubbed UForm
-    expect(wrapper.text()).toContain('connect.page.createAccount.yourNameLabel')
+    expect(wrapper.text()).toContain('connect.page.createAccount.contactLabel')
   })
 })

@@ -129,6 +129,7 @@ provide('UInput-slots-provided-slots-input', injectedSlots)
       <ConnectInput
         id="provided-slots-input"
         v-model="slotExampleValue"
+        label="Provided Slots Input"
       />
 
       <p>

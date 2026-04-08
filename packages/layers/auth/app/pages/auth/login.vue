@@ -46,7 +46,7 @@ const loginOptions = computed(() => {
 
 <template>
   <div class="flex grow flex-col items-center justify-center py-10">
-    <div class="flex flex-col items-center gap-10">
+    <div class="flex flex-col items-center gap-4">
       <!-- Alert message from app config -->
       <UAlert
         v-if="ac.alert"
@@ -64,6 +64,9 @@ const loginOptions = computed(() => {
       <h1>
         {{ $t('connect.page.login.h1') }}
       </h1>
+      <p class="max-w-[40rem]">
+        {{ $t('connect.page.login.description') }}
+      </p>
       <UAlert
         v-if="isSessionExpired"
         color="warning"
@@ -73,7 +76,7 @@ const loginOptions = computed(() => {
         icon="i-mdi-alert"
       />
       <UCard
-        class="my-auto max-w-md"
+        class="mt-[12px] max-w-md"
         data-testid="login-card"
       >
         <img

@@ -1,12 +1,23 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   currentIdp: ConnectLoginSource
+  redirectUrl: string
 }>()
-const emit = defineEmits<{ close: [] }>()
 
-function closeModal() {
-  emit('close')
-}
+const { t, locale } = useI18n()
+
+const formattedIdps = computed(() => {
+  const allowedIdps = useAppConfig().connect.login.idps
+  const labels = allowedIdps.map(idp => t(`connect.label.${idp}`))
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat#using_format
+  const formatter = new Intl.ListFormat(locale.value, {
+    style: 'long',
+    type: 'disjunction'
+  })
+
+  return formatter.format(labels)
+})
 </script>
 
 <template>
@@ -22,21 +33,20 @@ function closeModal() {
             id="invalid-idp-title"
             class="text-xl font-bold text-neutral-highlighted"
           >
-            {{ $t('connect.invalidIdp.title') }} {{ props.currentIdp }}
+            {{ $t('connect.invalidIdp.title', { idp: currentIdp }) }}
           </h2>
         </div>
         <div>
           <div role="alert">
-            <span>{{ $t('connect.invalidIdp.content') }}</span>
+            <span>{{ $t('connect.invalidIdp.content', { allowedIdps: formattedIdps }) }}</span>
           </div>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-4">
           <UButton
             :label="$t('connect.label.logout')"
-            :aria-label="$t('connect.label.logout')"
             size="xl"
             class="font-bold"
-            @click="closeModal"
+            @click="useConnectAuth().logout(redirectUrl)"
           />
         </div>
       </div>

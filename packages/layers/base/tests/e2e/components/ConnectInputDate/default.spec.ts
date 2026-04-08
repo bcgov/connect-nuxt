@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-// TODO: FUTURE - sort out flaky tests
-test.describe.skip('ConnectInputDate', () => {
+test.describe('ConnectInputDate', () => {
   test.describe('Basic', () => {
     test('should be usable via mouse actions', async ({ page }) => {
       await page.clock.setFixedTime(new Date('2025-11-01T12:00:00Z'))
@@ -108,7 +107,7 @@ test.describe.skip('ConnectInputDate', () => {
 
       await input.click()
       const datepicker = page.getByRole('dialog')
-      await expect(datepicker).toBeVisible()
+      await expect(datepicker).toBeVisible({ timeout: 5000 })
 
       await datepicker.getByRole('button', { name: '15' }).click()
       await expect(datepicker).not.toBeVisible()

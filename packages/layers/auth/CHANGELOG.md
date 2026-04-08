@@ -1,5 +1,36 @@
 # @sbc-connect/nuxt-auth
 
+## 0.9.2
+
+### Patch Changes
+
+- [#151](https://github.com/bcgov/connect-nuxt/pull/151) [`90714ac`](https://github.com/bcgov/connect-nuxt/commit/90714ac914683d730c911725e38a83b0d1f5d8f2) Thanks [@deetz99](https://github.com/deetz99)! - Invalid IDP Modal: Text update to modal content.
+
+## 0.9.1
+
+### Patch Changes
+
+- [#149](https://github.com/bcgov/connect-nuxt/pull/149) [`467e679`](https://github.com/bcgov/connect-nuxt/commit/467e679f8bf4b2f3b9ec2294fd28a2a6c5ef3dba) Thanks [@deetz99](https://github.com/deetz99)! - Update dependencies
+
+- Updated dependencies [[`467e679`](https://github.com/bcgov/connect-nuxt/commit/467e679f8bf4b2f3b9ec2294fd28a2a6c5ef3dba)]:
+  - @sbc-connect/nuxt-forms@0.7.1
+  - @sbc-connect/nuxt-base@0.7.2
+
+## 0.9.0
+
+### Minor Changes
+
+- [#147](https://github.com/bcgov/connect-nuxt/pull/147) [`d96fef6`](https://github.com/bcgov/connect-nuxt/commit/d96fef61258f7749b8097aad9f1ae73bca3a0702) Thanks [@deetz99](https://github.com/deetz99)! - Fix IDP Enforcement modal being hidden by loading spinner
+
+- [#146](https://github.com/bcgov/connect-nuxt/pull/146) [`32f2375`](https://github.com/bcgov/connect-nuxt/commit/32f23755ab656239730599f02d9802b491469d7e) Thanks [@cameron-eyds](https://github.com/cameron-eyds)! - Minor text and layout changes to Auth Login, Select and Create
+
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [[`3b9fddb`](https://github.com/bcgov/connect-nuxt/commit/3b9fddb1c634fa48c8f4426954cbb2a043f78ff1)]:
+  - @sbc-connect/nuxt-forms@0.7.0
+
 ## 0.8.0
 
 ### Minor Changes

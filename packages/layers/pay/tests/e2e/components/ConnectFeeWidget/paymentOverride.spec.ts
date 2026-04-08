@@ -30,7 +30,7 @@ test.describe('Connect Fee (payment override)', () => {
     const overrideBtn = feeWidget.getByText('Pre-authorized Debit (PAD) XXX4567')
     await expect(overrideBtn).toBeVisible()
     await overrideBtn.click()
-    const ccOption = page.getByText('Credit Card')
+    const ccOption = page.getByRole('option', { name: 'Credit Card' })
     await expect(ccOption).toBeVisible()
     await ccOption.click()
     // Should be set to credit card

@@ -5,7 +5,9 @@ import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
 
 const statusCode = ref<number | undefined>(undefined)
 
-const { accountFormState, submitCreateAccount, userFullName } = useConnectAccountStore()
+const accountStore = useConnectAccountStore()
+const { accountFormState, userFullName } = storeToRefs(accountStore)
+const { submitCreateAccount } = accountStore
 const accountProfileSchema = computed(() => getAccountCreateSchema(statusCode.value))
 const formRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form')
 
@@ -59,7 +61,7 @@ watch(() => statusCode.value, async () => {
     >
       <!-- Legal Name -->
       <ConnectFormFieldWrapper
-        :label="$t('connect.page.createAccount.yourNameLabel')"
+        :label="$t('connect.page.createAccount.contactLabel')"
         orientation="horizontal"
         class="py-6 sm:py-8"
       >

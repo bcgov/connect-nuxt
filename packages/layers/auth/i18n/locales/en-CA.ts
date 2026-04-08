@@ -9,15 +9,15 @@ export default {
       accountOptionsMenu: 'Account Options Menu',
       accountSettings: 'Account Settings',
       back: 'Back',
+      bcros: 'BCROS',
       bceid: 'BCeID',
       bcsc: 'BC Services Card',
       createAccount: 'Create Account',
       createNewAccount: 'Create New Account',
-      createNewAccountCont: 'Create a new account to continue',
       decline: 'Decline',
       declineTermsOfUse: 'Decline Terms of Use',
       editProfile: 'Edit Profile',
-      existingAccountFound: 'Existing Account Found',
+      existingAccountFound: 'Select Your Account or Create a New One',
       idir: 'IDIR',
       logout: 'Log out',
       login: 'Log in',
@@ -38,9 +38,10 @@ export default {
       login: {
         h1: 'SBC Connect Account Login',
         title: 'Log in - SBC Connect',
-        loginBCSC: 'Login with BC Services Card',
-        loginBCEID: 'Login with BCeID',
-        loginIDIR: 'Login with IDIR',
+        description: '',
+        loginBCSC: 'Continue with BC Services Card',
+        loginBCEID: 'Continue with BCeID',
+        loginIDIR: 'Continue with IDIR',
         sessionExpiredAlert: {
           title: 'Session Expired',
           description: 'Your session has expired. Please log in again to continue.'
@@ -51,10 +52,10 @@ export default {
         title: 'Terms of Use - Service BC Connect'
       },
       createAccount: {
-        yourNameLabel: 'Your Name',
+        contactLabel: 'Primary Contact',
         yourNameHelp: 'This is your legal name as it appears on your BC Services Card.',
         accountNameLabel: 'Account Name',
-        accountNameHelp: 'This is your default login name.',
+        accountNameHelp: 'Create a unique name for your account e.g., Andy’s Business',
         emailLabel: 'Email',
         emailPlaceholder: 'Enter email address',
         phoneLabel: 'Phone',
@@ -74,8 +75,8 @@ export default {
       }
     },
     invalidIdp: {
-      title: 'You\'re logged in with your',
-      content: 'To continue, you must sign in with your BC Services Card. Please log out and sign in again using your BC Services Card credentials.'
+      title: 'You\'re logged in with your {idp}',
+      content: 'To continue, please log out and sign in again using your {allowedIdps} Account credentials.'
     },
     text: {
       alertExistingAccountFound: '{boldStart}Note:{boldEnd} It looks like you already have an account with Service BC Connect. You can use an existing account to proceed or create a new one.',

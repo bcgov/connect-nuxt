@@ -17,6 +17,7 @@ export default {
       locationDescriptionOpt: 'Location Description (Optional)',
       mailingAddress: 'Mailing Address',
       postalCode: 'Postal Code',
+      postalCodeOpt: 'Postal Code (Optional)',
       province: 'Province',
       region: 'Region',
       regionOpt: 'Region (Optional)',

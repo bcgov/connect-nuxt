@@ -2,10 +2,10 @@
   "name": "nuxt-base-demo-app",
   "private": true,
   "type": "module",
+  "version": "0.2.4",
   "engines": {
     "node": ">=24"
   },
-  "version": "0.2.3",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build-check": "nuxt build",
