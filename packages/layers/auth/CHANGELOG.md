@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.9.3
+
+### Patch Changes
+
+- [#153](https://github.com/bcgov/connect-nuxt/pull/153) [`2af6e61`](https://github.com/bcgov/connect-nuxt/commit/2af6e6115724f0ee8b21df2ca86d16d2b6ded28d) Thanks [@deetz99](https://github.com/deetz99)! - Login page - center description text
+
 ## 0.9.2
 
 ### Patch Changes
