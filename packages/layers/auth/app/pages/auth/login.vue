@@ -64,7 +64,7 @@ const loginOptions = computed(() => {
       <h1>
         {{ $t('connect.page.login.h1') }}
       </h1>
-      <p class="max-w-[40rem]">
+      <p class="max-w-[40rem] text-center">
         {{ $t('connect.page.login.description') }}
       </p>
       <UAlert
