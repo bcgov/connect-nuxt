@@ -90,9 +90,10 @@
   --marker-upper-alpha: upper-alpha;
 
   /* box shadow */
-  --shadow-input: inset 0 -1px 0 0px var(--ui-neutral);
-  --shadow-input-focus: inset 0 -2px 0 0px var(--ui-primary);
-  --shadow-input-error: inset 0 -2px 0 0px var(--ui-error);
+  /* bottom neutral/focused/error border for input elements */
+  --shadow-input: inset 0 -1px 0 0 var(--ui-neutral);
+  --shadow-input-focus: inset 0 -2px 0 0 var(--ui-primary);
+  --shadow-input-error: inset 0 -2px 0 0 var(--ui-error);
 
   /* GRAY */
   --color-gray-50: #f8f9fa;
@@ -273,5 +274,30 @@ body {
   
   .floating-label-textarea {
     @apply pointer-events-none absolute left-0 top-1 text-neutral text-xs font-medium px-2.5 transition-all duration-200 peer-focus:top-1 peer-focus:text-xs peer-placeholder-shown:text-sm peer-placeholder-shown:top-2.5 peer-focus:translate-none peer-focus:text-primary peer-aria-invalid:text-error;
+  }
+
+  /* Standard container padding */
+  .padding-x-default {
+    @apply px-4 sm:px-7.5
+  }
+  
+  .padding-xy-default {
+    @apply py-6 px-4 sm:py-10 sm:px-7.5
+  }
+
+  /* left error border for section elements */
+  /* Psuedo element required to be visible so slot content does not cover it */
+  .shadow-section-error {
+    position: relative;
+  }
+
+  .shadow-section-error::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background-color: var(--ui-error);
+    pointer-events: none;
+    z-index: 1;
   }
 }

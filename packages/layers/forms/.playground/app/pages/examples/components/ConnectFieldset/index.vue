@@ -205,7 +205,7 @@ definePageMeta({
       ui-body="space-y-4"
     >
       <ConnectFieldset label="Fieldset Label" body-variant="card">
-        <div class="border border-black p-10">
+        <div class="p-10">
           Slot Content
         </div>
       </ConnectFieldset>
@@ -221,7 +221,7 @@ definePageMeta({
         body-variant="card"
         orientation="vertical"
       >
-        <div class="border border-black p-10">
+        <div class="p-10">
           Slot Content
         </div>
       </ConnectFieldset>
@@ -240,7 +240,7 @@ definePageMeta({
         description="Some fancy description text"
         :show-error-msg="true"
       >
-        <div class="border border-black p-10">
+        <div class="p-10">
           Slot Content
         </div>
       </ConnectFieldset>

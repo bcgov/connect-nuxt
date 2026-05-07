@@ -3,19 +3,21 @@ import type { FormError } from '@nuxt/ui'
 
 const {
   orientation = 'horizontal',
-  paddingClass = 'x-default'
+  paddingClass = 'x-default',
+  detailsAriaHidden = false
 } = defineProps<{
   label: string
   error?: FormError | boolean
+  detailsAriaHidden?: boolean
   showErrorMsg?: boolean
   orientation?: 'vertical' | 'horizontal'
   paddingClass?: 'x-default' | 'xy-default' | string
 }>()
 
 const padding = paddingClass === 'x-default'
-  ? 'px-4 sm:px-8'
+  ? 'padding-x-default'
   : paddingClass === 'xy-default'
-    ? 'py-6 px-4 sm:py-10 sm:px-8'
+    ? 'padding-xy-default'
     : paddingClass
 </script>
 
@@ -25,11 +27,11 @@ const padding = paddingClass === 'x-default'
       'flex gap-4 sm:gap-6',
       padding,
       orientation === 'horizontal' ? 'flex-col sm:flex-row' : 'flex-col',
-      error ? 'border-error border-l-3' : 'border-transparent border-l-3',
+      error ? 'shadow-section-error' : '',
     ]"
   >
     <span
-      aria-hidden="true"
+      :aria-hidden="detailsAriaHidden"
       class="text-base text-neutral-highlighted font-bold"
       :class="{ 'w-full sm:basis-1/4': orientation === 'horizontal' }"
     >
