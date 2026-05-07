@@ -28,6 +28,7 @@ definePageMeta({
     <ConnectPageSection :heading="{ label: 'Props' }" ui-body="sm:p-6 space-y-4">
       <ul>
         <li>`label` - string - required</li>
+        <li>`detailsAriaHidden` - boolean - default: false</li>
         <li>`error` - FormError | boolean - optional</li>
         <li>`showErrorMsg` - boolean - optional</li>
         <li>`orientation` - 'vertical' | 'horizontal' - default: horizontal</li>
@@ -37,6 +38,14 @@ definePageMeta({
 
     <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (default)' }" ui-body="space-y-4">
       <ConnectFormFieldWrapper label="Wrapper Label">
+        <div class="border border-black p-10">
+          Slot Content
+        </div>
+      </ConnectFormFieldWrapper>
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'ConnectFormFieldWrapper (detailsAriaHidden = true)' }" ui-body="space-y-4">
+      <ConnectFormFieldWrapper label="Wrapper Label" :details-aria-hidden="true">
         <div class="border border-black p-10">
           Slot Content
         </div>

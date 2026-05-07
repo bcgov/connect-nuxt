@@ -21,19 +21,19 @@ const legendId = id + '-legend'
 const descriptionId = id + '-description'
 
 const bodyClassMap = computed<Record<FieldsetBodyVariant, string>>(() => {
-  const cardError = error ? 'border-error border-l-3' : 'border-transparent border-l-3'
+  const cardError = error ? 'shadow-section-error' : ''
   return {
     none: '',
-    card: 'bg-white rounded shadow-xs ' + cardError
+    card: 'bg-white rounded shadow-xs overflow-hidden ' + cardError
   }
 })
 
 const bodyClass = computed(() => bodyClassMap.value[bodyVariant])
 
 const padding = paddingClass === 'x-default'
-  ? 'px-4 sm:px-8'
+  ? 'padding-x-default'
   : paddingClass === 'xy-default'
-    ? 'py-6 px-4 sm:py-10 sm:px-8'
+    ? 'padding-xy-default'
     : paddingClass
 </script>
 
@@ -44,7 +44,7 @@ const padding = paddingClass === 'x-default'
         'flex gap-4 sm:gap-6',
         bodyVariant === 'none' ? padding : '',
         orientation === 'horizontal' ? 'flex-col sm:flex-row' : 'flex-col',
-        (error && bodyVariant === 'none') ? 'border-error border-l-3' : 'border-transparent border-l-3',
+        (error && bodyVariant === 'none') ? 'shadow-section-error' : '',
       ]"
     >
       <div
