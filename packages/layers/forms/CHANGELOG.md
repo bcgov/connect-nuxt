@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-forms
 
+## 0.7.2
+
+### Patch Changes
+
+- [#155](https://github.com/bcgov/connect-nuxt/pull/155) [`e4ad236`](https://github.com/bcgov/connect-nuxt/commit/e4ad2360c255173e20b7f6d384de2a9313ce747d) Thanks [@deetz99](https://github.com/deetz99)! - Apply new padding and error classes to form wrapper elements, add optional prop to apply aria-hidden to formfieldwrapper details content.
+
+- Updated dependencies [[`e4ad236`](https://github.com/bcgov/connect-nuxt/commit/e4ad2360c255173e20b7f6d384de2a9313ce747d)]:
+  - @sbc-connect/nuxt-base@0.7.3
+
 ## 0.7.1
 
 ### Patch Changes

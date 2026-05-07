@@ -2,7 +2,7 @@
   "name": "nuxt-base-demo-app",
   "private": true,
   "type": "module",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "engines": {
     "node": ">=24"
   },
