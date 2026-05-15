@@ -41,7 +41,7 @@ export const useConnectLaunchDarkly = () => {
     }
 
     // Default org to user key if no account
-    let org: Partial<ConnectAccount & { key: string, appSource: string }> = { key: user.key, appSource: appName }
+    let org: Partial<ConnectAccount> & { key: string, appSource: string } = { key: user.key, appSource: appName }
 
     // Use account info if available
     if (account.id) {

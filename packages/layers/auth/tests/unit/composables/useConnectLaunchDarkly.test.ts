@@ -65,9 +65,9 @@ describe('useConnectLaunchdarkly', () => {
       })),
       allFlags: vi.fn(() => ({ 'test-flag': 'mock-value' })),
       variation: vi.fn((name, defaultValue) => ldFlags[name] ?? defaultValue),
-      waitForInitialization: vi.fn(() => Promise.resolve({ status: 'completed' })),
+      waitForInitialization: vi.fn(() => Promise.resolve({ status: 'complete' })),
       close: vi.fn(),
-      identify: vi.fn(() => Promise.resolve({ status: 'completed' }))
+      identify: vi.fn(() => Promise.resolve({ status: 'complete' }))
     } as unknown as LDClient
     vi.mocked(createClient).mockReturnValue(mockLdClient as LDClient)
   })
@@ -83,7 +83,7 @@ describe('useConnectLaunchdarkly', () => {
       const mockLdClientInstance = vi.mocked(createClient).mock.results[0]!.value
       vi.mocked(mockLdClientInstance.allFlags).mockReturnValue(ldFlags)
 
-      resolveStart({ status: 'completed' })
+      resolveStart({ status: 'complete' })
       await vi.waitFor(() => expect(ldInitialized.value).toBe(true))
 
       expect(ldFlagSet.value).toEqual(ldFlags)
