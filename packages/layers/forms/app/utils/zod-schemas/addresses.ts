@@ -23,7 +23,7 @@ export function getRequiredAddressSchema() {
       .max(50, t('connect.validation.maxChars', { count: 50 })),
     streetAdditional: z
       .string()
-      .max(50, t('connect.validation.maxChars', { count: 50 }))
+      .max(105, t('connect.validation.maxChars', { count: 105 }))
       .optional(),
     city: z
       .string()
