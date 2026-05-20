@@ -7,6 +7,7 @@ describe('zod schemas - address validation', () => {
 
     const validAddress = {
       street: '123 Main St',
+      streetAdditional: '1'.repeat(105),
       city: 'Victoria',
       region: 'BC',
       postalCode: 'V8V 1A1',
@@ -70,6 +71,18 @@ describe('zod schemas - address validation', () => {
 
       const streetError = result.error?.issues.find(i => i.path[0] === 'street')
       expect(streetError?.message).toBe('Maximum 50 characters')
+    })
+
+    it('should fail if streetAdditional exceeds max length', () => {
+      const longStreet = 'a'.repeat(106)
+      const invalidAddress = { ...validAddress, streetAdditional: longStreet }
+
+      const result = schema.safeParse(invalidAddress)
+
+      expect(result.success).toBe(false)
+
+      const streetError = result.error?.issues.find(i => i.path[0] === 'streetAdditional')
+      expect(streetError?.message).toBe('Maximum 105 characters')
     })
 
     describe('Postal Code Format', () => {
