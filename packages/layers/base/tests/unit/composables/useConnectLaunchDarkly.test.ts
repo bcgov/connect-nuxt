@@ -1,12 +1,13 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { initialize } from 'launchdarkly-js-client-sdk'
-import type { LDClient } from 'launchdarkly-js-client-sdk'
+import { createClient } from '@launchdarkly/js-client-sdk'
+import { ref } from 'vue'
+import type { LDClient } from '@launchdarkly/js-client-sdk'
 import type {
   useConnectLaunchDarkly as UseConnectLaunchdarklyType
 } from '../../../app/composables/useConnectLaunchDarkly'
 
-vi.mock('launchdarkly-js-client-sdk')
+vi.mock('@launchdarkly/js-client-sdk')
 mockNuxtImport('useRuntimeConfig', () => () => ({
   public: {
     ldClientId: 'test-client-id',
@@ -18,55 +19,63 @@ const ldFlags: Record<string, string> = {
   'test-flag': 'TEST,PASS'
 }
 
+// Track useState refs so they can be reset between tests
+const stateMap = new Map<string, ReturnType<typeof ref>>()
+mockNuxtImport('useState', () => (key: string, init: () => unknown) => {
+  if (!stateMap.has(key)) {
+    stateMap.set(key, ref(init()))
+  }
+  return stateMap.get(key)!
+})
+
 describe('useConnectLaunchdarkly', () => {
   let useLd: typeof UseConnectLaunchdarklyType
-  let onInitializedCallback: () => void
+  let resolveStart: (result: { status: string }) => void
 
   beforeEach(async () => {
     vi.resetModules()
     vi.clearAllMocks()
+    stateMap.clear()
 
     const mod = await import('../../../app/composables/useConnectLaunchDarkly')
     useLd = mod.useConnectLaunchDarkly
 
     const mockLdClient = {
-      on: vi.fn((event, callback) => {
-        if (event === 'initialized') {
-          onInitializedCallback = callback
-        }
-      }),
+      start: vi.fn(() => new Promise<{ status: string }>((resolve) => {
+        resolveStart = resolve
+      })),
       allFlags: vi.fn(() => ({ 'test-flag': 'mock-value' })),
       variation: vi.fn((name, defaultValue) => ldFlags[name] ?? defaultValue),
-      waitUntilReady: vi.fn(() => Promise.resolve()),
+      waitForInitialization: vi.fn(() => Promise.resolve({ status: 'complete' })),
       close: vi.fn()
     } as unknown as LDClient
-    vi.mocked(initialize).mockReturnValue(mockLdClient)
+    vi.mocked(createClient).mockReturnValue(mockLdClient)
   })
 
   describe('Initialization', () => {
     test('should initialize automatically when first used', () => {
       useLd()
-      expect(initialize).toHaveBeenCalledOnce()
+      expect(createClient).toHaveBeenCalledOnce()
     })
 
     test('should set ldInitialized to true on successful initialization', async () => {
       const { ldInitialized, ldFlagSet } = useLd()
-      const mockLdClientInstance = vi.mocked(initialize).mock.results[0]!.value
+      const mockLdClientInstance = vi.mocked(createClient).mock.results[0]!.value
       vi.mocked(mockLdClientInstance.allFlags).mockReturnValue(ldFlags)
 
-      onInitializedCallback()
+      resolveStart({ status: 'complete' })
+      await vi.waitFor(() => expect(ldInitialized.value).toBe(true))
 
-      expect(ldInitialized.value).toBe(true)
       expect(ldFlagSet.value).toEqual(ldFlags)
     })
 
     test('should only be initialized once', async () => {
       useLd()
-      expect(initialize).toHaveBeenCalledOnce()
+      expect(createClient).toHaveBeenCalledOnce()
       useLd()
-      expect(initialize).toHaveBeenCalledOnce()
+      expect(createClient).toHaveBeenCalledOnce()
       useLd()
-      expect(initialize).toHaveBeenCalledOnce()
+      expect(createClient).toHaveBeenCalledOnce()
     })
   })
 })

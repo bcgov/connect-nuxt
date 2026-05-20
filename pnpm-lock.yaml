@@ -269,9 +269,9 @@ importers:
       es-toolkit:
         specifier: 1.45.1
         version: 1.45.1
-      launchdarkly-vue-client-sdk:
-        specifier: 2.5.0
-        version: 2.5.0(vue@3.5.30(typescript@5.9.3))
+      '@launchdarkly/js-client-sdk':
+        specifier: 4.6.5
+        version: 4.6.5
       luxon:
         specifier: 3.7.2
         version: 3.7.2
@@ -1261,6 +1261,15 @@ packages:
 
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
+
+  '@launchdarkly/js-client-sdk-common@1.26.3':
+    resolution: {integrity: sha512-hFAGW9Xpfc/fE/Xwpj+D07QIRHkhxNdCzmfQzJH/sltvYHPQtu7NJOFzvAGGNrz1ZjGS57l6eiEZy7xBqDa0ag==}
+
+  '@launchdarkly/js-client-sdk@4.6.5':
+    resolution: {integrity: sha512-pV3/MRRIaKeTaWFQLpFQ1N1X/U1pDKEuZtu2kgDkfS+bu8VK8OsqkkauoBk2AflEKB0plcbe9ph1P1RV3Eg+ZA==}
+
+  '@launchdarkly/js-sdk-common@2.24.4':
+    resolution: {integrity: sha512-ikD6MElNa3WPUxXdUIDSBvbig21gfjemEus1Vh0HGcgLThxGglq+EGb0coyc8199+3aqu8c9kpuXEdMBZhOowA==}
 
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -4757,18 +4766,6 @@ packages:
   launch-editor@2.13.2:
     resolution: {integrity: sha512-4VVDnbOpLXy/s8rdRCSXb+zfMeFR0WlJWpET1iA9CQdlZDfwyLjUuGQzXU4VeOoey6AicSAluWan7Etga6Kcmg==}
 
-  launchdarkly-js-client-sdk@3.9.0:
-    resolution: {integrity: sha512-uPL9il6dOZrVQqEcpjDYc2c7HtBTlKpLJb1Q0187i4UokBVZwBXWKjTnNk9hkwaDD5PGD4puoe7POikrR8ACwQ==}
-
-  launchdarkly-js-sdk-common@5.8.0:
-    resolution: {integrity: sha512-9X70K3kN1fuR6ZnRudkH7etMgFhi3sEU0mnJ+y2nhID+DpfkNDVnYUGnUs8/s4tsSDs7Q7Gpm4qnr3oqOqT9+A==}
-
-  launchdarkly-vue-client-sdk@2.5.0:
-    resolution: {integrity: sha512-KIKrNxhiHrVgXELaBrviket13qzShxbyjvuvWFWfi4DVgbN+w6wjj2/nkUZQ+1qtvKomOL0aDfImYdRWnn6Cww==}
-    engines: {node: '>=16.15.1', npm: '>=8.11.0'}
-    peerDependencies:
-      vue: ^3.2.36
-
   lazystream@1.0.1:
     resolution: {integrity: sha512-b94GiNHQNy6JNTrt5w6zNyffMrNkXZb3KTkCZJb2V1xaEGCk093vkZ2jk3tpaeP33/OiXC+WvK9AxUebnf5nbw==}
     engines: {node: '>= 0.6.3'}
@@ -7777,6 +7774,16 @@ snapshots:
       - supports-color
 
   '@kwsites/promise-deferred@1.1.1': {}
+
+  '@launchdarkly/js-client-sdk-common@1.26.3':
+    dependencies:
+      '@launchdarkly/js-sdk-common': 2.24.4
+
+  '@launchdarkly/js-client-sdk@4.6.5':
+    dependencies:
+      '@launchdarkly/js-client-sdk-common': 1.26.3
+
+  '@launchdarkly/js-sdk-common@2.24.4': {}
 
   '@manypkg/find-root@1.1.0':
     dependencies:
@@ -11817,22 +11824,6 @@ snapshots:
     dependencies:
       picocolors: 1.1.1
       shell-quote: 1.8.3
-
-  launchdarkly-js-client-sdk@3.9.0:
-    dependencies:
-      escape-string-regexp: 4.0.0
-      launchdarkly-js-sdk-common: 5.8.0
-
-  launchdarkly-js-sdk-common@5.8.0:
-    dependencies:
-      base64-js: 1.5.1
-      fast-deep-equal: 2.0.1
-      uuid: 8.3.2
-
-  launchdarkly-vue-client-sdk@2.5.0(vue@3.5.30(typescript@5.9.3)):
-    dependencies:
-      launchdarkly-js-client-sdk: 3.9.0
-      vue: 3.5.30(typescript@5.9.3)
 
   lazystream@1.0.1:
     dependencies:

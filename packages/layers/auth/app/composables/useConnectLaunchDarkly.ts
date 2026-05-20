@@ -1,129 +1,133 @@
-import { initialize } from 'launchdarkly-js-client-sdk'
-import type { LDClient, LDFlagSet, LDOptions, LDMultiKindContext } from 'launchdarkly-js-client-sdk'
+import { createClient } from '@launchdarkly/js-client-sdk'
+import type { LDClient, LDFlagSet, LDOptions, LDMultiKindContext } from '@launchdarkly/js-client-sdk'
 import { isEqual } from 'es-toolkit'
 
-// default anon context
+// Default anonymous context
 const anonymousContext: LDMultiKindContext = {
   kind: 'multi',
   org: { key: 'anonymous' },
   user: { key: 'anonymous' }
 }
 
-// state
-// Defined outside of composable, so they are created only once and shared
-const ldClient = shallowRef<LDClient | null>(null)
-const ldFlagSet = shallowRef<LDFlagSet>({})
-const ldContext = shallowRef<LDMultiKindContext>(anonymousContext)
-const ldInitialized = ref(false)
-const isInitializing = ref(false)
+/**
+ * Composable for the LaunchDarkly service.
+ * Extends the base composable with authenticated user and account context.
+ */
+export const useConnectLaunchDarkly = () => {
+  const ldClient = useState<LDClient | null>('ld-client', () => null)
+  const ldFlagSet = useState<LDFlagSet>('ld-flag-set', () => ({}))
+  const ldContext = useState<LDMultiKindContext>('ld-context', () => anonymousContext)
+  const ldInitialized = useState<boolean>('ld-initialized', () => false)
+  const isInitializing = useState<boolean>('ld-is-initializing', () => false)
 
-function _createLdContext(): LDMultiKindContext {
-  const appName = useRuntimeConfig().public.appName
-  const { authUser, isAuthenticated } = useConnectAuth()
-  const account = useConnectAccountStore().currentAccount
+  function _createLdContext(): LDMultiKindContext {
+    const appName = useRuntimeConfig().public.appName
+    const { authUser, isAuthenticated } = useConnectAuth()
+    const account = useConnectAccountStore().currentAccount
 
-  if (!isAuthenticated.value) {
-    return anonymousContext
-  }
+    if (!isAuthenticated.value) {
+      return anonymousContext
+    }
 
-  // Create user context
-  const user = {
-    key: authUser.value.keycloakGuid,
-    firstName: authUser.value.firstName,
-    lastName: authUser.value.lastName,
-    email: authUser.value.email,
-    roles: authUser.value.roles,
-    loginSource: authUser.value.loginSource,
-    appSource: appName
-  }
-
-  // Default org to user key if no account
-  let org: Partial<ConnectAccount & { key: string, appSource: string }> = { key: user.key, appSource: appName }
-
-  // Use account info if available
-  if (account.id) {
-    org = {
-      key: String(account.id),
-      accountType: account.accountType,
-      accountStatus: account.accountStatus,
-      type: account.type,
-      label: account.label,
+    // Create user context
+    const user = {
+      key: authUser.value.keycloakGuid,
+      firstName: authUser.value.firstName,
+      lastName: authUser.value.lastName,
+      email: authUser.value.email,
+      roles: authUser.value.roles,
+      loginSource: authUser.value.loginSource,
       appSource: appName
+    }
+
+    // Default org to user key if no account
+    let org: Partial<ConnectAccount> & { key: string, appSource: string } = { key: user.key, appSource: appName }
+
+    // Use account info if available
+    if (account.id) {
+      org = {
+        key: String(account.id),
+        accountType: account.accountType,
+        accountStatus: account.accountStatus,
+        type: account.type,
+        label: account.label,
+        appSource: appName
+      }
+    }
+
+    return { kind: 'multi', org, user }
+  }
+
+  function _updateLdContext() {
+    if (!ldClient.value) {
+      return
+    }
+
+    const newContext = _createLdContext()
+    if (isEqual(ldContext.value, newContext)) {
+      return
+    }
+
+    ldContext.value = newContext
+    ldClient.value.identify(newContext).then(() => {
+      ldFlagSet.value = ldClient.value?.allFlags() || {}
+    }).catch((error) => {
+      console.error('LaunchDarkly: Failed to update context.', error)
+    })
+  }
+
+  /**
+   * Initializes the LaunchDarkly client.
+   */
+  function _init(): void {
+    const rtc = useRuntimeConfig().public
+
+    // Prevent re-initialization
+    if (ldInitialized.value || isInitializing.value) {
+      return
+    }
+    // Prevent initialization if missing client ID
+    if (!rtc.ldClientId) {
+      console.error('LaunchDarkly: ldClientId is not configured.')
+      return
+    }
+
+    isInitializing.value = true
+
+    ldContext.value = _createLdContext()
+
+    const options: LDOptions = {
+      streaming: false,
+      useReport: false,
+      diagnosticOptOut: true
+    }
+
+    try {
+      const client = createClient(rtc.ldClientId, ldContext.value, options)
+
+      client.start().then((result) => {
+        if (result.status === 'complete') {
+          ldInitialized.value = true
+          isInitializing.value = false
+          ldFlagSet.value = client.allFlags()
+          console.info('LaunchDarkly: Initialization complete.')
+        } else {
+          console.error('LaunchDarkly: Initialization did not complete.', result)
+          isInitializing.value = false
+        }
+      }).catch((error) => {
+        console.error('LaunchDarkly: Initialization error.', error)
+        isInitializing.value = false
+      })
+
+      ldClient.value = client
+    } catch (error) {
+      console.error('LaunchDarkly: Failed to initialize.', error)
+      isInitializing.value = false
     }
   }
 
-  return { kind: 'multi', org, user }
-}
-
-function _updateLdContext() {
-  if (!ldClient.value) {
-    return
-  }
-
-  const newContext = _createLdContext()
-  if (isEqual(ldContext.value, newContext)) {
-    return
-  }
-
-  ldContext.value = newContext
-  ldClient.value.identify(newContext).then(() => {
-    ldFlagSet.value = ldClient.value?.allFlags() || {}
-  }).catch((error) => {
-    console.error('LaunchDarkly: Failed to update context.', error)
-  })
-}
-
-/**
- * Initializes the LaunchDarkly client.
-*/
-function _init(): void {
-  const rtc = useRuntimeConfig().public
-
-  // Prevent re-initialization
-  if (ldInitialized.value || isInitializing.value) {
-    return
-  }
-  // Prevent initialization if missing client ID
-  if (!rtc.ldClientId) {
-    console.error('LaunchDarkly: ldClientId is not configured.')
-    return
-  }
-
-  isInitializing.value = true
-
-  ldContext.value = _createLdContext()
-
-  const options: LDOptions = {
-    streaming: false,
-    useReport: false,
-    diagnosticOptOut: true
-  }
-
-  try {
-    ldClient.value = initialize(rtc.ldClientId, ldContext.value, options)
-
-    ldClient.value.on('initialized', () => {
-      ldInitialized.value = true
-      isInitializing.value = false
-      ldFlagSet.value = ldClient.value?.allFlags() || {}
-      console.info('LaunchDarkly: Anonymous initialization complete.')
-    })
-
-    ldClient.value.on('error', (error) => {
-      console.error('LaunchDarkly: Initialization error.', error)
-      isInitializing.value = false
-    })
-  } catch (error) {
-    console.error('LaunchDarkly: Failed to initialize.', error)
-    isInitializing.value = false
-  }
-}
-
-/**
- * Composable for the LaunchDarkly service.
-*/
-export const useConnectLaunchDarkly = () => {
-  // initialize only once
+  // Initialize only once on the client
   if (!ldInitialized.value && !isInitializing.value && import.meta.client) {
     _init()
   }
@@ -171,12 +175,12 @@ export const useConnectLaunchDarkly = () => {
       if (!ldClient.value) {
         return Promise.resolve(defaultValue)
       }
-      return ldClient.value.waitUntilReady()
-        .then(() => ldClient.value ? ldClient.value.variation(name, defaultValue) : defaultValue)
-        .catch((error) => {
-          console.error(`LaunchDarkly: Error waiting for client while getting flag "${name}".`, error)
-          return defaultValue
-        })
+      return ldClient.value.waitForInitialization().then(() =>
+        ldClient.value ? ldClient.value.variation(name, defaultValue) : defaultValue
+      ).catch((error) => {
+        console.error(`LaunchDarkly: Error waiting for client while getting flag "${name}".`, error)
+        return defaultValue
+      })
     }
 
     return readonly(computed(() => {
@@ -206,12 +210,12 @@ export const useConnectLaunchDarkly = () => {
       if (!ldClient.value) {
         return Promise.resolve(defaultValue)
       }
-      return ldClient.value.waitUntilReady()
-        .then(() => ldFlagSet.value[name] ?? defaultValue)
-        .catch((error) => {
-          console.error(`LaunchDarkly: Error waiting for client while getting stored flag "${name}".`, error)
-          return defaultValue
-        })
+      return ldClient.value.waitForInitialization().then(() =>
+        ldFlagSet.value[name] ?? defaultValue
+      ).catch((error) => {
+        console.error(`LaunchDarkly: Error waiting for client while getting stored flag "${name}".`, error)
+        return defaultValue
+      })
     }
 
     // reactive mode
@@ -232,6 +236,7 @@ export const useConnectLaunchDarkly = () => {
     ldClient.value?.close()
     ldClient.value = null
     ldFlagSet.value = {}
+    ldContext.value = anonymousContext
   }
 
   return {
