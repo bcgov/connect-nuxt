@@ -1,5 +1,14 @@
 # @sbc-connect/nuxt-forms
 
+## 0.7.3
+
+### Patch Changes
+
+- [#157](https://github.com/bcgov/connect-nuxt/pull/157) [`a68fff2`](https://github.com/bcgov/connect-nuxt/commit/a68fff28bf29913c7643b570982568894b7d0704) Thanks [@kialj876](https://github.com/kialj876)! - 33417 update street address additional max len
+
+- Updated dependencies [[`fe5065e`](https://github.com/bcgov/connect-nuxt/commit/fe5065e12d776349e7093e52ecee51ce22a2c271)]:
+  - @sbc-connect/nuxt-base@0.8.0
+
 ## 0.7.2
 
 ### Patch Changes

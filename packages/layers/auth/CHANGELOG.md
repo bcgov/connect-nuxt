@@ -1,5 +1,17 @@
 # @sbc-connect/nuxt-auth
 
+## 0.10.0
+
+### Minor Changes
+
+- [#158](https://github.com/bcgov/connect-nuxt/pull/158) [`fe5065e`](https://github.com/bcgov/connect-nuxt/commit/fe5065e12d776349e7093e52ecee51ce22a2c271) Thanks [@vysakh-menon-aot](https://github.com/vysakh-menon-aot)! - Switch LD dependency to js-client-sdk
+
+### Patch Changes
+
+- Updated dependencies [[`a68fff2`](https://github.com/bcgov/connect-nuxt/commit/a68fff28bf29913c7643b570982568894b7d0704), [`fe5065e`](https://github.com/bcgov/connect-nuxt/commit/fe5065e12d776349e7093e52ecee51ce22a2c271)]:
+  - @sbc-connect/nuxt-forms@0.7.3
+  - @sbc-connect/nuxt-base@0.8.0
+
 ## 0.9.4
 
 ### Patch Changes

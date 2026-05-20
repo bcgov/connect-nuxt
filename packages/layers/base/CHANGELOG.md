@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.8.0
+
+### Minor Changes
+
+- [#158](https://github.com/bcgov/connect-nuxt/pull/158) [`fe5065e`](https://github.com/bcgov/connect-nuxt/commit/fe5065e12d776349e7093e52ecee51ce22a2c271) Thanks [@vysakh-menon-aot](https://github.com/vysakh-menon-aot)! - Switch LD dependency to js-client-sdk
+
 ## 0.7.3
 
 ### Patch Changes
