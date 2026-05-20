@@ -1,7 +1,11 @@
 <script setup lang="ts">
-throw createError({
-  statusCode: 500,
-  fatal: true
+definePageMeta({
+  middleware: () => {
+    throw createError({
+      statusCode: 500,
+      fatal: true
+    })
+  }
 })
 </script>
 
