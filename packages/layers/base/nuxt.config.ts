@@ -143,5 +143,19 @@ export default defineNuxtConfig({
       statusApiUrl: '',
       statusApiVersion: ''
     }
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@launchdarkly/js-client-sdk',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'dompurify',
+        'es-toolkit',
+        'maska/vue',
+        'zod'
+      ]
+    }
   }
 })
