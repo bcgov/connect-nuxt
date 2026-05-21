@@ -1,5 +1,17 @@
 # @sbc-connect/nuxt-auth
 
+## 0.11.0
+
+### Minor Changes
+
+- [#160](https://github.com/bcgov/connect-nuxt/pull/160) [`80b8318`](https://github.com/bcgov/connect-nuxt/commit/80b8318ab802a14f77e9fe88f96e66aaf23e18ad) Thanks [@deetz99](https://github.com/deetz99)! - Update Nuxt, pinia colada, keycloak, nuxt ui, i18n, vueuse, dompurify, es-toolkit, zod.
+
+### Patch Changes
+
+- Updated dependencies [[`80b8318`](https://github.com/bcgov/connect-nuxt/commit/80b8318ab802a14f77e9fe88f96e66aaf23e18ad)]:
+  - @sbc-connect/nuxt-base@0.9.0
+  - @sbc-connect/nuxt-forms@0.7.4
+
 ## 0.10.0
 
 ### Minor Changes
