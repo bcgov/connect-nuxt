@@ -23,13 +23,19 @@ jobs:
       with: 
         filters: |
           base:
-            - 'packages/layers/base/**'  
+            - 'packages/layers/base/**'
           auth:
-            - 'packages/layers/auth/**'  
+            - 'packages/layers/auth/**'
+            - 'packages/layers/base/**'
+            - 'packages/layers/forms/**'
           forms:
+            - 'packages/layers/base/**'
             - 'packages/layers/forms/**'  
           pay:
             - 'packages/layers/pay/**'
+            - 'packages/layers/auth/**'
+            - 'packages/layers/base/**'
+            - 'packages/layers/forms/**'
     
     - name: Create package list
       id: package_list
