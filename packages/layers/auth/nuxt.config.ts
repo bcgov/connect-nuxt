@@ -80,5 +80,13 @@ export default defineNuxtConfig({
       playwright: process.env.playwright === 'true',
       playwrightFetchTestAccount: process.env.playwrightFetchTestAccount === 'true'
     }
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        'keycloak-js'
+      ]
+    }
   }
 })

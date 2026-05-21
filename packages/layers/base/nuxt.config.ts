@@ -153,7 +153,8 @@ export default defineNuxtConfig({
         '@vue/devtools-kit',
         'dompurify',
         'es-toolkit',
-        'maska/vue'
+        'maska/vue',
+        'zod'
       ]
     }
   }
