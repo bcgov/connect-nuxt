@@ -15,11 +15,11 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "nuxt": "4.2.2",
+    "nuxt": "4.4.6",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.3"
   }
 }
