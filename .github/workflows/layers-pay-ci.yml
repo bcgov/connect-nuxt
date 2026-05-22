@@ -6,6 +6,7 @@ on:
       - "packages/layers/base/**"
       - "packages/layers/auth/**"
       - "packages/layers/pay/**"
+      - "pnpm-workspace.yaml"
   workflow_dispatch:
 
 defaults:

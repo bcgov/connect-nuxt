@@ -5,6 +5,7 @@ on:
     paths:
       - "packages/layers/base/**"
       - "packages/layers/forms/**"
+      - "pnpm-workspace.yaml"
   workflow_dispatch:
 
 defaults:
