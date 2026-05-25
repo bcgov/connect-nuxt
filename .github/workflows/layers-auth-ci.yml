@@ -5,6 +5,7 @@ on:
     paths:
       - "packages/layers/base/**"
       - "packages/layers/auth/**"
+      - "pnpm-workspace.yaml"
   workflow_dispatch:
 
 defaults:

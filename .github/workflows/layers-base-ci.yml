@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "packages/layers/base/**"
+      - "pnpm-workspace.yaml"
   workflow_dispatch:
 
 defaults:
