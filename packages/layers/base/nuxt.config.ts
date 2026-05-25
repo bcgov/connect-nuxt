@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+// testing ci build
 import { createResolver } from 'nuxt/kit'
 
 const { resolve } = createResolver(import.meta.url)
