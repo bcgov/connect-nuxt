@@ -2,7 +2,7 @@
   "name": "nuxt-forms-demo-app",
   "private": true,
   "type": "module",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "engines": {
     "node": ">=24"
   },
