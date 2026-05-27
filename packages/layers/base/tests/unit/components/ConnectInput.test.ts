@@ -1,6 +1,6 @@
 import { describe, test, expect, vi } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectInput from './../../../app/components/Connect/Input.vue'
+import { ConnectInput } from '#components'
 
 const MockUInput = {
   template: '<div><slot /><label :for="$attrs.for" :class="$attrs.class"><slot name="default" /></label></div>',
