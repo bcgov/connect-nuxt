@@ -105,11 +105,20 @@ export const getBaseSidebarItems = () => {
       },
       {
         label: 'Connect Input',
-        to: localePath('/examples/components/ConnectInput')
-      },
-      {
-        label: 'Connect InputDate',
-        to: localePath('/examples/components/ConnectInputDate')
+        children: [
+          {
+            label: 'Default',
+            to: localePath('/examples/components/ConnectInput')
+          },
+          {
+            label: 'Connect InputDate',
+            to: localePath('/examples/components/ConnectInputDate')
+          },
+          {
+            label: 'Connect InputMenu',
+            to: localePath('/examples/components/ConnectInputMenu')
+          }
+        ]
       },
       {
         label: 'Connect Locale Select',
