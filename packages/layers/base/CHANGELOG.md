@@ -1,5 +1,13 @@
 # @sbc-connect/nuxt-base
 
+## 0.10.0
+
+### Minor Changes
+
+- [#163](https://github.com/bcgov/connect-nuxt/pull/163) [`c0df0d1`](https://github.com/bcgov/connect-nuxt/commit/c0df0d1deb18d2123bc5e562e3c2ba2028de7ce1) Thanks [@vysakh-menon-aot](https://github.com/vysakh-menon-aot)! - floating label input size changed to 16px
+
+- [#165](https://github.com/bcgov/connect-nuxt/pull/165) [`8dedd59`](https://github.com/bcgov/connect-nuxt/commit/8dedd5905ad619d8eaf8fee13a74abbc84019b54) Thanks [@deetz99](https://github.com/deetz99)! - Implement ConnectInputMenu component
+
 ## 0.9.0
 
 ### Minor Changes
