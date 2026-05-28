@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { createResolver } from 'nuxt/kit'
-// temporary to trigger e2e CI tests
+
 const { resolve } = createResolver(import.meta.url)
 export default defineNuxtConfig({
   ssr: false,
