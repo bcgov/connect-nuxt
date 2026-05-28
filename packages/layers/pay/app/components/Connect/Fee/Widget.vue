@@ -117,7 +117,7 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
                 x {{ feeItem.quantity }} {{ feeItem.quantityDesc }}
               </p>
             </div>
-            <p class="text-highlighted">
+            <p class="text-highlighted whitespace-nowrap">
               {{ getItemFee(feeItem) }}
             </p>
           </div>

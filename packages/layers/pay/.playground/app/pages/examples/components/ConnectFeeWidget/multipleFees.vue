@@ -12,6 +12,7 @@ const exampleFeeCode1 = 'BSRCH'
 const exampleFeeCode2 = 'CGOOD'
 const exampleFeeCode3 = 'NM620'
 const exampleFeeCode4 = 'BCINC'
+const exampleFeeCode5 = 'NOCOI'
 
 const { t } = useI18n()
 await feeStore.initFees(
@@ -19,7 +20,8 @@ await feeStore.initFees(
     { code: exampleFeeCode1, entityType: 'BUS', label: t('connect.label.exampleFee') + '1' },
     { code: exampleFeeCode2, entityType: 'BUS', label: t('connect.label.exampleFee') + '2' },
     { code: exampleFeeCode3, entityType: 'NRO', label: t('connect.label.exampleFee') + '3' },
-    { code: exampleFeeCode4, entityType: 'BC', label: t('connect.label.exampleFee') + '4' }
+    { code: exampleFeeCode4, entityType: 'BC', label: t('connect.label.exampleFee') + '4' },
+    { code: exampleFeeCode5, entityType: 'BC', label: t('connect.label.longExampleNoFee') }
   ],
   { label: t('connect.label.examplePlaceholder'), matchServiceFeeToCode: exampleFeeCode1 }
 )
@@ -27,6 +29,7 @@ feeStore.addReplaceFee(exampleFeeCode1)
 feeStore.addReplaceFee(exampleFeeCode2)
 feeStore.addReplaceFee(exampleFeeCode3)
 feeStore.addReplaceFee(exampleFeeCode4)
+feeStore.addReplaceFee(exampleFeeCode5)
 </script>
 
 <template>
