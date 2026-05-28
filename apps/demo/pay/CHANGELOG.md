@@ -1,5 +1,12 @@
 # nuxt-pay-demo-app
 
+## 0.2.18
+
+### Patch Changes
+
+- Updated dependencies [[`5ea3209`](https://github.com/bcgov/connect-nuxt/commit/5ea3209ef64a2bec0fe9d583cd63152e5d634865)]:
+  - @sbc-connect/nuxt-pay@0.4.0
+
 ## 0.2.17
 
 ### Patch Changes

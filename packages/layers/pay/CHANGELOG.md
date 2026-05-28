@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-pay
 
+## 0.4.0
+
+### Minor Changes
+
+- [#168](https://github.com/bcgov/connect-nuxt/pull/168) [`5ea3209`](https://github.com/bcgov/connect-nuxt/commit/5ea3209ef64a2bec0fe9d583cd63152e5d634865) Thanks [@vysakh-menon-aot](https://github.com/vysakh-menon-aot)! - Ensure the "No Fee" label stays on a single line by applying a no-wrap style
+
 ## 0.3.11
 
 ### Patch Changes
