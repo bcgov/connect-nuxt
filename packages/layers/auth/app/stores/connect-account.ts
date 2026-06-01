@@ -7,6 +7,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const { authUser } = useConnectAuth()
   const { useCreateAccount, useUpdateOrCreateUserContact, getAuthUserProfile } = useAuthApi()
   const { finalRedirect } = useConnectAccountFlowRedirect()
+  const service = useConnectAuthService()
 
   // selected user account
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
@@ -90,8 +91,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         successCb: async (createResponse: ConnectAuthProfile) => {
           // Refresh and switch to new account prior to redirect
           if (createResponse?.id) {
-            await setAccountInfo()
-            await switchCurrentAccount(createResponse.id)
+            await setAccountInfo(true)
+            switchCurrentAccount(createResponse.id)
           }
 
           // Update or create user contact and then redirect regardless of success or failure
@@ -135,19 +136,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-  /** Get the user's account list */
-  async function getUserAccounts(): Promise<ConnectAccount[] | undefined> {
-    if (!authUser.value?.keycloakGuid && !rtc.playwright) {
-      return undefined
-    }
-    // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
-    const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`)
-    return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
-  }
-
   /** Set the user account list and current account */
-  async function setAccountInfo(): Promise<void> {
-    const accounts = await getUserAccounts()
+  async function setAccountInfo(force = false): Promise<void> {
+    const accounts = await service.getUserAccounts(force)
     if (accounts && accounts[0]) {
       userAccounts.value = accounts
       if (!currentAccount.value.id || !userAccounts.value.some(account => account.id === currentAccount.value.id)) {
@@ -157,15 +148,15 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Switch the current account to the given account ID if it exists in the user's account list */
-  async function switchCurrentAccount(accountId: number) {
+  function switchCurrentAccount(accountId: number) {
     const account = userAccounts.value.find(account => account.id === accountId)
     if (account) {
       currentAccount.value = account
-      await checkAccountStatus()
+      checkAccountStatus()
     }
   }
 
-  async function checkAccountStatus() {
+  function checkAccountStatus() {
     // redirect if account status is suspended or in review
     if ([AccountStatus.NSF_SUSPENDED, AccountStatus.SUSPENDED].includes(currentAccount.value?.accountStatus)) {
       // Avoid redirecting when navigating back from PAYBC for NSF or signout.
@@ -176,7 +167,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         const redirectUrl = `${rtc.authWebUrl}account-freeze`
         // TODO: should probably change this to check 'appName' when auth starts using the core layer
         const external = rtc.authWebUrl !== rtc.baseUrl
-        await navigateTo(redirectUrl, { external })
+        return navigateTo(redirectUrl, { external })
       }
     } else if (currentAccount.value?.accountStatus === AccountStatus.PENDING_STAFF_REVIEW) {
       // check the path is allowed for pending approval account
@@ -192,7 +183,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         const redirectUrl = `${rtc.authWebUrl}pendingapproval/${accountNameEncoded}/true`
         // TODO: should probably change this to check 'appName' when auth starts using the core layer
         const external = rtc.authWebUrl !== rtc.baseUrl
-        await navigateTo(redirectUrl, { external })
+        return navigateTo(redirectUrl, { external })
       }
     }
   }
@@ -237,7 +228,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     isLoading,
     currentAccount,
     currentAccountName,
-    getUserAccounts,
     hasRoles,
     initAccountStore,
     isCurrentAccount,

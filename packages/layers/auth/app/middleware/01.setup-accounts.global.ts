@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
       await accountStore.initAccountStore()
 
       if (to.query.accountid) {
-        await accountStore.switchCurrentAccount(parseInt(to.query.accountid as string))
+        accountStore.switchCurrentAccount(parseInt(to.query.accountid as string))
       }
     }
   }

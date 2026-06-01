@@ -90,10 +90,10 @@ export function useConnectHeaderOptions() {
               if (route.meta.onAccountChange) {
                 const allowAccountChange = route.meta.onAccountChange(accountStore.currentAccount, account)
                 if (allowAccountChange) {
-                  await accountStore.switchCurrentAccount(account.id)
+                  accountStore.switchCurrentAccount(account.id)
                 }
               } else {
-                await accountStore.switchCurrentAccount(account.id)
+                accountStore.switchCurrentAccount(account.id)
               }
             }
           },

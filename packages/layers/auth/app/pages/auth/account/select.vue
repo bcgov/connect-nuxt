@@ -24,7 +24,7 @@ useHead({
 })
 
 async function selectAndRedirect(id: number) {
-  await accountStore.switchCurrentAccount(id)
+  accountStore.switchCurrentAccount(id)
   finalRedirect(useRoute())
 }
 

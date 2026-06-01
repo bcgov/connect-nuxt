@@ -12,14 +12,15 @@
 */
 
 export const useConnectAuthQueryKeys = () => {
-  const accountStore = useConnectAccountStore()
-  const { currentAccount } = storeToRefs(accountStore)
+  const { authUser } = useConnectAuth()
+  const { currentAccount } = storeToRefs(useConnectAccountStore())
 
-  const base = computed(() => ['auth', currentAccount.value.id] as const)
+  const base = () => ['auth', authUser.value?.keycloakGuid] as const
 
   const keys = {
-    pendingApprovals: () => [...base.value, 'pending-approvals'] as const
+    pendingApprovals: () => [...base(), 'org', currentAccount.value?.id, 'pending-approvals'] as const,
+    userSettings: () => [...base(), 'user-settings'] as const
   }
 
-  return { keys, base }
+  return { keys }
 }
