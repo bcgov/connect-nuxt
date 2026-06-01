@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   extends: ['@sbc-connect/nuxt-base', '@sbc-connect/nuxt-forms'],
 
   imports: {
-    dirs: ['interfaces', 'types', 'enums', 'stores']
+    dirs: ['interfaces', 'types', 'enums', 'stores', 'services']
   },
 
   modules: [
