@@ -33,6 +33,19 @@ export const useConnectAuthQuery = () => {
     return useQuery(() => pendingApprovalsOptions(options as DefineOptions<{ count: number }>))
   }
 
+  function userProfileOptions(options?: DefineOptions<ConnectAuthProfile>) {
+    return defineQueryOptions({
+      query: () => $authApi<ConnectAuthProfile>('/users/@me', { parseResponse: JSON.parse }),
+      staleTime: DEFAULT_STALE_TIME,
+      ...options,
+      key: keys.userProfile()
+    })
+  }
+
+  function userProfile(options?: QueryOptions<ConnectAuthProfile>) {
+    return useQuery(() => userProfileOptions(options as DefineOptions<ConnectAuthProfile>))
+  }
+
   function userSettingsOptions(options?: DefineOptions<ConnectUserSettings[]>) {
     const keycloakGuid = useConnectAuth().authUser.value?.keycloakGuid
     return defineQueryOptions({
@@ -51,6 +64,8 @@ export const useConnectAuthQuery = () => {
   return {
     pendingApprovalsOptions,
     pendingApprovals,
+    userProfileOptions,
+    userProfile,
     userSettingsOptions,
     userSettings
   }
@@ -66,17 +81,6 @@ export const useConnectAuthQuery = () => {
 // export const useAuthApi = () => {
 //   const { $authApi } = useNuxtApp()
 //   const queryCache = useQueryCache()
-
-//   async function getAuthUserProfile() {
-//     const query = defineQuery({
-//       key: ['auth-user-profile'],
-//       query: () => $authApi<ConnectAuthProfile>('/users/@me', {
-//         parseResponse: JSON.parse
-//       }),
-//       staleTime: 300000
-//     })
-//     return query()
-//   }
 
 //   /**
 //    * Validates whether an account name is available by sending a request to the AUTH service.
@@ -211,7 +215,6 @@ export const useConnectAuthQuery = () => {
 //   })
 
 //   return {
-//     getAuthUserProfile,
 //     getTermsOfUse,
 //     useCreateAccount,
 //     usePatchTermsOfUse,

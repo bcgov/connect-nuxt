@@ -5,7 +5,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
-  const { useCreateAccount, useUpdateOrCreateUserContact, getAuthUserProfile } = useAuthApi()
+  const { useCreateAccount, useUpdateOrCreateUserContact } = useAuthApi()
   const { finalRedirect } = useConnectAccountFlowRedirect()
   const service = useConnectAuthService()
 
@@ -13,10 +13,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
   const currentAccountName = computed<string>(() => currentAccount.value?.label || '')
-  const user = computed(() => authUser.value)
   const userEmail = ref<string>('')
-  const userFirstName = ref<string>(user.value?.firstName || '-')
-  const userLastName = ref<string>(user.value?.lastName || '')
+  const userFirstName = ref<string>(authUser.value?.firstName || '-')
+  const userLastName = ref<string>(authUser.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
 
   // Create account
@@ -116,18 +115,18 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Set user name and default email from profile */
   async function setUserName() {
-    const { data, refresh } = await getAuthUserProfile()
-    await refresh()
-    if (data.value?.firstname && data.value?.lastname) {
-      userFirstName.value = data.value.firstname
-      userLastName.value = data.value.lastname
+    const res = await service.getAuthUserProfile()
+
+    if (res?.firstname && res?.lastname) {
+      userFirstName.value = res.firstname
+      userLastName.value = res.lastname
     } else {
-      userFirstName.value = user.value?.firstName || '-'
-      userLastName.value = user.value?.lastName || ''
+      userFirstName.value = authUser.value?.firstName || '-'
+      userLastName.value = authUser.value?.lastName || ''
     }
 
     // Pre-populate email from the user's existing contact if available
-    const contactEmail = data.value?.contacts?.[0]?.email
+    const contactEmail = res?.contacts?.[0]?.email
     if (contactEmail) {
       userEmail.value = contactEmail
       if (!accountFormState.emailAddress) {
@@ -197,7 +196,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
       ])
 
       if (currentAccount.value.id) {
-        await checkAccountStatus()
+        checkAccountStatus()
       }
     } catch (e) {
       logFetchError(e, '[Account Store] - Error during initialization')
@@ -208,8 +207,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     sessionStorage.removeItem('connect-auth-account-store')
     currentAccount.value = {} as ConnectAccount
     userAccounts.value = []
-    userFirstName.value = user.value?.firstName || '-'
-    userLastName.value = user.value?.lastName || ''
+    userFirstName.value = authUser.value?.firstName || '-'
+    userLastName.value = authUser.value?.lastName || ''
     clearAccountState()
   }
 

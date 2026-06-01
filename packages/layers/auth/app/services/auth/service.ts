@@ -45,6 +45,11 @@ import { getCachedOrFetch } from '../helpers'
 export const useConnectAuthService = () => {
   const query = useConnectAuthQuery()
 
+  async function getAuthUserProfile(force = false): Promise<ConnectAuthProfile | undefined> {
+    const options = query.userProfileOptions()
+    return await getCachedOrFetch(options, force)
+  }
+
   async function getUserAccounts(force = false): Promise<ConnectAccount[] | undefined> {
     const options = query.userSettingsOptions()
     return await getCachedOrFetch(options, force)
@@ -52,6 +57,7 @@ export const useConnectAuthService = () => {
   }
 
   return {
+    getAuthUserProfile,
     getUserAccounts
   }
 }

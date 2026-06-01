@@ -2,13 +2,6 @@ import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setActivePinia, createPinia } from 'pinia'
 
-//  Nuxt app / APIs
-const mockAuthApi = vi.fn()
-mockNuxtImport('useNuxtApp', () => () => ({
-  $authApi: mockAuthApi,
-  $i18n: { t: vi.fn((key: string) => key) }
-}))
-
 //  Hoisted mocks (must be defined before module evaluation)
 const { mockLogFetchError } = vi.hoisted(() => ({ mockLogFetchError: vi.fn() }))
 mockNuxtImport('logFetchError', () => mockLogFetchError)
@@ -41,15 +34,20 @@ const mockSessionStorage = {
 }
 Object.defineProperty(global, 'sessionStorage', { value: mockSessionStorage })
 
-//  Auth API composables (profile, create account, update contact)
-const mockGetAuthUserProfile = vi.fn()
+//  Auth API composables (create account, update contact)
 const mockCreateAccount = vi.fn()
 const mockUpdateUserContact = vi.fn()
 
 mockNuxtImport('useAuthApi', () => () => ({
-  getAuthUserProfile: mockGetAuthUserProfile,
   useCreateAccount: () => ({ createAccount: mockCreateAccount }),
   useUpdateOrCreateUserContact: () => ({ updateOrCreateUserContact: mockUpdateUserContact })
+}))
+
+const mockGetAuthUserProfile = vi.fn()
+const mockGetUserAccounts = vi.fn()
+mockNuxtImport('useConnectAuthService', () => () => ({
+  getAuthUserProfile: mockGetAuthUserProfile,
+  getUserAccounts: mockGetUserAccounts
 }))
 
 //  Account flow redirect composable
@@ -119,10 +117,7 @@ describe('useConnectAccountStore', () => {
     store.$reset()
 
     // Default profile mock for other tests
-    mockGetAuthUserProfile.mockResolvedValue({
-      data: { value: {} },
-      refresh: vi.fn()
-    })
+    mockGetAuthUserProfile.mockResolvedValue({})
   })
 
   it('initializes with the correct default state', () => {
@@ -153,10 +148,10 @@ describe('useConnectAccountStore', () => {
   })
 
   describe('Auth API Actions', () => {
-    it.only('setAccountInfo should set user accounts and current account', async () => {
+    it('setAccountInfo should set user accounts and current account', async () => {
       mockAuthUser.value.keycloakGuid = 'test-guid'
       const accounts = [mockAccounts[0]!, mockAccounts[1]!]
-      mockAuthApi.mockResolvedValueOnce(accounts)
+      mockGetUserAccounts.mockResolvedValueOnce(accounts)
 
       await store.setAccountInfo()
 
@@ -166,10 +161,7 @@ describe('useConnectAccountStore', () => {
 
     it('setUserName should set user name from API if available', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User' }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
+      mockGetAuthUserProfile.mockResolvedValue(mockApiData)
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Default'
 
@@ -179,10 +171,7 @@ describe('useConnectAccountStore', () => {
     })
 
     it('setUserName should fallback to authUser name', async () => {
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: {} },
-        refresh: vi.fn()
-      })
+      mockGetAuthUserProfile.mockResolvedValue({})
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Fallback'
 
@@ -197,10 +186,7 @@ describe('useConnectAccountStore', () => {
         lastname: 'User',
         contacts: [{ email: 'contact@example.com', phone: '', phoneExtension: '' }]
       }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
+      mockGetAuthUserProfile.mockResolvedValue(mockApiData)
       store.accountFormState.emailAddress = ''
 
       await store.setUserName()
@@ -214,10 +200,7 @@ describe('useConnectAccountStore', () => {
         lastname: 'User',
         contacts: [{ email: 'contact@example.com', phone: '', phoneExtension: '' }]
       }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
+      mockGetAuthUserProfile.mockResolvedValue(mockApiData)
       store.accountFormState.emailAddress = 'existing@example.com'
 
       await store.setUserName()
@@ -227,10 +210,7 @@ describe('useConnectAccountStore', () => {
 
     it('setUserName should not set email when contacts array is empty', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User', contacts: [] }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
+      mockGetAuthUserProfile.mockResolvedValue(mockApiData)
       store.accountFormState.emailAddress = ''
 
       await store.setUserName()
@@ -242,19 +222,19 @@ describe('useConnectAccountStore', () => {
   describe('checkAccountStatus', () => {
     it('should not redirect for an active account', async () => {
       store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.ACTIVE } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
 
     it('should redirect for a suspended account', async () => {
       store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
     })
 
     it('should redirect for an NSF suspended account', async () => {
       store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.NSF_SUSPENDED } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
     })
 
@@ -262,7 +242,7 @@ describe('useConnectAccountStore', () => {
       store.currentAccount = {
         ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW
       } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith(expect.stringContaining('pendingapproval'), expect.any(Object))
     })
 
@@ -271,7 +251,7 @@ describe('useConnectAccountStore', () => {
       store.currentAccount = {
         ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW
       } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
   })

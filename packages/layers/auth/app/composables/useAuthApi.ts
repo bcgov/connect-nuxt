@@ -2,17 +2,6 @@ export const useAuthApi = () => {
   const { $authApi } = useNuxtApp()
   const queryCache = useQueryCache()
 
-  async function getAuthUserProfile() {
-    const query = defineQuery({
-      key: ['auth-user-profile'],
-      query: () => $authApi<ConnectAuthProfile>('/users/@me', {
-        parseResponse: JSON.parse
-      }),
-      staleTime: 300000
-    })
-    return query()
-  }
-
   /**
    * Validates whether an account name is available by sending a request to the AUTH service.
    * @param {string} accountName - The account name to validate for uniqueness.
@@ -146,7 +135,6 @@ export const useAuthApi = () => {
   })
 
   return {
-    getAuthUserProfile,
     getTermsOfUse,
     useCreateAccount,
     usePatchTermsOfUse,

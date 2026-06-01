@@ -31,17 +31,6 @@ describe('useAuthApi', () => {
     vi.clearAllMocks()
   })
 
-  describe('getAuthUserProfile', () => {
-    it('should call the authApi /users/@me endpoint', async () => {
-      const query = await authApi.getAuthUserProfile()
-      await query.refresh()
-
-      expect(mockAuthApi).toHaveBeenCalledWith('/users/@me', {
-        parseResponse: JSON.parse
-      })
-    })
-  })
-
   describe('getTermsOfUse', () => {
     it('should call the authApi /documents/termsofuse endpoint', async () => {
       const query = await authApi.getTermsOfUse()
