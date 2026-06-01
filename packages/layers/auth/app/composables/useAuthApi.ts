@@ -95,15 +95,6 @@ export const useAuthApi = () => {
     }
   })
 
-  async function getTermsOfUse() {
-    const query = defineQuery({
-      key: ['auth-terms-of-use'],
-      query: () => $authApi<ConnectTermsOfUse>('/documents/termsofuse'),
-      staleTime: 300000
-    })
-    return query()
-  }
-
   const usePatchTermsOfUse = defineMutation(() => {
     const { mutateAsync, ...mutation } = useMutation({
       mutation: (vars: { accepted: boolean, version: string, successCb?: () => Promise<unknown> }) => {
@@ -135,7 +126,6 @@ export const useAuthApi = () => {
   })
 
   return {
-    getTermsOfUse,
     useCreateAccount,
     usePatchTermsOfUse,
     useUpdateOrCreateUserContact,

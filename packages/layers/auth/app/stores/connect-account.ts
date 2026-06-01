@@ -115,7 +115,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Set user name and default email from profile */
   async function setUserName() {
-    const res = await service.getAuthUserProfile()
+    const res = await service.getAuthUserProfile().catch(() => undefined)
 
     if (res?.firstname && res?.lastname) {
       userFirstName.value = res.firstname
@@ -137,7 +137,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
 
   /** Set the user account list and current account */
   async function setAccountInfo(force = false): Promise<void> {
-    const accounts = await service.getUserAccounts(force)
+    const accounts = await service.getUserAccounts(force).catch(() => undefined)
     if (accounts && accounts[0]) {
       userAccounts.value = accounts
       if (!currentAccount.value.id || !userAccounts.value.some(account => account.id === currentAccount.value.id)) {

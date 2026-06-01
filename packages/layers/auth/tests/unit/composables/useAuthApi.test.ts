@@ -25,19 +25,8 @@ vi.mock('@pinia/colada', async (importOriginal) => {
 })
 
 describe('useAuthApi', () => {
-  const authApi = useAuthApi()
-
   beforeEach(() => {
     vi.clearAllMocks()
-  })
-
-  describe('getTermsOfUse', () => {
-    it('should call the authApi /documents/termsofuse endpoint', async () => {
-      const query = await authApi.getTermsOfUse()
-      await query.refresh()
-
-      expect(mockAuthApi).toHaveBeenCalledWith('/documents/termsofuse')
-    })
   })
 
   describe('usePatchTermsOfUse', () => {

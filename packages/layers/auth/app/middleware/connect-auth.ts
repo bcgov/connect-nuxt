@@ -24,7 +24,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   if (isAuthenticated.value) {
-    const res = await service.getAuthUserProfile()
+    const res = await service.getAuthUserProfile().catch(() => undefined)
     const hasAccepted = res?.userTerms.isTermsOfUseAccepted
     if (!hasAccepted && !isTosPage) {
       const query = { ...to.query }

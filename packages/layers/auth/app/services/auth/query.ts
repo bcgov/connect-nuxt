@@ -33,6 +33,19 @@ export const useConnectAuthQuery = () => {
     return useQuery(() => pendingApprovalsOptions(options as DefineOptions<{ count: number }>))
   }
 
+  function termsOfUseOptions(options?: DefineOptions<ConnectTermsOfUse>) {
+    return defineQueryOptions({
+      query: () => $authApi<ConnectTermsOfUse>('/documents/termsofuse'),
+      staleTime: DEFAULT_STALE_TIME,
+      ...options,
+      key: keys.termsOfUse()
+    })
+  }
+
+  function termsOfUse(options?: QueryOptions<ConnectTermsOfUse>) {
+    return useQuery(() => termsOfUseOptions(options as DefineOptions<ConnectTermsOfUse>))
+  }
+
   function userProfileOptions(options?: DefineOptions<ConnectAuthProfile>) {
     return defineQueryOptions({
       query: () => $authApi<ConnectAuthProfile>('/users/@me', { parseResponse: JSON.parse }),
@@ -64,6 +77,8 @@ export const useConnectAuthQuery = () => {
   return {
     pendingApprovalsOptions,
     pendingApprovals,
+    termsOfUse,
+    termsOfUseOptions,
     userProfileOptions,
     userProfile,
     userSettingsOptions,
@@ -174,15 +189,6 @@ export const useConnectAuthQuery = () => {
 //       updateOrCreateUserContact: mutateAsync
 //     }
 //   })
-
-//   async function getTermsOfUse() {
-//     const query = defineQuery({
-//       key: ['auth-terms-of-use'],
-//       query: () => $authApi<ConnectTermsOfUse>('/documents/termsofuse'),
-//       staleTime: 300000
-//     })
-//     return query()
-//   }
 
 //   const usePatchTermsOfUse = defineMutation(() => {
 //     const { mutateAsync, ...mutation } = useMutation({

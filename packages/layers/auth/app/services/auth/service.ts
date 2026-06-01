@@ -45,12 +45,17 @@ import { getCachedOrFetch } from '../helpers'
 export const useConnectAuthService = () => {
   const query = useConnectAuthQuery()
 
-  async function getAuthUserProfile(force = false): Promise<ConnectAuthProfile | undefined> {
+  async function getAuthUserProfile(force = false): Promise<ConnectAuthProfile> {
     const options = query.userProfileOptions()
     return await getCachedOrFetch(options, force)
   }
 
-  async function getUserAccounts(force = false): Promise<ConnectAccount[] | undefined> {
+  async function getTermsOfUse(force = false): Promise<ConnectTermsOfUse> {
+    const options = query.termsOfUseOptions()
+    return await getCachedOrFetch(options, force)
+  }
+
+  async function getUserAccounts(force = false): Promise<ConnectAccount[]> {
     const options = query.userSettingsOptions()
     return await getCachedOrFetch(options, force)
       .then(res => res?.filter(setting => setting.type === UserSettingsType.ACCOUNT)) as ConnectAccount[]
@@ -58,6 +63,7 @@ export const useConnectAuthService = () => {
 
   return {
     getAuthUserProfile,
+    getTermsOfUse,
     getUserAccounts
   }
 }

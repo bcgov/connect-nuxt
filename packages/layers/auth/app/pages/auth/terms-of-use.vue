@@ -16,7 +16,7 @@ useHead({
   title: t('connect.page.termsOfUse.title')
 })
 
-const { data, status } = await authApi.getTermsOfUse()
+const { data, status } = useConnectAuthQuery().termsOfUse()
 const { patchTermsOfUse, isLoading } = authApi.usePatchTermsOfUse()
 
 const formRef = useTemplateRef<InstanceType<typeof ConnectTermsOfUseForm>>('form-ref')

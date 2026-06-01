@@ -20,6 +20,7 @@ export const useConnectAuthQueryKeys = () => {
   const keys = {
     userProfile: () => [...base(), 'user-profile'] as const,
     pendingApprovals: () => [...base(), 'org', currentAccount.value?.id, 'pending-approvals'] as const,
+    termsOfUse: () => [...base(), 'terms-of-use'] as const,
     userSettings: () => [...base(), 'user-settings'] as const
   }
 
