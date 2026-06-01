@@ -33,21 +33,28 @@ export const useConnectAuthQuery = () => {
     return useQuery(() => pendingApprovalsOptions(options as DefineOptions<{ count: number }>))
   }
 
+  function userSettingsOptions(options?: DefineOptions<ConnectUserSettings[]>) {
+    const keycloakGuid = useConnectAuth().authUser.value?.keycloakGuid
+    return defineQueryOptions({
+      query: () => $authApi<ConnectUserSettings[]>(`/users/${keycloakGuid}/settings`),
+      staleTime: DEFAULT_STALE_TIME,
+      enabled: !!keycloakGuid,
+      ...options,
+      key: keys.userSettings()
+    })
+  }
+
+  function userSettings(options?: QueryOptions<ConnectUserSettings[]>) {
+    return useQuery(() => userSettingsOptions(options as DefineOptions<ConnectUserSettings[]>))
+  }
+
   return {
     pendingApprovalsOptions,
-    pendingApprovals
+    pendingApprovals,
+    userSettingsOptions,
+    userSettings
   }
 }
-
-// /** Get the user's account list */
-// async function getUserAccounts(): Promise<ConnectAccount[] | undefined> {
-//   if (!authUser.value?.keycloakGuid && !rtc.playwright) {
-//     return undefined
-//   }
-//   // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
-//   const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`)
-//   return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
-// }
 
 // async function updateAuthUserInfo(): Promise<void> {
 //   await $authApi('/users', {
