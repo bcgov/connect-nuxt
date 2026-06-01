@@ -39,16 +39,6 @@ export const useConnectAuthQuery = () => {
   }
 }
 
-// async function getPendingApprovalCount(): Promise<void> {
-//   const accountId = currentAccount.value?.id
-//   const keycloakGuid = authUser.value?.keycloakGuid
-//   if (!accountId || !keycloakGuid) {
-//     return
-//   }
-//   const response = await $authApi<{ count: number }>(`/users/${keycloakGuid}/org/${accountId}/notifications`)
-//   pendingApprovalCount.value = response?.count || 0
-// }
-
 // /** Get the user's account list */
 // async function getUserAccounts(): Promise<ConnectAccount[] | undefined> {
 //   if (!authUser.value?.keycloakGuid && !rtc.playwright) {

@@ -35,14 +35,12 @@ const mockUserAccounts = ref([
   { id: 'account1', label: 'Account 1' },
   { id: 'account2', label: 'Account 2' }
 ])
-const mockPendingApprovalCount = ref(0)
 const mockSwitchCurrentAccount = vi.fn()
 
 mockNuxtImport('useConnectAccountStore', () => () => (
   {
     get currentAccount() { return mockCurrentAccount.value },
     get userAccounts() { return mockUserAccounts.value },
-    get pendingApprovalCount() { return mockPendingApprovalCount.value },
     switchCurrentAccount: mockSwitchCurrentAccount
   }
 ))
@@ -95,7 +93,6 @@ describe('useConnectHeaderOptions', () => {
       { id: 'account1', label: 'Account 1' },
       { id: 'account2', label: 'Account 2' }
     ]
-    mockPendingApprovalCount.value = 0
     mockRoute.value = { meta: {} }
     composable = useConnectHeaderOptions()
   })
@@ -210,25 +207,6 @@ describe('useConnectHeaderOptions', () => {
       const options = composable.loggedInUserOptions.value
       const createAccountOptions = options.find(option => option.some(item => item.label === 'createAccount'))
       expect(createAccountOptions).toBeUndefined()
-    })
-  })
-
-  describe('notifications options', () => {
-    it('should return the label only for no notifications', async () => {
-      mockPendingApprovalCount.value = 0
-      await nextTick()
-      const options = composable.notificationsOptions.value
-      expect(options).toEqual([[{ label: 'No Notifications' }]])
-    })
-
-    it('should return a slot object for notifications', async () => {
-      mockPendingApprovalCount.value = 3
-      await nextTick()
-      const options = composable.notificationsOptions.value
-      expect(options).toEqual([[{
-        label: '3 team members require approval to access this account.',
-        to: 'https://auth.example.com/account/account1/settings/team-members'
-      }]])
     })
   })
 })

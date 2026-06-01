@@ -128,7 +128,6 @@ describe('useConnectAccountStore', () => {
   it('initializes with the correct default state', () => {
     expect(store.currentAccount).toEqual({})
     expect(store.userAccounts).toEqual([])
-    expect(store.pendingApprovalCount).toEqual(0)
     expect(store.currentAccountName).toEqual('')
   })
 
@@ -249,17 +248,6 @@ describe('useConnectAccountStore', () => {
 
       expect(store.accountFormState.emailAddress).toEqual('')
     })
-
-    it('getPendingApprovalCount should set the count', async () => {
-      store.currentAccount = { id: 1 } as ConnectAccount
-      mockAuthUser.value.keycloakGuid = 'test-guid'
-      mockAuthApi.mockResolvedValueOnce({ count: 5 })
-
-      await store.getPendingApprovalCount()
-
-      expect(mockAuthApi).toHaveBeenCalled()
-      expect(store.pendingApprovalCount).toEqual(5)
-    })
   })
 
   describe('checkAccountStatus', () => {
@@ -341,11 +329,9 @@ describe('useConnectAccountStore', () => {
     it('$reset should clear all store state', () => {
       store.userAccounts = mockAccounts
       store.currentAccount = mockAccounts[0]!
-      store.pendingApprovalCount = 5
       store.$reset()
       expect(store.currentAccount).toEqual({})
       expect(store.userAccounts).toEqual([])
-      expect(store.pendingApprovalCount).toEqual(0)
     })
   })
 

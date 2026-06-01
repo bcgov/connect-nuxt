@@ -12,7 +12,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
   const currentAccountName = computed<string>(() => currentAccount.value?.label || '')
-  const pendingApprovalCount = ref<number>(0)
   const user = computed(() => authUser.value)
   const userEmail = ref<string>('')
   const userFirstName = ref<string>(user.value?.firstName || '-')
@@ -166,16 +165,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-  async function getPendingApprovalCount(): Promise<void> {
-    const accountId = currentAccount.value?.id
-    const keycloakGuid = authUser.value?.keycloakGuid
-    if (!accountId || !keycloakGuid) {
-      return
-    }
-    const response = await $authApi<{ count: number }>(`/users/${keycloakGuid}/org/${accountId}/notifications`)
-    pendingApprovalCount.value = response?.count || 0
-  }
-
   async function checkAccountStatus() {
     // redirect if account status is suspended or in review
     if ([AccountStatus.NSF_SUSPENDED, AccountStatus.SUSPENDED].includes(currentAccount.value?.accountStatus)) {
@@ -217,10 +206,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
       ])
 
       if (currentAccount.value.id) {
-        await Promise.all([
-          checkAccountStatus(),
-          getPendingApprovalCount()
-        ])
+        await checkAccountStatus()
       }
     } catch (e) {
       logFetchError(e, '[Account Store] - Error during initialization')
@@ -231,7 +217,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     sessionStorage.removeItem('connect-auth-account-store')
     currentAccount.value = {} as ConnectAccount
     userAccounts.value = []
-    pendingApprovalCount.value = 0
     userFirstName.value = user.value?.firstName || '-'
     userLastName.value = user.value?.lastName || ''
     clearAccountState()
@@ -252,12 +237,10 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     isLoading,
     currentAccount,
     currentAccountName,
-    getPendingApprovalCount,
     getUserAccounts,
     hasRoles,
     initAccountStore,
     isCurrentAccount,
-    pendingApprovalCount,
     setAccountInfo,
     setUserName,
     switchCurrentAccount,
