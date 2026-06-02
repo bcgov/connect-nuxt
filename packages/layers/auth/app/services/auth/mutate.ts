@@ -1,7 +1,7 @@
 // https://pinia-colada.esm.dev/guide/mutations.html
 
 export const useConnectAuthMutation = () => {
-  const { $authApi } = useNuxtApp()
+  const service = useConnectAuthService()
   const { keys } = useConnectAuthQueryKeys()
   const queryCache = useQueryCache()
 
@@ -11,15 +11,7 @@ export const useConnectAuthMutation = () => {
       version: string
       silent?: boolean
       successCb?: () => Promise<unknown> | unknown
-    }) => {
-      return $authApi<ConnectAuthProfile>('/users/@me', {
-        method: 'PATCH',
-        body: {
-          istermsaccepted: vars.accepted,
-          termsversion: vars.version
-        }
-      })
-    },
+    }) => service.patchTermsOfUse(vars.accepted, vars.version),
     onError: (_, _vars) => {
       if (!_vars.silent) {
         useConnectAuthModals().openPatchTosErrorModal()

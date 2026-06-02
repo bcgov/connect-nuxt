@@ -46,6 +46,8 @@ export const useConnectAuthService = () => {
   const query = useConnectAuthQuery()
   const { $authApi } = useNuxtApp()
 
+  /* GET Requests */
+
   async function getAuthUserProfile(force = false): Promise<ConnectAuthProfile> {
     const options = query.userProfileOptions()
     return await getCachedOrFetch(options, force)
@@ -62,14 +64,30 @@ export const useConnectAuthService = () => {
       .then(res => res?.filter(setting => setting.type === UserSettingsType.ACCOUNT)) as ConnectAccount[]
   }
 
+  // Cache exception - do not cache to verify the account name accurately
   async function verifyAccountName(accountName: string) {
     return await $authApi.raw(`/orgs?validateName=true&name=${encodeURIComponent(accountName)}`)
   }
 
+  /* POST, PUT, PATCH, DELETE Requests */
+
+  async function patchTermsOfUse(accepted: boolean, version: string): Promise<ConnectAuthProfile> {
+    return await $authApi<ConnectAuthProfile>('/users/@me', {
+      method: 'PATCH',
+      body: {
+        istermsaccepted: accepted,
+        termsversion: version
+      }
+    })
+  }
+
   return {
+    /* GET Requests */
     getAuthUserProfile,
     getTermsOfUse,
     getUserAccounts,
-    verifyAccountName
+    verifyAccountName,
+    /* POST, PUT, PATCH, DELETE Requests */
+    patchTermsOfUse
   }
 }
