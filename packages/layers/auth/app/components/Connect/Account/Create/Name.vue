@@ -5,7 +5,7 @@ defineProps<{
   error?: FormError<string>
 }>()
 
-const authApi = useAuthApi()
+const service = useConnectAuthService()
 const { accountFormState } = useConnectAccountStore()
 
 const isLoading = ref(false)
@@ -16,9 +16,8 @@ const validateName = useDebounceFn(async (accountName: string) => {
   if (accountName.length) {
     isLoading.value = true
     try {
-      const { refetch } = authApi.verifyAccountName(accountName)
-      const { data } = await refetch()
-      statusCode.value = data?.status ?? 500 // fallback as undefined is not considered an exception
+      const { status } = await service.verifyAccountName(accountName)
+      statusCode.value = status ?? 500 // fallback as undefined is not considered an exception
     } catch (err: unknown) {
       statusCode.value = getErrorStatus(err) ?? 500
     } finally {

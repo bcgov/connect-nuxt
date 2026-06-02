@@ -98,19 +98,6 @@ export const useConnectAuthQuery = () => {
 //   const queryCache = useQueryCache()
 
 //   /**
-//    * Validates whether an account name is available by sending a request to the AUTH service.
-//    * @param {string} accountName - The account name to validate for uniqueness.
-//    */
-//   function verifyAccountName(accountName: string) {
-//     const query = defineQuery({
-//       key: ['auth-account-name', accountName],
-//       query: () => $authApi.raw(`/orgs?validateName=true&name=${encodeURIComponent(accountName)}`),
-//       staleTime: 300000
-//     })
-//     return query()
-//   }
-
-//   /**
 //    * Creates an account by POSTing the given payload to `/orgs`.
 //    * @returns Object containing mutation state and `createAccount` function.
 //    */
@@ -190,41 +177,8 @@ export const useConnectAuthQuery = () => {
 //     }
 //   })
 
-//   const usePatchTermsOfUse = defineMutation(() => {
-//     const { mutateAsync, ...mutation } = useMutation({
-//       mutation: (vars: { accepted: boolean, version: string, successCb?: () => Promise<unknown> }) => {
-//         return $authApi<ConnectAuthProfile>('/users/@me', {
-//           method: 'PATCH',
-//           body: {
-//             istermsaccepted: vars.accepted,
-//             termsversion: vars.version
-//           }
-//         })
-//       },
-//       onError: (error) => {
-//         // TODO: FUTURE - add api error message to modal content - remove console.error
-//         console.error('ERROR: ', error)
-//         useConnectAuthModals().openPatchTosErrorModal()
-//       },
-//       onSuccess: async (_, _vars) => {
-//         await queryCache.invalidateQueries({ key: ['auth-user-profile'], exact: true })
-//         if (_vars.successCb) {
-//           await _vars.successCb()
-//         }
-//       }
-//     })
-
-//     return {
-//       ...mutation,
-//       patchTermsOfUse: mutateAsync
-//     }
-//   })
-
 //   return {
-//     getTermsOfUse,
 //     useCreateAccount,
-//     usePatchTermsOfUse,
-//     useUpdateOrCreateUserContact,
-//     verifyAccountName
+//     useUpdateOrCreateUserContact
 //   }
 // }

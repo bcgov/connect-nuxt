@@ -1,5 +1,5 @@
 // IMPORTANT: This service is meant as an abstraction layer to interact with the cache and queries directly
-// IMPORTANT: do not define raw GET requests in this file - define the request in the query file
+// IMPORTANT: do not define raw GET requests (with few exceptions) in this file - define the request in the query file
 // and abstract here if necessary
 import { getCachedOrFetch } from '../helpers'
 
@@ -44,6 +44,7 @@ import { getCachedOrFetch } from '../helpers'
 
 export const useConnectAuthService = () => {
   const query = useConnectAuthQuery()
+  const { $authApi } = useNuxtApp()
 
   async function getAuthUserProfile(force = false): Promise<ConnectAuthProfile> {
     const options = query.userProfileOptions()
@@ -61,9 +62,14 @@ export const useConnectAuthService = () => {
       .then(res => res?.filter(setting => setting.type === UserSettingsType.ACCOUNT)) as ConnectAccount[]
   }
 
+  async function verifyAccountName(accountName: string) {
+    return await $authApi.raw(`/orgs?validateName=true&name=${encodeURIComponent(accountName)}`)
+  }
+
   return {
     getAuthUserProfile,
     getTermsOfUse,
-    getUserAccounts
+    getUserAccounts,
+    verifyAccountName
   }
 }

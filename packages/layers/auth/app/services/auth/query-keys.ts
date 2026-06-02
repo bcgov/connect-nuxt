@@ -15,7 +15,7 @@ export const useConnectAuthQueryKeys = () => {
   const { authUser } = useConnectAuth()
   const { currentAccount } = storeToRefs(useConnectAccountStore())
 
-  const base = () => ['auth', authUser.value?.keycloakGuid] as const
+  const base = () => ['connect', 'auth', authUser.value?.keycloakGuid] as const
 
   const keys = {
     userProfile: () => [...base(), 'user-profile'] as const,
