@@ -5,30 +5,33 @@ defineProps<{
   error?: FormError<string>
 }>()
 
+const statusCode = defineModel<number | undefined>('statusCode')
+const name = defineModel<string>('name')
+
 const service = useConnectAuthService()
-const { accountFormState } = useConnectAccountStore()
 
 const isLoading = ref(false)
-const statusCode = defineModel<number | undefined>('statusCode')
 
-/** Validate accountName and trigger validation API call */
-const validateName = useDebounceFn(async (accountName: string) => {
-  if (accountName.length) {
-    isLoading.value = true
-    try {
-      const { status } = await service.verifyAccountName(accountName)
-      statusCode.value = status ?? 500 // fallback as undefined is not considered an exception
-    } catch (err: unknown) {
-      statusCode.value = getErrorStatus(err) ?? 500
-    } finally {
-      isLoading.value = false
+/* Validate accountName and trigger validation API call */
+watchDebounced(
+  name,
+  async (v) => {
+    if (v?.length) {
+      isLoading.value = true
+      try {
+        const { status } = await service.verifyAccountName(v)
+        statusCode.value = status ?? 500 // fallback as undefined is not considered an exception
+      } catch (err: unknown) {
+        statusCode.value = getErrorStatus(err) ?? 500
+      } finally {
+        isLoading.value = false
+      }
+    } else {
+      statusCode.value = undefined
     }
-  } else {
-    statusCode.value = undefined
-  }
-}, 1000)
-
-watch(() => accountFormState.accountName, validateName)
+  },
+  { debounce: 1000 }
+)
 
 // Compute UInput props based on loading state and status code
 const uInputProps = computed<InputProps>(() => {
@@ -62,7 +65,7 @@ provide('UInput-props-account-name-input', uInputProps)
     padding-class="pt-6 pb-4 px-4 sm:pb-4 sm:pt-8 sm:px-8"
   >
     <ConnectFormInput
-      v-model="accountFormState.accountName"
+      v-model="name"
       name="accountName"
       input-id="account-name-input"
       :label="$t('connect.page.createAccount.accountNameLabel')"

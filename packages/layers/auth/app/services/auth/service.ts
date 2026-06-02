@@ -1,22 +1,26 @@
-// IMPORTANT: This service is meant as an abstraction layer to interact with the cache and queries directly
-// IMPORTANT: do not define raw GET requests (with few exceptions) in this file - define the request in the query file
-// and abstract here if necessary
+// IMPORTANT: This service is an abstraction layer for non-reactive contexts (stores, middleware, or sequential logic).
+// IMPORTANT: Pure GET requests bound to UI components should NOT be defined here;
+// define those using query options/composables directly.
 import { getCachedOrFetch } from '../helpers'
 
 /**
  * AUTH SERVICE
  *
- * This service acts as an abstraction over the useConnectAuthQuery queries.
+ * This service provides a way to execute auth requests while maintaining the cache layer
+ * outside of the reactive Vue lifecycle.
+ *
  * * USE THIS SERVICE ONLY IF:
  * - You are inside a pinia store and need to "await" data.
  * - You are in a route guard/middleware and need to validate data before entry.
  * - You need to await multiple API calls sequentially (promise.all/setup logic).
+ *
  * * DO NOT USE THIS SERVICE IF:
  * - You are inside a Vue Component.
  * - You need to display "isLoading" or "error" states in the UI.
  * - You want automatic background refetching and observer management.
+ *
  * * COMPONENT USAGE:
- * Always prefer 'useConnectAuthQuery()' directly in components.
+ * Always prefer queries or mutations directly in components.
 */
 
 // Example:
@@ -71,7 +75,24 @@ export const useConnectAuthService = () => {
 
   /* POST, PUT, PATCH, DELETE Requests */
 
-  async function patchTermsOfUse(accepted: boolean, version: string): Promise<ConnectAuthProfile> {
+  async function createAccount(payload: ConnectCreateAccount): Promise<ConnectAuthProfile> {
+    return $authApi<ConnectAuthProfile>('/orgs', {
+      method: 'POST',
+      body: payload
+    })
+  }
+
+  async function updateOrCreateUserContact(
+    payload: { email: string, phone: string, phoneExtension: string | undefined },
+    method?: 'POST' | 'PUT'
+  ): Promise<ConnectAuthProfile> {
+    return $authApi<ConnectAuthProfile>('/users/contacts', {
+      method: method || 'PUT',
+      body: payload
+    })
+  }
+
+  async function updateTermsOfUse(accepted: boolean, version: string): Promise<ConnectAuthProfile> {
     return await $authApi<ConnectAuthProfile>('/users/@me', {
       method: 'PATCH',
       body: {
@@ -88,6 +109,8 @@ export const useConnectAuthService = () => {
     getUserAccounts,
     verifyAccountName,
     /* POST, PUT, PATCH, DELETE Requests */
-    patchTermsOfUse
+    createAccount,
+    updateOrCreateUserContact,
+    updateTermsOfUse
   }
 }

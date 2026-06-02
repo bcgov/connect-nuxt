@@ -1,15 +1,9 @@
-import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
-import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
-
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
   const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
-  const { useCreateAccount, useUpdateOrCreateUserContact } = useAuthApi()
-  const { finalRedirect } = useConnectAccountFlowRedirect()
   const service = useConnectAuthService()
 
-  // selected user account
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
   const currentAccountName = computed<string>(() => currentAccount.value?.label || '')
@@ -18,12 +12,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const userLastName = ref<string>(authUser.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
 
-  // Create account
-  const isLoading = ref<boolean>(false)
-  const { createAccount } = useCreateAccount()
-  const { updateOrCreateUserContact } = useUpdateOrCreateUserContact()
-  const createAccountProfileSchema = getAccountCreateSchema()
-  const accountFormState = reactive<AccountProfileSchema>(createAccountProfileSchema.parse({}))
   /**
    * Checks if the current account or the Keycloak user has any of the specified roles.
    *
@@ -59,60 +47,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     })
   }
 
-  /** Map AccountFormState -> CreateAccountPayload */
-  function createAccountPayload(): ConnectCreateAccount {
-    return {
-      accessType: ConnectAccessType.REGULAR,
-      mailingAddress: {
-        city: accountFormState.address.city,
-        country: accountFormState.address.country,
-        region: accountFormState.address.region ?? '',
-        postalCode: accountFormState.address.postalCode ?? '',
-        street: accountFormState.address.street,
-        streetAdditional: accountFormState.address.streetAdditional || '',
-        deliveryInstructions: accountFormState.address.locationDescription || ''
-      },
-      name: accountFormState.accountName,
-      paymentInfo: { paymentMethod: ConnectPaymentMethod.DIRECT_PAY },
-      productSubscriptions: [{ productCode: ConnectProductCode.BUSINESS }]
-    }
-  }
-
-  /** Submit create account and user contact update requests */
-  async function submitCreateAccount(): Promise<void> {
-    try {
-      isLoading.value = true
-      // Create Account
-      const payload = createAccountPayload()
-      await createAccount({
-        payload,
-        // Update User Contact Info on create account success
-        successCb: async (createResponse: ConnectAuthProfile) => {
-          // Refresh and switch to new account prior to redirect
-          if (createResponse?.id) {
-            await setAccountInfo(true)
-            switchCurrentAccount(createResponse.id)
-          }
-
-          // Update or create user contact and then redirect regardless of success or failure
-          await updateOrCreateUserContact({
-            email: accountFormState.emailAddress,
-            phone: accountFormState.phone.phoneNumber,
-            phoneExtension: accountFormState.phone.ext,
-            method: userAccounts.value.length === 1 ? 'POST' : 'PUT', // if only 1 account exists then contact is new
-            successCb: async () => await finalRedirect(useRoute()),
-            errorCb: async () => await finalRedirect(useRoute())
-          })
-        }
-      })
-    } catch (error) {
-      // Error handled in useAuthApi
-      console.error('Account Create Submission Error: ', error)
-    } finally {
-      isLoading.value = false
-    }
-  }
-
   /** Set user name and default email from profile */
   async function setUserName() {
     const res = await service.getAuthUserProfile().catch(() => undefined)
@@ -129,9 +63,6 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     const contactEmail = res?.contacts?.[0]?.email
     if (contactEmail) {
       userEmail.value = contactEmail
-      if (!accountFormState.emailAddress) {
-        accountFormState.emailAddress = contactEmail
-      }
     }
   }
 
@@ -209,22 +140,11 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     userAccounts.value = []
     userFirstName.value = authUser.value?.firstName || '-'
     userLastName.value = authUser.value?.lastName || ''
-    clearAccountState()
-  }
-
-  function clearAccountState() {
-    Object.assign(accountFormState, createAccountProfileSchema.parse({}))
-    if (userEmail.value) {
-      accountFormState.emailAddress = userEmail.value
-    }
+    userEmail.value = ''
   }
 
   return {
-    accountFormState,
     checkAccountStatus,
-    clearAccountState,
-    submitCreateAccount,
-    isLoading,
     currentAccount,
     currentAccountName,
     hasRoles,
@@ -235,6 +155,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     switchCurrentAccount,
     userAccounts,
     userFullName,
+    userEmail,
     $reset
   }
 },

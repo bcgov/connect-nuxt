@@ -16,7 +16,7 @@ useHead({
 })
 
 const { data, status } = useConnectAuthQuery().termsOfUse()
-const { mutate, isLoading } = useConnectAuthMutation().patchTermsOfUse()
+const { mutate, isLoading } = useConnectAuthMutation().updateTermsOfUse()
 
 const formRef = useTemplateRef<InstanceType<typeof ConnectTermsOfUseForm>>('form-ref')
 const contentRef = useTemplateRef<InstanceType<typeof ConnectTermsOfUseContent>>('content-ref')

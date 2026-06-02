@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import type { Form, FormError } from '@nuxt/ui'
-import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
-import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
+import type { Form, FormError, FormSubmitEvent } from '@nuxt/ui'
+import type { AccountProfileSchema } from '#imports'
 
-const statusCode = ref<number | undefined>(undefined)
+defineEmits<{
+  submit: [event: FormSubmitEvent<AccountProfileSchema>]
+}>()
 
-const accountStore = useConnectAccountStore()
-const { accountFormState, userFullName } = storeToRefs(accountStore)
-const { submitCreateAccount } = accountStore
-const accountProfileSchema = computed(() => getAccountCreateSchema(statusCode.value))
+const store = useConnectAccountStore()
 const formRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form')
+const statusCode = ref<number | undefined>(undefined)
+const schema = computed(() => getAccountCreateSchema(statusCode.value))
+const formState = reactive<AccountProfileSchema>(schema.value.parse({}))
 
 const formErrors = computed<{
   accountName: FormError<string> | undefined
@@ -33,10 +34,16 @@ async function validate(fieldName?: keyof AccountProfileSchema) {
   })
 }
 
-watch(() => statusCode.value, async () => {
-  if (statusCode.value !== undefined) {
+watch(() => statusCode.value, async (v) => {
+  if (v !== undefined) {
     await nextTick()
     await validate('accountName')
+  }
+})
+
+onMounted(() => {
+  if (store.userEmail) {
+    formState.emailAddress = store.userEmail
   }
 })
 </script>
@@ -54,10 +61,10 @@ watch(() => statusCode.value, async () => {
       ref="account-create-form"
       no-validate
       :validate-on="['input', 'change']"
-      :schema="accountProfileSchema"
-      :state="accountFormState"
+      :schema="schema"
+      :state="formState"
       @error="onFormSubmitError"
-      @submit="submitCreateAccount()"
+      @submit="$emit('submit', $event)"
     >
       <!-- Legal Name -->
       <ConnectFormFieldWrapper
@@ -66,7 +73,7 @@ watch(() => statusCode.value, async () => {
         class="py-6 sm:py-8"
       >
         <p class="font-bold">
-          {{ userFullName }}
+          {{ store.userFullName }}
         </p>
         <p class="mt-3">
           {{ $t('connect.page.createAccount.yourNameHelp') }}
@@ -78,6 +85,7 @@ watch(() => statusCode.value, async () => {
       <!-- Account Name -->
       <ConnectAccountCreateName
         v-model:status-code="statusCode"
+        v-model:name="formState.accountName"
         :error="formErrors.accountName"
       />
 
@@ -89,7 +97,7 @@ watch(() => statusCode.value, async () => {
         padding-class="py-1 px-4 sm:py-2 sm:px-8"
       >
         <ConnectFormInput
-          v-model="accountFormState.emailAddress"
+          v-model="formState.emailAddress"
           name="emailAddress"
           input-id="email-input"
           :label="$t('connect.page.createAccount.emailPlaceholder')"
@@ -106,13 +114,13 @@ watch(() => statusCode.value, async () => {
         <div class="flex flex-row gap-2">
           <!-- Disabling country code selection until Auth Model Supports individual property -->
           <!-- <ConnectFormPhoneCountryCode -->
-          <!-- v-model:country-calling-code="accountFormState.phone.countryCode" -->
-          <!-- v-model:country-iso2="accountFormState.phone.countryIso2" -->
-          <!-- :is-invalid="!accountFormState.phone.countryIso2" -->
+          <!-- v-model:country-calling-code="formState.phone.countryCode" -->
+          <!-- v-model:country-iso2="formState.phone.countryIso2" -->
+          <!-- :is-invalid="!formState.phone.countryIso2" -->
           <!-- class="w-40 mt-[-20px]" -->
           <!-- /> -->
           <ConnectFormInput
-            v-model="accountFormState.phone.phoneNumber"
+            v-model="formState.phone.phoneNumber"
             name="phone.phoneNumber"
             input-id="phone-number-input"
             class="flex-2"
@@ -120,7 +128,7 @@ watch(() => statusCode.value, async () => {
             mask="(###) ###-####"
           />
           <ConnectFormInput
-            v-model="accountFormState.phone.ext"
+            v-model="formState.phone.ext"
             name="phone.ext"
             input-id="phone-ext-input"
             :label="$t('connect.page.createAccount.phoneExtensionLabel')"
@@ -137,7 +145,7 @@ watch(() => statusCode.value, async () => {
       >
         <ConnectFormAddress
           id="account-address"
-          v-model="accountFormState.address"
+          v-model="formState.address"
           name="address"
           schema-prefix="address"
           @should-validate="validate"
