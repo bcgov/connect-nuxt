@@ -43,7 +43,7 @@ async function onSubmitCreateAccount(e: FormSubmitEvent<AccountProfileSchema>) {
     isSubmitting.value = true
     const { accountPayload, contactPayload } = formatCreateAccountPayload(e.data)
     const res = await createAccount({ payload: accountPayload, silent: true })
-    await store.setAccountInfo(true)
+    await store.loadUserAccounts(true)
     await updateContact({
       payload: contactPayload,
       silent: true,
