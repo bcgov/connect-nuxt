@@ -34,20 +34,11 @@ const mockSessionStorage = {
 }
 Object.defineProperty(global, 'sessionStorage', { value: mockSessionStorage })
 
-//  Auth API composables (create account, update contact)
-const mockCreateAccount = vi.fn()
-const mockUpdateUserContact = vi.fn()
-
-mockNuxtImport('useAuthApi', () => () => ({
-  useCreateAccount: () => ({ createAccount: mockCreateAccount }),
-  useUpdateOrCreateUserContact: () => ({ updateOrCreateUserContact: mockUpdateUserContact })
-}))
-
-const mockGetAuthUserProfile = vi.fn()
+const mockUpdateAuthUserProfile = vi.fn()
 const mockGetUserAccounts = vi.fn()
 mockNuxtImport('useConnectAuthService', () => () => ({
-  getAuthUserProfile: mockGetAuthUserProfile,
-  getUserAccounts: mockGetUserAccounts
+  getUserAccounts: mockGetUserAccounts,
+  updateAuthUserProfile: mockUpdateAuthUserProfile
 }))
 
 //  Account flow redirect composable
@@ -55,28 +46,6 @@ const { mockFinalRedirect } = vi.hoisted(() => ({ mockFinalRedirect: vi.fn() }))
 mockNuxtImport('useConnectAccountFlowRedirect', () => () => ({
   finalRedirect: mockFinalRedirect
 }))
-
-//  Schema for account form (mock)
-vi.mock('#auth/app/utils/schemas/account', () => {
-  return {
-    getAccountCreateSchema: () => ({
-      parse: () => ({
-        accountName: '',
-        emailAddress: '',
-        phone: { phoneNumber: '', ext: '' },
-        address: {
-          city: '',
-          country: '',
-          region: '',
-          postalCode: '',
-          street: '',
-          streetAdditional: '',
-          locationDescription: ''
-        }
-      })
-    })
-  }
-})
 
 describe('useConnectAccountStore', () => {
   let store: ReturnType<typeof useConnectAccountStore>
@@ -117,7 +86,7 @@ describe('useConnectAccountStore', () => {
     store.$reset()
 
     // Default profile mock for other tests
-    mockGetAuthUserProfile.mockResolvedValue({})
+    mockUpdateAuthUserProfile.mockResolvedValue({})
   })
 
   it('initializes with the correct default state', () => {
@@ -148,58 +117,58 @@ describe('useConnectAccountStore', () => {
   })
 
   describe('Auth API Actions', () => {
-    it('setAccountInfo should set user accounts and current account', async () => {
+    it('loadUserAccounts should set user accounts and current account', async () => {
       mockAuthUser.value.keycloakGuid = 'test-guid'
       const accounts = [mockAccounts[0]!, mockAccounts[1]!]
       mockGetUserAccounts.mockResolvedValueOnce(accounts)
 
-      await store.setAccountInfo()
+      await store.loadUserAccounts()
 
       expect(store.userAccounts).toEqual(accounts)
       expect(store.currentAccount).toEqual(accounts[0])
     })
 
-    it('setUserName should set user name from API if available', async () => {
+    it('syncUserProfile should set user name from API if available', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User' }
-      mockGetAuthUserProfile.mockResolvedValue(mockApiData)
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Default'
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
       expect(store.userFullName).toEqual('API User')
     })
 
-    it('setUserName should fallback to authUser name', async () => {
-      mockGetAuthUserProfile.mockResolvedValue({})
+    it('syncUserProfile should fallback to authUser name', async () => {
+      mockUpdateAuthUserProfile.mockResolvedValue({})
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Fallback'
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
       expect(store.userFullName).toEqual('Fallback ')
     })
 
-    it('setUserName should pre-populate email from contacts[0].email', async () => {
+    it('syncUserProfile should pre-populate email from contacts[0].email', async () => {
       const mockApiData = {
         firstname: 'API',
         lastname: 'User',
         contacts: [{ email: 'contact@example.com', phone: '', phoneExtension: '' }]
       }
-      mockGetAuthUserProfile.mockResolvedValue(mockApiData)
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
       store.userEmail = ''
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
       expect(store.userEmail).toEqual('contact@example.com')
     })
 
-    it('setUserName should not set email when contacts array is empty', async () => {
+    it('syncUserProfile should not set email when contacts array is empty', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User', contacts: [] }
-      mockGetAuthUserProfile.mockResolvedValue(mockApiData)
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
       store.userEmail = ''
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
       expect(store.userEmail).toEqual('')
     })
