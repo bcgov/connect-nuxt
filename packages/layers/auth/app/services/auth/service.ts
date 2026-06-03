@@ -83,8 +83,8 @@ export const useConnectAuthService = () => {
   }
 
   /** Update user information in AUTH with current token info */
-  async function updateAuthUserInfo(): Promise<void> {
-    await $authApi('/users', {
+  async function updateAuthUserProfile(): Promise<ConnectAuthProfile> {
+    return await $authApi('/users', {
       method: 'POST',
       body: { isLogin: true }
     })
@@ -118,7 +118,7 @@ export const useConnectAuthService = () => {
     verifyAccountName,
     /* POST, PUT, PATCH, DELETE Requests */
     createAccount,
-    updateAuthUserInfo,
+    updateAuthUserProfile,
     updateOrCreateUserContact,
     updateTermsOfUse
   }

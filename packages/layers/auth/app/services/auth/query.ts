@@ -86,7 +86,7 @@ export const useConnectAuthQuery = () => {
   }
 }
 
-// async function updateAuthUserInfo(): Promise<void> {
+// async function updateAuthUserProfile(): Promise<void> {
 //   await $authApi('/users', {
 //     method: 'POST',
 //     body: { isLogin: true }
