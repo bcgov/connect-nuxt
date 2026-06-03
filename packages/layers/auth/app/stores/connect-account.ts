@@ -1,8 +1,9 @@
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
-  const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
   const service = useConnectAuthService()
+  const queryCache = useQueryCache()
+  const { keys } = useConnectAuthQueryKeys()
 
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
@@ -39,35 +40,34 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     return accountId === currentAccount.value.id
   }
 
-  /** Update user information in AUTH with current token info */
-  async function updateAuthUserInfo(): Promise<void> {
-    await $authApi('/users', {
-      method: 'POST',
-      body: { isLogin: true }
-    })
-  }
-
   /** Set user name and default email from profile */
-  async function setUserName() {
-    const res = await service.getAuthUserProfile().catch(() => undefined)
+  async function syncUserProfile() {
+    const profile = await service.updateAuthUserProfile().catch(() => undefined)
 
-    if (res?.firstname && res?.lastname) {
-      userFirstName.value = res.firstname
-      userLastName.value = res.lastname
-    } else {
-      userFirstName.value = authUser.value?.firstName || '-'
-      userLastName.value = authUser.value?.lastName || ''
-    }
+    if (profile) {
+      const { firstname, lastname, contacts } = profile
 
-    // Pre-populate email from the user's existing contact if available
-    const contactEmail = res?.contacts?.[0]?.email
-    if (contactEmail) {
-      userEmail.value = contactEmail
+      if (firstname && lastname) {
+        userFirstName.value = firstname
+        userLastName.value = lastname
+      } else {
+        userFirstName.value = authUser.value?.firstName || '-'
+        userLastName.value = authUser.value?.lastName || ''
+      }
+
+      // set email from the user's existing contact if available
+      const contactEmail = contacts?.[0]?.email
+      if (contactEmail) {
+        userEmail.value = contactEmail
+      }
+
+      // add user profile response to cache
+      queryCache.setQueryData(keys.userProfile(), profile)
     }
   }
 
   /** Set the user account list and current account */
-  async function setAccountInfo(force = false): Promise<void> {
+  async function loadUserAccounts(force = false): Promise<void> {
     const accounts = await service.getUserAccounts(force).catch(() => undefined)
     if (accounts && accounts[0]) {
       userAccounts.value = accounts
@@ -82,7 +82,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     const account = userAccounts.value.find(account => account.id === accountId)
     if (account) {
       currentAccount.value = account
-      checkAccountStatus()
+      return checkAccountStatus()
     }
   }
 
@@ -118,19 +118,15 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
-  async function initAccountStore(): Promise<void> {
+  async function initAccountStore() {
     try {
-      await Promise.all([
-        setAccountInfo(),
-        updateAuthUserInfo(),
-        setUserName()
-      ])
+      await loadUserAccounts()
 
       if (currentAccount.value.id) {
-        checkAccountStatus()
+        return checkAccountStatus()
       }
     } catch (e) {
-      logFetchError(e, '[Account Store] - Error during initialization')
+      logFetchError(e, '[Account Store] - Failed to load user acccounts.')
     }
   }
 
@@ -150,8 +146,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     hasRoles,
     initAccountStore,
     isCurrentAccount,
-    setAccountInfo,
-    setUserName,
+    loadUserAccounts,
+    syncUserProfile,
     switchCurrentAccount,
     userAccounts,
     userFullName,
