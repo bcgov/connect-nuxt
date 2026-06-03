@@ -55,7 +55,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
     if (rtc.playwrightFetchTestAccount) {
       // allows each test to mock the account information with its own data
-      await useConnectAccountStore().setAccountInfo()
+      await useConnectAccountStore().loadUserAccounts(true)
     } else {
       currentAccount.value = {
         id: 1,
