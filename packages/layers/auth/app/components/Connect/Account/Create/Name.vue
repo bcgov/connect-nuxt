@@ -19,7 +19,7 @@ watchDebounced(
     if (v?.length) {
       isLoading.value = true
       try {
-        const { status } = await service.verifyAccountName(v)
+        const { status } = await service.verifyAccountName(v).catch(() => ({ status: undefined }))
         statusCode.value = status ?? 500 // fallback as undefined is not considered an exception
       } catch (err: unknown) {
         statusCode.value = getErrorStatus(err) ?? 500

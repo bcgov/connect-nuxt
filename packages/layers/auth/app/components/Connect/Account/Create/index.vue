@@ -10,7 +10,7 @@ const store = useConnectAccountStore()
 const formRef = useTemplateRef<Form<AccountProfileSchema>>('account-create-form')
 const statusCode = ref<number | undefined>(undefined)
 const schema = computed(() => getAccountCreateSchema(statusCode.value))
-const formState = reactive<AccountProfileSchema>(schema.value.parse({}))
+const state = reactive<AccountProfileSchema>(schema.value.parse({}))
 
 const formErrors = computed<{
   accountName: FormError<string> | undefined
@@ -34,7 +34,7 @@ async function validate(fieldName?: keyof AccountProfileSchema) {
   })
 }
 
-watch(() => statusCode.value, async (v) => {
+watch(statusCode, async (v) => {
   if (v !== undefined) {
     await nextTick()
     await validate('accountName')
@@ -43,7 +43,7 @@ watch(() => statusCode.value, async (v) => {
 
 onMounted(() => {
   if (store.userEmail) {
-    formState.emailAddress = store.userEmail
+    state.emailAddress = store.userEmail
   }
 })
 </script>
@@ -61,8 +61,8 @@ onMounted(() => {
       ref="account-create-form"
       no-validate
       :validate-on="['input', 'change']"
-      :schema="schema"
-      :state="formState"
+      :schema
+      :state
       @error="onFormSubmitError"
       @submit="$emit('submit', $event)"
     >
@@ -85,7 +85,7 @@ onMounted(() => {
       <!-- Account Name -->
       <ConnectAccountCreateName
         v-model:status-code="statusCode"
-        v-model:name="formState.accountName"
+        v-model:name="state.accountName"
         :error="formErrors.accountName"
       />
 
@@ -97,7 +97,7 @@ onMounted(() => {
         padding-class="py-1 px-4 sm:py-2 sm:px-8"
       >
         <ConnectFormInput
-          v-model="formState.emailAddress"
+          v-model="state.emailAddress"
           name="emailAddress"
           input-id="email-input"
           :label="$t('connect.page.createAccount.emailPlaceholder')"
@@ -114,13 +114,13 @@ onMounted(() => {
         <div class="flex flex-row gap-2">
           <!-- Disabling country code selection until Auth Model Supports individual property -->
           <!-- <ConnectFormPhoneCountryCode -->
-          <!-- v-model:country-calling-code="formState.phone.countryCode" -->
-          <!-- v-model:country-iso2="formState.phone.countryIso2" -->
-          <!-- :is-invalid="!formState.phone.countryIso2" -->
+          <!-- v-model:country-calling-code="state.phone.countryCode" -->
+          <!-- v-model:country-iso2="state.phone.countryIso2" -->
+          <!-- :is-invalid="!state.phone.countryIso2" -->
           <!-- class="w-40 mt-[-20px]" -->
           <!-- /> -->
           <ConnectFormInput
-            v-model="formState.phone.phoneNumber"
+            v-model="state.phone.phoneNumber"
             name="phone.phoneNumber"
             input-id="phone-number-input"
             class="flex-2"
@@ -128,7 +128,7 @@ onMounted(() => {
             mask="(###) ###-####"
           />
           <ConnectFormInput
-            v-model="formState.phone.ext"
+            v-model="state.phone.ext"
             name="phone.ext"
             input-id="phone-ext-input"
             :label="$t('connect.page.createAccount.phoneExtensionLabel')"
@@ -145,7 +145,7 @@ onMounted(() => {
       >
         <ConnectFormAddress
           id="account-address"
-          v-model="formState.address"
+          v-model="state.address"
           name="address"
           schema-prefix="address"
           @should-validate="validate"
