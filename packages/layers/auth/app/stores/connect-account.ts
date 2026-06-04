@@ -44,26 +44,28 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   async function syncUserProfile() {
     const profile = await service.updateAuthUserProfile().catch(() => undefined)
 
-    if (profile) {
-      const { firstname, lastname, contacts } = profile
-
-      if (firstname && lastname) {
-        userFirstName.value = firstname
-        userLastName.value = lastname
-      } else {
-        userFirstName.value = authUser.value?.firstName || '-'
-        userLastName.value = authUser.value?.lastName || ''
-      }
-
-      // set email from the user's existing contact if available
-      const contactEmail = contacts?.[0]?.email
-      if (contactEmail) {
-        userEmail.value = contactEmail
-      }
-
-      // add user profile response to cache
-      queryCache.setQueryData(keys.userProfile(), profile)
+    if (!profile) {
+      return
     }
+
+    const { firstname, lastname, contacts } = profile
+
+    if (firstname && lastname) {
+      userFirstName.value = firstname
+      userLastName.value = lastname
+    } else {
+      userFirstName.value = authUser.value?.firstName || '-'
+      userLastName.value = authUser.value?.lastName || ''
+    }
+
+    // set email from the user's existing contact if available
+    const contactEmail = contacts?.[0]?.email
+    if (contactEmail) {
+      userEmail.value = contactEmail
+    }
+
+    // add user profile response to cache
+    queryCache.setQueryData(keys.userProfile(), profile)
   }
 
   /** Set the user account list and current account */

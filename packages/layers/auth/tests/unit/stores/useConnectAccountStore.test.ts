@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setActivePinia, createPinia } from 'pinia'
@@ -46,6 +47,11 @@ const { mockFinalRedirect } = vi.hoisted(() => ({ mockFinalRedirect: vi.fn() }))
 mockNuxtImport('useConnectAccountFlowRedirect', () => () => ({
   finalRedirect: mockFinalRedirect
 }))
+
+const mockQueryCache = {
+  setQueryData: vi.fn()
+}
+mockNuxtImport('useQueryCache', () => () => mockQueryCache)
 
 describe('useConnectAccountStore', () => {
   let store: ReturnType<typeof useConnectAccountStore>
@@ -116,8 +122,30 @@ describe('useConnectAccountStore', () => {
     })
   })
 
-  describe('Auth API Actions', () => {
-    it('loadUserAccounts should set user accounts and current account', async () => {
+  describe('initAccountStore', () => {
+    it('should load user accounts and check account status', async () => {
+      const suspendedAccount = {
+        id: 1,
+        accountStatus: AccountStatus.SUSPENDED,
+        label: 'Suspended Account'
+      } as any
+      mockGetUserAccounts.mockResolvedValueOnce([suspendedAccount])
+
+      await store.initAccountStore()
+
+      expect(mockGetUserAccounts).toHaveBeenCalled()
+      expect(store.currentAccount.id).toBe(1)
+
+      // checkAccountStatus triggered
+      expect(mockNavigateTo).toHaveBeenCalledWith(
+        'https://auth.example.com/account-freeze',
+        expect.any(Object)
+      )
+    })
+  })
+
+  describe('loadUserAccount', () => {
+    it('should set user accounts and current account', async () => {
       mockAuthUser.value.keycloakGuid = 'test-guid'
       const accounts = [mockAccounts[0]!, mockAccounts[1]!]
       mockGetUserAccounts.mockResolvedValueOnce(accounts)
@@ -128,7 +156,29 @@ describe('useConnectAccountStore', () => {
       expect(store.currentAccount).toEqual(accounts[0])
     })
 
-    it('syncUserProfile should set user name from API if available', async () => {
+    it('should not update the current account if it exists in the new list', async () => {
+      store.currentAccount = mockAccounts[1]!
+      const freshAccountsList = [mockAccounts[0]!, mockAccounts[1]!]
+      mockGetUserAccounts.mockResolvedValueOnce(freshAccountsList)
+
+      await store.loadUserAccounts()
+
+      expect(store.currentAccount.id).toBe(2)
+    })
+
+    it('should update the current account if the previous account is not in the new list', async () => {
+      store.currentAccount = { id: 999, label: 'Deleted Account' } as any
+      const freshAccountsList = [mockAccounts[0]!, mockAccounts[1]!]
+      mockGetUserAccounts.mockResolvedValueOnce(freshAccountsList)
+
+      await store.loadUserAccounts()
+
+      expect(store.currentAccount.id).toBe(mockAccounts[0]!.id)
+    })
+  })
+
+  describe('syncUserProfile', () => {
+    it('should set user name from API if available', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User' }
       mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
       mockAuthUser.value.keycloakGuid = 'test-guid'
@@ -139,7 +189,7 @@ describe('useConnectAccountStore', () => {
       expect(store.userFullName).toEqual('API User')
     })
 
-    it('syncUserProfile should fallback to authUser name', async () => {
+    it('should fallback to authUser name', async () => {
       mockUpdateAuthUserProfile.mockResolvedValue({})
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Fallback'
@@ -149,7 +199,7 @@ describe('useConnectAccountStore', () => {
       expect(store.userFullName).toEqual('Fallback ')
     })
 
-    it('syncUserProfile should pre-populate email from contacts[0].email', async () => {
+    it('should pre-populate email from contacts[0].email', async () => {
       const mockApiData = {
         firstname: 'API',
         lastname: 'User',
@@ -163,7 +213,7 @@ describe('useConnectAccountStore', () => {
       expect(store.userEmail).toEqual('contact@example.com')
     })
 
-    it('syncUserProfile should not set email when contacts array is empty', async () => {
+    it('should not set email when contacts array is empty', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User', contacts: [] }
       mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
       store.userEmail = ''
@@ -171,6 +221,18 @@ describe('useConnectAccountStore', () => {
       await store.syncUserProfile()
 
       expect(store.userEmail).toEqual('')
+    })
+
+    it('should update the query cache', async () => {
+      const mockApiData = { firstname: 'Test', lastname: 'User' }
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
+
+      await store.syncUserProfile()
+
+      expect(mockQueryCache.setQueryData).toHaveBeenCalledWith(
+        expect.any(Array),
+        mockApiData
+      )
     })
   })
 
@@ -211,7 +273,7 @@ describe('useConnectAccountStore', () => {
     })
   })
 
-  describe('Actions', () => {
+  describe('switchCurrentAccount', () => {
     it('switchCurrentAccount should switch the current account', async () => {
       store.userAccounts = mockAccounts
       store.currentAccount = mockAccounts[0]!
@@ -249,13 +311,13 @@ describe('useConnectAccountStore', () => {
       expect(store.currentAccount.label).toEqual('Account 1')
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
+  })
 
-    it('$reset should clear all store state', () => {
-      store.userAccounts = mockAccounts
-      store.currentAccount = mockAccounts[0]!
-      store.$reset()
-      expect(store.currentAccount).toEqual({})
-      expect(store.userAccounts).toEqual([])
-    })
+  it('$reset should clear all store state', () => {
+    store.userAccounts = mockAccounts
+    store.currentAccount = mockAccounts[0]!
+    store.$reset()
+    expect(store.currentAccount).toEqual({})
+    expect(store.userAccounts).toEqual([])
   })
 })
