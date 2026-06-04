@@ -65,8 +65,10 @@ const disableButtons = computed<boolean>(() => {
       :has-reached-bottom="hasReachedBottom"
       :loading="isLoading"
       @submit="mutate({
-        accepted: true,
-        version: data!.versionId,
+        payload: {
+          accepted: true,
+          version: data!.versionId,
+        },
         silent: false,
         successCb: () => finalRedirect(useRoute(), true),
       })"

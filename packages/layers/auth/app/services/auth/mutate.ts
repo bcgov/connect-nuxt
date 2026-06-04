@@ -58,11 +58,10 @@ export const useConnectAuthMutation = () => {
 
   const updateTermsOfUse = defineMutation({
     mutation: (vars: {
-      accepted: boolean
-      version: string
+      payload: { accepted: boolean, version: string }
       silent?: boolean
       successCb?: () => Promise<unknown> | unknown
-    }) => service.updateTermsOfUse(vars.accepted, vars.version),
+    }) => service.updateTermsOfUse(vars.payload),
     onError: (_, _vars) => {
       if (!_vars.silent) {
         useConnectAuthModals().openPatchTosErrorModal()

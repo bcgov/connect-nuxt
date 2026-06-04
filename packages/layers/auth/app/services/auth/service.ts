@@ -100,12 +100,12 @@ export const useConnectAuthService = () => {
     })
   }
 
-  async function updateTermsOfUse(accepted: boolean, version: string): Promise<ConnectAuthProfile> {
+  async function updateTermsOfUse(payload: { accepted: boolean, version: string }): Promise<ConnectAuthProfile> {
     return await $authApi<ConnectAuthProfile>('/users/@me', {
       method: 'PATCH',
       body: {
-        istermsaccepted: accepted,
-        termsversion: version
+        istermsaccepted: payload.accepted,
+        termsversion: payload.version
       }
     })
   }
