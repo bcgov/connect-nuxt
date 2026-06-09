@@ -223,7 +223,8 @@ describe('useConnectAccountStore', () => {
       expect(store.userEmail).toEqual('')
     })
 
-    it('should update the query cache', async () => {
+    // FUTURE: unskip when fix is made in auth api - ticket: 33711
+    it.skip('should update the query cache', async () => {
       const mockApiData = { firstname: 'Test', lastname: 'User' }
       mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
 

@@ -2,8 +2,9 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
   const service = useConnectAuthService()
-  const queryCache = useQueryCache()
-  const { keys } = useConnectAuthQueryKeys()
+  // FUTURE: uncomment when fix is made in auth api - ticket: 33711
+  // const queryCache = useQueryCache()
+  // const { keys } = useConnectAuthQueryKeys()
 
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
@@ -64,8 +65,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
       userEmail.value = contactEmail
     }
 
-    // add user profile response to cache
-    queryCache.setQueryData(keys.userProfile(), profile)
+    // add user profile response to cache // FUTURE: uncomment when fix is made in auth api - ticket: 33711
+    // queryCache.setQueryData(keys.userProfile(), profile)
   }
 
   /** Set the user account list and current account */
