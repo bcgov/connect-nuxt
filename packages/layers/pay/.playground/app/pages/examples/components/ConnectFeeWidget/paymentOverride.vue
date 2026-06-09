@@ -16,7 +16,12 @@ await feeStore.initFees(
   { label: 'Placeholder Example', matchServiceFeeToCode: 'BSRCH' }
 )
 feeStore.addReplaceFee(exampleFeeCode)
-await feeStore.initAlternatePaymentMethod()
+
+watch(
+  () => useConnectAccountStore().currentAccount.id,
+  async () => await feeStore.initAlternatePaymentMethod(),
+  { immediate: true }
+)
 </script>
 
 <template>
