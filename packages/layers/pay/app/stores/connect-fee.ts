@@ -1,5 +1,5 @@
 export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
-  const { $payApi } = useNuxtApp()
+  const service = useConnectPayService()
   const { t } = useNuxtApp().$i18n
   const { baseModal } = useConnectModal()
 
@@ -139,7 +139,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
         priority: true,
         futureEffective: true
       }
-      return await $payApi<ConnectFeeItem>(`/fees/${entityType}/${code}`, { params })
+      return await service.getFee(entityType, code, params)
     } catch (error) {
       console.error('Error fetching Fee: ', error)
     }
@@ -226,13 +226,13 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
     const accountId = useConnectAccountStore().currentAccount.id
     try {
       // get payment account
-      const res = await $payApi<ConnectPayAccount>(`/accounts/${accountId}`)
-      userPaymentAccount.value = res
+      userPaymentAccount.value = await service.getPayAccount(accountId)
+      const { cfsAccount } = userPaymentAccount.value
 
       // add options to allowedPaymentMethods
       let defaultMethod = userPaymentAccount.value.paymentMethod
       if (defaultMethod !== undefined) {
-        const accountNum = userPaymentAccount.value.cfsAccount?.bankAccountNumber ?? ''
+        const accountNum = cfsAccount?.bankAccountNumber ?? ''
         allowedPaymentMethods.value.push({
           label: t(`connect.payMethod.label.${defaultMethod}`, { account: accountNum }),
           value: defaultMethod
@@ -245,7 +245,7 @@ export const useConnectFeeStore = defineStore('connect-pay-fee-store', () => {
             value: ConnectPayMethod.DIRECT_PAY
           })
           // if pad in confirmation period then set default payment to CC
-          if (PAD_PENDING_STATES.includes(res.cfsAccount?.status)) {
+          if (PAD_PENDING_STATES.includes(cfsAccount?.status)) {
             defaultMethod = ConnectPayMethod.DIRECT_PAY
           }
         }
