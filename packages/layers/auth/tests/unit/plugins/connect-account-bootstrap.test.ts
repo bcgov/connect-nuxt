@@ -7,11 +7,17 @@ import plugin from '../../../app/plugins/connect-account-bootstrap.client'
 const runPlugin = (app: unknown) => plugin.setup!(app as any)
 
 const mockIsAuthenticated = ref(false)
+const mockGetToken = vi.fn()
 mockNuxtImport('useConnectAuth', () => () => ({
-  isAuthenticated: mockIsAuthenticated
+  isAuthenticated: mockIsAuthenticated,
+  getToken: mockGetToken
 }))
 
+const mockUserAccounts = ref<any[]>([])
 const mockStore = {
+  get userAccounts() {
+    return mockUserAccounts.value
+  },
   initAccountStore: vi.fn(),
   syncUserProfile: vi.fn(),
   switchCurrentAccount: vi.fn()
@@ -32,6 +38,7 @@ describe('Connect Account Bootstrap Plugin', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockIsAuthenticated.value = false
+    mockUserAccounts.value = []
     middlewareCallback = null
 
     mockNuxtApp = {
@@ -71,6 +78,32 @@ describe('Connect Account Bootstrap Plugin', () => {
 
       expect(mockStore.initAccountStore).toHaveBeenCalledOnce()
       expect(mockStore.syncUserProfile).toHaveBeenCalledOnce()
+    })
+
+    it('should force token refresh if authenticated user has 0 accounts', async () => {
+      mockIsAuthenticated.value = true
+      mockUserAccounts.value = []
+
+      mockStore.initAccountStore.mockResolvedValue(undefined)
+      mockStore.syncUserProfile.mockResolvedValue(undefined)
+      mockGetToken.mockResolvedValue(undefined)
+
+      await runPlugin(mockNuxtApp)
+
+      expect(mockGetToken).toHaveBeenCalledWith(true)
+      expect(mockGetToken).toHaveBeenCalledOnce()
+    })
+
+    it('should NOT force token refresh if authenticated user has 1 or more accounts', async () => {
+      mockIsAuthenticated.value = true
+      mockUserAccounts.value = [{ id: 1234, name: 'Existing Account' }]
+
+      mockStore.initAccountStore.mockResolvedValue(undefined)
+      mockStore.syncUserProfile.mockResolvedValue(undefined)
+
+      await runPlugin(mockNuxtApp)
+
+      expect(mockGetToken).not.toHaveBeenCalled()
     })
   })
 
