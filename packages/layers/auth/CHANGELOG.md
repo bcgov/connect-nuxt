@@ -1,5 +1,16 @@
 # @sbc-connect/nuxt-auth
 
+## 0.12.0
+
+### Minor Changes
+
+- [#170](https://github.com/bcgov/connect-nuxt/pull/170) [`d91712d`](https://github.com/bcgov/connect-nuxt/commit/d91712db74c2e0c6b39f6fd38955fd60e82ce691) Thanks [@deetz99](https://github.com/deetz99)! - - BREAKING CHANGE: remove useAuthApi, replaced with useConnectAuthService
+  - refactor account creation implementation (remove from store, update components/page)
+  - refactor account store methods to be more streamlined
+  - refactor account and user initialization into a global bootstrap plugin, reducing redundant network requests
+  - refactor header notifications to use useQuery - removes unnecessary blocker for app mount
+  - remove setup accounts middleware (now handled by global bootstrap plugin) and update naming (order prefix) of other middleware
+
 ## 0.11.1
 
 ### Patch Changes
