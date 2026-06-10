@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.13.0
+
+### Minor Changes
+
+- [#174](https://github.com/bcgov/connect-nuxt/pull/174) [`0f7a1d5`](https://github.com/bcgov/connect-nuxt/commit/0f7a1d56fedcd40d297780ca8847b8d253b512f6) Thanks [@deetz99](https://github.com/deetz99)! - Force token refresh after user is created in auth for new users (0 accounts) only.
+
 ## 0.12.0
 
 ### Minor Changes
