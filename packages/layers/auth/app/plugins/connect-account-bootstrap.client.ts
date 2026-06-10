@@ -16,7 +16,7 @@ export default defineNuxtPlugin({
 
       // Force token refresh to return updated roles
       // Required only for new users
-      if (store.userAccounts.length > 0) {
+      if (store.userAccounts.length === 0) {
         await getToken(true)
       }
     }
