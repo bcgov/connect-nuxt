@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-pay
 
+## 0.5.0
+
+### Minor Changes
+
+- [#172](https://github.com/bcgov/connect-nuxt/pull/172) [`c9e5d05`](https://github.com/bcgov/connect-nuxt/commit/c9e5d0519aff914196c38242f3a827473261af38) Thanks [@deetz99](https://github.com/deetz99)! - Implement useConnectPayQuery query defintions, useConnectPayService cache abstraction and update usage in connect-fee store.
+
 ## 0.4.1
 
 ### Patch Changes
