@@ -90,10 +90,10 @@ export function useConnectHeaderOptions() {
               if (route.meta.onAccountChange) {
                 const allowAccountChange = route.meta.onAccountChange(accountStore.currentAccount, account)
                 if (allowAccountChange) {
-                  await accountStore.switchCurrentAccount(account.id)
+                  accountStore.switchCurrentAccount(account.id)
                 }
               } else {
-                await accountStore.switchCurrentAccount(account.id)
+                accountStore.switchCurrentAccount(account.id)
               }
             }
           },
@@ -205,23 +205,6 @@ export function useConnectHeaderOptions() {
     return options
   })
 
-  const notificationsOptions = computed<DropdownMenuItem[][]>(() => {
-    const count = accountStore.pendingApprovalCount
-    const options = []
-    if (count > 0) {
-      options.push([{
-        to: authWebUrl + `account/${accountStore.currentAccount.id}/settings/team-members`,
-        label: t('connect.text.notifications.teamMemberApproval', {
-          count: accountStore.pendingApprovalCount
-        }, accountStore.pendingApprovalCount
-        )
-      }])
-    } else {
-      options.push([{ label: t('connect.text.notifications.none') }])
-    }
-    return options
-  })
-
   return {
     basicAccountOptions,
     accountSettingsOptions,
@@ -230,7 +213,6 @@ export function useConnectHeaderOptions() {
     loggedInUserOptions,
     loggedOutUserOptions,
     loggedOutUserOptionsMobile,
-    notificationsOptions,
     createAccountUrl
   }
 }

@@ -11,7 +11,14 @@ const mockRtc = ref({
 mockNuxtImport('useRuntimeConfig', () => () => ({ public: mockRtc.value }))
 
 const mockIsAuthenticated = ref(false)
-mockNuxtImport('useConnectAuth', () => () => ({ isAuthenticated: mockIsAuthenticated }))
+mockNuxtImport('useConnectAuth', () => () => ({
+  isAuthenticated: mockIsAuthenticated,
+  authUser: {
+    value: {
+      keycloakGuid: 'guid-123'
+    }
+  }
+}))
 mockNuxtImport('useLocalePath', () => () => (path: string) => `/en-CA${path}`)
 const { mockNavigateTo } = vi.hoisted(() => {
   return { mockNavigateTo: vi.fn() }

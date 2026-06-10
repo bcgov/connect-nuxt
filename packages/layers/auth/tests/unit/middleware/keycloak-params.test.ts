@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { RouteLocationNormalizedGeneric } from 'vue-router'
-import paramsMiddleware from '../../../app/middleware/02.keycloak-params.global'
+import paramsMiddleware from '../../../app/middleware/01.keycloak-params.global'
 
 vi.stubGlobal('import.meta', { server: false })
 

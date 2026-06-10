@@ -1,13 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { setActivePinia, createPinia } from 'pinia'
-
-//  Nuxt app / APIs
-const mockAuthApi = vi.fn()
-mockNuxtImport('useNuxtApp', () => () => ({
-  $authApi: mockAuthApi,
-  $i18n: { t: vi.fn((key: string) => key) }
-}))
 
 //  Hoisted mocks (must be defined before module evaluation)
 const { mockLogFetchError } = vi.hoisted(() => ({ mockLogFetchError: vi.fn() }))
@@ -41,15 +35,11 @@ const mockSessionStorage = {
 }
 Object.defineProperty(global, 'sessionStorage', { value: mockSessionStorage })
 
-//  Auth API composables (profile, create account, update contact)
-const mockGetAuthUserProfile = vi.fn()
-const mockCreateAccount = vi.fn()
-const mockUpdateUserContact = vi.fn()
-
-mockNuxtImport('useAuthApi', () => () => ({
-  getAuthUserProfile: mockGetAuthUserProfile,
-  useCreateAccount: () => ({ createAccount: mockCreateAccount }),
-  useUpdateOrCreateUserContact: () => ({ updateOrCreateUserContact: mockUpdateUserContact })
+const mockUpdateAuthUserProfile = vi.fn()
+const mockGetUserAccounts = vi.fn()
+mockNuxtImport('useConnectAuthService', () => () => ({
+  getUserAccounts: mockGetUserAccounts,
+  updateAuthUserProfile: mockUpdateAuthUserProfile
 }))
 
 //  Account flow redirect composable
@@ -58,27 +48,10 @@ mockNuxtImport('useConnectAccountFlowRedirect', () => () => ({
   finalRedirect: mockFinalRedirect
 }))
 
-//  Schema for account form (mock)
-vi.mock('#auth/app/utils/schemas/account', () => {
-  return {
-    getAccountCreateSchema: () => ({
-      parse: () => ({
-        accountName: '',
-        emailAddress: '',
-        phone: { phoneNumber: '', ext: '' },
-        address: {
-          city: '',
-          country: '',
-          region: '',
-          postalCode: '',
-          street: '',
-          streetAdditional: '',
-          locationDescription: ''
-        }
-      })
-    })
-  }
-})
+const mockQueryCache = {
+  setQueryData: vi.fn()
+}
+mockNuxtImport('useQueryCache', () => () => mockQueryCache)
 
 describe('useConnectAccountStore', () => {
   let store: ReturnType<typeof useConnectAccountStore>
@@ -119,16 +92,12 @@ describe('useConnectAccountStore', () => {
     store.$reset()
 
     // Default profile mock for other tests
-    mockGetAuthUserProfile.mockResolvedValue({
-      data: { value: {} },
-      refresh: vi.fn()
-    })
+    mockUpdateAuthUserProfile.mockResolvedValue({})
   })
 
   it('initializes with the correct default state', () => {
     expect(store.currentAccount).toEqual({})
     expect(store.userAccounts).toEqual([])
-    expect(store.pendingApprovalCount).toEqual(0)
     expect(store.currentAccountName).toEqual('')
   })
 
@@ -153,131 +122,137 @@ describe('useConnectAccountStore', () => {
     })
   })
 
-  describe('Auth API Actions', () => {
-    it('getUserAccounts should fetch and filter accounts correctly', async () => {
-      mockAuthUser.value.keycloakGuid = 'test-guid'
-      const mockApiData = [...mockAccounts, { type: 'other' }]
-      mockAuthApi.mockResolvedValueOnce(mockApiData)
+  describe('initAccountStore', () => {
+    it('should load user accounts and check account status', async () => {
+      const suspendedAccount = {
+        id: 1,
+        accountStatus: AccountStatus.SUSPENDED,
+        label: 'Suspended Account'
+      } as any
+      mockGetUserAccounts.mockResolvedValueOnce([suspendedAccount])
 
-      const accounts = await store.getUserAccounts()
+      await store.initAccountStore()
 
-      expect(mockAuthApi).toHaveBeenCalledWith('/users/test-guid/settings')
-      expect(accounts).toEqual(mockAccounts)
+      expect(mockGetUserAccounts).toHaveBeenCalled()
+      expect(store.currentAccount.id).toBe(1)
+
+      // checkAccountStatus triggered
+      expect(mockNavigateTo).toHaveBeenCalledWith(
+        'https://auth.example.com/account-freeze',
+        expect.any(Object)
+      )
     })
+  })
 
-    it('setAccountInfo should set user accounts and current account', async () => {
+  describe('loadUserAccount', () => {
+    it('should set user accounts and current account', async () => {
       mockAuthUser.value.keycloakGuid = 'test-guid'
       const accounts = [mockAccounts[0]!, mockAccounts[1]!]
-      mockAuthApi.mockResolvedValueOnce(accounts)
+      mockGetUserAccounts.mockResolvedValueOnce(accounts)
 
-      await store.setAccountInfo()
+      await store.loadUserAccounts()
 
       expect(store.userAccounts).toEqual(accounts)
       expect(store.currentAccount).toEqual(accounts[0])
     })
 
-    it('setUserName should set user name from API if available', async () => {
+    it('should not update the current account if it exists in the new list', async () => {
+      store.currentAccount = mockAccounts[1]!
+      const freshAccountsList = [mockAccounts[0]!, mockAccounts[1]!]
+      mockGetUserAccounts.mockResolvedValueOnce(freshAccountsList)
+
+      await store.loadUserAccounts()
+
+      expect(store.currentAccount.id).toBe(2)
+    })
+
+    it('should update the current account if the previous account is not in the new list', async () => {
+      store.currentAccount = { id: 999, label: 'Deleted Account' } as any
+      const freshAccountsList = [mockAccounts[0]!, mockAccounts[1]!]
+      mockGetUserAccounts.mockResolvedValueOnce(freshAccountsList)
+
+      await store.loadUserAccounts()
+
+      expect(store.currentAccount.id).toBe(mockAccounts[0]!.id)
+    })
+  })
+
+  describe('syncUserProfile', () => {
+    it('should set user name from API if available', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User' }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Default'
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
       expect(store.userFullName).toEqual('API User')
     })
 
-    it('setUserName should fallback to authUser name', async () => {
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: {} },
-        refresh: vi.fn()
-      })
+    it('should fallback to authUser name', async () => {
+      mockUpdateAuthUserProfile.mockResolvedValue({})
       mockAuthUser.value.keycloakGuid = 'test-guid'
       mockAuthUser.value.firstName = 'Fallback'
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
       expect(store.userFullName).toEqual('Fallback ')
     })
 
-    it('setUserName should pre-populate email from contacts[0].email', async () => {
+    it('should pre-populate email from contacts[0].email', async () => {
       const mockApiData = {
         firstname: 'API',
         lastname: 'User',
         contacts: [{ email: 'contact@example.com', phone: '', phoneExtension: '' }]
       }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
-      store.accountFormState.emailAddress = ''
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
+      store.userEmail = ''
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
-      expect(store.accountFormState.emailAddress).toEqual('contact@example.com')
+      expect(store.userEmail).toEqual('contact@example.com')
     })
 
-    it('setUserName should not overwrite email if already set', async () => {
-      const mockApiData = {
-        firstname: 'API',
-        lastname: 'User',
-        contacts: [{ email: 'contact@example.com', phone: '', phoneExtension: '' }]
-      }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
-      store.accountFormState.emailAddress = 'existing@example.com'
-
-      await store.setUserName()
-
-      expect(store.accountFormState.emailAddress).toEqual('existing@example.com')
-    })
-
-    it('setUserName should not set email when contacts array is empty', async () => {
+    it('should not set email when contacts array is empty', async () => {
       const mockApiData = { firstname: 'API', lastname: 'User', contacts: [] }
-      mockGetAuthUserProfile.mockResolvedValue({
-        data: { value: mockApiData },
-        refresh: vi.fn()
-      })
-      store.accountFormState.emailAddress = ''
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
+      store.userEmail = ''
 
-      await store.setUserName()
+      await store.syncUserProfile()
 
-      expect(store.accountFormState.emailAddress).toEqual('')
+      expect(store.userEmail).toEqual('')
     })
 
-    it('getPendingApprovalCount should set the count', async () => {
-      store.currentAccount = { id: 1 } as ConnectAccount
-      mockAuthUser.value.keycloakGuid = 'test-guid'
-      mockAuthApi.mockResolvedValueOnce({ count: 5 })
+    // FUTURE: unskip when fix is made in auth api - ticket: 33711
+    it.skip('should update the query cache', async () => {
+      const mockApiData = { firstname: 'Test', lastname: 'User' }
+      mockUpdateAuthUserProfile.mockResolvedValue(mockApiData)
 
-      await store.getPendingApprovalCount()
+      await store.syncUserProfile()
 
-      expect(mockAuthApi).toHaveBeenCalled()
-      expect(store.pendingApprovalCount).toEqual(5)
+      expect(mockQueryCache.setQueryData).toHaveBeenCalledWith(
+        expect.any(Array),
+        mockApiData
+      )
     })
   })
 
   describe('checkAccountStatus', () => {
     it('should not redirect for an active account', async () => {
       store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.ACTIVE } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
 
     it('should redirect for a suspended account', async () => {
       store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
     })
 
     it('should redirect for an NSF suspended account', async () => {
       store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.NSF_SUSPENDED } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
     })
 
@@ -285,7 +260,7 @@ describe('useConnectAccountStore', () => {
       store.currentAccount = {
         ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW
       } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).toHaveBeenCalledWith(expect.stringContaining('pendingapproval'), expect.any(Object))
     })
 
@@ -294,17 +269,17 @@ describe('useConnectAccountStore', () => {
       store.currentAccount = {
         ...mockAccounts[0]!, accountStatus: AccountStatus.PENDING_STAFF_REVIEW
       } as ConnectAccount
-      await store.checkAccountStatus()
+      store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
   })
 
-  describe('Actions', () => {
+  describe('switchCurrentAccount', () => {
     it('switchCurrentAccount should switch the current account', async () => {
       store.userAccounts = mockAccounts
       store.currentAccount = mockAccounts[0]!
       expect(store.currentAccount.label).toEqual('Account 1')
-      await store.switchCurrentAccount(3)
+      store.switchCurrentAccount(3)
       expect(store.currentAccount.label).toEqual('Account 3')
     })
 
@@ -312,7 +287,7 @@ describe('useConnectAccountStore', () => {
       async () => {
         store.userAccounts = mockAccounts
         store.currentAccount = mockAccounts[0]!
-        await store.switchCurrentAccount(2)
+        store.switchCurrentAccount(2)
         expect(store.currentAccount.label).toEqual('Account 2')
         // Active account should not trigger a redirect
         expect(mockNavigateTo).not.toHaveBeenCalled()
@@ -322,7 +297,7 @@ describe('useConnectAccountStore', () => {
       const suspendedAccount = { ...mockAccounts[1]!, accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
       store.userAccounts = [mockAccounts[0]!, suspendedAccount]
       store.currentAccount = mockAccounts[0]!
-      await store.switchCurrentAccount(suspendedAccount.id)
+      store.switchCurrentAccount(suspendedAccount.id)
       expect(store.currentAccount.accountStatus).toEqual(AccountStatus.SUSPENDED)
       expect(mockNavigateTo).toHaveBeenCalledWith(
         expect.stringContaining('account-freeze'),
@@ -333,136 +308,17 @@ describe('useConnectAccountStore', () => {
     it('switchCurrentAccount should not run checkAccountStatus if account not found', async () => {
       store.userAccounts = mockAccounts
       store.currentAccount = mockAccounts[0]!
-      await store.switchCurrentAccount(999)
+      store.switchCurrentAccount(999)
       expect(store.currentAccount.label).toEqual('Account 1')
       expect(mockNavigateTo).not.toHaveBeenCalled()
     })
-
-    it('$reset should clear all store state', () => {
-      store.userAccounts = mockAccounts
-      store.currentAccount = mockAccounts[0]!
-      store.pendingApprovalCount = 5
-      store.$reset()
-      expect(store.currentAccount).toEqual({})
-      expect(store.userAccounts).toEqual([])
-      expect(store.pendingApprovalCount).toEqual(0)
-    })
   })
 
-  //  Tests for submitCreateAccount flow (updated for single updateUserContact after createAccount)
-
-  describe('submitCreateAccount', () => {
-    beforeEach(() => {
-      // mock updateUserContact to invoke its own successCb (the inner one) when present
-      mockUpdateUserContact.mockImplementation(async (payload) => {
-        if (payload && typeof payload.successCb === 'function') {
-          await payload.successCb()
-        }
-      })
-
-      // invoke createAccount's successCb so the store calls updateUserContact
-      mockCreateAccount.mockImplementation(async (args) => {
-        if (args?.successCb) {
-          await args.successCb()
-        }
-        // return anything your implementation expects (usually void/undefined)
-        return undefined
-      })
-
-      mockFinalRedirect.mockResolvedValue(undefined)
-      mockRoute.value.path = '/'
-    })
-
-    it('should create account, then update contact once with successCb, and call finalRedirect', async () => {
-      // Prepare form state
-      store.accountFormState.accountName = 'Cameron Co'
-      store.accountFormState.emailAddress = 'cam@example.com'
-      store.accountFormState.phone.phoneNumber = '2505551234'
-      store.accountFormState.phone.ext = '123'
-      store.accountFormState.address.city = 'Victoria'
-      store.accountFormState.address.country = 'CA'
-      store.accountFormState.address.region = 'BC'
-      store.accountFormState.address.postalCode = 'V8W1N6'
-      store.accountFormState.address.street = '123 Wharf St'
-      store.accountFormState.address.streetAdditional = 'Suite 500'
-      store.accountFormState.address.locationDescription = 'By the inner harbour'
-
-      expect(store.isLoading).toBe(false)
-
-      await store.submitCreateAccount()
-
-      // isLoading should end false
-      expect(store.isLoading).toBe(false)
-
-      // New flow: createAccount then a single updateUserContact (with successCb)
-      expect(mockCreateAccount).toHaveBeenCalledTimes(1)
-      expect(mockUpdateUserContact).toHaveBeenCalledTimes(1)
-
-      // Validate createAccount payload mapping
-      const createArgs = mockCreateAccount.mock.calls[0]![0]
-      expect(createArgs).toEqual(
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            name: 'Cameron Co',
-            mailingAddress: expect.objectContaining({
-              city: 'Victoria',
-              country: 'CA',
-              region: 'BC',
-              postalCode: 'V8W1N6',
-              street: '123 Wharf St',
-              streetAdditional: 'Suite 500',
-              deliveryInstructions: 'By the inner harbour'
-            }),
-            paymentInfo: expect.objectContaining({
-              paymentMethod: expect.anything()
-            }),
-            productSubscriptions: expect.arrayContaining([expect.objectContaining({})])
-          }),
-          // The store passes successCb to createAccount
-          successCb: expect.any(Function)
-        })
-      )
-
-      // Single updateUserContact args should include successCb
-      const updateArgs = mockUpdateUserContact.mock.calls[0]![0]
-      expect(updateArgs).toEqual(
-        expect.objectContaining({
-          email: 'cam@example.com',
-          phone: '2505551234',
-          phoneExtension: '123',
-          successCb: expect.any(Function),
-          errorCb: expect.any(Function) // the store passes both
-        })
-      )
-
-      // finalRedirect should be called with the current route (via inner successCb)
-      expect(mockFinalRedirect).toHaveBeenCalledTimes(1)
-      expect(mockFinalRedirect).toHaveBeenCalledWith(mockRoute.value)
-    })
-
-    it('should handle errors gracefully (logs and resets isLoading) when createAccount fails', async () => {
-      // Prepare minimal form state
-      store.accountFormState.accountName = 'Error Co'
-      store.accountFormState.emailAddress = 'err@example.com'
-      store.accountFormState.phone.phoneNumber = '5550000000'
-
-      // createAccount fails; updateUserContact should NOT be called in new flow
-      mockCreateAccount.mockRejectedValue(new Error('Create failed'))
-
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-
-      await store.submitCreateAccount()
-
-      // Should have attempted createAccount, but NOT updateUserContact
-      expect(mockCreateAccount).toHaveBeenCalledTimes(1)
-      expect(mockUpdateUserContact).toHaveBeenCalledTimes(0)
-
-      // finalRedirect should not be called
-      expect(mockFinalRedirect).not.toHaveBeenCalled()
-
-      // Error should be logged, and isLoading reset
-      expect(consoleSpy).toHaveBeenCalledWith('Account Create Submission Error: ', expect.any(Error))
-      expect(store.isLoading).toBe(false)
-    })
+  it('$reset should clear all store state', () => {
+    store.userAccounts = mockAccounts
+    store.currentAccount = mockAccounts[0]!
+    store.$reset()
+    expect(store.currentAccount).toEqual({})
+    expect(store.userAccounts).toEqual([])
   })
 })

@@ -2,7 +2,6 @@
 import { ConnectTermsOfUseContent, ConnectTermsOfUseForm } from '#components'
 
 const { t } = useI18n()
-const authApi = useAuthApi()
 const { finalRedirect } = useConnectAccountFlowRedirect()
 
 definePageMeta({
@@ -16,8 +15,8 @@ useHead({
   title: t('connect.page.termsOfUse.title')
 })
 
-const { data, status } = await authApi.getTermsOfUse()
-const { patchTermsOfUse, isLoading } = authApi.usePatchTermsOfUse()
+const { data, status } = useConnectAuthQuery().termsOfUse()
+const { mutate, isLoading } = useConnectAuthMutation().updateTermsOfUse()
 
 const formRef = useTemplateRef<InstanceType<typeof ConnectTermsOfUseForm>>('form-ref')
 const contentRef = useTemplateRef<InstanceType<typeof ConnectTermsOfUseContent>>('content-ref')
@@ -30,8 +29,6 @@ const hasReachedBottom = computed(() => formTop.value >= tosBottom.value)
 const disableButtons = computed<boolean>(() => {
   return isLoading.value || status.value === 'pending' || status.value === 'error' || !data.value?.content
 })
-
-// TODO: - FUTURE - add help/contact info to alert?
 </script>
 
 <template>
@@ -67,10 +64,13 @@ const disableButtons = computed<boolean>(() => {
       :disable-buttons="disableButtons"
       :has-reached-bottom="hasReachedBottom"
       :loading="isLoading"
-      @submit="patchTermsOfUse({
-        accepted: true,
-        version: data!.versionId,
-        successCb: async () => await finalRedirect(useRoute(), true),
+      @submit="mutate({
+        payload: {
+          accepted: true,
+          version: data!.versionId,
+        },
+        silent: false,
+        successCb: () => finalRedirect(useRoute(), true),
       })"
     />
   </UContainer>

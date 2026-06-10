@@ -2,7 +2,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const { isAuthenticated } = useConnectAuth()
   const rtc = useRuntimeConfig().public
   const localePath = useLocalePath()
-  const authApi = useAuthApi()
+  const service = useConnectAuthService()
   const { finalRedirect } = useConnectAccountFlowRedirect()
 
   const isLoginPage = to.meta.connectLogin === true
@@ -24,9 +24,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   if (isAuthenticated.value) {
-    const { data, refresh } = await authApi.getAuthUserProfile()
-    await refresh()
-    const hasAccepted = data.value?.userTerms.isTermsOfUseAccepted
+    const res = await service.getAuthUserProfile().catch(() => undefined)
+    const hasAccepted = res?.userTerms.isTermsOfUseAccepted
     if (!hasAccepted && !isTosPage) {
       const query = { ...to.query }
       if (!query.return) {
@@ -56,7 +55,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
     if (rtc.playwrightFetchTestAccount) {
       // allows each test to mock the account information with its own data
-      await useConnectAccountStore().setAccountInfo()
+      await useConnectAccountStore().loadUserAccounts(true)
     } else {
       currentAccount.value = {
         id: 1,

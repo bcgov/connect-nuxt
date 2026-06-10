@@ -63,7 +63,7 @@ export function getAccountCreateSchema(status: number | undefined = undefined) {
       locationDescription: ''
     }),
     accountName: getAccountNameSchema(status).default(''),
-    emailAddress: z.string().email().default(''),
+    emailAddress: z.email().default(''),
     phone: getPhoneSchema().default({
       countryIso2: 'CA',
       countryCode: '1',
@@ -74,3 +74,34 @@ export function getAccountCreateSchema(status: number | undefined = undefined) {
 }
 
 export type AccountProfileSchema = z.output<ReturnType<typeof getAccountCreateSchema>>
+
+export function formatCreateAccountPayload(
+  data: AccountProfileSchema
+): {
+  accountPayload: ConnectCreateAccount
+  contactPayload: { email: string, phone: string, phoneExtension: string | undefined }
+} {
+  const accountPayload = {
+    accessType: ConnectAccessType.REGULAR,
+    mailingAddress: {
+      city: data.address.city,
+      country: data.address.country,
+      region: data.address.region ?? '',
+      postalCode: data.address.postalCode ?? '',
+      street: data.address.street,
+      streetAdditional: data.address.streetAdditional || '',
+      deliveryInstructions: data.address.locationDescription || ''
+    },
+    name: data.accountName,
+    paymentInfo: { paymentMethod: ConnectPaymentMethod.DIRECT_PAY },
+    productSubscriptions: [{ productCode: ConnectProductCode.BUSINESS }]
+  }
+
+  const contactPayload = {
+    email: data.emailAddress,
+    phone: data.phone.phoneNumber,
+    phoneExtension: data.phone.ext
+  }
+
+  return { accountPayload, contactPayload }
+}

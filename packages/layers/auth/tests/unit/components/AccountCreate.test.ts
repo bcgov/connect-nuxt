@@ -1,46 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { reactive, computed } from 'vue'
-import { z } from 'zod'
 import { ConnectAccountCreate, ConnectAccountCreateName } from '#components'
 
-/** Store mock */
-const accountFormState = reactive({
-  accountName: 'My Account',
-  emailAddress: 'me@example.com',
-  phone: {
-    countryCode: '+1',
-    countryIso2: 'CA',
-    phoneNumber: '(123) 456-7890',
-    ext: ''
-  },
-  address: {}
-})
-
+const userEmail = 'me@example.com'
 mockNuxtImport('useConnectAccountStore', () => () => ({
-  accountFormState,
-  userFullName: computed(() => 'MockUser Abc123')
+  userFullName: computed(() => 'MockUser Abc123'),
+  userEmail: ref(userEmail)
 }))
-
-/** Schema utility mock */
-vi.mock('#auth/app/utils/schemas/account', () => {
-  return {
-    getAccountCreateSchema: vi.fn(() =>
-      z.object({
-        accountName: z.string(),
-        emailAddress: z.string().email(),
-        phone: z.object({
-          countryCode: z.string(),
-          countryIso2: z.string(),
-          phoneNumber: z.string(),
-          ext: z.string().optional()
-        }),
-        address: z.any()
-      })
-    )
-  }
-})
 
 /** Child component stubs */
 const globalStubs = {
@@ -124,7 +91,7 @@ describe('ConnectAccountCreate', () => {
 
     const input = wrapper.find('#email-input')
     expect(input.exists()).toBe(true)
-    expect((input.element as HTMLInputElement).value).toBe('me@example.com')
+    expect((input.element as HTMLInputElement).value).toBe(userEmail)
   })
 
   it('should render Phone section and extension label', async () => {
@@ -136,7 +103,7 @@ describe('ConnectAccountCreate', () => {
 
     const phoneNumberInput = wrapper.find('#phone-number-input')
     expect(phoneNumberInput.exists()).toBe(true)
-    expect((phoneNumberInput.element as HTMLInputElement).value).toBe('(123) 456-7890')
+    expect((phoneNumberInput.element as HTMLInputElement).value).toBe('')
 
     const phoneExtInput = wrapper.find('#phone-ext-input')
     expect(phoneExtInput.exists()).toBe(true)

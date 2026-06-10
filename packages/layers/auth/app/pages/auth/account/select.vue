@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { FormSubmitEvent } from '@nuxt/ui'
+
 definePageMeta({
   layout: 'connect-auth',
   alias: ['/auth/account/create'],
@@ -7,65 +9,88 @@ definePageMeta({
 
 const route = useRoute()
 const rtc = useRuntimeConfig().public
-const accountStore = useConnectAccountStore()
+const store = useConnectAccountStore()
 const { authUser } = useConnectAuth()
 const { finalRedirect } = useConnectAccountFlowRedirect()
-const { clearAccountState } = useConnectAccountStore()
-const { isLoading } = storeToRefs(useConnectAccountStore())
-const isAccountCreateRoute = computed(() => route.path.includes('create'))
+const mutate = useConnectAuthMutation()
+const { mutateAsync: createAccount } = mutate.createAccount()
+const { mutateAsync: updateContact } = mutate.updateOrCreateUserContact()
 
+const isSubmitting = ref(false)
 const addNew = ref(false)
+
+const showAccountList = computed(() => !addNew.value)
 const pageTitle = computed(() =>
-  !addNew.value ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation')
+  showAccountList.value
+    ? $t('connect.label.existingAccountFound')
+    : $t('connect.label.sbcAccountCreation')
 )
 
 useHead({
   title: pageTitle
 })
 
-async function selectAndRedirect(id: number) {
-  await accountStore.switchCurrentAccount(id)
-  finalRedirect(useRoute())
+function selectAndRedirect(id: number) {
+  store.switchCurrentAccount(id)
+  return finalRedirect(route)
+}
+
+async function onSubmitCreateAccount(e: FormSubmitEvent<AccountProfileSchema>) {
+  const isFirstAccount = store.userAccounts.length === 0
+  const contactMethod = isFirstAccount ? 'POST' : 'PUT' // if 0 accounts the contact is new
+
+  try {
+    isSubmitting.value = true
+    const { accountPayload, contactPayload } = formatCreateAccountPayload(e.data)
+    const res = await createAccount({ payload: accountPayload, silent: true })
+    await store.loadUserAccounts(true)
+    await updateContact({
+      payload: contactPayload,
+      silent: true,
+      method: contactMethod
+    }).catch() // swallow errors from contact update, account was created and user can proceed
+    return selectAndRedirect(res.id)
+  } catch {
+    useConnectAuthModals().openCreateAccountModal()
+    isSubmitting.value = false
+  }
 }
 
 onBeforeMount(() => {
-  if ((accountStore.userAccounts.length === 0 && authUser.value.loginSource === ConnectLoginSource.BCSC)
-    || isAccountCreateRoute.value) {
+  const isBcscNoAccounts = store.userAccounts.length === 0 && authUser.value.loginSource === ConnectLoginSource.BCSC
+  const isCreatePath = route.path.includes('create')
+
+  if (isBcscNoAccounts || isCreatePath) {
     addNew.value = true
   }
 })
-
-const toggleCreateNewAccount = () => {
-  addNew.value = !addNew.value
-  clearAccountState()
-}
 </script>
 
 <template>
   <UContainer class="max-w-6xl">
     <ConnectTransitionFade>
       <div class="space-y-6 sm:space-y-10">
-        <h1>{{ !addNew ? $t('connect.label.existingAccountFound') : $t('connect.label.sbcAccountCreation') }}</h1>
-        <ConnectAccountExistingAlert v-if="!addNew" />
+        <h1>{{ pageTitle }}</h1>
+        <ConnectAccountExistingAlert v-if="showAccountList" />
       </div>
     </ConnectTransitionFade>
 
     <ConnectTransitionFade>
       <ConnectAccountExistingList
-        v-if="addNew === false"
-        :accounts="accountStore.userAccounts"
+        v-if="showAccountList"
+        :accounts="store.userAccounts"
         @select="selectAndRedirect"
       />
 
       <ConnectAccountCreate
         v-else
-        ref="account-create-form-ref"
+        @submit="onSubmitCreateAccount"
       />
     </ConnectTransitionFade>
 
     <!-- Select Account Actions -->
     <div
-      v-if="!addNew"
+      v-if="showAccountList"
       class="flex justify-center"
       data-testid="select-account-button-wrapper"
     >
@@ -77,7 +102,7 @@ const toggleCreateNewAccount = () => {
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
-        @click="toggleCreateNewAccount"
+        @click="addNew = true"
       />
       <UButton
         v-else
@@ -94,22 +119,22 @@ const toggleCreateNewAccount = () => {
 
     <!-- Create Account Actions -->
     <div
-      v-if="addNew"
+      v-if="!showAccountList"
       class="flex justify-end gap-x-3"
       data-testid="create-account-button-wrapper"
     >
       <UButton
         variant="outline"
         :label="$t('connect.label.back')"
-        :disabled="isLoading"
+        :disabled="isSubmitting"
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
-        @click="toggleCreateNewAccount"
+        @click="addNew = false"
       />
       <UButton
         :label="$t('connect.label.saveAndContinue')"
-        :loading="isLoading"
+        :loading="isSubmitting"
         form="account-create-form"
         class="w-full justify-center sm:w-min sm:justify-normal"
         trailing

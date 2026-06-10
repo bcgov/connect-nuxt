@@ -1,30 +1,19 @@
-import { getAccountCreateSchema } from '#auth/app/utils/schemas/account'
-import type { AccountProfileSchema } from '#auth/app/utils/schemas/account'
-
 export const useConnectAccountStore = defineStore('connect-auth-account-store', () => {
-  const { $authApi } = useNuxtApp()
   const rtc = useRuntimeConfig().public
   const { authUser } = useConnectAuth()
-  const { useCreateAccount, useUpdateOrCreateUserContact, getAuthUserProfile } = useAuthApi()
-  const { finalRedirect } = useConnectAccountFlowRedirect()
+  const service = useConnectAuthService()
+  // FUTURE: uncomment when fix is made in auth api - ticket: 33711
+  // const queryCache = useQueryCache()
+  // const { keys } = useConnectAuthQueryKeys()
 
-  // selected user account
   const currentAccount = ref<ConnectAccount>({} as ConnectAccount)
   const userAccounts = ref<ConnectAccount[]>([])
   const currentAccountName = computed<string>(() => currentAccount.value?.label || '')
-  const pendingApprovalCount = ref<number>(0)
-  const user = computed(() => authUser.value)
   const userEmail = ref<string>('')
-  const userFirstName = ref<string>(user.value?.firstName || '-')
-  const userLastName = ref<string>(user.value?.lastName || '')
+  const userFirstName = ref<string>(authUser.value?.firstName || '-')
+  const userLastName = ref<string>(authUser.value?.lastName || '')
   const userFullName = computed(() => `${userFirstName.value} ${userLastName.value}`)
 
-  // Create account
-  const isLoading = ref<boolean>(false)
-  const { createAccount } = useCreateAccount()
-  const { updateOrCreateUserContact } = useUpdateOrCreateUserContact()
-  const createAccountProfileSchema = getAccountCreateSchema()
-  const accountFormState = reactive<AccountProfileSchema>(createAccountProfileSchema.parse({}))
   /**
    * Checks if the current account or the Keycloak user has any of the specified roles.
    *
@@ -52,103 +41,37 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     return accountId === currentAccount.value.id
   }
 
-  /** Update user information in AUTH with current token info */
-  async function updateAuthUserInfo(): Promise<void> {
-    await $authApi('/users', {
-      method: 'POST',
-      body: { isLogin: true }
-    })
-  }
-
-  /** Map AccountFormState -> CreateAccountPayload */
-  function createAccountPayload(): ConnectCreateAccount {
-    return {
-      accessType: ConnectAccessType.REGULAR,
-      mailingAddress: {
-        city: accountFormState.address.city,
-        country: accountFormState.address.country,
-        region: accountFormState.address.region ?? '',
-        postalCode: accountFormState.address.postalCode ?? '',
-        street: accountFormState.address.street,
-        streetAdditional: accountFormState.address.streetAdditional || '',
-        deliveryInstructions: accountFormState.address.locationDescription || ''
-      },
-      name: accountFormState.accountName,
-      paymentInfo: { paymentMethod: ConnectPaymentMethod.DIRECT_PAY },
-      productSubscriptions: [{ productCode: ConnectProductCode.BUSINESS }]
-    }
-  }
-
-  /** Submit create account and user contact update requests */
-  async function submitCreateAccount(): Promise<void> {
-    try {
-      isLoading.value = true
-      // Create Account
-      const payload = createAccountPayload()
-      await createAccount({
-        payload,
-        // Update User Contact Info on create account success
-        successCb: async (createResponse: ConnectAuthProfile) => {
-          // Refresh and switch to new account prior to redirect
-          if (createResponse?.id) {
-            await setAccountInfo()
-            await switchCurrentAccount(createResponse.id)
-          }
-
-          // Update or create user contact and then redirect regardless of success or failure
-          await updateOrCreateUserContact({
-            email: accountFormState.emailAddress,
-            phone: accountFormState.phone.phoneNumber,
-            phoneExtension: accountFormState.phone.ext,
-            method: userAccounts.value.length === 1 ? 'POST' : 'PUT', // if only 1 account exists then contact is new
-            successCb: async () => await finalRedirect(useRoute()),
-            errorCb: async () => await finalRedirect(useRoute())
-          })
-        }
-      })
-    } catch (error) {
-      // Error handled in useAuthApi
-      console.error('Account Create Submission Error: ', error)
-    } finally {
-      isLoading.value = false
-    }
-  }
-
   /** Set user name and default email from profile */
-  async function setUserName() {
-    const { data, refresh } = await getAuthUserProfile()
-    await refresh()
-    if (data.value?.firstname && data.value?.lastname) {
-      userFirstName.value = data.value.firstname
-      userLastName.value = data.value.lastname
-    } else {
-      userFirstName.value = user.value?.firstName || '-'
-      userLastName.value = user.value?.lastName || ''
+  async function syncUserProfile() {
+    const profile = await service.updateAuthUserProfile().catch(() => undefined)
+
+    if (!profile) {
+      return
     }
 
-    // Pre-populate email from the user's existing contact if available
-    const contactEmail = data.value?.contacts?.[0]?.email
+    const { firstname, lastname, contacts } = profile
+
+    if (firstname && lastname) {
+      userFirstName.value = firstname
+      userLastName.value = lastname
+    } else {
+      userFirstName.value = authUser.value?.firstName || '-'
+      userLastName.value = authUser.value?.lastName || ''
+    }
+
+    // set email from the user's existing contact if available
+    const contactEmail = contacts?.[0]?.email
     if (contactEmail) {
       userEmail.value = contactEmail
-      if (!accountFormState.emailAddress) {
-        accountFormState.emailAddress = contactEmail
-      }
     }
-  }
 
-  /** Get the user's account list */
-  async function getUserAccounts(): Promise<ConnectAccount[] | undefined> {
-    if (!authUser.value?.keycloakGuid && !rtc.playwright) {
-      return undefined
-    }
-    // TODO: use orgs fetch instead to get branch name ? $authApi<UserSettings[]>('/users/orgs')
-    const response = await $authApi<ConnectUserSettings[]>(`/users/${authUser.value.keycloakGuid}/settings`)
-    return response?.filter(setting => setting.type === UserSettingsType.ACCOUNT) as ConnectAccount[]
+    // add user profile response to cache // FUTURE: uncomment when fix is made in auth api - ticket: 33711
+    // queryCache.setQueryData(keys.userProfile(), profile)
   }
 
   /** Set the user account list and current account */
-  async function setAccountInfo(): Promise<void> {
-    const accounts = await getUserAccounts()
+  async function loadUserAccounts(force = false): Promise<void> {
+    const accounts = await service.getUserAccounts(force).catch(() => undefined)
     if (accounts && accounts[0]) {
       userAccounts.value = accounts
       if (!currentAccount.value.id || !userAccounts.value.some(account => account.id === currentAccount.value.id)) {
@@ -158,25 +81,15 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   /** Switch the current account to the given account ID if it exists in the user's account list */
-  async function switchCurrentAccount(accountId: number) {
+  function switchCurrentAccount(accountId: number) {
     const account = userAccounts.value.find(account => account.id === accountId)
     if (account) {
       currentAccount.value = account
-      await checkAccountStatus()
+      return checkAccountStatus()
     }
   }
 
-  async function getPendingApprovalCount(): Promise<void> {
-    const accountId = currentAccount.value?.id
-    const keycloakGuid = authUser.value?.keycloakGuid
-    if (!accountId || !keycloakGuid) {
-      return
-    }
-    const response = await $authApi<{ count: number }>(`/users/${keycloakGuid}/org/${accountId}/notifications`)
-    pendingApprovalCount.value = response?.count || 0
-  }
-
-  async function checkAccountStatus() {
+  function checkAccountStatus() {
     // redirect if account status is suspended or in review
     if ([AccountStatus.NSF_SUSPENDED, AccountStatus.SUSPENDED].includes(currentAccount.value?.accountStatus)) {
       // Avoid redirecting when navigating back from PAYBC for NSF or signout.
@@ -187,7 +100,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         const redirectUrl = `${rtc.authWebUrl}account-freeze`
         // TODO: should probably change this to check 'appName' when auth starts using the core layer
         const external = rtc.authWebUrl !== rtc.baseUrl
-        await navigateTo(redirectUrl, { external })
+        return navigateTo(redirectUrl, { external })
       }
     } else if (currentAccount.value?.accountStatus === AccountStatus.PENDING_STAFF_REVIEW) {
       // check the path is allowed for pending approval account
@@ -203,27 +116,20 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
         const redirectUrl = `${rtc.authWebUrl}pendingapproval/${accountNameEncoded}/true`
         // TODO: should probably change this to check 'appName' when auth starts using the core layer
         const external = rtc.authWebUrl !== rtc.baseUrl
-        await navigateTo(redirectUrl, { external })
+        return navigateTo(redirectUrl, { external })
       }
     }
   }
 
-  async function initAccountStore(): Promise<void> {
+  async function initAccountStore() {
     try {
-      await Promise.all([
-        setAccountInfo(),
-        updateAuthUserInfo(),
-        setUserName()
-      ])
+      await loadUserAccounts()
 
       if (currentAccount.value.id) {
-        await Promise.all([
-          checkAccountStatus(),
-          getPendingApprovalCount()
-        ])
+        return checkAccountStatus()
       }
     } catch (e) {
-      logFetchError(e, '[Account Store] - Error during initialization')
+      logFetchError(e, '[Account Store] - Failed to load user acccounts.')
     }
   }
 
@@ -231,38 +137,24 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     sessionStorage.removeItem('connect-auth-account-store')
     currentAccount.value = {} as ConnectAccount
     userAccounts.value = []
-    pendingApprovalCount.value = 0
-    userFirstName.value = user.value?.firstName || '-'
-    userLastName.value = user.value?.lastName || ''
-    clearAccountState()
-  }
-
-  function clearAccountState() {
-    Object.assign(accountFormState, createAccountProfileSchema.parse({}))
-    if (userEmail.value) {
-      accountFormState.emailAddress = userEmail.value
-    }
+    userFirstName.value = authUser.value?.firstName || '-'
+    userLastName.value = authUser.value?.lastName || ''
+    userEmail.value = ''
   }
 
   return {
-    accountFormState,
     checkAccountStatus,
-    clearAccountState,
-    submitCreateAccount,
-    isLoading,
     currentAccount,
     currentAccountName,
-    getPendingApprovalCount,
-    getUserAccounts,
     hasRoles,
     initAccountStore,
     isCurrentAccount,
-    pendingApprovalCount,
-    setAccountInfo,
-    setUserName,
+    loadUserAccounts,
+    syncUserProfile,
     switchCurrentAccount,
     userAccounts,
     userFullName,
+    userEmail,
     $reset
   }
 },
