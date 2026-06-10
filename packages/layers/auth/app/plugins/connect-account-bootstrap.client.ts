@@ -2,6 +2,7 @@ export default defineNuxtPlugin({
   name: 'connect-account-bootstrap',
   order: -10,
   dependsOn: ['connect-auth', 'auth-api'],
+  parallel: true,
   async setup(nuxtApp) {
     const { isAuthenticated } = useConnectAuth()
     const store = useConnectAccountStore()

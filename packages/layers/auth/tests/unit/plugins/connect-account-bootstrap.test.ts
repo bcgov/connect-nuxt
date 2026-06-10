@@ -48,6 +48,7 @@ describe('Connect Account Bootstrap Plugin', () => {
       expect(plugin._name).toBe('connect-account-bootstrap')
       expect(plugin.order).toBe(-10)
       expect(plugin.dependsOn).toEqual(['connect-auth', 'auth-api'])
+      expect(plugin.parallel).toBe(true)
     })
   })
 
