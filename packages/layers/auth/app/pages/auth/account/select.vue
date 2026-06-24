@@ -25,6 +25,12 @@ const pageTitle = computed(() =>
     ? $t('connect.label.existingAccountFound')
     : $t('connect.label.sbcAccountCreation')
 )
+const createAccountDesc = computed(() => {
+  const desc = useNuxtApp().$i18n.tm('connect.page.createAccount.description')
+  return Array.isArray(desc) && (desc as Array<unknown>).length > 0
+    ? desc
+    : []
+})
 
 useHead({
   title: pageTitle
@@ -69,9 +75,14 @@ onBeforeMount(() => {
 <template>
   <UContainer class="max-w-6xl">
     <ConnectTransitionFade>
-      <div class="space-y-6 sm:space-y-10">
+      <div class="space-y-4 sm:space-y-6">
         <h1>{{ pageTitle }}</h1>
         <ConnectAccountExistingAlert v-if="showAccountList" />
+        <div v-else-if="!showAccountList && createAccountDesc.length" class="space-y-2">
+          <p v-for="text in createAccountDesc" :key="text">
+            {{ $rt(text) }}
+          </p>
+        </div>
       </div>
     </ConnectTransitionFade>
 
@@ -124,6 +135,7 @@ onBeforeMount(() => {
       data-testid="create-account-button-wrapper"
     >
       <UButton
+        v-if="store.userAccounts.length > 0"
         variant="outline"
         :label="$t('connect.label.back')"
         :disabled="isSubmitting"

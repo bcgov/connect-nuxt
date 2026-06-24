@@ -62,7 +62,8 @@ export default {
         phonePlaceholder: 'Enter phone number',
         phoneExtensionLabel: 'Phone extension (Optional)',
         addressLabel: 'Address',
-        countryLabel: 'Country'
+        countryLabel: 'Country',
+        description: []
       }
     },
     sessionExpiry: {
