@@ -2,7 +2,7 @@
   "name": "nuxt-auth-demo-app",
   "private": true,
   "type": "module",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "engines": {
     "node": ">=24"
   },

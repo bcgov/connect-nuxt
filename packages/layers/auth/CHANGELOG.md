@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.13.1
+
+### Patch Changes
+
+- [#176](https://github.com/bcgov/connect-nuxt/pull/176) [`cc88169`](https://github.com/bcgov/connect-nuxt/commit/cc88169964e9c5aa845ac2c7bec6795f6187bf32) Thanks [@deetz99](https://github.com/deetz99)! - Create account page: Add optional body text and hide back button if user has 0 accounts
+
 ## 0.13.0
 
 ### Minor Changes
