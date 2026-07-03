@@ -1,5 +1,17 @@
 # @sbc-connect/nuxt-auth
 
+## 0.14.0
+
+### Minor Changes
+
+- [#178](https://github.com/bcgov/connect-nuxt/pull/178) [`3c8d9bf`](https://github.com/bcgov/connect-nuxt/commit/3c8d9bfdf9147d6fd6ce0dadc4b47f043feb4f4b) Thanks [@deetz99](https://github.com/deetz99)! - Fix type augmentation resolution
+
+### Patch Changes
+
+- Updated dependencies [[`3c8d9bf`](https://github.com/bcgov/connect-nuxt/commit/3c8d9bfdf9147d6fd6ce0dadc4b47f043feb4f4b)]:
+  - @sbc-connect/nuxt-base@0.11.0
+  - @sbc-connect/nuxt-forms@0.7.6
+
 ## 0.13.1
 
 ### Patch Changes

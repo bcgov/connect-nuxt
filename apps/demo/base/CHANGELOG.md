@@ -1,5 +1,12 @@
 # nuxt-base-demo-app
 
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [[`3c8d9bf`](https://github.com/bcgov/connect-nuxt/commit/3c8d9bfdf9147d6fd6ce0dadc4b47f043feb4f4b)]:
+  - @sbc-connect/nuxt-base@0.11.0
+
 ## 0.2.8
 
 ### Patch Changes
