@@ -88,5 +88,20 @@ export default defineNuxtConfig({
         'keycloak-js'
       ]
     }
+  },
+
+  // Nuxt 4 tsconfig `references` context workaround for type augmentation
+  // Forces type augmentations into the correct context
+  // https://nuxt.com/docs/4.x/guide/modules/recipes-advanced#extend-typescript-config
+  // Can also force sharedReferences, nodeReferences - and nitro references using the 'nitro:prepare:types' hook
+  hooks: {
+    'prepare:types': ({ references }) => {
+      // force `#app` augmentations
+      references.push(
+        { path: resolve('./app/types/auth-app-config.d.ts') },
+        { path: resolve('./app/types/auth-nuxt-hooks.d.ts') },
+        { path: resolve('./app/types/auth-page-meta.d.ts') }
+      )
+    }
   }
 })

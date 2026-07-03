@@ -5,3 +5,5 @@ declare module '#app' {
     'connect:auth:refresh': (payload: { token: string | undefined }) => HookResult
   }
 }
+
+export {}

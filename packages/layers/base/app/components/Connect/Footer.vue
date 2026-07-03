@@ -4,6 +4,7 @@ const uiVersion = rtc.version
 const feesUrl = `${rtc.registryHomeUrl}product-fees`
 const dependencyVersions: string[] = useAppConfig().connect?.footer?.versions || []
 const localePath = useLocalePath()
+const { locale } = useI18n()
 const links = [
   {
     label: 'connect.label.home',
@@ -64,7 +65,7 @@ const appVersions = computed<string[]>(() => {
             ]"
           >
             <NuxtLink
-              :to="link.to === '/' ? `/${$i18n.locale}` : link.to"
+              :to="link.to === '/' ? `/${locale}` : link.to"
               :target="link.target"
               :class="[
                 'rounded p-1 text-sm text-secondary',
