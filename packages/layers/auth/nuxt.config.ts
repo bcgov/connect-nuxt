@@ -88,5 +88,20 @@ export default defineNuxtConfig({
         'keycloak-js'
       ]
     }
+  },
+
+  hooks: {
+    'prepare:types': ({ references, sharedReferences, nodeReferences }) => {
+      // extend app context
+      references.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
+      // extend shared context
+      sharedReferences.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
+      // extend node context
+      nodeReferences.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
+    },
+    'nitro:prepare:types': ({ references }) => {
+      // extend server context
+      references.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
+    }
   }
 })
