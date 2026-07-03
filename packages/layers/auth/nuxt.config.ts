@@ -90,25 +90,18 @@ export default defineNuxtConfig({
     }
   },
 
+  // Nuxt 4 tsconfig `references` context workaround for type augmentation
+  // Forces type augmentations into the correct context
+  // https://nuxt.com/docs/4.x/guide/modules/recipes-advanced#extend-typescript-config
+  // Can also force sharedReferences, nodeReferences - and nitro references using the 'nitro:prepare:types' hook
   hooks: {
-    'prepare:types': ({ references, sharedReferences, nodeReferences }) => {
-      const appConfig = { path: resolve('./app/types/auth-app-config.d.ts') }
-      const hooks = { path: resolve('./app/types/auth-nuxt-hooks.d.ts') }
-      const pageMeta = { path: resolve('./app/types/auth-page-meta.d.ts') }
-      // extend app context
-      references.push(appConfig, hooks, pageMeta)
-      // extend shared context
-      // sharedReferences.push(appConfig, hooks, pageMeta)
-      // // extend node context
-      // nodeReferences.push(appConfig, hooks, pageMeta)
+    'prepare:types': ({ references }) => {
+      // force `#app` augmentations
+      references.push(
+        { path: resolve('./app/types/auth-app-config.d.ts') },
+        { path: resolve('./app/types/auth-nuxt-hooks.d.ts') },
+        { path: resolve('./app/types/auth-page-meta.d.ts') }
+      )
     }
-    // 'nitro:prepare:types': ({ references }) => {
-    //   // extend server context
-    //   references.push(
-    //     { path: resolve('./app/types/auth-app-config.d.ts') },
-    //     { path: resolve('./app/types/auth-nuxt-hooks.d.ts') },
-    //     { path: resolve('./app/types/auth-page-meta.d.ts') }
-    //   )
-    // }
   }
 })
