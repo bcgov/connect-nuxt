@@ -8,12 +8,14 @@ const {
   username?: string
   theme?: 'header' | 'dropdown'
 }>()
+
+const { locale } = useI18n()
 </script>
 
 <template>
   <div class="flex items-center gap-1">
     <UAvatar
-      :text="username[0] ? username[0].toLocaleUpperCase($i18n.locale) : 'U'"
+      :text="username[0] ? username[0].toLocaleUpperCase(locale) : 'U'"
       size="md"
       class="text-inverted self-start sm:self-center"
       :ui="{ root: 'bg-blue-300 rounded-none text-lg', fallback: 'text-inverted font-bold' }"

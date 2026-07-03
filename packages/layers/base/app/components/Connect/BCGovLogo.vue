@@ -8,11 +8,13 @@ import frSmallLogo from 'BCGovLogoSmFr'
 import enLargeLogo from 'BCGovLogoLgEn'
 // @ts-expect-error - Cannot find module 'BCGovLogoSmEn' or its corresponding type declarations.ts(2307)
 import enSmallLogo from 'BCGovLogoSmEn'
+
+const { locale } = useI18n()
 </script>
 
 <template>
   <!-- use french logo for french locale, any other locale uses english logo -->
-  <div v-if="$i18n.locale === 'fr-CA'" class="shrink-0">
+  <div v-if="locale === 'fr-CA'" class="shrink-0">
     <!-- Using scale because it will increase the size of the image without affecting the container size -->
     <!-- there is a lot of padding on the images, if only the height gets increased,  -->
     <!-- the padding makes the header too tall -->

@@ -92,16 +92,23 @@ export default defineNuxtConfig({
 
   hooks: {
     'prepare:types': ({ references, sharedReferences, nodeReferences }) => {
+      const appConfig = { path: resolve('./app/types/auth-app-config.d.ts') }
+      const hooks = { path: resolve('./app/types/auth-nuxt-hooks.d.ts') }
+      const pageMeta = { path: resolve('./app/types/auth-page-meta.d.ts') }
       // extend app context
-      references.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
+      references.push(appConfig, hooks, pageMeta)
       // extend shared context
-      sharedReferences.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
-      // extend node context
-      nodeReferences.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
-    },
-    'nitro:prepare:types': ({ references }) => {
-      // extend server context
-      references.push({ path: resolve('./app/types/auth-nuxt-hooks.d.ts') })
+      // sharedReferences.push(appConfig, hooks, pageMeta)
+      // // extend node context
+      // nodeReferences.push(appConfig, hooks, pageMeta)
     }
+    // 'nitro:prepare:types': ({ references }) => {
+    //   // extend server context
+    //   references.push(
+    //     { path: resolve('./app/types/auth-app-config.d.ts') },
+    //     { path: resolve('./app/types/auth-nuxt-hooks.d.ts') },
+    //     { path: resolve('./app/types/auth-page-meta.d.ts') }
+    //   )
+    // }
   }
 })
