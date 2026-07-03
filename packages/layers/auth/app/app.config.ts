@@ -1,4 +1,4 @@
-import { ConnectIdpHint } from '#imports'
+// import { ConnectIdpHint } from '#imports'
 import type { AppConfigInput } from 'nuxt/schema'
 
 export default defineAppConfig({
