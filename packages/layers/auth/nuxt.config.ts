@@ -96,11 +96,11 @@ export default defineNuxtConfig({
   // Can also force sharedReferences, nodeReferences - and nitro references using the 'nitro:prepare:types' hook
   hooks: {
     'prepare:types': ({ references }) => {
-      // force `#app` augmentations
       references.push(
         { path: resolve('./app/types/auth-app-config.d.ts') },
         { path: resolve('./app/types/auth-nuxt-hooks.d.ts') },
-        { path: resolve('./app/types/auth-page-meta.d.ts') }
+        { path: resolve('./app/types/auth-page-meta.d.ts') },
+        { path: resolve('./app/types/auth-plugins.d.ts') }
       )
     }
   }
