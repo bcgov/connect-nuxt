@@ -1,5 +1,5 @@
 import type { $Fetch } from 'ofetch'
-import type Keycloak from 'keycloak'
+import type Keycloak from 'keycloak-js'
 
 declare module '#app' {
   interface NuxtApp {
