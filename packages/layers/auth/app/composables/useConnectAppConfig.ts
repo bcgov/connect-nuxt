@@ -7,7 +7,7 @@ export const useConnectAppConfig = () => {
    */
   function mergeAppConfigOverrides(
     baseConfig: ConnectConfig,
-    presetName: ConnectPresetType
+    presetName: string
   ): ConnectConfig {
     const appConfig = useAppConfig()
     const overrides = appConfig.connectOverrides?.[presetName] ?? null
