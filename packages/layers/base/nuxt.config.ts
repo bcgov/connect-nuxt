@@ -157,5 +157,17 @@ export default defineNuxtConfig({
         'zod'
       ]
     }
+  },
+
+  // Nuxt 4 tsconfig `references` context workaround for type augmentation
+  // Forces type augmentations into the correct context
+  // https://nuxt.com/docs/4.x/guide/modules/recipes-advanced#extend-typescript-config
+  // Can also force sharedReferences, nodeReferences - and nitro references using the 'nitro:prepare:types' hook
+  hooks: {
+    'prepare:types': ({ references }) => {
+      references.push(
+        { path: resolve('./app/types/base-plugins.d.ts') }
+      )
+    }
   }
 })
