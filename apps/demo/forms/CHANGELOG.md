@@ -1,5 +1,12 @@
 # nuxt-forms-demo-app
 
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sbc-connect/nuxt-forms@0.7.7
+
 ## 0.2.12
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @sbc-connect/nuxt-pay
 
+## 0.6.0
+
+### Minor Changes
+
+- [#180](https://github.com/bcgov/connect-nuxt/pull/180) [`4e25088`](https://github.com/bcgov/connect-nuxt/commit/4e250886da973eda99044ff1c34383604b05d718) Thanks [@deetz99](https://github.com/deetz99)! - Force type resolutions via nuxt config prepare:types hook.
+
+### Patch Changes
+
+- Updated dependencies [[`4e25088`](https://github.com/bcgov/connect-nuxt/commit/4e250886da973eda99044ff1c34383604b05d718)]:
+  - @sbc-connect/nuxt-auth@0.15.0
+
 ## 0.5.3
 
 ### Patch Changes
