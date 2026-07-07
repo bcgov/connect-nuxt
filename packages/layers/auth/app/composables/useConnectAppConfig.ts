@@ -1,5 +1,4 @@
-import { useAppConfig } from '#imports'
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const useConnectAppConfig = () => {
   /**
    * Merge preset overrides (from app.config.connectOverrides) into the provided baseConfig.
@@ -7,10 +6,10 @@ export const useConnectAppConfig = () => {
    */
   function mergeAppConfigOverrides(
     baseConfig: ConnectConfig,
-    presetName: ConnectPresetType
+    presetName: string
   ): ConnectConfig {
     const appConfig = useAppConfig()
-    const overrides = appConfig.connectOverrides?.[presetName] ?? null
+    const overrides = (appConfig.connectOverrides as Record<string, any>)?.[presetName] ?? null
 
     return {
       ...baseConfig,
