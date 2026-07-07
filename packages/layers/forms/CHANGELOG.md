@@ -1,5 +1,12 @@
 # @sbc-connect/nuxt-forms
 
+## 0.7.7
+
+### Patch Changes
+
+- Updated dependencies [[`4e25088`](https://github.com/bcgov/connect-nuxt/commit/4e250886da973eda99044ff1c34383604b05d718)]:
+  - @sbc-connect/nuxt-base@0.12.0
+
 ## 0.7.6
 
 ### Patch Changes
