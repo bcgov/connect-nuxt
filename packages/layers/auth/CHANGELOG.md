@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.16.0
+
+### Minor Changes
+
+- [#183](https://github.com/bcgov/connect-nuxt/pull/183) [`7319c2e`](https://github.com/bcgov/connect-nuxt/commit/7319c2ec4da24854e67fab7446dac11e3f936b8f) Thanks [@deetz99](https://github.com/deetz99)! - Loosen typing for idps in app config, delete unused ConnectValidIdps type and getValidIdps function.
+
 ## 0.15.0
 
 ### Minor Changes
