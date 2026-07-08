@@ -1,6 +1,8 @@
+type IdpList = Array<'bcsc' | 'bceid' | 'idir'>
+
 export interface ConnectLoginConfig {
   redirect: string
-  idps: ConnectIdpHint[]
+  idps: IdpList
   skipAccountRedirect: boolean
   idpEnforcement: boolean
   alert?: {
@@ -8,6 +10,8 @@ export interface ConnectLoginConfig {
     message?: string
   }
 }
+
+export type ConnectLoginConfigInput = Partial<ConnectLoginConfig>
 
 export interface ConnectLogoutConfig {
   redirect: string
@@ -31,6 +35,13 @@ export interface ConnectConfig {
   logout: ConnectLogoutConfig
   header: ConnectHeaderConfig
   footer?: ConnectFooterConfig
+}
+
+export interface ConnectConfigInput {
+  login?: Partial<ConnectLoginConfigInput>
+  logout?: Partial<ConnectLogoutConfig>
+  header?: Partial<ConnectHeaderConfig>
+  footer?: Partial<ConnectFooterConfig>
 }
 
 export interface ConnectPresetOverrides {

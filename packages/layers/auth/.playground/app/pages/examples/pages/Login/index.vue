@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Login from '#auth/app/pages/auth/login.vue'
-import { ConnectIdpHint, useAppConfig } from '#imports'
 
 const appConfig = useAppConfig()
 
@@ -18,7 +17,7 @@ onMounted(() => {
   appConfig.connectOverrides = {
     bcscUser: {
       login: {
-        idps: [ConnectIdpHint.BCSC],
+        idps: ['bcsc'],
         idpEnforcement: true,
         alert: {
           title: 'Welcome to the new Business Registry',
@@ -29,7 +28,7 @@ onMounted(() => {
     },
     defaultUser: {
       login: {
-        idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
+        idps: ['bcsc', 'bceid', 'idir'],
         idpEnforcement: false,
         alert: undefined
       }

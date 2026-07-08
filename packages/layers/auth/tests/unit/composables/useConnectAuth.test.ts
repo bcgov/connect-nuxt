@@ -1,7 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { ConnectIdpHint } from '#auth/app/enums/connect-idp-hint'
-import { useConnectAuth } from '../../../app/composables/useConnectAuth'
 
 let mockAuthenticated = false
 const mockTokenParsed = {

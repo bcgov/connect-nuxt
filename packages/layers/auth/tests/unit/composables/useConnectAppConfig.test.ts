@@ -6,13 +6,13 @@ mockNuxtImport('useAppConfig', () => () => ({
   connectOverrides: {
     bcscUser: {
       login: {
-        idps: [ConnectIdpHint.BCSC],
+        idps: ['bcsc'],
         idpEnforcement: true
       }
     },
     defaultUser: {
       login: {
-        idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
+        idps: ['bcsc', 'bceid', 'idir'],
         idpEnforcement: false
       }
     }
@@ -21,7 +21,7 @@ mockNuxtImport('useAppConfig', () => () => ({
 
 const BASE_CONFIG: ConnectConfig = {
   login: {
-    idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
+    idps: ['bcsc', 'bceid', 'idir'],
     redirect: '/dashboard',
     idpEnforcement: false,
     skipAccountRedirect: false
@@ -43,7 +43,7 @@ describe('mergeAppConfigOverrides (connectPresets)', () => {
 
   it('applies "defaultUser" shallow merge', () => {
     const result = mergeAppConfigOverrides(BASE_CONFIG as any, 'defaultUser')
-    expect(result.login.idps).toEqual([ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR])
+    expect(result.login.idps).toEqual(['bcsc', 'bceid', 'idir'])
     expect(result.login.idpEnforcement).toBe(false)
     expect(result.login.redirect).toBe('/dashboard')
   })
@@ -51,14 +51,14 @@ describe('mergeAppConfigOverrides (connectPresets)', () => {
   it('applies "bcscUser" shallow merge', async () => {
     const result = mergeAppConfigOverrides(BASE_CONFIG as any, 'bcscUser')
 
-    expect(result.login.idps).toEqual([ConnectIdpHint.BCSC])
+    expect(result.login.idps).toEqual(['bcsc'])
     expect(result.login.idpEnforcement).toBe(true)
     expect(result.login.redirect).toBe('/dashboard')
   })
 
   it('unknown preset → base unchanged', () => {
     const result = mergeAppConfigOverrides(BASE_CONFIG as any, 'unknown' as any)
-    expect(result.login.idps).toEqual([ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR])
+    expect(result.login.idps).toEqual(['bcsc', 'bceid', 'idir'])
     expect(result.login.idpEnforcement).toBe(false)
     expect(result.login.redirect).toBe('/dashboard')
   })

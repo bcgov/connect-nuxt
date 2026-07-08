@@ -1,11 +1,10 @@
-import { ConnectIdpHint } from './enums/connect-idp-hint'
 import type { AppConfigInput } from 'nuxt/schema'
 
 export default defineAppConfig({
   connect: {
     login: {
       redirect: '/',
-      idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR],
+      idps: ['bcsc', 'bceid', 'idir'],
       skipAccountRedirect: false,
       idpEnforcement: false
     },

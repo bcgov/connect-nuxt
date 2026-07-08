@@ -1,7 +1,7 @@
 declare module 'nuxt/schema' {
   /** What users can write in app.config.ts */
   interface AppConfigInput {
-    connect?: Partial<ConnectConfig>
+    connect?: ConnectConfigInput
     connectOverrides?: Record<string, ConnectPresetOverrides | null>
   }
 

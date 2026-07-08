@@ -6,7 +6,7 @@ catalog:
   '@axe-core/playwright': 4.11.3
   '@nuxt/test-utils': 3.21.0
   dotenv: 17.4.2
-  nuxt: 4.4.6
+  nuxt: 4.4.8
   typescript: 6.0.3
   vue-tsc: 3.3.1
 
@@ -19,3 +19,9 @@ onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
   - vue-demi
+
+overrides:
+  vue: 3.5.39
+  '@vue/runtime-core': 3.5.39
+  '@vue/runtime-dom': 3.5.39
+  '@vue/reactivity': 3.5.39
