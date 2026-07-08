@@ -11,9 +11,7 @@ export interface ConnectLoginConfig {
   }
 }
 
-export interface ConnectLoginConfigInput extends Omit<ConnectLoginConfig, 'idps'> {
-  idps: IdpList | (() => IdpList)
-}
+export type ConnectLoginConfigInput = Partial<ConnectLoginConfig>
 
 export interface ConnectLogoutConfig {
   redirect: string
