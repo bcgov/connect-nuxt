@@ -1,6 +1,6 @@
 export interface ConnectLoginConfig {
   redirect: string
-  idps: ConnectIdpHint[]
+  idps: Array<'bcsc' | 'bceid' | 'idir'>
   skipAccountRedirect: boolean
   idpEnforcement: boolean
   alert?: {

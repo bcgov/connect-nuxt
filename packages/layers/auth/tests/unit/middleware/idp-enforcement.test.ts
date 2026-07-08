@@ -46,7 +46,7 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
     mockAuthUser.value = { loginSource: 'BCSC' }
     mockAppConfigConnect.login = {
       idpEnforcement: true,
-      idps: [ConnectIdpHint.BCSC, ConnectIdpHint.BCEID, ConnectIdpHint.IDIR]
+      idps: ['bcsc', 'bceid', 'idir']
     } as ConnectLoginConfig
   })
 
@@ -82,7 +82,7 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
 
   it('opens modal when user loginSource is NOT allowed', async () => {
     // Disallow BCSC
-    mockAppConfigConnect.login.idps = [ConnectIdpHint.BCEID] // only bceid allowed
+    mockAppConfigConnect.login.idps = ['bceid'] // only bceid allowed
     mockAuthUser.value = { loginSource: 'BCSC' }
 
     const result = await idpEnforcementMiddleware(baseTo, baseTo as any)
@@ -117,7 +117,7 @@ describe('connect-idp-enforcement middleware (with modal)', () => {
   })
 
   it('handles case-insensitive loginSource vs idps comparison', async () => {
-    mockAppConfigConnect.login.idps = [ConnectIdpHint.BCSC]
+    mockAppConfigConnect.login.idps = ['bcsc']
     mockAuthUser.value = { loginSource: 'BcSc' } // mixed case
 
     const result = await idpEnforcementMiddleware(baseTo, baseTo as any)

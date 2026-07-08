@@ -9,11 +9,11 @@ export default defineNuxtRouteMiddleware(async (to) => {
   // IDP Enforcement Config
   const connectConfig = appConfig.connect as ConnectConfig
   const idpEnforcement = connectConfig?.login?.idpEnforcement
-  const allowedIdps = connectConfig?.login?.idps
+  const allowedIdps = connectConfig?.login?.idps as string[]
 
   if (idpEnforcement && authUser.value?.loginSource) {
     // User's IDP is not allowed, display idp enforcement modal
-    if (!allowedIdps?.includes(authUser.value?.loginSource.toLowerCase() as unknown as ConnectIdpHint)) {
+    if (!allowedIdps?.includes(authUser.value?.loginSource.toLowerCase())) {
       // Pass redirect url to preserve any query params
       const pathWithQuery = withQuery(localePath('/auth/login'), to.query)
       const url = `${window.location.origin}${pathWithQuery}`

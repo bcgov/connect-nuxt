@@ -1,10 +1,8 @@
-import { ConnectIdpHint } from '#auth/app/enums/connect-idp-hint'
-
 export default defineAppConfig({
   connectOverrides: {
     bcscOnly: {
       login: {
-        idps: [ConnectIdpHint.BCSC],
+        idps: ['bcsc'],
         idpEnforcement: true
       }
     }
