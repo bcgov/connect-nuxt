@@ -84,6 +84,11 @@ export default {
       }
     }
   },
+  validation: {
+    dateNotBeforeMin: 'La date doit être le {date} ou après',
+    dateNotAfterMax: 'La date doit être le {date} ou avant',
+    dateNotInRange: 'La date doit être entre {minDate} et {maxDate}'
+  },
   ConnectModalSessionExpiring: {
     title: "Session Sur Le Point D'Expirer",
     content: "Votre session est sur le point d'expirer en raison d'inactivité. Vous serez déconnecté dans {boldStart}0{boldEnd} secondes. Appuyez sur n’importe quelle touche pour continuer votre session. | Votre session est sur le point d'expirer en raison d'inactivité. Vous serez déconnecté dans {boldStart}1{boldEnd} seconde. Appuyez sur n’importe quelle touche pour continuer votre session. | Votre session est sur le point d'expirer en raison d'inactivité. Vous serez déconnecté dans {boldStart}{count}{boldEnd} secondes. Appuyez sur n’importe quelle touche pour continuer votre session.",
