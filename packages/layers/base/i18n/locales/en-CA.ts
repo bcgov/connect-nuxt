@@ -22,6 +22,7 @@ export default {
       bcApp: 'A BC Online Application',
       bcGovLogo: 'Government of British Columbia Logo',
       cancel: 'Cancel',
+      clear: 'Clear',
       close: 'Close',
       contactInformation: 'Contact Information',
       copyright: 'Copyright',
@@ -33,6 +34,7 @@ export default {
       hoursOfOperation: 'Hours of Operation',
       localeSelect: 'Select a Language, current language: English',
       privacy: 'Privacy',
+      selectDate: 'Select Date',
       whatsNew: "What's New",
       whatsNewAria: "What's New, {count} unread",
       whatsNewSlideover: "What's New at BC Registries"

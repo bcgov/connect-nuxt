@@ -26,8 +26,15 @@ const form = reactive({
 })
 
 const submittedDate = ref<string | null>(null)
+const dateComponentRef = useTemplateRef('date-component-ref')
 
-function onSubmit() {
+async function onSubmit() {
+  try {
+    await dateComponentRef.value?.formRef?.validate()
+  }
+  catch {
+    return
+  }
   submittedDate.value = form.date
   console.info(form.date)
 }
@@ -122,6 +129,7 @@ function onSubmit() {
     <ConnectPageSection :heading="{ label: 'Form Example' }" ui-body="p-4 space-y-4">
       <UForm :state="form" class="space-y-8">
         <ConnectInputDate
+          ref="date-component-ref"
           id="form-date"
           v-model="form.date"
           label="Form Date"

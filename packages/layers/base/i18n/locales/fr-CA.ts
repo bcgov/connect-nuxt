@@ -22,6 +22,7 @@ export default {
       appVersion: "Version de l'Application",
       bcApp: 'Une application en ligne CB',
       bcGovLogo: 'Logo du gouvernement de la Colombie-Britannique',
+      clear: 'Effacer',
       copyright: "Droits d'auteur",
       disclaimer: 'Clause de non-responsabilité',
       fees: 'Frais',
@@ -29,13 +30,20 @@ export default {
       home: 'Accueil',
       localeSelect: 'Sélectionnez une langue, langue courante: Français',
       privacy: 'Confidentialité',
+      selectDate: 'Sélectionner une date',
       whatsNew: 'Nouveautés',
       whatsNewAria: 'Nouveautés, {count} non lues',
       whatsNewSlideover: 'Nouveautés — Registres de la CB'
     },
     text: {
+      dateFormat: 'Format: Mois JJ, AAAA (Ex. janvier 1, 2026)',
       whatsNewSlideoverDescription: ' ',
       whatsNewSlideoverEmpty: 'Aucune nouveauté.'
+    },
+    validation: {
+      dateNotBeforeMin: 'La date doit être le {date} ou après',
+      dateNotAfterMax: 'La date doit être le {date} ou avant',
+      dateNotInRange: 'La date doit être entre {minDate} et {maxDate}'
     }
   },
   btn: {
@@ -83,11 +91,6 @@ export default {
         content: 'Une erreur inconnue s’est produite, veuillez actualiser la page ou réessayer plus tard.'
       }
     }
-  },
-  validation: {
-    dateNotBeforeMin: 'La date doit être le {date} ou après',
-    dateNotAfterMax: 'La date doit être le {date} ou avant',
-    dateNotInRange: 'La date doit être entre {minDate} et {maxDate}'
   },
   ConnectModalSessionExpiring: {
     title: "Session Sur Le Point D'Expirer",

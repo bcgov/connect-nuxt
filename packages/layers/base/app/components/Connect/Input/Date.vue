@@ -3,7 +3,7 @@ import type { DateValue } from '@internationalized/date'
 import { z } from 'zod'
 import type { UCalendar } from '#components'
 import { CalendarDate } from '@internationalized/date'
-import type { Form, FormError } from '@nuxt/ui'
+import type { Form } from '@nuxt/ui'
 import { DateTime } from 'luxon'
 
 // FUTURE: update props as needed (disabled days)
@@ -51,7 +51,6 @@ const dateSchema = getDateSchema(
 const dateModel = defineModel<string | null | undefined>({ required: true })
 
 const formRef = useTemplateRef<Form<DateSchema>>('date-form')
-const formError = computed<FormError | undefined>(() => formRef.value?.getErrors()?.[0])
 
 const localState = reactive<DateSchema>({ dateInput: dateModel.value ?? '' })
 
@@ -67,8 +66,6 @@ function getDateSchema(
   required = true,
   errorOverrides?: { required?: string, minDate?: string, maxDate?: string, range?: string }
 ) {
-  const t = useNuxtApp().$i18n.t
-
   function addBoundaryRefinement(
     schema: z.ZodString,
     boundaryDate: string,
@@ -91,7 +88,7 @@ function getDateSchema(
 
   let dateField = required
     ? z.string()
-      .min(1, errorOverrides?.required ?? t('connect.text.dateFormat'))
+      .min(1, errorOverrides?.required ?? $t('connect.text.dateFormat'))
       .refine(val => DateTime.fromFormat(val, DATE_DISPLAY_FORMAT).isValid)
     : z.string()
       .refine(val => !val || DateTime.fromFormat(val, DATE_DISPLAY_FORMAT).isValid)
@@ -101,7 +98,7 @@ function getDateSchema(
     const maxBoundary = DateTime.fromFormat(maxDate, DATE_API_INPUT_FORMAT)
     if (minBoundary.isValid && maxBoundary.isValid) {
       const rangeMsg = errorOverrides?.range
-        ?? t('connect.validation.dateNotInRange', {
+        ?? $t('connect.validation.dateNotInRange', {
           minDate: minBoundary.toFormat(DATE_DISPLAY_FORMAT),
           maxDate: maxBoundary.toFormat(DATE_DISPLAY_FORMAT)
         })
@@ -118,7 +115,7 @@ function getDateSchema(
     const minMsg = errorOverrides?.minDate
       ?? (
         minBoundary.isValid
-          ? t('connect.validation.dateNotBeforeMin', {
+          ? $t('connect.validation.dateNotBeforeMin', {
             date: minBoundary.toFormat(DATE_DISPLAY_FORMAT)
           })
           : ''
@@ -133,7 +130,7 @@ function getDateSchema(
     const maxMsg = errorOverrides?.maxDate
       ?? (
         maxBoundary.isValid
-          ? t('connect.validation.dateNotAfterMax', {
+          ? $t('connect.validation.dateNotAfterMax', {
             date: maxBoundary.toFormat(DATE_DISPLAY_FORMAT)
           })
           : ''
@@ -254,74 +251,68 @@ defineExpose({ formRef: formRef })
     :state="localState"
     :validate-on="[]"
   >
-    <ConnectFormFieldWrapper
-      :label="label"
-      orientation="horizontal"
-      :error="formError"
-      padding-class="xy-default"
+    <UFormField
+      name="dateInput"
+      :ui="{ error: 'sr-only' }"
     >
-      <UFormField
-        name="dateInput"
-        :ui="{ error: 'sr-only' }"
-      >
-        <template #default="{ error }">
-          <UInput
-            :id="`${id}-input`"
-            v-model="localState.dateInput"
-            class="w-full"
-            placeholder="&nbsp;"
-            :color="error ? 'error' : 'neutral'"
-            :highlight="!!error"
+      <template #default="{ error }">
+        <UInput
+          :id="`${id}-input`"
+          v-model="localState.dateInput"
+          class="w-full"
+          placeholder="&nbsp;"
+          :color="error ? 'error' : 'neutral'"
+          :highlight="!!error"
+          @blur="formRef?.validate({ silent: true })"
+        >
+          <label
+            :for="`${id}-input`"
+            class="floating-label-input"
           >
-            <label
-              :for="`${id}-input`"
-              class="floating-label-input"
-            >
-              {{ label }}
-            </label>
-            <template #trailing>
+            {{ label }}
+          </label>
+          <template #trailing>
+            <UButton
+              v-if="localState.dateInput"
+              icon="i-mdi-close"
+              :color="error ? 'error' : 'neutral'"
+              variant="ghost"
+              tabindex="0"
+              :class="['icon-btn', { 'icon-btn-error': !!error }]"
+              :ui="{ base: 'size-7 p-0 flex items-center justify-center icon-btn-focus' }"
+              :aria-label="$t('connect.label.clear')"
+              @click="clearDate"
+            />
+            <UPopover v-model:open="isCalendarOpen" :content="{ side: 'top' }">
               <UButton
-                v-if="localState.dateInput"
-                icon="i-mdi-close"
-                :color="error ? 'error' : 'neutral'"
+                icon="i-mdi-calendar"
+                color="neutral"
                 variant="ghost"
                 tabindex="0"
-                :class="['icon-btn', { 'icon-btn-error': !!error }]"
-                :ui="{ base: 'size-7 p-0 flex items-center justify-center icon-btn-focus' }"
-                :aria-label="$t('label.clear')"
-                @click="clearDate"
+                class="icon-btn"
+                :aria-label="$t('connect.label.selectDate')"
               />
-              <UPopover v-model:open="isCalendarOpen" :content="{ side: 'top' }">
-                <UButton
-                  icon="i-mdi-calendar"
-                  color="neutral"
-                  variant="ghost"
-                  tabindex="0"
-                  class="icon-btn"
-                  :aria-label="$t('label.selectDate')"
+              <template #content>
+                <UCalendar
+                  :model-value="calendarValue"
+                  :min-value="calendarMinValue"
+                  :max-value="calendarMaxValue"
+                  @update:model-value="onDateSelect"
                 />
-                <template #content>
-                  <UCalendar
-                    :model-value="calendarValue"
-                    :min-value="calendarMinValue"
-                    :max-value="calendarMaxValue"
-                    @update:model-value="onDateSelect"
-                  />
-                </template>
-              </UPopover>
-            </template>
-          </UInput>
-          <p :class="['mt-1 text-sm flex items-center gap-1', error ? 'text-error' : 'text-neutral']">
-            <UIcon
-              v-if="error"
-              name="i-mdi-alert"
-              class="size-4 shrink-0"
-            />
-            {{ error || $t('connect.text.dateFormat') }}
-          </p>
-        </template>
-      </UFormField>
-    </ConnectFormFieldWrapper>
+              </template>
+            </UPopover>
+          </template>
+        </UInput>
+        <p :class="['mt-1 text-sm flex items-center gap-1', error ? 'text-error' : 'text-neutral']">
+          <UIcon
+            v-if="error"
+            name="i-mdi-alert"
+            class="size-4 shrink-0"
+          />
+          {{ error || $t('connect.text.dateFormat') }}
+        </p>
+      </template>
+    </UFormField>
   </UForm>
 </template>
 
