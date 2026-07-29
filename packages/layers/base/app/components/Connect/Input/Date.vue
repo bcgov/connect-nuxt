@@ -174,8 +174,8 @@ function clearDate() {
               :model-value="calendarValue"
               :min-value="calendarMinValue"
               :max-value="calendarMaxValue"
-              @update:model-value="onDateSelect"
               initial-focus
+              @update:model-value="onDateSelect"
             />
           </template>
         </UPopover>
