@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<{
   error?: boolean
 }>(), {})
 
+const { locale } = useI18n()
+
 const DATE_API_INPUT_FORMAT = 'yyyy-MM-dd'
 const DATE_DISPLAY_FORMAT = 'MMMM d, yyyy'
 const DATE_INPUT_FORMATS = [
@@ -37,11 +39,26 @@ const calendarMinValue = computed(() => toCalendarDate(props.minDate))
 const calendarMaxValue = computed(() => toCalendarDate(props.maxDate))
 const calendarValue = computed(() => toCalendarDate(localState.dateInput, DATE_DISPLAY_FORMAT))
 
+const activeLocale = computed(() => {
+  if (typeof locale === 'string') {
+    return locale
+  }
+  return locale.value || 'en-CA'
+})
+
+function parseDate(dateStr: string, format: string): DateTime {
+  return DateTime.fromFormat(dateStr, format, { locale: activeLocale.value })
+}
+
+function formatDate(date: DateTime, format: string): string {
+  return date.setLocale(activeLocale.value).toFormat(format)
+}
+
 function toCalendarDate(dateStr?: string, format = DATE_API_INPUT_FORMAT): CalendarDate | undefined {
   if (!dateStr) {
     return undefined
   }
-  const dt = DateTime.fromFormat(dateStr, format)
+  const dt = parseDate(dateStr, format)
   if (!dt.isValid) {
     return undefined
   }
@@ -52,8 +69,11 @@ function onDateSelect(date: DateValue | null | undefined) {
   if (!date) {
     return
   }
-  const dt = DateTime.fromObject({ year: date.year, month: date.month, day: date.day })
-  localState.dateInput = dt.toFormat(DATE_DISPLAY_FORMAT)
+  if (Array.isArray(date) || 'start' in date) {
+    return
+  }
+  const dt = DateTime.fromObject({ year: date.year, month: date.month, day: date.day }, { locale: activeLocale.value })
+  localState.dateInput = formatDate(dt, DATE_DISPLAY_FORMAT)
   syncModelFromLocal()
   isCalendarOpen.value = false
 }
@@ -65,7 +85,7 @@ function normalizeDate(input: string): string {
 
   const trimmed = input.trim()
 
-  if (DateTime.fromFormat(trimmed, DATE_DISPLAY_FORMAT).isValid) {
+  if (parseDate(trimmed, DATE_DISPLAY_FORMAT).isValid) {
     return trimmed
   }
 
@@ -76,9 +96,9 @@ function normalizeDate(input: string): string {
     .replace(/\b([a-z])/g, (_, c) => c.toUpperCase())
 
   for (const fmt of DATE_INPUT_FORMATS) {
-    const dt = DateTime.fromFormat(preprocessed, fmt)
+    const dt = parseDate(preprocessed, fmt)
     if (dt.isValid) {
-      return dt.toFormat(DATE_DISPLAY_FORMAT)
+      return formatDate(dt, DATE_DISPLAY_FORMAT)
     }
   }
 
@@ -93,12 +113,12 @@ function syncModelFromLocal() {
     return
   }
 
-  const parsed = DateTime.fromFormat(trimmed, DATE_DISPLAY_FORMAT)
+  const parsed = parseDate(trimmed, DATE_DISPLAY_FORMAT)
   if (!parsed.isValid) {
     return
   }
 
-  const formattedDate = parsed.toFormat(DATE_API_INPUT_FORMAT)
+  const formattedDate = formatDate(parsed, DATE_API_INPUT_FORMAT)
   dateModel.value = formattedDate
 }
 

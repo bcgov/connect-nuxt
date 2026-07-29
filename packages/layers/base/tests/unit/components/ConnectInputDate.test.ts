@@ -1,8 +1,16 @@
-import { nextTick } from 'vue'
+import { nextTick, ref } from 'vue'
 import { describe, test, expect, vi, afterEach } from 'vitest'
-import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { CalendarDate } from '@internationalized/date'
 import ConnectInputDate from '../../../app/components/Connect/Input/Date.vue'
+
+const localeRef = ref('en-CA')
+
+mockNuxtImport('useI18n', () => {
+  return () => ({
+    locale: localeRef
+  })
+})
 
 const MockUInput = {
   props: ['id', 'modelValue', 'disabled', 'ariaInvalid'],
@@ -82,6 +90,7 @@ async function mountComponent(modelValue = '') {
 describe('ConnectInputDate Component', () => {
   afterEach(() => {
     vi.useRealTimers()
+    localeRef.value = 'en-CA'
   })
 
   test('selects a date and emits API format', async () => {
@@ -123,7 +132,7 @@ describe('ConnectInputDate Component', () => {
     const input = wrapper.find('input')
     await input.setValue('2022-10-15')
 
-    vi.advanceTimersByTime(500)
+    await vi.advanceTimersByTimeAsync(500)
     await nextTick()
 
     expect((input.element as HTMLInputElement).value).toBe('October 15, 2022')
@@ -136,5 +145,28 @@ describe('ConnectInputDate Component', () => {
     expect(calendarValue?.year).toBe(2022)
     expect(calendarValue?.month).toBe(10)
     expect(calendarValue?.day).toBe(15)
+  })
+
+  test('parses and formats French month names with fr-CA locale', async () => {
+    localeRef.value = 'fr-CA'
+    const wrapper = await mountComponent('')
+    vi.useFakeTimers()
+
+    const input = wrapper.find('input')
+    await input.setValue('janvier 1, 2026')
+
+    await vi.advanceTimersByTimeAsync(500)
+    await nextTick()
+
+    expect((input.element as HTMLInputElement).value).toBe('janvier 1, 2026')
+
+    const updates = wrapper.emitted('update:modelValue')
+    expect(updates?.at(-1)).toEqual(['2026-01-01'])
+
+    const calendar = wrapper.findComponent(MockUCalendar)
+    const calendarValue = calendar.props('modelValue') as CalendarDate | undefined
+    expect(calendarValue?.year).toBe(2026)
+    expect(calendarValue?.month).toBe(1)
+    expect(calendarValue?.day).toBe(1)
   })
 })
