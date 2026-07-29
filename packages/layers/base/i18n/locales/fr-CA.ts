@@ -39,11 +39,6 @@ export default {
       dateFormat: 'Format: Mois JJ, AAAA (Ex. janvier 1, 2026)',
       whatsNewSlideoverDescription: ' ',
       whatsNewSlideoverEmpty: 'Aucune nouveauté.'
-    },
-    validation: {
-      dateNotBeforeMin: 'La date doit être le {date} ou après',
-      dateNotAfterMax: 'La date doit être le {date} ou avant',
-      dateNotInRange: 'La date doit être entre {minDate} et {maxDate}'
     }
   },
   btn: {

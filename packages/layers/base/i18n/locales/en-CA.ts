@@ -57,11 +57,6 @@ export default {
       dateFormat: 'Format: Month DD, YYYY (Ex. January 1, 2026)',
       whatsNewSlideoverDescription: ' ',
       whatsNewSlideoverEmpty: 'No new items.'
-    },
-    validation: {
-      dateNotBeforeMin: 'Date must be on or after {date}',
-      dateNotAfterMax: 'Date must be on or before {date}',
-      dateNotInRange: 'Date must be between {minDate} and {maxDate}'
     }
   },
   test: {
