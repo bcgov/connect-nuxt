@@ -312,6 +312,7 @@ function clearDate() {
             variant="ghost"
             class="date-action-button"
             :aria-label="$t('label.openCalendar')"
+            @keydown.enter.prevent="isCalendarOpen = !isCalendarOpen"
           />
           <template #content>
             <div ref="calendarContentRef">
