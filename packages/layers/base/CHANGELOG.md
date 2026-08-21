@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.13.0
+
+### Minor Changes
+
+- [#186](https://github.com/bcgov/connect-nuxt/pull/186) [`f8abf2a`](https://github.com/bcgov/connect-nuxt/commit/f8abf2ae069028f6fcda28b979723901751142c3) Thanks [@eve-git](https://github.com/eve-git)! - Add reusable Date Picker component and corresponding date validation schema
+
 ## 0.12.0
 
 ### Minor Changes
