@@ -54,6 +54,13 @@ export default {
     text: {
       whatsNewSlideoverDescription: ' ',
       whatsNewSlideoverEmpty: 'No new items.'
+    },
+    validation: {
+      dateNotAfterMax: 'Date must be on or before {date}',
+      dateNotBeforeMin: 'Date must be on or after {date}',
+      dateNotInRange: 'Date must be between {minDate} and {maxDate}',
+      fieldRequired: 'This field is required',
+      invalidDate: 'Invalid date'
     }
   },
   test: {
