@@ -13,6 +13,8 @@ const disabledDate = ref('2026-07-28') // API format
 
 const requiredHelpText = 'Format: Month Day, Year (e.g. January 1, 2026)'
 const rangeHelpText = 'Enter a date between July 1 and July 31, 2026'
+const minOnlyHelpText = 'Enter a date on or after July 1, 2026'
+const maxOnlyHelpText = 'Enter a date on or before July 31, 2026'
 
 const requiredSchema = getDateSchema({
   required: true,
@@ -32,6 +34,18 @@ const rangeSchema = getDateSchema({
   }
 })
 const rangeForm = reactive({ dateInput: '' })
+
+const minOnlySchema = getDateSchema({
+  required: false,
+  minDate: '2026-07-01'
+})
+const minOnlyForm = reactive({ dateInput: '' })
+
+const maxOnlySchema = getDateSchema({
+  required: false,
+  maxDate: '2026-07-31'
+})
+const maxOnlyForm = reactive({ dateInput: '' })
 </script>
 
 <template>
@@ -114,6 +128,68 @@ const rangeForm = reactive({ dateInput: '' })
             max-date="2026-07-31"
             :error="error"
             :help="rangeHelpText"
+          />
+        </UFormField>
+        <UButton type="submit" label="Submit" />
+      </UForm>
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'Schema Validation — Min Date Only' }" ui-body="p-4 space-y-4">
+      <p>
+        Uses <code>getDateSchema({ minDate })</code> from <code>utils/schemas/date.ts</code>.
+        Pick or type a date before July 1, 2026 to see the min-date error.
+      </p>
+      <UForm
+        :state="minOnlyForm"
+        :schema="minOnlySchema"
+        class="space-y-8"
+        @submit="(e) => console.info(e.data.dateInput)"
+        @error="(e) => console.info(e.errors)"
+      >
+        <UFormField
+          v-slot="{ error }"
+          name="dateInput"
+          :help="minOnlyHelpText"
+        >
+          <ConnectInputDatePicker
+            id="min-only-date-picker"
+            v-model="minOnlyForm.dateInput"
+            label="Date On or After Min"
+            :required="false"
+            min-date="2026-07-01"
+            :error="error"
+            :help="minOnlyHelpText"
+          />
+        </UFormField>
+        <UButton type="submit" label="Submit" />
+      </UForm>
+    </ConnectPageSection>
+
+    <ConnectPageSection :heading="{ label: 'Schema Validation — Max Date Only' }" ui-body="p-4 space-y-4">
+      <p>
+        Uses <code>getDateSchema({ maxDate })</code> from <code>utils/schemas/date.ts</code>.
+        Pick or type a date after July 31, 2026 to see the max-date error.
+      </p>
+      <UForm
+        :state="maxOnlyForm"
+        :schema="maxOnlySchema"
+        class="space-y-8"
+        @submit="(e) => console.info(e.data.dateInput)"
+        @error="(e) => console.info(e.errors)"
+      >
+        <UFormField
+          v-slot="{ error }"
+          name="dateInput"
+          :help="maxOnlyHelpText"
+        >
+          <ConnectInputDatePicker
+            id="max-only-date-picker"
+            v-model="maxOnlyForm.dateInput"
+            label="Date On or Before Max"
+            :required="false"
+            max-date="2026-07-31"
+            :error="error"
+            :help="maxOnlyHelpText"
           />
         </UFormField>
         <UButton type="submit" label="Submit" />

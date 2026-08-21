@@ -102,4 +102,46 @@ test.describe('ConnectInputDatePicker', () => {
       await expect(errorText(page, 'Date must be between July 1 and July 31, 2026')).not.toBeVisible()
     })
   })
+
+  test.describe('Schema Validation — Min Date Only', () => {
+    const submitButton = (page: import('@playwright/test').Page) => page.getByRole('button', { name: 'Submit' }).nth(2)
+
+    test('does not require a value but rejects dates before the configured min', async ({ page }) => {
+      await page.goto('./examples/components/ConnectInputDatePicker')
+      const input = page.locator('#min-only-date-picker input')
+
+      // optional field - empty submit should not show a required error
+      await submitButton(page).click()
+      await expect(errorText(page, 'Date must be on or after July 1, 2026')).not.toBeVisible()
+
+      await input.fill('June 15, 2026')
+      await input.blur()
+      await expect(errorText(page, 'Date must be on or after July 1, 2026')).toBeVisible()
+
+      await input.fill('August 15, 2026')
+      await input.blur()
+      await expect(errorText(page, 'Date must be on or after July 1, 2026')).not.toBeVisible()
+    })
+  })
+
+  test.describe('Schema Validation — Max Date Only', () => {
+    const submitButton = (page: import('@playwright/test').Page) => page.getByRole('button', { name: 'Submit' }).nth(3)
+
+    test('does not require a value but rejects dates after the configured max', async ({ page }) => {
+      await page.goto('./examples/components/ConnectInputDatePicker')
+      const input = page.locator('#max-only-date-picker input')
+
+      // optional field - empty submit should not show a required error
+      await submitButton(page).click()
+      await expect(errorText(page, 'Date must be on or before July 31, 2026')).not.toBeVisible()
+
+      await input.fill('August 15, 2026')
+      await input.blur()
+      await expect(errorText(page, 'Date must be on or before July 31, 2026')).toBeVisible()
+
+      await input.fill('July 15, 2026')
+      await input.blur()
+      await expect(errorText(page, 'Date must be on or before July 31, 2026')).not.toBeVisible()
+    })
+  })
 })
