@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.13.1
+
+### Patch Changes
+
+- [#188](https://github.com/bcgov/connect-nuxt/pull/188) [`6b06486`](https://github.com/bcgov/connect-nuxt/commit/6b06486d052dea23764c696d297f727bb5ad8a6e) Thanks [@eve-git](https://github.com/eve-git)! - Fix Tab focus not reaching the date picker's clear and calendar buttons in Safari
+
 ## 0.13.0
 
 ### Minor Changes
