@@ -280,15 +280,23 @@ function clearDate() {
         {{ label }}
       </label>
       <template #trailing>
+        <!-- explicit tabindex="0" on both trailing buttons: Safari excludes plain
+        <button> elements from Tab order by default (unlike Chrome/Firefox), so
+        without this, Tab skips straight past them from the date input -->
+        <!-- .stop on both Enter handlers below: type="button" already blocks native
+        form submission, but consuming apps may wrap this in a dialog/form with its
+        own "Enter activates primary action" keydown listener higher up the tree -
+        stopping propagation keeps Enter fully local to whichever icon is focused -->
         <UButton
           v-if="dateInput && !disabled"
           icon="i-mdi-close"
           type="button"
+          tabindex="0"
           :color="error ? 'error' : 'neutral'"
           variant="ghost"
           class="date-action-button"
           :aria-label="$t('label.clearDate')"
-          @keydown.enter.prevent="clearDate"
+          @keydown.enter.prevent.stop="clearDate"
           @click="clearDate"
         />
         <!-- capture Enter before Reka UI asChild trigger strips the listener -->
@@ -307,12 +315,13 @@ function clearDate() {
           <UButton
             icon="i-mdi-calendar"
             type="button"
+            tabindex="0"
             :disabled="disabled"
             :color="error && !dateInput ? 'error' : 'neutral'"
             variant="ghost"
             class="date-action-button"
             :aria-label="$t('label.openCalendar')"
-            @keydown.enter.prevent="isCalendarOpen = !isCalendarOpen"
+            @keydown.enter.prevent.stop="isCalendarOpen = !isCalendarOpen"
           />
           <template #content>
             <div ref="calendarContentRef">
