@@ -26,11 +26,11 @@ const props = defineProps<{
 const { locale } = useI18n()
 
 // wires the input up to the wrapping UFormField (if any): aria-describedby/
-// aria-invalid derived from its help/error text, and blur reported onto the
-// form's validation bus. Calling this here (rather than leaving it to the
+// aria-invalid derived from its help/error text, and blur/input reported onto
+// the form's validation bus. Calling this here (rather than leaving it to the
 // inner UInput) makes the relationship explicit and independent of UInput's
 // own internal wiring.
-const { ariaAttrs, emitFormBlur } = useFormField()
+const { ariaAttrs, emitFormBlur, emitFormInput } = useFormField()
 
 const dateModel = defineModel<string>()
 
@@ -233,6 +233,10 @@ watch(dateInput, (val: string) => {
   // sync immediately so the parent (and its schema validation) always sees the
   // current value instead of waiting for the debounced auto-formatting below
   syncModelFromLocal()
+  // report the change onto the form's validation bus as it's typed, rather than
+  // only on blur - emitFormInput() is always eager here (see useFormField), so
+  // this revalidates on every keystroke instead of waiting for a first blur
+  emitFormInput()
 
   clearTimeout(debounceTimer)
   if (!val) {
@@ -325,12 +329,20 @@ function clearDate() {
           />
           <template #content>
             <div ref="calendarContentRef">
+              <!-- explicit tabindex="0" on all four header nav buttons: same Safari
+              quirk as the trailing icon buttons above - without this, Safari's Tab
+              order skips straight past them from the prev-year button into the day
+              grid instead of stepping through prev-month/next-month/next-year -->
               <UCalendar
                 :aria-label="$t('label.chooseDate')"
                 :model-value="calendarValue"
                 :min-value="calendarMinValue"
                 :max-value="calendarMaxValue"
                 :is-date-unavailable="isDateUnavailable"
+                :prev-year="{ tabindex: 0 }"
+                :prev-month="{ tabindex: 0 }"
+                :next-month="{ tabindex: 0 }"
+                :next-year="{ tabindex: 0 }"
                 @update:model-value="onDateSelect"
               />
             </div>
