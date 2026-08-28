@@ -154,7 +154,20 @@ function onDateSelect(date: DateValue | DateRange | DateValue[] | null | undefin
   })
 }
 
+// Reka UI's Calendar.Prev/Calendar.Next header buttons render as plain
+// <button>s with no tabindex, same as the trailing icon buttons above -
+// Safari excludes them from Tab order by default, so without this, Tab skips
+// straight past prev-month/next-month/next-year into the day grid
+function fixHeaderButtonTabOrder() {
+  nextTick(() => {
+    calendarContentRef.value
+      ?.querySelectorAll<HTMLElement>('[data-slot="header"] button')
+      .forEach(button => button.setAttribute('tabindex', '0'))
+  })
+}
+
 function onOpenAutoFocus(e: Event) {
+  fixHeaderButtonTabOrder()
   if (calendarOpenedViaInput) {
     e.preventDefault()
     calendarOpenedViaInput = false
@@ -329,20 +342,12 @@ function clearDate() {
           />
           <template #content>
             <div ref="calendarContentRef">
-              <!-- explicit tabindex="0" on all four header nav buttons: same Safari
-              quirk as the trailing icon buttons above - without this, Safari's Tab
-              order skips straight past them from the prev-year button into the day
-              grid instead of stepping through prev-month/next-month/next-year -->
               <UCalendar
                 :aria-label="$t('label.chooseDate')"
                 :model-value="calendarValue"
                 :min-value="calendarMinValue"
                 :max-value="calendarMaxValue"
                 :is-date-unavailable="isDateUnavailable"
-                :prev-year="{ tabindex: 0 }"
-                :prev-month="{ tabindex: 0 }"
-                :next-month="{ tabindex: 0 }"
-                :next-year="{ tabindex: 0 }"
                 @update:model-value="onDateSelect"
               />
             </div>
