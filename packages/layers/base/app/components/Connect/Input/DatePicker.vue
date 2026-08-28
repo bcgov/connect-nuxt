@@ -26,11 +26,11 @@ const props = defineProps<{
 const { locale } = useI18n()
 
 // wires the input up to the wrapping UFormField (if any): aria-describedby/
-// aria-invalid derived from its help/error text, and blur reported onto the
-// form's validation bus. Calling this here (rather than leaving it to the
+// aria-invalid derived from its help/error text, and blur/input reported onto
+// the form's validation bus. Calling this here (rather than leaving it to the
 // inner UInput) makes the relationship explicit and independent of UInput's
 // own internal wiring.
-const { ariaAttrs, emitFormBlur } = useFormField()
+const { ariaAttrs, emitFormBlur, emitFormInput } = useFormField()
 
 const dateModel = defineModel<string>()
 
@@ -154,7 +154,20 @@ function onDateSelect(date: DateValue | DateRange | DateValue[] | null | undefin
   })
 }
 
+// Reka UI's Calendar.Prev/Calendar.Next header buttons render as plain
+// <button>s with no tabindex, same as the trailing icon buttons above -
+// Safari excludes them from Tab order by default, so without this, Tab skips
+// straight past prev-month/next-month/next-year into the day grid
+function fixHeaderButtonTabOrder() {
+  nextTick(() => {
+    calendarContentRef.value
+      ?.querySelectorAll<HTMLElement>('[data-slot="header"] button')
+      .forEach(button => button.setAttribute('tabindex', '0'))
+  })
+}
+
 function onOpenAutoFocus(e: Event) {
+  fixHeaderButtonTabOrder()
   if (calendarOpenedViaInput) {
     e.preventDefault()
     calendarOpenedViaInput = false
@@ -233,6 +246,10 @@ watch(dateInput, (val: string) => {
   // sync immediately so the parent (and its schema validation) always sees the
   // current value instead of waiting for the debounced auto-formatting below
   syncModelFromLocal()
+  // report the change onto the form's validation bus as it's typed, rather than
+  // only on blur - emitFormInput() is always eager here (see useFormField), so
+  // this revalidates on every keystroke instead of waiting for a first blur
+  emitFormInput()
 
   clearTimeout(debounceTimer)
   if (!val) {
