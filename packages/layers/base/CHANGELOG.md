@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.13.2
+
+### Patch Changes
+
+- [#190](https://github.com/bcgov/connect-nuxt/pull/190) [`4a4846b`](https://github.com/bcgov/connect-nuxt/commit/4a4846b53acb28b5a77cca8f9fb67393ba0132f9) Thanks [@eve-git](https://github.com/eve-git)! - Fix Tab order in Safari skipping the date picker calendar's month/year navigation buttons, and report date input changes to form validation as the user types instead of only on blur
+
 ## 0.13.1
 
 ### Patch Changes

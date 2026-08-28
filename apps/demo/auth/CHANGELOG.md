@@ -1,5 +1,12 @@
 # nuxt-auth-demo-app
 
+## 0.2.26
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sbc-connect/nuxt-auth@0.16.3
+
 ## 0.2.25
 
 ### Patch Changes
