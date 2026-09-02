@@ -24,8 +24,12 @@ const isSessionExpired = sessionStorage.getItem(ConnectAuthStorageKey.CONNECT_SE
 // - empty string or null hides the description
 const description = computed(() => {
   const override = ac.description
-  if (override === undefined) return t('connect.page.login.description')
-  if (!override) return ''
+  if (override === undefined) {
+    return t('connect.page.login.description')
+  }
+  if (!override) {
+    return ''
+  }
   return te(override) ? t(override) : override
 })
 
