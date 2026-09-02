@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.16.4
+
+### Patch Changes
+
+- [#192](https://github.com/bcgov/connect-nuxt/pull/192) [`7a8ed9f`](https://github.com/bcgov/connect-nuxt/commit/7a8ed9f6ab50bafb165d5fe0dc90477ec7917458) Thanks [@kialj876](https://github.com/kialj876)! - Login description can be set by the preset override
+
 ## 0.16.3
 
 ### Patch Changes
