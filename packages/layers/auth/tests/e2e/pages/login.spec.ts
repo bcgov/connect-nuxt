@@ -26,4 +26,23 @@ test.describe('Login Page', () => {
       await expect(buttons.nth(i)).toBeVisible()
     }
   })
+
+  test('hides the description by default (empty default message)', async ({ page }) => {
+    await mockApiCallsForSetAccount(page)
+    await page.goto('./auth/login')
+
+    await expect(page.getByTestId('login-card')).toBeVisible()
+    await expect(page.getByTestId('login-description')).toBeHidden()
+  })
+
+  test('shows a description resolved from the lang file via preset', async ({ page }) => {
+    await mockApiCallsForSetAccount(page)
+    await page.goto('./auth/login?preset=customDescription')
+
+    const description = page.getByTestId('login-description')
+    await expect(description).toBeVisible()
+    await expect(description).toContainText(
+      'PLAYGROUND ONLY - This login description is set by the customDescription preset.'
+    )
+  })
 })

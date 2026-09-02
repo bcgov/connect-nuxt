@@ -5,6 +5,7 @@ export interface ConnectLoginConfig {
   idps: IdpList
   skipAccountRedirect: boolean
   idpEnforcement: boolean
+  description?: string | null
   alert?: {
     title?: string
     message?: string

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import loginImage from '#auth/public/img/BCReg_Generic_Login_image.jpg'
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 const { login } = useConnectAuth()
 const ac = useAppConfig().connect.login
 
@@ -17,6 +17,21 @@ definePageMeta({
 })
 
 const isSessionExpired = sessionStorage.getItem(ConnectAuthStorageKey.CONNECT_SESSION_EXPIRED)
+
+// app config (or preset) description overrides the default text
+// - either an i18n key or a literal string
+// - undefined (not specified) uses the default text
+// - empty string or null hides the description
+const description = computed(() => {
+  const override = ac.description
+  if (override === undefined) {
+    return t('connect.page.login.description')
+  }
+  if (!override) {
+    return ''
+  }
+  return te(override) ? t(override) : override
+})
 
 const loginOptions = computed(() => {
   const loginOptionsMap: Record<
@@ -64,8 +79,12 @@ const loginOptions = computed(() => {
       <h1>
         {{ $t('connect.page.login.h1') }}
       </h1>
-      <p class="max-w-[40rem] text-center">
-        {{ $t('connect.page.login.description') }}
+      <p
+        v-if="description"
+        class="max-w-[40rem] text-center"
+        data-testid="login-description"
+      >
+        {{ description }}
       </p>
       <UAlert
         v-if="isSessionExpired"

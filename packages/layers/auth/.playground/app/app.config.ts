@@ -5,6 +5,11 @@ export default defineAppConfig({
         idps: ['bcsc'],
         idpEnforcement: true
       }
+    },
+    customDescription: {
+      login: {
+        description: 'connect.page.login.descriptionCustom'
+      }
     }
   }
 })
