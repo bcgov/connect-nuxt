@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.16.5
+
+### Patch Changes
+
+- [#194](https://github.com/bcgov/connect-nuxt/pull/194) [`a765c6e`](https://github.com/bcgov/connect-nuxt/commit/a765c6e9a87608e7a2c6e07abffd410a1e7e30c7) Thanks [@kialj876](https://github.com/kialj876)! - 34765 Auth - allow pre selecting login from redirect
+
 ## 0.16.4
 
 ### Patch Changes
