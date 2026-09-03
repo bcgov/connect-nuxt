@@ -54,12 +54,4 @@ test.describe('Login Page', () => {
     await expect(card).toBeVisible()
     expect(await card.getByRole('button').count()).toEqual(3)
   })
-
-  test('auto-triggers login for a valid ?idp=', async ({ page }) => {
-    await mockApiCallsForSetAccount(page)
-    await page.goto('./auth/login?idp=bcsc', { waitUntil: 'commit' })
-
-    // the option buttons never render - a spinner shows while redirecting to the IdP
-    await expect(page.getByTestId('login-card')).toBeHidden()
-  })
 })

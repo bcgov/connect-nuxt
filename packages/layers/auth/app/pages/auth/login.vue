@@ -4,7 +4,6 @@ import loginImage from '#auth/public/img/BCReg_Generic_Login_image.jpg'
 const { t, te } = useI18n()
 const { login } = useConnectAuth()
 const ac = useAppConfig().connect.login
-const route = useRoute()
 
 useHead({
   title: t('connect.page.login.title')
@@ -34,22 +33,6 @@ const description = computed(() => {
   return te(override) ? t(override) : override
 })
 
-// a valid ?idp= query param (e.g. ?idp=bcsc) triggers that login immediately instead
-// of showing the option buttons - the idp must be in the app's allowed idps list
-const autoTriggerIdp = (ac.idps as string[]).includes(String(route.query.idp))
-  ? String(route.query.idp) as ConnectIdpHint
-  : undefined
-
-onMounted(() => {
-  if (autoTriggerIdp) {
-    // remove the idp param from the Keycloak redirect URI so a cancelled login
-    // returns to the option buttons instead of re-triggering
-    const redirectUrl = new URL(window.location.href)
-    redirectUrl.searchParams.delete('idp')
-    login(autoTriggerIdp, redirectUrl.href)
-  }
-})
-
 const loginOptions = computed(() => {
   const loginOptionsMap: Record<
     ConnectValidIdpOption,
@@ -77,14 +60,7 @@ const loginOptions = computed(() => {
 </script>
 
 <template>
-  <ConnectSpinner
-    v-if="autoTriggerIdp"
-    fullscreen
-  />
-  <div
-    v-else
-    class="flex grow flex-col items-center justify-center py-10"
-  >
+  <div class="flex grow flex-col items-center justify-center py-10">
     <div class="flex flex-col items-center gap-4">
       <!-- Alert message from app config -->
       <UAlert

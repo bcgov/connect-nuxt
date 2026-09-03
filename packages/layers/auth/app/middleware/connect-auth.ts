@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  const { isAuthenticated } = useConnectAuth()
+  const { isAuthenticated, login } = useConnectAuth()
   const rtc = useRuntimeConfig().public
   const localePath = useLocalePath()
   const service = useConnectAuthService()
@@ -7,6 +7,19 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   const isLoginPage = to.meta.connectLogin === true
   const isTosPage = to.meta.connectTosPage === true
+
+  // a valid idp query param (e.g. ?idp=bcsc) triggers that login instead of showing the login options
+  // - the idp must be in the app's allowed idps list
+  if (!isAuthenticated.value && !rtc.playwright) {
+    const idp = String(to.query.idp ?? '')
+    if ((useAppConfig().connect.login.idps as string[]).includes(idp)) {
+      // remove the idp param from the Keycloak redirect URI so a cancelled login
+      // returns to the login options instead of re-triggering
+      const redirectUrl = new URL(`${rtc.baseUrl}${to.fullPath.slice(1)}`)
+      redirectUrl.searchParams.delete('idp')
+      return login(idp as ConnectIdpHint, redirectUrl.href)
+    }
+  }
 
   if (!isAuthenticated.value && !isLoginPage && !rtc.playwright) {
     const defaultReturn = `${rtc.baseUrl}${to.fullPath.slice(1)}`
