@@ -11,11 +11,22 @@ const mockRtc = ref({
 mockNuxtImport('useRuntimeConfig', () => () => ({ public: mockRtc.value }))
 
 const mockIsAuthenticated = ref(false)
+const { mockLogin } = vi.hoisted(() => {
+  return { mockLogin: vi.fn() }
+})
 mockNuxtImport('useConnectAuth', () => () => ({
   isAuthenticated: mockIsAuthenticated,
+  login: mockLogin,
   authUser: {
     value: {
       keycloakGuid: 'guid-123'
+    }
+  }
+}))
+mockNuxtImport('useAppConfig', () => () => ({
+  connect: {
+    login: {
+      idps: ['bcsc', 'bceid', 'idir']
     }
   }
 }))
@@ -135,6 +146,58 @@ describe('connect-auth middleware', () => {
         return: 'https://app.example.com/some-path'
       }
     })
+  })
+
+  it('should trigger the login for a valid ?idp= when the user is NOT authenticated', async () => {
+    mockIsAuthenticated.value = false
+    const toWithIdp = {
+      ...to,
+      fullPath: '/some-path?idp=idir&return=https://legacy.example.com/page',
+      query: { idp: 'idir', return: 'https://legacy.example.com/page' }
+    } as unknown as RouteLocationNormalizedGeneric
+
+    await connectAuthMiddleware(toWithIdp, from)
+
+    // login triggered with the idp param stripped from the redirect URI
+    expect(mockLogin).toHaveBeenCalledWith(
+      'idir',
+      'https://app.example.com/some-path?return=https%3A%2F%2Flegacy.example.com%2Fpage'
+    )
+    expect(mockNavigateTo).not.toHaveBeenCalled()
+  })
+
+  it('should ignore an invalid ?idp= and redirect to the login page', async () => {
+    mockIsAuthenticated.value = false
+    const toWithIdp = {
+      ...to,
+      fullPath: '/some-path?idp=notanidp',
+      query: { idp: 'notanidp' }
+    } as unknown as RouteLocationNormalizedGeneric
+
+    await connectAuthMiddleware(toWithIdp, from)
+
+    expect(mockLogin).not.toHaveBeenCalled()
+    expect(mockNavigateTo).toHaveBeenCalledWith({
+      path: '/en-CA/auth/login',
+      query: {
+        idp: 'notanidp',
+        return: 'https://app.example.com/some-path?idp=notanidp'
+      }
+    })
+  })
+
+  it('should NOT trigger the login for a valid ?idp= when rtc.playwright = true', async () => {
+    mockIsAuthenticated.value = false
+    mockRtc.value.playwright = true
+    const toWithIdp = {
+      ...to,
+      fullPath: '/some-path?idp=bcsc',
+      query: { idp: 'bcsc' }
+    } as unknown as RouteLocationNormalizedGeneric
+
+    await connectAuthMiddleware(toWithIdp, from)
+
+    expect(mockLogin).not.toHaveBeenCalled()
   })
 
   it('should preserve existing return query param when redirecting to the TOS page', async () => {

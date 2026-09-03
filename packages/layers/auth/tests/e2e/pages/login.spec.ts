@@ -45,4 +45,13 @@ test.describe('Login Page', () => {
       'PLAYGROUND ONLY - This login description is set by the customDescription preset.'
     )
   })
+
+  test('ignores an invalid ?idp= and shows the login options', async ({ page }) => {
+    await mockApiCallsForSetAccount(page)
+    await page.goto('./auth/login?idp=notanidp')
+
+    const card = page.getByTestId('login-card')
+    await expect(card).toBeVisible()
+    expect(await card.getByRole('button').count()).toEqual(3)
+  })
 })
