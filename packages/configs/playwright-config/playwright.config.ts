@@ -24,6 +24,16 @@ export default defineConfig<ConfigOptions>({
   testDir: './tests/e2e',
   testMatch: '*.spec.ts',
   workers: process.env.CI ? 2 : 4,
+  // retry in CI: WebKit-backed device projects (e.g. iPad) can take longer to
+  // load than the default test timeout when the 2 CI workers are contended
+  // across this 10-project device matrix — a retry clears those blips.
+  retries: process.env.CI ? 2 : 0,
+  timeout: 60_000,
+  // web-first assertions (toBeVisible/toHaveText/...) default to a 5s poll,
+  // which is tight for a CPU-constrained CI runner rendering client-side
+  // under load — this is what was actually failing fast (not a goto hang)
+  // in several of the retried-but-still-failing runs.
+  expect: { timeout: 10_000 },
   reporter: [['list'], [process.env.CI ? 'blob' : 'html']],
   use: {
     nuxt: {
@@ -31,7 +41,7 @@ export default defineConfig<ConfigOptions>({
       runner: 'vitest',
       host: process.env.NUXT_PUBLIC_BASE_URL
     },
-    actionTimeout: 10000,
+    actionTimeout: 15000,
     baseURL: process.env.NUXT_PUBLIC_BASE_URL,
     trace: 'retain-on-failure',
     screenshot: 'on-first-failure',
