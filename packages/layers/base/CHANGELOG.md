@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.13.3
+
+### Patch Changes
+
+- [#197](https://github.com/bcgov/connect-nuxt/pull/197) [`3ed5c7f`](https://github.com/bcgov/connect-nuxt/commit/3ed5c7f7df24773dcd231be1029f8b87f41a6f0e) Thanks [@panish16](https://github.com/panish16)! - Upgrade to pnpm 11.9.0 ([#182](https://github.com/bcgov/connect-nuxt/issues/182)) and stabilise the flaky WebKit/iPad e2e tests with retries, higher timeouts, and CI path filters that actually trigger on shared config changes ([#196](https://github.com/bcgov/connect-nuxt/issues/196))
+
 ## 0.13.2
 
 ### Patch Changes
