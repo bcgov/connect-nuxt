@@ -90,6 +90,7 @@ const filteredItems = computed(() => {
           label-key="name"
           placeholder="&nbsp;"
           class="w-full"
+          :ui="{ viewport: 'overflow-x-hidden' }"
           :disabled
           :required
           @change="$emit('change')"
