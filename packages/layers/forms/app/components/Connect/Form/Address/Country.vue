@@ -84,10 +84,11 @@ const filteredItems = computed(() => {
           :data-testid="`${parentId}-input-country`"
           :aria-labelledby="`${parentId}-input-country-label`"
           ignore-filter
+          openOnFocus
           :items="filteredItems"
           value-key="alpha_2"
           label-key="name"
-          placeholder=" "
+          placeholder="&nbsp;"
           class="w-full"
           :disabled
           :required
