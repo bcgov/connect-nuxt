@@ -1,5 +1,12 @@
 # @sbc-connect/nuxt-pay
 
+## 0.6.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sbc-connect/nuxt-auth@0.16.7
+
 ## 0.6.7
 
 ### Patch Changes
