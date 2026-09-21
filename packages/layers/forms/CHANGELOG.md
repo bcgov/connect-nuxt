@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.7.12
+
+### Patch Changes
+
+- [#199](https://github.com/bcgov/connect-nuxt/pull/199) [`bb10de7`](https://github.com/bcgov/connect-nuxt/commit/bb10de7f8fd3b05673cbe38ee30b0bcb9d49d778) Thanks [@eve-git](https://github.com/eve-git)! - Switch the address form's Country field from the custom `ConnectCombobox` to Nuxt UI's `UInputMenu`, with word-start search filtering, Canada/US pinned to the top of the list, and correct label display and Enter-to-select behavior after searching.
+
 ## 0.7.11
 
 ### Patch Changes
