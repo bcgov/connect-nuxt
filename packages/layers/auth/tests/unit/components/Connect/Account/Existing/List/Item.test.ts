@@ -6,7 +6,13 @@ import { ConnectAccountExistingListItem } from '#components'
 const { mockNavigateTo } = vi.hoisted(() => ({ mockNavigateTo: vi.fn() }))
 mockNuxtImport('navigateTo', () => mockNavigateTo)
 
-const mockAccountStore = { currentAccount: {} as ConnectAccount }
+const mockAccountStore = {
+  currentAccount: {} as ConnectAccount,
+  redirectToAccountInfo: (account: ConnectAccount) => {
+    mockAccountStore.currentAccount = account
+    return mockNavigateTo(`${account.urlorigin}${account.urlpath}`, { external: true })
+  }
+}
 mockNuxtImport('useConnectAccountStore', () => () => mockAccountStore)
 
 const globalStubs = {

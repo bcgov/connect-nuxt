@@ -21,8 +21,7 @@ const isUnusable = computed(() => props.account.accountStatus !== AccountStatus.
 
 function handleSelect() {
   if (isNsfSuspended.value) {
-    useConnectAccountStore().currentAccount = props.account
-    navigateTo(`${props.account.urlorigin}${props.account.urlpath}`, { external: true })
+    useConnectAccountStore().redirectToAccountInfo(props.account)
     return
   }
   emit('select', props.account.id)

@@ -79,6 +79,16 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     }
   }
 
+  /**
+   * Sets `account` as current and navigates to its own info/settings page. Used both when a
+   * user clicks a visibly NSF/overdue account, and when a consumer's own backend rejects an
+   * action (e.g. payment redemption) for an account that wasn't flagged yet on the client.
+   */
+  function redirectToAccountInfo(account: ConnectAccount) {
+    currentAccount.value = account
+    return navigateTo(`${account.urlorigin}${account.urlpath}`, { external: true })
+  }
+
   /** Switch the current account to the given account ID if it exists in the user's account list */
   function switchCurrentAccount(accountId: number) {
     const account = userAccounts.value.find(account => account.id === accountId)
@@ -154,6 +164,7 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     initAccountStore,
     isCurrentAccount,
     loadUserAccounts,
+    redirectToAccountInfo,
     syncUserProfile,
     switchCurrentAccount,
     userAccounts,
