@@ -112,7 +112,7 @@ describe('useConnectAuthQuery', () => {
     const options = userSettingsOptions()
     options.query({} as any)
 
-    expect(mockAuthApi).toHaveBeenCalledWith('/users/GUID-123/settings')
+    expect(mockAuthApi).toHaveBeenCalledWith('/users/GUID-123/settings', { query: { expand: 'address' } })
     expect(mockKeys.userSettings).toHaveBeenCalled()
     expect(options.staleTime).toBe(DEFAULT_STALE_TIME)
     expect(options.enabled).toBe(true)

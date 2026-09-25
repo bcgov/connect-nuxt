@@ -2,6 +2,22 @@
 export default {
   /* Ordering should be alphabetical unless otherwise specified */
   connect: {
+    badge: {
+      inactiveAccount: 'Inactive',
+      nonSufficientFunds: 'Non-Sufficient Funds',
+      paymentMethod: {
+        CASH: 'Cash',
+        CC: 'Credit Card',
+        CHEQUE: 'Cheque',
+        DIRECT_PAY: 'Credit Card',
+        DRAWDOWN: 'BC Online',
+        EFT: 'Electronic Funds Transfer',
+        EJV: 'Electronic Journal Voucher',
+        ONLINE_BANKING: 'Online Banking',
+        PAD: 'Pre-Authorized Debit'
+      },
+      statementOverdue: 'Statement Overdue'
+    },
     label: {
       accept: 'Accept',
       accountInfo: 'Account Info',
