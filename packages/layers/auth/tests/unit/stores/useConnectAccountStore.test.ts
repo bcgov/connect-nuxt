@@ -175,6 +175,17 @@ describe('useConnectAccountStore', () => {
 
       expect(store.currentAccount.id).toBe(mockAccounts[0]!.id)
     })
+
+    it('should resync the current account status from the fresh list, not keep a stale persisted status', async () => {
+      store.currentAccount = { ...mockAccounts[1]!, accountStatus: AccountStatus.NSF_SUSPENDED } as ConnectAccount
+      const freshAccountsList = [mockAccounts[0]!, { ...mockAccounts[1]!, accountStatus: AccountStatus.ACTIVE }]
+      mockGetUserAccounts.mockResolvedValueOnce(freshAccountsList)
+
+      await store.loadUserAccounts()
+
+      expect(store.currentAccount.id).toBe(mockAccounts[1]!.id)
+      expect(store.currentAccount.accountStatus).toBe(AccountStatus.ACTIVE)
+    })
   })
 
   describe('syncUserProfile', () => {
@@ -271,6 +282,29 @@ describe('useConnectAccountStore', () => {
       } as ConnectAccount
       store.checkAccountStatus()
       expect(mockNavigateTo).not.toHaveBeenCalled()
+    })
+
+    it('should not redirect an NSF suspended account anywhere in a pay-link flow', async () => {
+      mockRoute.value.path = '/en-CA/pay/abc123/account'
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.NSF_SUSPENDED } as ConnectAccount
+      store.checkAccountStatus()
+      expect(mockNavigateTo).not.toHaveBeenCalled()
+    })
+
+    it('should still redirect a suspended account outside the account selector and pay-link flow', async () => {
+      mockRoute.value.path = '/en-CA/some-other-page'
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
+      store.checkAccountStatus()
+      expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
+    })
+
+    it('should still redirect a plain suspended account even inside a pay-link flow', async () => {
+      // Unlike NSF_SUSPENDED, plain staff SUSPENDED has no self-serve resolution anywhere -
+      // the /pay/ exemption must not apply to it.
+      mockRoute.value.path = '/en-CA/pay/abc123/account'
+      store.currentAccount = { ...mockAccounts[0]!, accountStatus: AccountStatus.SUSPENDED } as ConnectAccount
+      store.checkAccountStatus()
+      expect(mockNavigateTo).toHaveBeenCalledWith('https://auth.example.com/account-freeze', expect.any(Object))
     })
   })
 

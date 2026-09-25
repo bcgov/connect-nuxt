@@ -1,7 +1,14 @@
 <script setup lang="ts">
-defineProps<{
+withDefaults(defineProps<{
   accounts: ConnectAccount[]
-}>()
+  showPaymentMethodBadge?: boolean
+  showStatusBadge?: boolean
+  showAddress?: boolean
+}>(), {
+  showPaymentMethodBadge: true,
+  showStatusBadge: true,
+  showAddress: true
+})
 
 defineEmits<{
   select: [id: number]
@@ -23,6 +30,9 @@ defineEmits<{
         v-for="account in accounts"
         :key="account.id"
         :account
+        :show-payment-method-badge="showPaymentMethodBadge"
+        :show-status-badge="showStatusBadge"
+        :show-address="showAddress"
         @select="$emit('select', $event)"
       />
     </ul>

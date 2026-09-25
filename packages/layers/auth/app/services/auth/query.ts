@@ -62,7 +62,7 @@ export const useConnectAuthQuery = () => {
   function userSettingsOptions(options?: DefineOptions<ConnectUserSettings[]>) {
     const keycloakGuid = useConnectAuth().authUser.value?.keycloakGuid
     return defineQueryOptions({
-      query: () => $authApi<ConnectUserSettings[]>(`/users/${keycloakGuid}/settings`),
+      query: () => $authApi<ConnectUserSettings[]>(`/users/${keycloakGuid}/settings`, { query: { expand: 'address' } }),
       staleTime: DEFAULT_STALE_TIME,
       enabled: !!keycloakGuid,
       ...options,

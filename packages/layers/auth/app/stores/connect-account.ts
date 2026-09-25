@@ -74,9 +74,8 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
     const accounts = await service.getUserAccounts(force).catch(() => undefined)
     if (accounts && accounts[0]) {
       userAccounts.value = accounts
-      if (!currentAccount.value.id || !userAccounts.value.some(account => account.id === currentAccount.value.id)) {
-        currentAccount.value = accounts[0]
-      }
+      // Always resync from the fresh list so a persisted currentAccount never keeps a stale status.
+      currentAccount.value = accounts.find(account => account.id === currentAccount.value.id) ?? accounts[0]
     }
   }
 
@@ -90,11 +89,16 @@ export const useConnectAccountStore = defineStore('connect-auth-account-store', 
   }
 
   function checkAccountStatus() {
-    // redirect if account status is suspended or in review
-    if ([AccountStatus.NSF_SUSPENDED, AccountStatus.SUSPENDED].includes(currentAccount.value?.accountStatus)) {
-      // Avoid redirecting when navigating back from PAYBC for NSF or signout.
-      const endPath = useRoute().path.split('/').pop() as string
-      const isAllowedPath = ['return-cc-payment', 'signout'].includes(endPath)
+    const status = currentAccount.value?.accountStatus
+    if ([AccountStatus.SUSPENDED, AccountStatus.NSF_SUSPENDED].includes(status)) {
+      // Plain SUSPENDED has no self-serve resolution anywhere, so only the base paths are
+      // exempt. NSF_SUSPENDED additionally owns its own handling on the account selector and
+      // anywhere in a pay-link flow (dynamic /pay/{token}/... routes).
+      const path = useRoute().path
+      const endPath = path.split('/').pop() as string
+      const isNsfException = status === AccountStatus.NSF_SUSPENDED
+        && (path.includes('/pay/') || ['select', 'create'].includes(endPath))
+      const isAllowedPath = ['return-cc-payment', 'signout'].includes(endPath) || isNsfException
       if (!isAllowedPath) {
         // URL not allowed so redirect
         const redirectUrl = `${rtc.authWebUrl}account-freeze`
