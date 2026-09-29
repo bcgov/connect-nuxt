@@ -7,4 +7,5 @@ export interface ConnectUserSettings {
   accountStatus?: AccountStatus
   additionalLabel?: string
   label?: string
+  address?: ConnectAccountAddress
 }

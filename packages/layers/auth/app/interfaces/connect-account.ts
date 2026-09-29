@@ -7,6 +7,10 @@ export interface ConnectAccount {
   type: UserSettingsType.ACCOUNT
   urlpath: string
   urlorigin: string
+  address?: ConnectAccountAddress
+  paymentMethod?: string
+  hasNsfInvoices?: string
+  hasOverdueInvoices?: string
 }
 
 export interface ConnectCreateAccount {

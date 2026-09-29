@@ -90,6 +90,7 @@ onBeforeMount(() => {
       <ConnectAccountExistingList
         v-if="showAccountList"
         :accounts="store.userAccounts"
+        :show-status-badge="true"
         @select="selectAndRedirect"
       />
 

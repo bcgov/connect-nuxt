@@ -9,7 +9,7 @@ export const mockApiCallsForSetAccount = async (
   page.route('**/users/@me', async (route) => {
     await route.fulfill({ json: getUserProfileMock() })
   })
-  page.route('**/users/**/settings', async (route) => {
+  page.route('**/users/**/settings**', async (route) => {
     await route.fulfill({ json: getUserSettingsMock(accountType) })
   })
 }

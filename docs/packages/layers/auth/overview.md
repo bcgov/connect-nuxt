@@ -45,6 +45,9 @@ While these values are configurable, it is recommended to use the default to ens
 
 ### Components
 
+- ConnectAccountExistingAlert
+- ConnectAccountExistingList
+- ConnectAccountExistingListItem
 - ConnectHeaderAccountLabel
 - ConnectHeaderAccountOptionsMenu
 - ConnectHeaderAuth
@@ -60,7 +63,7 @@ While these values are configurable, it is recommended to use the default to ens
 
 - **useConnectAccountStore**
 
-Manages user account information, including fetching a list of all user-associated accounts, tracking the currently selected account, and handling account-specific details like roles and pending approvals. It also provides utilities to check for account status and change the users account.
+Manages user account information, including fetching a list of all user-associated accounts, tracking the currently selected account, and handling account-specific details like roles and pending approvals. It also provides utilities to check for account status and change the users account. `checkAccountStatus` redirects a suspended/pending account to the appropriate auth-web page. Plain staff-suspended accounts always redirect. NSF-suspended accounts are exempted on the account-selector pages and anywhere in a `/pay/` link flow, which own their own handling of NSF/overdue accounts (see `ConnectAccountExistingListItem` below).
 
 ### Composables
 
