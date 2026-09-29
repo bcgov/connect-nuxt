@@ -1,14 +1,15 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+const {
+  account,
+  showPaymentMethodBadge = true,
+  showStatusBadge = true,
+  showAddress = true
+} = defineProps<{
   account: ConnectAccount
   showPaymentMethodBadge?: boolean
   showStatusBadge?: boolean
   showAddress?: boolean
-}>(), {
-  showPaymentMethodBadge: true,
-  showStatusBadge: true,
-  showAddress: true
-})
+}>()
 
 const emit = defineEmits<{
   select: [id: number]
@@ -16,28 +17,28 @@ const emit = defineEmits<{
 
 // ACTIVE is always selectable. Of the non-active statuses, only NSF_SUSPENDED also stays
 // enabled (it redirects below instead of emitting select) - everything else stays disabled.
-const isNsfSuspended = computed(() => props.account.accountStatus === AccountStatus.NSF_SUSPENDED)
-const isUnusable = computed(() => props.account.accountStatus !== AccountStatus.ACTIVE && !isNsfSuspended.value)
+const isNsfSuspended = computed(() => account.accountStatus === AccountStatus.NSF_SUSPENDED)
+const isUnusable = computed(() => account.accountStatus !== AccountStatus.ACTIVE && !isNsfSuspended.value)
 
 function handleSelect() {
   if (isNsfSuspended.value) {
-    useConnectAccountStore().redirectToAccountInfo(props.account)
+    useConnectAccountStore().redirectToAccountInfo(account)
     return
   }
-  emit('select', props.account.id)
+  emit('select', account.id)
 }
 
 const statusBadgeLabel = computed(() => {
   if (!isNsfSuspended.value) {
     return undefined
   }
-  if (props.account.hasOverdueInvoices) {
+  if (account.hasOverdueInvoices) {
     return 'connect.badge.statementOverdue'
   }
   return 'connect.badge.nonSufficientFunds'
 })
 
-const address = computed(() => props.account.address)
+const address = computed(() => account.address)
 const addressLine = computed(() => {
   const addr = address.value
   if (!addr) {

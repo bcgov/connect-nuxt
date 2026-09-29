@@ -1,14 +1,15 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
+const {
+  accounts,
+  showPaymentMethodBadge = true,
+  showStatusBadge = true,
+  showAddress = true
+} = defineProps<{
   accounts: ConnectAccount[]
   showPaymentMethodBadge?: boolean
   showStatusBadge?: boolean
   showAddress?: boolean
-}>(), {
-  showPaymentMethodBadge: true,
-  showStatusBadge: true,
-  showAddress: true
-})
+}>()
 
 defineEmits<{
   select: [id: number]
