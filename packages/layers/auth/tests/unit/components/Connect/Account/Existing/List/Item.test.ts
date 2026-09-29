@@ -41,9 +41,9 @@ describe('ConnectAccountExistingListItem', () => {
     mockAccountStore.currentAccount = {} as ConnectAccount
   })
 
-  async function mount(account: ConnectAccount) {
+  async function mount(account: ConnectAccount, extraProps: Record<string, unknown> = {}) {
     return await mountSuspended(ConnectAccountExistingListItem, {
-      props: { account },
+      props: { account, ...extraProps },
       global: {
         stubs: globalStubs,
         config: { globalProperties: { $t: (key: string) => key } as any }
@@ -51,7 +51,21 @@ describe('ConnectAccountExistingListItem', () => {
     })
   }
 
-  it('renders the address line when present', async () => {
+  it('does not render the address, payment-method badge, or status badge unless explicitly enabled', async () => {
+    const wrapper = await mount({
+      ...baseAccount,
+      accountStatus: AccountStatus.NSF_SUSPENDED,
+      paymentMethod: 'PAD',
+      address: {
+        street: '123 Main St', streetAdditional: '', city: 'Victoria', region: 'BC', postalCode: 'V1V1V1', country: 'CA'
+      }
+    })
+    expect(wrapper.text()).not.toContain('123 Main St')
+    expect(wrapper.text()).not.toContain('connect.badge.paymentMethod.PAD')
+    expect(wrapper.text()).not.toContain('connect.badge.nonSufficientFunds')
+  })
+
+  it('renders the address line when explicitly enabled', async () => {
     const wrapper = await mount({
       ...baseAccount,
       address: {
@@ -62,17 +76,20 @@ describe('ConnectAccountExistingListItem', () => {
         postalCode: 'V1V1V1',
         country: 'CA'
       }
-    })
+    }, { showAddress: true })
     expect(wrapper.text()).toContain('123 Main St, Victoria, BC, V1V1V1, CA')
   })
 
-  it('renders a payment method badge when present', async () => {
-    const wrapper = await mount({ ...baseAccount, paymentMethod: 'PAD' })
+  it('renders a payment method badge when explicitly enabled', async () => {
+    const wrapper = await mount({ ...baseAccount, paymentMethod: 'PAD' }, { showPaymentMethodBadge: true })
     expect(wrapper.text()).toContain('connect.badge.paymentMethod.PAD')
   })
 
   it('renders the non-sufficient-funds badge for an NSF-suspended account with no overdue flag', async () => {
-    const wrapper = await mount({ ...baseAccount, accountStatus: AccountStatus.NSF_SUSPENDED })
+    const wrapper = await mount(
+      { ...baseAccount, accountStatus: AccountStatus.NSF_SUSPENDED },
+      { showStatusBadge: true }
+    )
     expect(wrapper.text()).toContain('connect.badge.nonSufficientFunds')
     expect(wrapper.text()).not.toContain('connect.badge.statementOverdue')
   })
@@ -82,7 +99,7 @@ describe('ConnectAccountExistingListItem', () => {
       ...baseAccount,
       accountStatus: AccountStatus.NSF_SUSPENDED,
       hasOverdueInvoices: '2026-01-01T00:00:00Z'
-    })
+    }, { showStatusBadge: true })
     expect(wrapper.text()).toContain('connect.badge.statementOverdue')
     expect(wrapper.text()).not.toContain('connect.badge.nonSufficientFunds')
   })
