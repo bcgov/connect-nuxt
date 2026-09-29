@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const {
   accounts,
-  showPaymentMethodBadge = true,
-  showStatusBadge = true,
-  showAddress = true
+  showPaymentMethodBadge = false,
+  showStatusBadge = false,
+  showAddress = false
 } = defineProps<{
   accounts: ConnectAccount[]
   showPaymentMethodBadge?: boolean
