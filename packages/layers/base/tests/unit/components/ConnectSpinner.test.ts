@@ -1,6 +1,6 @@
 import { describe, test, expect, afterEach } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectSpinner from '../../../app/components/Connect/Spinner.vue'
+import { ConnectSpinner } from '#components'
 
 describe('ConnectSpinner Component', () => {
   afterEach(() => {

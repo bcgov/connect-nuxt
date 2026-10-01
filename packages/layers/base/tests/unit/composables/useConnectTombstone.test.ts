@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { useConnectTombstone } from '../../../app/composables/useConnectTombstone'
 
 const stateMap = new Map<string, Ref<any>>()
 

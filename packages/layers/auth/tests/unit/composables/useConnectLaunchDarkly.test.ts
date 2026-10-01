@@ -4,18 +4,12 @@ import { createClient } from '@launchdarkly/js-client-sdk'
 import { nextTick, ref } from 'vue'
 import type { LDClient } from '@launchdarkly/js-client-sdk'
 import { ConnectLoginSource } from '#auth/app/enums/connect-login-source'
-import type { ConnectAuthUser } from '../../../app/interfaces/connect-auth-user'
+import type { ConnectAuthUser } from '#auth/app/interfaces/connect-auth-user'
 import type {
   useConnectLaunchDarkly as UseConnectLaunchdarklyType
-} from '../../../app/composables/useConnectLaunchDarkly'
+} from '#auth/app/composables/useConnectLaunchDarkly'
 
 vi.mock('@launchdarkly/js-client-sdk')
-mockNuxtImport('useRuntimeConfig', () => () => ({
-  public: {
-    ldClientId: 'test-client-id',
-    appName: 'test-app'
-  }
-}))
 
 const ldFlags: Record<string, string> = {
   'test-flag': 'TEST,PASS'

@@ -1,7 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { ref, nextTick } from 'vue'
-import { useConnectHeaderOptions } from '../../../app/composables/useConnectHeaderOptions'
 
 const mockLogin = vi.fn()
 const mockLogout = vi.fn()
@@ -16,13 +14,6 @@ mockNuxtImport('useConnectAuth', () => () => ({
   logout: mockLogout,
   isAuthenticated: mockIsAuthenticated,
   authUser: mockAuthUser
-}))
-
-mockNuxtImport('useRuntimeConfig', () => () => ({
-  public: {
-    authWebUrl: 'https://auth.example.com/',
-    baseUrl: 'https://app.example.com/'
-  }
 }))
 
 const mockCurrentAccount = ref({
@@ -72,6 +63,11 @@ mockNuxtImport('useAppConfig', () => () => ({
   }
 }))
 
+mockNuxtImport('useRouter', () => () => ({
+  afterEach: vi.fn(),
+  beforeResolve: vi.fn()
+}))
+
 describe('useConnectHeaderOptions', () => {
   let composable: ReturnType<typeof useConnectHeaderOptions>
 
@@ -117,22 +113,26 @@ describe('useConnectHeaderOptions', () => {
       const options = composable.loggedInUserOptions.value[0]
       expect(options).toEqual([
         { slot: 'account', type: 'label' },
-        { label: 'Edit Profile', icon: 'i-mdi-account-outline', to: 'https://auth.example.com/userprofile' },
-        { label: 'Log out', icon: 'i-mdi-logout-variant', onSelect: expect.any(Function) }
+        {
+          label: 'connect.label.editProfile',
+          icon: 'i-mdi-account-outline',
+          to: 'https://auth.example.com/userprofile'
+        },
+        { label: 'connect.label.logout', icon: 'i-mdi-logout-variant', onSelect: expect.any(Function) }
       ])
     })
   })
 
   describe('accountSettingsOptions', () => {
     const expectedBasicOptions = [
-      { label: 'Account Settings', type: 'label' },
+      { label: 'connect.label.accountSettings', type: 'label' },
       {
-        label: 'Account Info',
+        label: 'connect.label.accountInfo',
         icon: 'i-mdi-information-outline',
         to: 'https://auth.example.com/account/account1/settings/account-info'
       },
       {
-        label: 'Team Members',
+        label: 'connect.label.teamMembers',
         icon: 'i-mdi-account-group-outline',
         to: 'https://auth.example.com/account/account1/settings/team-members'
       }
@@ -141,7 +141,7 @@ describe('useConnectHeaderOptions', () => {
     const expectedPremiumOptions = [
       ...expectedBasicOptions,
       {
-        label: 'Transactions',
+        label: 'connect.label.transactions',
         icon: 'i-mdi-file-document-outline',
         to: 'https://auth.example.com/account/account1/settings/transactions'
       }
@@ -172,7 +172,7 @@ describe('useConnectHeaderOptions', () => {
       await nextTick()
       const options = composable.switchAccountOptions.value
       expect(options).toHaveLength(3)
-      expect(options![0]).toEqual({ label: 'Switch Account', type: 'label' })
+      expect(options![0]).toEqual({ label: 'connect.label.switchAccount', type: 'label' })
       expect(options![1]!.label).toBe('Account 1')
       expect(options![1]!.icon).toBe('i-mdi-check')
       expect(options![2]!.label).toBe('Account 2')

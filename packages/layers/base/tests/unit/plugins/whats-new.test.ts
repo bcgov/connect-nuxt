@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest'
 import { ref } from 'vue'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import whatsNewPlugin from '../../../app/plugins/whats-new.client'
+import whatsNewPlugin from '#base/app/plugins/whats-new.client'
 import { useStorage } from '@vueuse/core'
 import { isEqual } from 'es-toolkit'
 
@@ -12,20 +12,27 @@ vi.mock('es-toolkit')
 const runPlugin = (app: unknown) => whatsNewPlugin.setup!(app as any)
 
 let mockAppConfig = true
-mockNuxtImport('useAppConfig', () => () => ({
-  connect: { header: { whatsNew: mockAppConfig } }
-}))
-mockNuxtImport('useRuntimeConfig', () => () => ({
-  public: {
-    statusApiUrl: 'http://test.api',
-    statusApiVersion: '/v1',
-    appName: 'test-app'
+mockNuxtImport('useAppConfig', original => () => {
+  const orig = typeof original === 'function' ? original() : {}
+  return {
+    ...orig,
+    connect: {
+      ...orig?.connect,
+      header: {
+        ...orig?.connect?.header,
+        get whatsNew() {
+          return mockAppConfig
+        }
+      }
+    }
   }
-}))
+})
 
 // Mock $fetch
-const mockFetch = vi.fn()
-vi.stubGlobal('$fetch', mockFetch)
+const { mockFetch } = vi.hoisted(() => ({
+  mockFetch: vi.fn()
+}))
+mockNuxtImport('$fetch', () => mockFetch)
 
 describe("What's New Plugin", () => {
   let mockNuxtApp: { hook: ReturnType<typeof vi.fn> }

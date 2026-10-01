@@ -1,14 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import type { RouteLocationNormalizedGeneric } from 'vue-router'
 import connectAuthMiddleware from '#auth/app/middleware/connect-auth'
-
-const mockRtc = ref({
-  baseUrl: 'https://app.example.com/',
-  playwright: false
-})
-mockNuxtImport('useRuntimeConfig', () => () => ({ public: mockRtc.value }))
+import { mockRtc, mockAuthApi, mockConnectAuth } from '../setup'
 
 const mockIsAuthenticated = ref(false)
 const { mockLogin } = vi.hoisted(() => {
@@ -36,17 +30,6 @@ const { mockNavigateTo } = vi.hoisted(() => {
 })
 mockNuxtImport('navigateTo', () => mockNavigateTo)
 
-const mockAuthApi = vi.fn()
-const mockConnectAuth = vi.hoisted(() => ({
-  tokenParsed: null as any,
-  authenticated: false
-}))
-
-mockNuxtImport('useNuxtApp', () => () => ({
-  $connectAuth: mockConnectAuth,
-  $authApi: mockAuthApi
-}))
-
 const mockCurrentAccount = ref<object | null>(null)
 mockNuxtImport('storeToRefs', () => () => ({
   currentAccount: mockCurrentAccount
@@ -65,12 +48,11 @@ describe('connect-auth middleware', () => {
   const from = { path: '/another-path', meta: {} } as unknown as RouteLocationNormalizedGeneric
 
   beforeEach(() => {
-    vi.resetAllMocks()
-    vi.restoreAllMocks()
+    vi.clearAllMocks()
     useQueryCache().invalidateQueries()
     mockIsAuthenticated.value = false
-    mockRtc.value.playwright = false
-    mockConnectAuth.tokenParsed = null
+    mockRtc.playwright = false
+    mockConnectAuth.tokenParsed = {}
     mockConnectAuth.authenticated = false
     mockCurrentAccount.value = null
   })
@@ -102,7 +84,7 @@ describe('connect-auth middleware', () => {
 
   it('should set mock values and not redirect if rtc.playwright = true', async () => {
     mockIsAuthenticated.value = false
-    mockRtc.value.playwright = true
+    mockRtc.playwright = true
 
     await connectAuthMiddleware(to, from)
 
@@ -188,7 +170,7 @@ describe('connect-auth middleware', () => {
 
   it('should NOT trigger the login for a valid ?idp= when rtc.playwright = true', async () => {
     mockIsAuthenticated.value = false
-    mockRtc.value.playwright = true
+    mockRtc.playwright = true
     const toWithIdp = {
       ...to,
       fullPath: '/some-path?idp=bcsc',

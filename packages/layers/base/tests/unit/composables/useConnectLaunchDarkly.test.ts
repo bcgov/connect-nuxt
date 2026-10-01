@@ -1,19 +1,23 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { createClient } from '@launchdarkly/js-client-sdk'
-import { ref } from 'vue'
 import type { LDClient } from '@launchdarkly/js-client-sdk'
 import type {
   useConnectLaunchDarkly as UseConnectLaunchdarklyType
-} from '../../../app/composables/useConnectLaunchDarkly'
+} from '#base/app/composables/useConnectLaunchDarkly'
 
 vi.mock('@launchdarkly/js-client-sdk')
-mockNuxtImport('useRuntimeConfig', () => () => ({
-  public: {
-    ldClientId: 'test-client-id',
-    appName: 'test-app'
+mockNuxtImport('useRuntimeConfig', original => () => {
+  const orig = typeof original === 'function' ? original() : {}
+  return {
+    ...orig,
+    public: {
+      ...orig?.public,
+      ldClientId: 'test-client-id',
+      appName: 'test-app'
+    }
   }
-}))
+})
 
 const ldFlags: Record<string, string> = {
   'test-flag': 'TEST,PASS'

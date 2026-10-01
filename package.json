@@ -19,13 +19,5 @@
     "@changesets/cli": "2.31.0",
     "pkg-pr-new": "0.0.74"
   },
-  "pnpm": {
-    "overrides": {
-      "vue": "3.5.39",
-      "@vue/runtime-core": "3.5.39",
-      "@vue/runtime-dom": "3.5.39",
-      "@vue/reactivity": "3.5.39"
-    }
-  },
   "packageManager": "pnpm@11.9.0"
 }

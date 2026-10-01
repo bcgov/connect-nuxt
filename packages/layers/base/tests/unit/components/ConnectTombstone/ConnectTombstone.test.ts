@@ -2,8 +2,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { ref, h, nextTick } from 'vue'
 import type { Ref } from 'vue'
-import ConnectTombstone from '../../../../app/components/Connect/Tombstone/index.vue'
-import type { ConnectTombstoneState } from '../../../../app/interfaces/connect-tombstone'
+import { ConnectTombstone } from '#components'
+import type { ConnectTombstoneState } from '#base/app/interfaces/connect-tombstone'
 import type { ButtonProps } from '@nuxt/ui'
 
 let mockTombstoneState: Ref<ConnectTombstoneState>
@@ -28,6 +28,7 @@ const createInitialState = (): ConnectTombstoneState => ({
 
 describe('ConnectTombstone.vue', () => {
   beforeEach(() => {
+    // @ts-expect-error - type excessively deep
     mockTombstoneState = ref(createInitialState())
   })
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectI18nHelper from '../../../app/components/Connect/I18n/Helper.vue'
+import { ConnectI18nHelper } from '#components'
 import { i18nMock } from '../mocks/i18n'
 
 const $sanitize = (value: string) => {

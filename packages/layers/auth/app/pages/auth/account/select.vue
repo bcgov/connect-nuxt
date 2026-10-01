@@ -113,7 +113,7 @@ onBeforeMount(() => {
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
-        @click="addNew = true"
+        @click="() => { addNew = true }"
       />
       <UButton
         v-else
@@ -142,7 +142,7 @@ onBeforeMount(() => {
         trailing
         size="xl"
         class="w-full justify-center sm:w-min sm:justify-normal"
-        @click="addNew = false"
+        @click="() => { addNew = false }"
       />
       <UButton
         :label="$t('connect.label.saveAndContinue')"

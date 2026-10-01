@@ -1,6 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { setBreadcrumbs } from '../../../app/utils/setBreadcrumbs'
 
 const mockRoute = {
   meta: {

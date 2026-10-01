@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectTextarea from '../../../app/components/Connect/Textarea.vue'
+import { ConnectTextarea } from '#components'
 
 const MockUTextarea = {
   template: '<div><slot /><label :for="$attrs.for" :class="$attrs.class"><slot name="default" /></label></div>',
