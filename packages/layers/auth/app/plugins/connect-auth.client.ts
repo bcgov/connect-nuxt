@@ -5,7 +5,7 @@ export default defineNuxtPlugin({
   name: 'connect-auth',
   order: -20,
   parallel: true,
-  async setup(nuxtApp) {
+  async setup(nuxtApp): Promise<{ provide: { connectAuth: Keycloak } }> {
     const rtc = nuxtApp.$config.public
 
     // define new keycloak

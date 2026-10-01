@@ -1,9 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import { ref } from 'vue'
-import ConnectFormAddressStreet from '../../../app/components/Connect/Form/Address/Street.vue'
-import ConnectFormInput from '../../../app/components/Connect/Form/Input.vue'
-import type { ConnectAddress } from '../../../../base/app/interfaces/connect-address'
+import { ConnectFormAddressStreet, ConnectFormInput } from '#components'
+import type { ConnectAddress } from '#base/app/interfaces/connect-address'
 
 const mockCanadaPostAddress = ref<Partial<ConnectAddress> | null>(null)
 const mockEnableAddressComplete = vi.fn()

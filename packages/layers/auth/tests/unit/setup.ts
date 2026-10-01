@@ -66,7 +66,7 @@ mockNuxtImport('useNuxtApp', original => () => {
 
 // Provide common useRuntimeConfig mock and export to use in tests
 // Reactive allows updating the values in test and will be re-evaluated when called
-export const mockRtc = reactive({
+export const mockRtc = reactive<Record<string, any>>({
   appName: 'test-app',
   authWebUrl: 'https://auth.example.com/',
   baseUrl: 'https://app.example.com/',

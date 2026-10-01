@@ -2,7 +2,7 @@ export default defineNuxtPlugin({
   name: 'auth-api',
   order: -20,
   parallel: true,
-  setup(nuxtApp) {
+  setup(nuxtApp): { provide: { authApi: ReturnType<typeof $fetch.create> } } {
     const rtc = nuxtApp.$config.public
     const authApiUrl = rtc.authApiUrl + rtc.authApiVersion
     const appName = rtc.appName

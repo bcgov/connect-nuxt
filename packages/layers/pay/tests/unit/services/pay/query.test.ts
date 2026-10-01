@@ -1,3 +1,4 @@
+// @vitest-environment node
 // NB: Only testing options definitions here - query definitions are simply returning the options wrapped by useQuery
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
