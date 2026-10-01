@@ -3,7 +3,7 @@ packages:
   - packages/**
 
 catalog:
-  '@axe-core/playwright': 4.11.3
+  '@axe-core/playwright': 4.13.0
   '@nuxt/test-utils': 4.3.2
   dotenv: 17.4.2
   nuxt: 4.5.2
@@ -14,11 +14,8 @@ minimumReleaseAge: 4320 # 3 days
 autoInstallPeers: true
 shamefullyHoist: true
 
-# overrides:
-#   vue: 3.5.39
-#   '@vue/runtime-core': 3.5.39
-#   '@vue/runtime-dom': 3.5.39
-#   '@vue/reactivity': 3.5.39
+minimumReleaseAgeExclude:
+  - '@nuxt/ui'
 
 allowBuilds:
   '@parcel/watcher': true

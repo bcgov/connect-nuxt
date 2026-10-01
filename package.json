@@ -12,7 +12,8 @@
     "ci:publish": "changeset publish",
     "test:unit": "pnpm -r test:unit",
     "test:e2e": "pnpm -r test:e2e",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "reset:hard": "find . -name node_modules -exec rm -rf {} + && find . -name .nuxt -exec rm -rf {} + && pnpm i"
   },
   "devDependencies": {
     "@changesets/changelog-github": "1.0.1",

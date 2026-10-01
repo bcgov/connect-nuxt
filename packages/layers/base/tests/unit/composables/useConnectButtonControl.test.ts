@@ -12,10 +12,10 @@ mockNuxtImport('useState', () => {
   })
 })
 
-const mockLeftClick1 = vi.fn(() => Promise.resolve())
-const mockLeftClick2 = vi.fn()
-const mockRightClick1 = vi.fn(() => new Promise(resolve => setTimeout(resolve, 50)))
-const mockRightClick2 = vi.fn()
+const mockLeftClick1 = vi.fn<() => Promise<void>>(() => Promise.resolve())
+const mockLeftClick2 = vi.fn<() => Promise<void>>()
+const mockRightClick1 = vi.fn<() => Promise<void>>(() => new Promise(resolve => setTimeout(resolve, 50)))
+const mockRightClick2 = vi.fn<() => Promise<void>>()
 
 const config: ConnectButtonControl = {
   leftGroup: {
@@ -26,7 +26,6 @@ const config: ConnectButtonControl = {
   },
   rightGroup: {
     buttons: [
-      // @ts-expect-error - ignore mock not matching onClick type
       { label: 'Right 1', onClick: mockRightClick1, loading: true, disabled: true },
       { label: 'Right 2', onClick: mockRightClick2 }
     ]
