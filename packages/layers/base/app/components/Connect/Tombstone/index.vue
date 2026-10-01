@@ -85,7 +85,7 @@ async function handleButtonAction(button: ButtonProps, event: MouseEvent) {
                 v-if="tombstone.bottomButtons.length"
                 class="flex flex-wrap gap-2"
               >
-                <template v-for="btn in tombstone.bottomButtons" :key="btn.button?.label || btn.vNode?.key">
+                <template v-for="btn in tombstone.bottomButtons" :key="btn.button?.label || btn.vNode?.key || undefined">
                   <component :is="btn.vNode" v-if="btn.vNode" />
                   <UButton
                     v-else-if="btn.button"
