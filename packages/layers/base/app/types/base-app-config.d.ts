@@ -4,31 +4,31 @@
 //   ? { [K in keyof T]?: DeepPartial<T[K]> }
 //   : T
 
-// declare module 'nuxt/schema' {
-//   interface AppConfigInput {
-//     ui?: DeepPartial<CustomAppConfig['ui']>
-//     connect?: {
-//       header?: {
-//         localeSelect?: boolean
-//         whatsNew?: boolean
-//       }
-//       footer?: {
-//         versions?: string[]
-//       }
-//     }
-//   }
+declare module 'nuxt/schema' {
+  interface AppConfigInput {
+    // ui?: DeepPartial<CustomAppConfig['ui']>
+    connect?: {
+      header?: {
+        localeSelect?: boolean
+        whatsNew?: boolean
+      }
+      footer?: {
+        versions?: string[]
+      }
+    }
+  }
 
-//   interface AppConfig {
-//     connect: {
-//       header: {
-//         localeSelect: boolean
-//         whatsNew: boolean
-//       }
-//       footer: {
-//         versions: string[]
-//       }
-//     }
-//   }
-// }
+  interface AppConfig {
+    connect: {
+      header: {
+        localeSelect: boolean
+        whatsNew: boolean
+      }
+      footer: {
+        versions: string[]
+      }
+    }
+  }
+}
 
-// export {}
+export {}

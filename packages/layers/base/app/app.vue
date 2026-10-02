@@ -11,6 +11,7 @@ useHead({
 
 <template>
   <UApp :toaster="{ position: 'bottom-center' }">
+    <NuxtAnnouncer />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
