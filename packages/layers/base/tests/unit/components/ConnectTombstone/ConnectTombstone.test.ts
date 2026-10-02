@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
-import type { Ref } from 'vue'
+import type { ShallowRef } from 'vue'
 import { ConnectTombstone } from '#components'
 import type { ConnectTombstoneState } from '#base/app/interfaces/connect-tombstone'
 import type { ButtonProps } from '@nuxt/ui'
 
-let mockTombstoneState: Ref<ConnectTombstoneState>
+let mockTombstoneState: ShallowRef<ConnectTombstoneState>
 
 mockNuxtImport('useConnectTombstone', () => {
   return vi.fn((_stateKey: string) => {
@@ -27,8 +27,7 @@ const createInitialState = (): ConnectTombstoneState => ({
 
 describe('ConnectTombstone.vue', () => {
   beforeEach(() => {
-    // @ts-ignore - type excessively deep
-    mockTombstoneState = ref(createInitialState())
+    mockTombstoneState = shallowRef(createInitialState())
   })
 
   it('displays the loading skeleton when loading is true', async () => {

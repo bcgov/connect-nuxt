@@ -55,7 +55,7 @@ defineOptions({ inheritAttrs: false })
         'top-1/2 left-2.5 z-10 pointer-events-none -translate-y-1/2',
         'group-focus-within:translate-y-[-115%] group-focus-within:scale-75 group-focus-within:text-primary',
         'group-has-aria-invalid:text-error',
-        hasValue ? 'translate-y-[-115%] scale-75' : ''
+        hasValue ? 'translate-y-[-115%] scale-75' : '',
       ]"
     >
       {{ label }}

@@ -14,9 +14,6 @@ minimumReleaseAge: 4320 # 3 days
 autoInstallPeers: true
 shamefullyHoist: true
 
-minimumReleaseAgeExclude:
-  - '@nuxt/ui'
-
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
