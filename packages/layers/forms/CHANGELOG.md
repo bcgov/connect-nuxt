@@ -1,5 +1,16 @@
 # @sbc-connect/nuxt-forms
 
+## 0.8.0
+
+### Minor Changes
+
+- [#203](https://github.com/bcgov/connect-nuxt/pull/203) [`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38) Thanks [@deetz99](https://github.com/deetz99)! - Update dependencies
+
+### Patch Changes
+
+- Updated dependencies [[`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38), [`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38)]:
+  - @sbc-connect/nuxt-base@0.14.0
+
 ## 0.7.12
 
 ### Patch Changes
