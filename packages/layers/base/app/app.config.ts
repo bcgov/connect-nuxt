@@ -437,5 +437,5 @@ export default defineAppConfig({
         arrow: 'fill-neutral'
       }
     }
-  } as any
+  }
 })

@@ -26,7 +26,7 @@
   "dependencies": {
     "@iconify-json/mdi": "1.2.3",
     "@launchdarkly/js-client-sdk": "4.10.3",
-    "@nuxt/ui": "4.11.3",
+    "@nuxt/ui": "4.7.1",
     "@nuxtjs/i18n": "10.6.0",
     "@vueuse/core": "15.0.0",
     "@vueuse/nuxt": "15.0.0",
