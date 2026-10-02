@@ -1,9 +1,12 @@
-import { describe, it, expect } from 'vitest'
-import { getRequiredAddressSchema, getNonRequiredAddressSchema } from '../../../../app/utils'
+import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('zod schemas - address validation', () => {
   describe('getRequiredAddressSchema', () => {
-    const schema = getRequiredAddressSchema()
+    let schema: ReturnType<typeof getRequiredAddressSchema>
+
+    beforeEach(() => {
+      schema = getRequiredAddressSchema()
+    })
 
     const validAddress = {
       street: '123 Main St',
@@ -215,7 +218,11 @@ describe('zod schemas - address validation', () => {
   })
 
   describe('getNonRequiredAddressSchema', () => {
-    const schema = getNonRequiredAddressSchema()
+    let schema: ReturnType<typeof getNonRequiredAddressSchema>
+
+    beforeEach(() => {
+      schema = getNonRequiredAddressSchema()
+    })
 
     it('should pass if all fields are empty strings or optional fields are missing', () => {
       const emptyAddress = {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { ConnectAccountCreate, ConnectAccountCreateName } from '#components'
@@ -63,12 +62,7 @@ describe('ConnectAccountCreate', () => {
   async function mount() {
     return await mountSuspended(ConnectAccountCreate, {
       global: {
-        stubs: globalStubs,
-        config: {
-          globalProperties: {
-            $t: (key: string) => key
-          } as any
-        }
+        stubs: globalStubs
       }
     })
   }

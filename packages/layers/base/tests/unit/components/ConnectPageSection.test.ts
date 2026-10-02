@@ -1,9 +1,7 @@
 import { describe, test, expect } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectPageSection from '../../../app/components/Connect/PageSection.vue'
+import { ConnectPageSection } from '#components'
 
-// --- Mock Child Components ---
-// We mock the Nuxt UI components to isolate our ConnectPageSection component.
 const MockUCard = {
   template: `
     <div>

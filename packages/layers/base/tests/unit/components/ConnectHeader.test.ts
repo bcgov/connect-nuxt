@@ -1,34 +1,6 @@
-import { describe, expect, it, vi } from 'vitest'
-import { ref } from 'vue'
-import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
-import ConnectHeader from '../../../app/components/Connect/Header/index.vue'
-
-const setLocaleMock = vi.fn()
-mockNuxtImport('useI18n', () => {
-  return () => (
-    {
-      locale: 'en-CA',
-      locales: ref([
-        {
-          name: 'English',
-          code: 'en-CA',
-          iso: 'en-CA',
-          dir: 'ltr',
-          file: 'en-CA.ts'
-        },
-        {
-          name: 'French',
-          code: 'fr-CA',
-          iso: 'fr-CA',
-          dir: 'ltr',
-          file: 'fr-CA.ts'
-        }
-      ]),
-      t: (key: string) => key,
-      setLocale: setLocaleMock
-    }
-  )
-})
+import { describe, expect, it } from 'vitest'
+import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { ConnectHeader } from '#components'
 
 describe('<ConnectHeader />', () => {
   it('renders when authenticated', async () => {

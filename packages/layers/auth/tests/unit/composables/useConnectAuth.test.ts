@@ -1,41 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-
-let mockAuthenticated = false
-const mockTokenParsed = {
-  firstname: 'John',
-  lastname: 'Doe',
-  name: 'John Doe',
-  username: 'jdoe',
-  email: 'john.doe@example.com',
-  sub: 'mock-guid',
-  loginSource: 'bcsc',
-  realm_access: {
-    roles: ['user', 'admin']
-  }
-}
-
-const mockConnectAuth = {
-  login: vi.fn(),
-  logout: vi.fn(),
-  updateToken: vi.fn(),
-  authenticated: mockAuthenticated,
-  token: 'mock-token',
-  tokenParsed: mockTokenParsed
-}
-
-mockNuxtImport('useNuxtApp', () => () => ({
-  $connectAuth: mockConnectAuth
-}))
-
-let mockSiteminderUrl = 'https://siteminder.example.com/logout'
-mockNuxtImport('useRuntimeConfig', () => () => ({
-  public: {
-    get siteminderLogoutUrl() {
-      return mockSiteminderUrl
-    }
-  }
-}))
+import { mockConnectAuth, mockRtc } from '../setup'
 
 const { mockResetPiniaStores } = vi.hoisted(() => {
   return { mockResetPiniaStores: vi.fn() }
@@ -50,14 +14,13 @@ describe('useConnectAuth', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     composable = useConnectAuth()
-    mockSiteminderUrl = 'https://siteminder.example.com/logout'
+    mockRtc.siteminderLogoutUrl = 'https://siteminder.example.com/logout'
 
     vi.spyOn(window, 'location', 'get').mockReturnValue(
       { href: 'http://localhost:3000/test', search: '' } as typeof window.location
     )
 
-    mockAuthenticated = false
-    mockConnectAuth.tokenParsed = mockTokenParsed
+    mockConnectAuth.authenticated = false
   })
 
   describe('login', () => {
@@ -88,7 +51,7 @@ describe('useConnectAuth', () => {
     })
 
     it('should call $connectAuth.logout with default URL if no siteminder URL', () => {
-      mockSiteminderUrl = ''
+      mockRtc.siteminderLogoutUrl = ''
       composable.logout()
       expect(mockResetPiniaStores).toHaveBeenCalled()
       expect(mockConnectAuth.logout).toHaveBeenCalledWith({

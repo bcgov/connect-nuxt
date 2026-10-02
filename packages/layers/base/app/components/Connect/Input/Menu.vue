@@ -9,23 +9,39 @@ const props = defineProps<{
 const labelId = props.id + '-label'
 const model = defineModel<InputMenuProps['modelValue']>()
 
-const hasValue = computed(() => {
-  const val = model.value
-
+function isPopulated(val: unknown): boolean {
   if (val === null || val === undefined) {
     return false
   }
 
+  if (typeof val === 'string') {
+    return val.trim().length > 0
+  }
+
+  if (typeof val === 'number') {
+    return !Number.isNaN(val)
+  }
+
+  if (typeof val === 'boolean' || typeof val === 'bigint') {
+    return true
+  }
+
+  if (val instanceof Date) {
+    return !Number.isNaN(val.getTime())
+  }
+
   if (Array.isArray(val)) {
-    return val.length > 0
+    return val.some(isPopulated)
   }
 
   if (typeof val === 'object') {
-    return Object.keys(val).length > 0
+    return Object.values(val).some(isPopulated)
   }
 
-  return val === 0 || !!val
-})
+  return false
+}
+
+const hasValue = computed(() => isPopulated(model.value))
 
 defineOptions({ inheritAttrs: false })
 </script>
@@ -35,11 +51,11 @@ defineOptions({ inheritAttrs: false })
     <span
       :id="labelId"
       :class="[
-        'absolute left-0 z-10 px-2.5 pointer-events-none text-neutral transition-all duration-200 w-fit line-clamp-1',
-        'top-1/2 -translate-y-1/2',
-        'group-focus-within:top-3 group-focus-within:text-xs group-focus-within:text-primary',
+        'absolute text-neutral transition-transform duration-200 ease-out origin-left text-base line-clamp-1',
+        'top-1/2 left-2.5 z-10 pointer-events-none -translate-y-1/2',
+        'group-focus-within:translate-y-[-115%] group-focus-within:scale-75 group-focus-within:text-primary',
         'group-has-aria-invalid:text-error',
-        hasValue ? 'top-3 text-xs' : '',
+        hasValue ? 'translate-y-[-115%] scale-75' : '',
       ]"
     >
       {{ label }}

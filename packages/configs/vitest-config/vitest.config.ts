@@ -7,6 +7,7 @@ export default defineVitestConfig({
     dir: './tests/unit',
     include: ['**/*.test.ts'],
     globals: true,
+    setupFiles: ['./tests/unit/setup.ts'],
     environmentOptions: {
       nuxt: {
         domEnvironment: 'jsdom', // 'happy-dom' causing issues with reka-ui portal elements

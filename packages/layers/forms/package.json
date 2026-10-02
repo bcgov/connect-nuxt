@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@sbc-connect/nuxt-base": "workspace:*",
-    "country-codes-list": "2.0.0",
+    "country-codes-list": "3.2.0",
     "vue-country-flag-next": "2.3.2"
   }
 }

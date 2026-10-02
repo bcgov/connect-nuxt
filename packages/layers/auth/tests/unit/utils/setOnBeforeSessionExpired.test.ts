@@ -1,6 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { setOnBeforeSessionExpired } from '../../../app/utils/setOnBeforeSessionExpired'
 
 const mockRoute = { meta: {} }
 mockNuxtImport('useRoute', () => () => mockRoute)

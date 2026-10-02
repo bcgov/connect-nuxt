@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectBCGovLogo from '../../../app/components/Connect/BCGovLogo.vue'
+import { ConnectBCGovLogo } from '#components'
 import { i18nMock } from '../mocks/i18n'
 
 describe('<ConnectBCGovLogo />', () => {

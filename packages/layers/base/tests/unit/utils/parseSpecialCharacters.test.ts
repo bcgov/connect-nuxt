@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { parseSpecialCharacters } from '../../../app/utils/parseSpecialCharacters'
 
 describe('parseSpecialCharacters', () => {
   it('returns fallback for undefined input', () => {

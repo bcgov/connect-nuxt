@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
-import { setActivePinia, createPinia } from 'pinia'
 
 //  Hoisted mocks (must be defined before module evaluation)
 const { mockLogFetchError } = vi.hoisted(() => ({ mockLogFetchError: vi.fn() }))
@@ -12,13 +11,6 @@ mockNuxtImport('useRoute', () => () => mockRoute.value)
 
 const { mockNavigateTo } = vi.hoisted(() => ({ mockNavigateTo: vi.fn() }))
 mockNuxtImport('navigateTo', () => mockNavigateTo)
-
-mockNuxtImport('useRuntimeConfig', () => () => ({
-  public: {
-    authWebUrl: 'https://auth.example.com/',
-    baseUrl: 'https://app.example.com/'
-  }
-}))
 
 const mockAuthUser = ref<ConnectAuthUser>({} as ConnectAuthUser)
 const mockIsAuthenticated = ref(false)
@@ -86,7 +78,6 @@ describe('useConnectAccountStore', () => {
   ] as ConnectAccount[]
 
   beforeEach(() => {
-    setActivePinia(createPinia())
     vi.resetAllMocks()
     store = useConnectAccountStore()
     store.$reset()

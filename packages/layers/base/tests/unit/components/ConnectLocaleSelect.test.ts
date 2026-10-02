@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { mountSuspended, renderSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { fireEvent, screen } from '@testing-library/vue'
 
-import ConnectLocaleSelect from '../../../app/components/Connect/LocaleSelect.vue'
+import { ConnectLocaleSelect } from '#components'
 
 const setLocaleMock = vi.fn()
 

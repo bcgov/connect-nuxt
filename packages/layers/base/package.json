@@ -25,26 +25,27 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "1.2.3",
-    "@launchdarkly/js-client-sdk": "4.6.5",
+    "@launchdarkly/js-client-sdk": "4.10.3",
     "@nuxt/ui": "4.7.1",
-    "@nuxtjs/i18n": "10.3.0",
-    "@vueuse/core": "14.3.0",
-    "@vueuse/nuxt": "14.3.0",
-    "dompurify": "3.4.5",
-    "es-toolkit": "1.46.1",
+    "@nuxtjs/i18n": "10.6.0",
+    "@vueuse/core": "15.0.0",
+    "@vueuse/nuxt": "15.0.0",
+    "dompurify": "3.4.16",
+    "es-toolkit": "1.52.0",
     "luxon": "3.7.2",
-    "maska": "3.2.0",
-    "zod": "4.4.3"
+    "maska": "3.2.1",
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
     "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
-    "@types/luxon": "3.7.1",
-    "dotenv": "^17.4.2",
+    "@types/luxon": "3.7.5",
+    "dotenv": "catalog:",
     "nuxt": "catalog:",
     "typescript": "catalog:",
+    "vue-router": "^5.3.1",
     "vue-tsc": "catalog:"
   }
 }

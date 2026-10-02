@@ -28,6 +28,20 @@ const mockModals = {
 }
 mockNuxtImport('useConnectAuthModals', () => () => mockModals)
 
+const mockAuthUser = ref<any>({ keycloakGuid: 'GUID-111' })
+mockNuxtImport('useConnectAuth', () => {
+  return () => ({
+    authUser: mockAuthUser
+  })
+})
+
+const mockCurrentAccount = ref<any>({ id: 'ACC-123' })
+mockNuxtImport('useConnectAccountStore', () => {
+  return () => ({
+    currentAccount: mockCurrentAccount
+  })
+})
+
 describe('useConnectAuthMutation', () => {
   beforeEach(() => {
     vi.clearAllMocks()

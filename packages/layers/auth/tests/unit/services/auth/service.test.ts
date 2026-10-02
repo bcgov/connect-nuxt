@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
+import { mockAuthApi } from '../../setup'
 
 const mockQuery = {
   userProfileOptions: vi.fn(() => 'profile-opts'),
@@ -16,17 +17,12 @@ vi.mock('~/services/helpers', () => ({
   getCachedOrFetch: mockGetCachedOrFetch
 }))
 
-const mockAuthApi = vi.fn() as any
-mockAuthApi.raw = vi.fn()
-mockNuxtImport('useNuxtApp', () => () => ({
-  $authApi: mockAuthApi
-}))
-
 describe('useConnectAuthService', () => {
-  const service = useConnectAuthService()
+  let service: ReturnType<typeof useConnectAuthService>
 
   beforeEach(() => {
     vi.clearAllMocks()
+    service = useConnectAuthService()
   })
 
   describe('GET Requests', () => {

@@ -2,13 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { ConnectHeaderNotifications } from '#components'
-
-const authWebUrl = 'auth-web.com/'
-mockNuxtImport(useRuntimeConfig, () => () => ({
-  public: {
-    authWebUrl
-  }
-}))
+import { mockRtc } from '../../setup'
 
 const currentAccountId = '1234'
 mockNuxtImport('useConnectAccountStore', () => () => ({
@@ -30,7 +24,7 @@ describe('ConnectHeaderNotifications.vue', () => {
     const wrapper = await mountSuspended(ConnectHeaderNotifications)
 
     const items = (wrapper.vm as any).dropdownItems
-    expect(items).toEqual([{ label: 'No Notifications' }])
+    expect(items).toEqual([{ label: 'connect.text.notifications.none' }])
   })
 
   it('should create correct dropdown items with multiple pending approvals', async () => {
@@ -40,8 +34,8 @@ describe('ConnectHeaderNotifications.vue', () => {
     const items = (wrapper.vm as any).dropdownItems
     expect(items).toEqual([
       {
-        label: '3 team members require approval to access this account.',
-        to: `${authWebUrl}account/${currentAccountId}/settings/team-members`
+        label: 'connect.text.notifications.teamMemberApproval',
+        to: `${mockRtc.authWebUrl}account/${currentAccountId}/settings/team-members`
       }
     ])
   })

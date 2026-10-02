@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { h } from 'vue'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectTombstoneItem from '../../../../app/components/Connect/Tombstone/Item.vue'
+import { ConnectTombstoneItem } from '#components'
 
 describe('<ConnectTombstoneItem />', () => {
   it('renders a plain text paragraph by default', async () => {

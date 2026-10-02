@@ -10,6 +10,18 @@ declare module 'nuxt/schema' {
       }
     }
   }
+
+  interface AppConfig {
+    connect: {
+      header: {
+        localeSelect: boolean
+        whatsNew: boolean
+      }
+      footer: {
+        versions: string[]
+      }
+    }
+  }
 }
 
 export {}

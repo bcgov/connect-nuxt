@@ -14,7 +14,7 @@ const showSideMenu = ref(true)
       size="xs"
       :icon="showSideMenu ? 'i-mdi-minus' : 'i-mdi-plus'"
       data-testid="connect-sidebar-toggle-btn"
-      @click="showSideMenu = !showSideMenu"
+      @click="() => { showSideMenu = !showSideMenu }"
     />
     <ConnectTransitionCollapse>
       <div v-if="showSideMenu">

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import ConnectAddressDisplay from '../../../app/components/Connect/Address/Display.vue'
+import { ConnectAddressDisplay } from '#components'
 
 describe('ConnectAddressDisplay.vue', () => {
   const fullAddress = {

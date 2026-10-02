@@ -2,6 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
+import { mockAuthApi } from '../../setup'
+
+mockNuxtImport('useRouter', () => () => ({
+  afterEach: vi.fn(),
+  beforeResolve: vi.fn()
+}))
 
 const mockKeys = {
   userProfile: vi.fn(() => ['connect', 'auth', 'GUID-123', 'user-profile']),
@@ -27,13 +33,6 @@ const mockCurrentAccount = { id: 'ACC-123' }
 mockNuxtImport('useConnectAccountStore', () => {
   return () => ({
     currentAccount: mockCurrentAccount
-  })
-})
-
-const mockAuthApi = vi.fn()
-mockNuxtImport('useNuxtApp', () => {
-  return () => ({
-    $authApi: mockAuthApi
   })
 })
 
