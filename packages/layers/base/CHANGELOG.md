@@ -1,5 +1,13 @@
 # @sbc-connect/nuxt-base
 
+## 0.14.0
+
+### Minor Changes
+
+- [#203](https://github.com/bcgov/connect-nuxt/pull/203) [`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38) Thanks [@deetz99](https://github.com/deetz99)! - Add NuxtAnnouncer to app.vue. Update ConnectInputMenu hasValue check.
+
+- [#203](https://github.com/bcgov/connect-nuxt/pull/203) [`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38) Thanks [@deetz99](https://github.com/deetz99)! - Update dependencies
+
 ## 0.13.3
 
 ### Patch Changes

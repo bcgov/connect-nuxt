@@ -1,5 +1,22 @@
 # @sbc-connect/nuxt-auth
 
+## 0.17.0
+
+### Minor Changes
+
+- [#201](https://github.com/bcgov/connect-nuxt/pull/201) [`0d043ed`](https://github.com/bcgov/connect-nuxt/commit/0d043ed037473ff381e0d3ca17065f11ca3b89d2) Thanks [@sumesh85](https://github.com/sumesh85)! - Account selector: existing-account rows now show the org's mailing address, a payment-method badge, and an NSF/statement-overdue status badge. NSF-suspended accounts are selectable (instead of disabled); clicking one takes the user straight to their account info page instead of into the app.
+  
+  - `ConnectAccount` receives optional `address`, `paymentMethod`, `hasNsfInvoices`, and `hasOverdueInvoices` fields.
+  - `ConnectAccountExistingList`/`ConnectAccountExistingListItem` receives `showAddress`, `showPaymentMethodBadge`, and `showStatusBadge` props, all defaulting to `false` — existing consumers see no change on upgrade unless they opt in. The layer's own `/auth/account/select` page opts in to `showStatusBadge` so it keeps showing the NSF indicator.
+
+- [#203](https://github.com/bcgov/connect-nuxt/pull/203) [`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38) Thanks [@deetz99](https://github.com/deetz99)! - Update dependencies
+
+### Patch Changes
+
+- Updated dependencies [[`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38), [`fedf109`](https://github.com/bcgov/connect-nuxt/commit/fedf109afdefa2869325afb9c7a268767c0e3d38)]:
+  - @sbc-connect/nuxt-base@0.14.0
+  - @sbc-connect/nuxt-forms@0.8.0
+
 ## 0.16.7
 
 ### Patch Changes
