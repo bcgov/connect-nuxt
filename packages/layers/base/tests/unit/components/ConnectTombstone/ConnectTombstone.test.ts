@@ -1,20 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
-import type { ShallowRef } from 'vue'
+import type { Ref } from 'vue'
 import { ConnectTombstone } from '#components'
 import type { ConnectTombstoneState } from '#base/app/interfaces/connect-tombstone'
 import type { ButtonProps } from '@nuxt/ui'
-
-let mockTombstoneState: ShallowRef<ConnectTombstoneState>
-
-mockNuxtImport('useConnectTombstone', () => {
-  return vi.fn((_stateKey: string) => {
-    return {
-      tombstone: mockTombstoneState,
-      $reset: vi.fn()
-    }
-  })
-})
 
 const createInitialState = (): ConnectTombstoneState => ({
   loading: false,
@@ -25,9 +14,22 @@ const createInitialState = (): ConnectTombstoneState => ({
   bottomButtons: []
 })
 
+let mockTombstoneState: Ref<ConnectTombstoneState>
+
+mockNuxtImport('useConnectTombstone', () => {
+  return vi.fn((_stateKey: string) => {
+    return {
+      tombstone: mockTombstoneState,
+      $reset: vi.fn()
+    }
+  })
+})
+
 describe('ConnectTombstone.vue', () => {
   beforeEach(() => {
-    mockTombstoneState = shallowRef(createInitialState())
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore - type excessively deep
+    mockTombstoneState = ref<ConnectTombstoneState>(createInitialState())
   })
 
   it('displays the loading skeleton when loading is true', async () => {
