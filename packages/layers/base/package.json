@@ -43,7 +43,7 @@
     "@sbc-connect/vitest-config": "workspace:*",
     "@types/luxon": "3.7.5",
     "dotenv": "catalog:",
-    "nuxt": "^4.5.2",
+    "nuxt": "catalog:",
     "typescript": "catalog:",
     "vue-router": "^5.3.1",
     "vue-tsc": "catalog:"
