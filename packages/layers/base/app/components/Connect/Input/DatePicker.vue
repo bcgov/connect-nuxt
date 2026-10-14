@@ -312,7 +312,7 @@ function clearDate() {
           :color="error ? 'error' : 'neutral'"
           variant="ghost"
           class="date-action-button"
-          :aria-label="$t('label.clearDate')"
+          :aria-label="$t('connect.label.clearDate')"
           @keydown.enter.prevent.stop="clearDate"
           @click="clearDate"
         />
@@ -326,7 +326,7 @@ function clearDate() {
             onOpenAutoFocus,
             onCloseAutoFocus,
             onFocusOutside: ignoreInputInteraction,
-            onInteractOutside: ignoreInputInteraction,
+            onInteractOutside: ignoreInputInteraction
           }"
         >
           <UButton
@@ -337,13 +337,13 @@ function clearDate() {
             :color="error && !dateInput ? 'error' : 'neutral'"
             variant="ghost"
             class="date-action-button"
-            :aria-label="$t('label.openCalendar')"
+            :aria-label="$t('connect.label.openCalendar')"
             @keydown.enter.prevent.stop="isCalendarOpen = !isCalendarOpen"
           />
           <template #content>
             <div ref="calendarContentRef">
               <UCalendar
-                :aria-label="$t('label.chooseDate')"
+                :aria-label="$t('connect.label.chooseDate')"
                 :model-value="calendarValue"
                 :min-value="calendarMinValue"
                 :max-value="calendarMaxValue"

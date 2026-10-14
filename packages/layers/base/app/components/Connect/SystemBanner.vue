@@ -28,7 +28,7 @@ onMounted(async () => {
       :ui="{
         root: 'rounded-none bg-brand-inverted px-0 sm:px-0 app-inner-container',
         wrapper: 'bg-brand-inverted',
-        close: 'mt-2 text-neutral-highlighted',
+        close: 'mt-2 text-neutral-highlighted'
       }"
       @update:open="close = true"
     >

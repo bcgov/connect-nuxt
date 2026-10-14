@@ -30,8 +30,8 @@ definePageMeta({
             type: 'email',
             title: 'Email:',
             value: 'BCRegistries@gov.bc.ca',
-            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request',
-          },
+            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request'
+          }
         ]"
         hours="Monday to Friday, 8:30am - 4:30pm Pacific Time"
       />
@@ -45,8 +45,8 @@ definePageMeta({
             type: 'email',
             title: 'Email:',
             value: 'BCRegistries@gov.bc.ca',
-            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request',
-          },
+            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request'
+          }
         ]"
         hours="Monday to Friday, 8:30am - 4:30pm Pacific Time"
       />
@@ -60,8 +60,8 @@ definePageMeta({
             type: 'email',
             title: 'Email:',
             value: 'BCRegistries@gov.bc.ca',
-            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request',
-          },
+            href: 'mailto:bcregistries@gov.bc.ca?subject=BC%20Registries%20Support%20Request'
+          }
         ]"
       />
     </ConnectPageSection>

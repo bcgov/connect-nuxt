@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",
-    "@sbc-connect/eslint-config": "workspace:*",
     "@sbc-connect/playwright-config": "workspace:*",
     "@sbc-connect/vitest-config": "workspace:*",
     "dotenv": "catalog:",
@@ -33,7 +32,7 @@
     "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@pinia/colada": "1.4.6",
+    "@pinia/colada": "1.4.8",
     "@pinia/colada-nuxt": "1.2.0",
     "@pinia/nuxt": "1.0.2",
     "@sbc-connect/nuxt-base": "workspace:*",

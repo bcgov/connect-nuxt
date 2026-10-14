@@ -27,7 +27,7 @@ const padding = paddingClass === 'x-default'
       'flex gap-4 sm:gap-6',
       padding,
       orientation === 'horizontal' ? 'flex-col sm:flex-row' : 'flex-col',
-      error ? 'shadow-section-error' : '',
+      error ? 'shadow-section-error' : ''
     ]"
   >
     <span

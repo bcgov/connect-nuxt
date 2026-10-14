@@ -136,7 +136,7 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
       :schema
       class="bg-white p-6 shadow max-w-full sm:max-w-2/3 mx-auto rounded space-y-6"
       :class="{
-        'border-l-3 border-error': hasErrors,
+        'border-l-3 border-error': hasErrors
       }"
       aria-labelledby="form-title"
       novalidate
@@ -147,7 +147,7 @@ async function onSubmit(e: FormSubmitEvent<Schema>) {
         id="form-title"
         class="font-bold text-xl text-neutral-highlighted"
         :class="{
-          'text-red-600': hasErrors,
+          'text-red-600': hasErrors
         }"
       >
         Address Form

@@ -46,14 +46,14 @@ function resolveBackHref() {
       class="app-inner-container flex items-center gap-3"
     >
       <UButton
-        class="size-[28px] rounded-full px-1 bg-secondary hover:bg-secondary/75"
+        class="size-[28px] rounded-full px-1 bg-secondary hover:bg-secondary/75 disabled:bg-secondary outline-secondary/100"
         :disabled="breadcrumbs.length < 2"
         color="secondary"
         icon="i-mdi-arrow-left"
         :aria-label="$t('connect.label.goBack')"
         :to="resolveBackHref()"
         :ui="{
-          leadingIcon: 'text-primary',
+          leadingIcon: 'text-primary'
         }"
       />
       <div class="w-[1px] bg-shade h-[24px]" />
@@ -62,6 +62,7 @@ function resolveBackHref() {
         aria-label=""
         :items="breadcrumbs"
         separator-icon="i-mdi-chevron-right"
+        color="secondary"
       />
     </nav>
   </div>

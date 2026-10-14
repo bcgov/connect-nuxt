@@ -1,4 +1,13 @@
 /* eslint-disable max-len */
+const colors = [
+  'primary',
+  'secondary',
+  'success',
+  'info',
+  'warning',
+  'error'
+]
+
 export default defineAppConfig({
   connect: {
     header: {
@@ -49,6 +58,11 @@ export default defineAppConfig({
           false: {
             link: 'text-secondary underline font-medium'
           }
+        },
+        color: {
+          secondary: {
+            link: 'outline-secondary/100 focus-visible:outline-2 outline-offset-2'
+          }
         }
       },
       compoundVariants: [
@@ -60,30 +74,37 @@ export default defineAppConfig({
             link: 'hover:text-secondary hover:underline transition-colors'
           }
         }
-      ]
+      ],
+      defaultVariants: {
+        color: 'secondary'
+      }
     },
     button: {
       compoundVariants: [
         {
           color: 'primary',
           variant: 'solid',
-          class: 'font-bold text-(--ui-bg) bg-(--ui-primary) hover:bg-(--ui-primary)/75 disabled:bg-(--ui-primary) aria-disabled:bg-(--ui-primary) focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--ui-primary)'
+          class: 'font-bold hover:bg-(--ui-primary)/75 disabled:bg-(--ui-primary) aria-disabled:bg-(--ui-primary) outline-offset-2'
         },
-        {
-          color: 'primary',
-          variant: 'ghost',
-          class: 'text-(--ui-primary) hover:bg-(--ui-primary)/10 active:bg-(--ui-primary)/25 focus:outline-none focus-visible:bg-(--ui-primary)/10 disabled:bg-transparent aria-disabled:bg-transparent dark:disabled:bg-transparent dark:aria-disabled:bg-transparent'
-        },
-        {
-          color: 'primary',
-          variant: 'outline',
-          class: 'ring ring-inset ring-primary text-primary hover:bg-primary/10 active:bg-primary/10 disabled:bg-transparent aria-disabled:bg-transparent dark:disabled:bg-transparent dark:aria-disabled:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-primary'
-        }
+        ...colors.map(color => ({
+          color,
+          class: `outline-${color}/100`
+        })),
+        ...colors.map(color => ({
+          color,
+          variant: 'solid',
+          class: 'outline-offset-2'
+        }))
       ],
       slots: {
-        base: 'cursor-pointer'
+        base: 'cursor-pointer focus-visible:outline-1'
       },
       variants: {
+        color: {
+          primary: 'outline-primary/100',
+          secondary: 'outline-secondary/100',
+          neutral: 'outline-inverted/100'
+        },
         size: {
           sm: {
             base: 'px-7 py-0.5 text-sm gap-2.5',
@@ -232,6 +253,9 @@ export default defineAppConfig({
       },
       variants: {
         size: {
+          bcGov: {
+            root: 'text-sm'
+          },
           xs: {
             root: 'text-xs'
           },
@@ -255,7 +279,7 @@ export default defineAppConfig({
         }
       },
       defaultVariants: {
-        size: 'md'
+        size: 'bcGov'
       }
     },
     icons: {
@@ -331,6 +355,9 @@ export default defineAppConfig({
         color: 'primary',
         variant: 'bcGov'
       }
+    },
+    link: {
+      base: 'outline-primary/100 focus-visible:outline-2 outline-offset-2'
     },
     skeleton: {
       base: 'bg-gray-200'

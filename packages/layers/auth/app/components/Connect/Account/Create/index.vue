@@ -52,7 +52,7 @@ onMounted(() => {
   <ConnectPageSection
     :heading="{
       label: $t('connect.label.accountInformation'),
-      labelClass: 'font-bold md:ml-4',
+      labelClass: 'font-bold md:ml-4'
     }"
     ui-body="p-0 sm:p-0"
   >

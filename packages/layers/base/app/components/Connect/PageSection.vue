@@ -23,7 +23,7 @@ defineProps<{
     :ui="{
       header: heading?.ui ?? 'bg-shade-secondary px-4 py-4 sm:px-4 rounded-t-md',
       body: uiBody ?? 'p-0 sm:p-0',
-      footer: 'p-0 sm:p-0',
+      footer: 'p-0 sm:p-0'
     }"
   >
     <template v-if="heading?.label || $slots.header" #header>

@@ -57,7 +57,7 @@ const variantClass: Record<VariantOption, string[]> = {
         'motion-reduce:transition-none duration-200',
         'group-focus-within:text-xs',
         'group-focus-within:text-primary',
-        'w-fit',
+        'w-fit'
       ]"
     >
       {{ label }}

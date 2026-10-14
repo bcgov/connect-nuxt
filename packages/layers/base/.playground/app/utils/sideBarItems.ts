@@ -111,10 +111,6 @@ export const getBaseSidebarItems = () => {
             to: localePath('/examples/components/ConnectInput')
           },
           {
-            label: 'Connect InputDate',
-            to: localePath('/examples/components/ConnectInputDate')
-          },
-          {
             label: 'Connect InputDatePicker',
             to: localePath('/examples/components/ConnectInputDatePicker')
           },

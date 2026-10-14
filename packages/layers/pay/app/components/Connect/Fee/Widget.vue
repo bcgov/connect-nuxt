@@ -191,13 +191,13 @@ const getItemFee = (feeItem: ConnectFeeItem) => {
             base: 'rounded-none px-4 py-2 w-full focus-visible:ring-2 focus-visible:ring-primary',
             content: 'rounded-t-none',
             trailingIcon: 'ml-auto',
-            itemTrailingIcon: 'hidden',
+            itemTrailingIcon: 'hidden'
           }"
         >
           <span class="text-xs text-left">
             {{
               $t(`connect.payMethod.text.${userSelectedPaymentMethod}`, {
-                account: userPaymentAccount?.cfsAccount?.bankAccountNumber },
+                account: userPaymentAccount?.cfsAccount?.bankAccountNumber }
               )
             }}
           </span>
