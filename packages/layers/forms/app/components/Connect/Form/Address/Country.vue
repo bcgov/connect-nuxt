@@ -43,11 +43,13 @@ function matchesWordStart(text: string, search: string): boolean {
 // anything at runtime - the separator object itself stays `{ type: 'separator' }`.
 type CountryOption = Iso3166_1Country | (Partial<Iso3166_1Country> & { type: 'separator' })
 
+// CA and US are pinned to the top for convenience, but also stay in their
+// alphabetical position in the full list below the separator.
 const options: Array<CountryOption> = [
   countries.find(c => c.alpha_2 === 'CA')!,
   countries.find(c => c.alpha_2 === 'US')!,
   { type: 'separator' },
-  ...countries.filter(c => c.alpha_2 !== 'CA' && c.alpha_2 !== 'US')
+  ...countries
 ]
 
 const searchTerm = ref('')
@@ -56,12 +58,8 @@ const filteredItems = computed(() => {
   if (!searchTerm.value.trim()) {
     return options
   }
-  return options.filter((item) => {
-    if ('type' in item) {
-      return false
-    }
-    return matchesWordStart(item.name, searchTerm.value)
-  })
+  // Search the full list (not `options`) so pinned countries only appear once
+  return countries.filter(item => matchesWordStart(item.name, searchTerm.value))
 })
 </script>
 

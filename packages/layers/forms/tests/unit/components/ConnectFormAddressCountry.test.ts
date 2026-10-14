@@ -26,11 +26,30 @@ describe('CountrySelect.vue', () => {
     expect(options[1].alpha_2).toBe('US')
   })
 
-  it('does not duplicate CA and US further down the list', async () => {
+  it('also lists CA and US in their alphabetical position below the separator', async () => {
     const wrapper = await mountComponent()
     const options = (wrapper.vm as any).options
-    expect(options.filter((o: any) => o.alpha_2 === 'CA')).toHaveLength(1)
-    expect(options.filter((o: any) => o.alpha_2 === 'US')).toHaveLength(1)
+    expect(options.filter((o: any) => o.alpha_2 === 'CA')).toHaveLength(2)
+    expect(options.filter((o: any) => o.alpha_2 === 'US')).toHaveLength(2)
+
+    const rest = options.slice(options.findIndex((o: any) => o.type === 'separator') + 1)
+    const names = rest.map((o: any) => o.name)
+    expect(names).toEqual([...names].sort())
+    expect(rest.some((o: any) => o.alpha_2 === 'CA')).toBe(true)
+    expect(rest.some((o: any) => o.alpha_2 === 'US')).toBe(true)
+  })
+
+  it('shows CA and US only once in search results', async () => {
+    const wrapper = await mountComponent()
+    const input = wrapper.find('[data-testid="test-input-country"]')
+
+    await input.setValue('canada')
+    let filteredItems = (wrapper.vm as any).filteredItems
+    expect(filteredItems.filter((item: any) => item.alpha_2 === 'CA')).toHaveLength(1)
+
+    await input.setValue('united states')
+    filteredItems = (wrapper.vm as any).filteredItems
+    expect(filteredItems.filter((item: any) => item.alpha_2 === 'US')).toHaveLength(1)
   })
 
   it('passes the disabled prop down to the underlying input', async () => {
