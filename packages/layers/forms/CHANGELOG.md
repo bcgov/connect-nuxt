@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-forms
 
+## 0.8.1
+
+### Patch Changes
+
+- [#204](https://github.com/bcgov/connect-nuxt/pull/204) [`a6c655c`](https://github.com/bcgov/connect-nuxt/commit/a6c655c177798565b04ffc0fe76b308d4841c9e5) Thanks [@eve-git](https://github.com/eve-git)! - Country dropdown: keep Canada and United States pinned at the top and also list them in their alphabetical position; search results show each only once.
+
 ## 0.8.0
 
 ### Minor Changes
