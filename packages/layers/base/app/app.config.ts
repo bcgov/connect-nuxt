@@ -94,17 +94,17 @@ export default defineAppConfig({
           color,
           variant: 'solid',
           class: 'outline-offset-2'
-        }))
+        })),
+        {
+          color: 'secondary',
+          variant: 'outline',
+          class: 'ring-secondary/100'
+        }
       ],
       slots: {
-        base: 'cursor-pointer focus-visible:outline-1'
+        base: 'cursor-pointer'
       },
       variants: {
-        color: {
-          primary: 'outline-primary/100',
-          secondary: 'outline-secondary/100',
-          neutral: 'outline-inverted/100'
-        },
         size: {
           sm: {
             base: 'px-7 py-0.5 text-sm gap-2.5',

@@ -23,7 +23,7 @@ const breadcrumbs = computed<ConnectBreadcrumb[]>(() => {
   }
 })
 
-function resolveBackHref() {
+const backHref = computed(() => {
   const bcLength = breadcrumbs.value.length
 
   if (bcLength > 1) {
@@ -32,7 +32,7 @@ function resolveBackHref() {
   } else {
     return ''
   }
-}
+})
 </script>
 
 <template>
@@ -46,12 +46,15 @@ function resolveBackHref() {
       class="app-inner-container flex items-center gap-3"
     >
       <UButton
-        class="size-[28px] rounded-full px-1 bg-secondary hover:bg-secondary/75 disabled:bg-secondary outline-secondary/100"
+        :class="[
+          'size-[28px] rounded-full px-1 bg-secondary',
+          'hover:bg-secondary/75 disabled:bg-secondary outline-secondary/100'
+        ]"
         :disabled="breadcrumbs.length < 2"
         color="secondary"
         icon="i-mdi-arrow-left"
         :aria-label="$t('connect.label.goBack')"
-        :to="resolveBackHref()"
+        :to="backHref"
         :ui="{
           leadingIcon: 'text-primary'
         }"
