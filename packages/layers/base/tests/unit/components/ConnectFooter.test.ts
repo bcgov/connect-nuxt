@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { ConnectFooter, UApp } from '#components'
 
-mockNuxtImport('useRuntimeConfig', (original) => () => {
+mockNuxtImport('useRuntimeConfig', original => () => {
   const orig = typeof original === 'function' ? original() : {}
   return {
     ...orig,
