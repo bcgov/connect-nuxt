@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.15.0
+
+### Minor Changes
+
+- [#206](https://github.com/bcgov/connect-nuxt/pull/206) [`f19c40c`](https://github.com/bcgov/connect-nuxt/commit/f19c40c3702a53ef3a01a22b7068301f5d328122) Thanks [@deetz99](https://github.com/deetz99)! - Update Nuxt, Nuxt UI, JSDom and Pinia Colada to latest. Delete ConnectInputDate, replaced by ConnectInputDatePicker. Resolve theme issues after Nuxt UI update.
+
 ## 0.14.0
 
 ### Minor Changes
