@@ -9,7 +9,7 @@ export default createConfigForNuxt({
   rules: {
     'no-console': ['error', { allow: ['info', 'error', 'warn'] }],
     'no-debugger': 'off',
-    'max-len': ['warn',
+    'max-len': ['error',
       {
         code: 120,
         ignoreRegExpLiterals: true,
@@ -27,16 +27,16 @@ export default createConfigForNuxt({
     'vue/array-bracket-spacing': 'warn',
     'vue/array-bracket-newline': 'warn',
     'vue/attributes-order': 'warn',
-    'vue/comma-dangle': 'warn',
+    'vue/comma-dangle': ['error', 'never'],
     'vue/component-api-style': ['error', ['script-setup']],
     'vue/block-lang': ['error', { script: { lang: 'ts' } }],
     'vue/html-indent': 'warn',
     'vue/max-attributes-per-line': ['error', { singleline: { max: 2 }, multiline: { max: 1 } }],
     'vue/script-indent': 'off',
-    'vue/no-unused-properties': ['error', { deepData: true, groups: ['props','data','computed','methods','setup'] }],
+    'vue/no-unused-properties': ['error', { deepData: true, groups: ['props', 'data', 'computed', 'methods', 'setup'] }],
     'vue/prefer-use-template-ref': 'error',
     'vue/require-typed-ref': 'error',
-    'vue/block-order': ['error', { order: ['script','template','style'] }],
+    'vue/block-order': ['error', { order: ['script', 'template', 'style'] }],
     'vue/define-emits-declaration': ['error', 'type-based'],
     // 'vue/define-macros-order': ['error', { order: ['defineProps', 'defineEmits'] }],
     'vue/define-props-declaration': ['error', 'type-based'],
@@ -48,6 +48,8 @@ export default createConfigForNuxt({
   }
 }).prepend({
   ignores: [
-    '**playwright-report**'
+    '**/playwright-report',
+    '**/coverage',
+    'eslint.config.mjs'
   ]
 })

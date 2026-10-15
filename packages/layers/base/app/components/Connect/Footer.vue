@@ -61,7 +61,7 @@ const appVersions = computed<string[]>(() => {
             :class="[
               'flex-col gap-2 border-r-0 pr-2 last:mr-0',
               'last:border-r-0 sm:mr-2 sm:inline-block sm:flex-none',
-              'sm:border-r sm:first:ml-2 border-line-muted',
+              'sm:border-r sm:first:ml-2 border-line-muted'
             ]"
           >
             <NuxtLink
@@ -70,7 +70,7 @@ const appVersions = computed<string[]>(() => {
               :class="[
                 'rounded p-1 text-sm text-secondary',
                 'hover:underline focus:outline-none',
-                'focus-visible:ring-2 focus-visible:ring-secondary',
+                'focus-visible:ring-2 focus-visible:ring-secondary'
               ]"
             >
               {{ $t(link.label) }}

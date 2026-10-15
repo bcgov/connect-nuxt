@@ -51,7 +51,7 @@ Components for BC Government branding and styling:
 - ConnectBreadcrumb
 - ConnectFooter
 - ConnectInput
-- ConnectInputDate
+- ConnectInputDatePicker
 - ConnectLocaleSelect
 - ConnectPageSection
 - ConnectSpinner

@@ -40,7 +40,7 @@ defineExpose({ input: inputRef })
       id,
       disabled,
       autofocus: autoFocus,
-      ...injectedProps, // injected props will default when provided
+      ...injectedProps // injected props will default when provided
     }"
     v-model.trim="model"
     v-maska="mask"

@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+/* safelist so we can map across colors in the app config */
+@source inline("outline-{primary,secondary,success,info,warning,error}/100");
+@source inline("ring-{primary,secondary,success,info,warning,error}/100");
+
 /* Customize Nuxt UI default tokens */
 /* Follows https://sites.google.com/bcdevexchange.org/designsystem/foundation-styles/colours */
 :root {

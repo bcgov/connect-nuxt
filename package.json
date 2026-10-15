@@ -13,12 +13,16 @@
     "test:unit": "pnpm -r test:unit",
     "test:e2e": "pnpm -r test:e2e",
     "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "lint:fix": "pnpm -r lint:fix",
     "reset:hard": "find . -name node_modules -exec rm -rf {} + && find . -name .nuxt -exec rm -rf {} + && pnpm i"
   },
   "devDependencies": {
     "@changesets/changelog-github": "1.0.1",
     "@changesets/cli": "3.0.3",
-    "pkg-pr-new": "0.0.88"
+    "pkg-pr-new": "0.0.91",
+    "@nuxt/eslint-config": "1.17.0",
+    "eslint": "10.12.0"
   },
   "packageManager": "pnpm@11.9.0"
 }

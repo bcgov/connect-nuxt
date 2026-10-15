@@ -10,7 +10,7 @@ const localePath = useLocalePath()
       'flex items-center gap-4 rounded-md',
       'px-2 transition-colors duration-300',
       'ease-in-out hover:bg-secondary/[0.1]',
-      'focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary',
+      'focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary'
     ]"
     :aria-label="$t('connect.header.homeLink')"
   >

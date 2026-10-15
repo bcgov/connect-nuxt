@@ -25,7 +25,7 @@ const { locale } = useI18n()
         class="text-sm"
         :class="{
           'line-clamp-1 overflow-hidden text-ellipsis text-inverted max-w-64': theme === 'header',
-          'text-neutral-highlighted max-w-80': theme === 'dropdown',
+          'text-neutral-highlighted max-w-80': theme === 'dropdown'
         }"
       >
         {{ username }}

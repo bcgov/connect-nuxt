@@ -67,7 +67,7 @@ watch(() => props.hasReachedBottom, (newVal) => {
       v-slot="{ error }"
       name="agreeToTerms"
       :ui="{
-        error: 'text-base',
+        error: 'text-base'
       }"
     >
       <UCheckbox
@@ -75,7 +75,7 @@ watch(() => props.hasReachedBottom, (newVal) => {
         v-model="state.agreeToTerms"
         :label="$t('connect.text.iHaveReadAndAcceptTermsOfUse')"
         :ui="{
-          label: error ? 'text-lg text-error' : 'text-lg',
+          label: error ? 'text-lg text-error' : 'text-lg'
         }"
       />
     </UFormField>

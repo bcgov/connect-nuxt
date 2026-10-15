@@ -60,7 +60,6 @@ jobs:
     - name: Setup pnpm
       if: steps.package_list.outputs.list != ''
       uses: pnpm/action-setup@v4
-      with:
 
     - name: Setup node.js
       if: steps.package_list.outputs.list != ''

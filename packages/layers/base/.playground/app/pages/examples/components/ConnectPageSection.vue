@@ -50,7 +50,7 @@ const actions = ref([
     <ConnectPageSection
       :heading="{
         label: 'Section with Icon & Actions',
-        icon: 'i-mdi-cogs',
+        icon: 'i-mdi-cogs'
       }"
       :actions="actions"
     >
@@ -79,7 +79,7 @@ const actions = ref([
     <ConnectPageSection
       :heading="{
         label: 'Section with Custom UI',
-        ui: 'bg-green-100 p-4 border-b-2 border-green-300',
+        ui: 'bg-green-100 p-4 border-b-2 border-green-300'
       }"
       ui-body="p-6 bg-green-50"
     >

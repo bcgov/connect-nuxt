@@ -67,10 +67,10 @@ const disableButtons = computed<boolean>(() => {
       @submit="mutate({
         payload: {
           accepted: true,
-          version: data!.versionId,
+          version: data!.versionId
         },
         silent: false,
-        successCb: () => finalRedirect(useRoute(), true),
+        successCb: () => finalRedirect(useRoute(), true)
       })"
     />
   </UContainer>

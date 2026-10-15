@@ -53,14 +53,14 @@ const addressLine = computed(() => {
     <div
       class="flex flex-row items-center gap-4 sm:gap-6"
       :class="{
-        'opacity-50': isUnusable,
+        'opacity-50': isUnusable
       }"
     >
       <UAvatar
         :alt="account.label[0]"
         :ui="{
           root: 'bg-blue-300 rounded-sm',
-          fallback: 'text-white font-bold text-xl',
+          fallback: 'text-white font-bold text-xl'
         }"
       />
       <div class="flex w-full flex-col text-left">

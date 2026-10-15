@@ -73,7 +73,7 @@ const loginOptions = computed(() => {
         :description="ac.alert.message"
         icon="i-mdi-check-circle"
         :ui="{
-          icon: 'text-success',
+          icon: 'text-success'
         }"
       />
       <h1>

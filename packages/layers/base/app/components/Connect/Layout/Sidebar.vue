@@ -28,7 +28,7 @@ const showSideMenu = ref(true)
             label: 'text-base',
             link: 'cursor-pointer',
             linkLabel: 'text-neutral-highlighted',
-            root: 'bg-white rounded p-3',
+            root: 'bg-white rounded p-3'
           }"
         />
       </div>

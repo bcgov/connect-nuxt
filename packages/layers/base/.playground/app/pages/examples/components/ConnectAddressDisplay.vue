@@ -31,7 +31,7 @@ definePageMeta({
           region: 'XY',
           postalCode: 'V1X 1X1',
           country: 'CA',
-          locationDescription: 'Some extra location info',
+          locationDescription: 'Some extra location info'
         }"
       />
     </ConnectPageSection>
@@ -45,7 +45,7 @@ definePageMeta({
           region: 'XY',
           postalCode: 'V1X 1X1',
           country: 'CA',
-          locationDescription: 'Some extra location info',
+          locationDescription: 'Some extra location info'
         }"
         :omit-country="true"
       />
@@ -60,7 +60,7 @@ definePageMeta({
           region: 'XY',
           postalCode: 'V1X 1X1',
           country: 'CA',
-          locationDescription: 'Some extra location info',
+          locationDescription: 'Some extra location info'
         }"
         :separate-city="true"
       />
@@ -75,7 +75,7 @@ definePageMeta({
           region: 'XY',
           postalCode: 'V1X 1X1',
           country: 'Canada',
-          locationDescription: 'Some extra location info',
+          locationDescription: 'Some extra location info'
         }"
         :text-decor="true"
       />
@@ -93,7 +93,7 @@ definePageMeta({
           locationDescription: 'Some extra location info',
           streetName: 'Street Ave',
           streetNumber: '123',
-          unitNumber: '101',
+          unitNumber: '101'
         }"
       />
     </ConnectPageSection>
@@ -104,7 +104,7 @@ definePageMeta({
           street: '123 Street Ave',
           city: 'Townsville',
           region: 'XY',
-          country: 'CA',
+          country: 'CA'
         }"
       />
     </ConnectPageSection>

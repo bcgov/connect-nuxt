@@ -150,7 +150,7 @@ function resetAddress() {
           'streetAdditional',
           'streetName',
           'streetNumber',
-          'unitNumber',
+          'unitNumber'
         ]"
       />
     </ConnectPageSection>
@@ -174,7 +174,7 @@ function resetAddress() {
           'streetAdditional',
           'streetName',
           'streetNumber',
-          'unitNumber',
+          'unitNumber'
         ]"
       />
     </ConnectPageSection>
@@ -198,7 +198,7 @@ function resetAddress() {
           'streetAdditional',
           'streetName',
           'streetNumber',
-          'unitNumber',
+          'unitNumber'
         ]"
       />
     </ConnectPageSection>

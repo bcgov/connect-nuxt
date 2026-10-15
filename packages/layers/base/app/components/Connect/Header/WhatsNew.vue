@@ -21,7 +21,7 @@ function open() {
     position="top-left"
     inset
     :ui="{
-      base: 'ring-(--ui-error)',
+      base: 'ring-(--ui-error)'
     }"
   >
     <UButton

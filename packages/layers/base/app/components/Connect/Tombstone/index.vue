@@ -96,7 +96,7 @@ async function handleButtonAction(button: ButtonProps, event: MouseEvent) {
                       ...btn.button,
                       onClick(event) {
                         handleButtonAction(btn.button!, event)
-                      },
+                      }
                     }"
                   />
                 </template>

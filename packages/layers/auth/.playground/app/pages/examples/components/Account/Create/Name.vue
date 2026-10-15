@@ -60,7 +60,7 @@ const errorMessage = computed<FormError | undefined>(() => {
             class="w-40"
             :items="[
               { label: 'Available (204)', value: 204 },
-              { label: 'Unavailable (200)', value: 200 },
+              { label: 'Unavailable (200)', value: 200 }
             ]"
             :disabled="!mockEnabled"
           />
