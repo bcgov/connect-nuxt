@@ -95,11 +95,11 @@ export default defineAppConfig({
           variant: 'solid',
           class: 'outline-offset-2'
         })),
-        {
-          color: 'secondary',
+        ...colors.map(color => ({
+          color,
           variant: 'outline',
-          class: 'ring-secondary/100'
-        }
+          class: `ring-${color}/100`
+        }))
       ],
       slots: {
         base: 'cursor-pointer'
