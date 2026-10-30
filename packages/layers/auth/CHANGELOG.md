@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-auth
 
+## 0.18.1
+
+### Patch Changes
+
+- [#209](https://github.com/bcgov/connect-nuxt/pull/209) [`60f4e51`](https://github.com/bcgov/connect-nuxt/commit/60f4e515b4fd4ed6b6807f906866d68b07dfbd70) Thanks [@sumesh85](https://github.com/sumesh85)! - Account selector: existing-account badges are uppercase with a leading icon — a payment-method icon (credit card, bank, dollar, link, EFT…) on the grey pill and a warning icon on the solid red status pill.
+
 ## 0.18.0
 
 ### Minor Changes
