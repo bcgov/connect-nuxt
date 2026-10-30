@@ -17,7 +17,11 @@ mockNuxtImport('useConnectAccountStore', () => () => mockAccountStore)
 
 const globalStubs = {
   UAvatar: { name: 'UAvatar', props: ['alt'], template: '<span>{{ alt }}</span>' },
-  UBadge: { name: 'UBadge', props: ['label'], template: '<span class="badge">{{ label }}</span>' },
+  UBadge: {
+    name: 'UBadge',
+    props: ['label', 'icon'],
+    template: '<span class="badge" :data-icon="icon">{{ label }}</span>'
+  },
   UButton: {
     name: 'UButton',
     props: ['label', 'disabled'],
@@ -83,6 +87,25 @@ describe('ConnectAccountExistingListItem', () => {
   it('renders a payment method badge when explicitly enabled', async () => {
     const wrapper = await mount({ ...baseAccount, paymentMethod: 'PAD' }, { showPaymentMethodBadge: true })
     expect(wrapper.text()).toContain('connect.badge.paymentMethod.PAD')
+  })
+
+  it.each([
+    ['DIRECT_PAY', 'i-mdi-credit-card-outline'],
+    ['PAD', 'i-mdi-bank-outline'],
+    ['ONLINE_BANKING', 'i-mdi-currency-usd'],
+    ['DRAWDOWN', 'i-mdi-link-variant'],
+    ['EFT', 'i-mdi-arrow-right-circle-outline']
+  ])('shows the %s payment method badge with the %s icon', async (paymentMethod, icon) => {
+    const wrapper = await mount({ ...baseAccount, paymentMethod }, { showPaymentMethodBadge: true })
+    expect(wrapper.find('.badge').attributes('data-icon')).toBe(icon)
+  })
+
+  it('shows the status badge with a warning icon', async () => {
+    const wrapper = await mount(
+      { ...baseAccount, accountStatus: AccountStatus.NSF_SUSPENDED },
+      { showStatusBadge: true }
+    )
+    expect(wrapper.find('.badge').attributes('data-icon')).toBe('i-mdi-alert-outline')
   })
 
   it('renders the non-sufficient-funds badge for an NSF-suspended account with no overdue flag', async () => {

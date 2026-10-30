@@ -38,6 +38,19 @@ const statusBadgeLabel = computed(() => {
   return 'connect.badge.nonSufficientFunds'
 })
 
+const paymentMethodIcons: Record<string, string> = {
+  CASH: 'i-mdi-cash',
+  CC: 'i-mdi-credit-card-outline',
+  CHEQUE: 'i-mdi-checkbook',
+  DIRECT_PAY: 'i-mdi-credit-card-outline',
+  DRAWDOWN: 'i-mdi-link-variant',
+  EFT: 'i-mdi-arrow-right-circle-outline',
+  EJV: 'i-mdi-file-document-outline',
+  ONLINE_BANKING: 'i-mdi-currency-usd',
+  PAD: 'i-mdi-bank-outline'
+}
+const paymentMethodIcon = computed(() => paymentMethodIcons[account.paymentMethod ?? ''])
+
 const address = computed(() => account.address)
 const addressLine = computed(() => {
   const addr = address.value
@@ -74,15 +87,18 @@ const addressLine = computed(() => {
           <UBadge
             v-if="showPaymentMethodBadge && account.paymentMethod"
             :label="$t(`connect.badge.paymentMethod.${account.paymentMethod}`)"
+            :icon="paymentMethodIcon"
             variant="subtle"
             color="neutral"
-            class="px-3 text-center font-bold"
+            class="rounded-sm px-3 text-center font-bold uppercase"
           />
           <UBadge
             v-if="showStatusBadge && statusBadgeLabel"
             :label="$t(statusBadgeLabel)"
+            icon="i-mdi-alert-outline"
             color="error"
-            class="px-3 text-center font-bold"
+            variant="solid"
+            class="rounded-sm px-3 text-center font-bold uppercase"
           />
         </div>
       </div>
