@@ -23,6 +23,7 @@ const variantClass: Record<VariantOption, string[]> = {
     'group-has-[div>textarea[aria-invalid=true]]:text-error'
   ],
   select: [
+    'text-base',
     'delay-100',
     '-translate-y-1/2 top-1/2 group-focus-within:top-3',
     'group-has-[button[aria-invalid=true]]:text-error',
