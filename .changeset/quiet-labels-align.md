@@ -2,4 +2,4 @@
 "@sbc-connect/nuxt-base": patch
 ---
 
-Align the default font size of select floating labels with other form labels.
+Set the default font size of all floating label variants to text-base.

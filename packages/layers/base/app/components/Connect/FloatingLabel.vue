@@ -23,7 +23,6 @@ const variantClass: Record<VariantOption, string[]> = {
     'group-has-[div>textarea[aria-invalid=true]]:text-error'
   ],
   select: [
-    'text-base',
     'delay-100',
     '-translate-y-1/2 top-1/2 group-focus-within:top-3',
     'group-has-[button[aria-invalid=true]]:text-error',
@@ -52,7 +51,7 @@ const variantClass: Record<VariantOption, string[]> = {
       :id
       :class="[
         variantClass[variant],
-        'line-clamp-1 px-2.5',
+        'line-clamp-1 px-2.5 text-base',
         'absolute z-10 group-focus-within:text-primary',
         'pointer-events-none text-neutral transition-all',
         'motion-reduce:transition-none duration-200',
