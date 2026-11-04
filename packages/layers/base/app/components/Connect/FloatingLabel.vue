@@ -51,7 +51,7 @@ const variantClass: Record<VariantOption, string[]> = {
       :id
       :class="[
         variantClass[variant],
-        'line-clamp-1 px-2.5',
+        'line-clamp-1 px-2.5 text-base',
         'absolute z-10 group-focus-within:text-primary',
         'pointer-events-none text-neutral transition-all',
         'motion-reduce:transition-none duration-200',
