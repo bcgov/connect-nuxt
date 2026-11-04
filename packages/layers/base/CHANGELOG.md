@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.15.1
+
+### Patch Changes
+
+- [#211](https://github.com/bcgov/connect-nuxt/pull/211) [`cce40dc`](https://github.com/bcgov/connect-nuxt/commit/cce40dc3c35f37c83f3d3ef99a0e94096bc82810) Thanks [@meawong](https://github.com/meawong)! - ConnectFloatingLabel: Set the default font size of all floating label variants to text-base.
+
 ## 0.15.0
 
 ### Minor Changes
