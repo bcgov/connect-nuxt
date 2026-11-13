@@ -1,5 +1,11 @@
 # @sbc-connect/nuxt-base
 
+## 0.16.0
+
+### Minor Changes
+
+- [#213](https://github.com/bcgov/connect-nuxt/pull/213) [`340b0c6`](https://github.com/bcgov/connect-nuxt/commit/340b0c64cef69bd8bfcc24b1024a6aa956453fcb) Thanks [@deetz99](https://github.com/deetz99)! - Update depencies to latest: Nuxt, Nuxt UI, LaunchDarkly, Dompurify, Maska, Zod, ES-Toolkit.
+
 ## 0.15.1
 
 ### Patch Changes
