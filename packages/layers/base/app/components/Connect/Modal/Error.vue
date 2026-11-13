@@ -48,7 +48,9 @@ const description = (preferErrorMessage && message)
         <h2 class="text-2xl font-semibold text-neutral-highlighted" aria-hidden="true">
           {{ title }}
         </h2>
-        <p aria-hidden="true">{{ description }}</p>
+        <p aria-hidden="true">
+          {{ description }}
+        </p>
         <component :is="contactInfo" v-if="contactInfo" />
         <div class="flex flex-wrap items-center justify-center gap-4">
           <template
