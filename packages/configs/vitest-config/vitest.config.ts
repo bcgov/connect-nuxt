@@ -1,5 +1,10 @@
-// vitest.config.ts
 import { defineVitestConfig } from '@nuxt/test-utils/config'
+
+const SUPPRESSED_WARNINGS = [
+  'No match found for location with path "/"',
+  '<Suspense> is an experimental feature',
+  'has already been registered in target app.',
+]
 
 export default defineVitestConfig({
   test: {
@@ -14,6 +19,11 @@ export default defineVitestConfig({
         overrides: {
           // other Nuxt config you want to pass
         }
+      }
+    },
+    onConsoleLog(log: string) {
+      if (SUPPRESSED_WARNINGS.some((msg) => log.includes(msg))) {
+        return false
       }
     }
   }
