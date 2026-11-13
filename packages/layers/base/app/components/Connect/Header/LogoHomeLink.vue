@@ -12,7 +12,7 @@ const localePath = useLocalePath()
       'ease-in-out hover:bg-secondary/[0.1]',
       'focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary'
     ]"
-    :aria-label="$t('connect.header.homeLink')"
+    :aria-label="`${$t('connect.header.title')} - ${$t('connect.header.homeLink')}`"
   >
     <ConnectBCGovLogo />
     <span class="text-base font-semibold text-secondary lg:text-lg"> {{ $t('connect.header.title') }} </span>

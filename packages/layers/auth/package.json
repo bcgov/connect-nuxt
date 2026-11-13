@@ -7,7 +7,7 @@
   "main": "./nuxt.config.ts",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "nuxi dev .playground --dotenv ../.env",
+    "dev": "pnpm nuxt dev .playground --dotenv ../.env --host localhost",
     "prepare": "nuxt prepare .playground",
     "build": "nuxt build .playground",
     "build:test": "pnpm generate && npx serve .playground/.output/public",
@@ -32,13 +32,13 @@
     "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@pinia/colada": "1.4.8",
-    "@pinia/colada-nuxt": "1.2.0",
-    "@pinia/nuxt": "1.0.2",
+    "@pinia/colada": "1.4.9",
+    "@pinia/colada-nuxt": "1.2.1",
+    "@pinia/nuxt": "1.0.3",
     "@sbc-connect/nuxt-base": "workspace:*",
     "@sbc-connect/nuxt-forms": "workspace:*",
-    "keycloak-js": "26.2.4",
-    "pinia": "4.0.3",
+    "keycloak-js": "26.2.5",
+    "pinia": "4.1.0",
     "pinia-plugin-persistedstate": "4.7.1"
   }
 }

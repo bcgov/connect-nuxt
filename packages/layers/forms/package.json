@@ -7,7 +7,7 @@
   "main": "./nuxt.config.ts",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "nuxi dev .playground --dotenv ../.env",
+    "dev": "pnpm nuxt dev .playground --dotenv ../.env --host localhost",
     "prepare": "nuxt prepare .playground",
     "build": "nuxt build .playground",
     "build:test": "pnpm generate && npx serve .playground/.output/public",
