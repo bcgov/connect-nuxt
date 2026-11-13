@@ -238,7 +238,7 @@ importers:
         version: 4.14.2
       '@nuxt/ui':
         specifier: 4.12.0
-        version: 4.12.0(21b7be1a6d245114632dd8d55cabcd42)
+        version: 4.12.0(3e10a8c3b8b141540ec3454c4580f782)
       '@nuxtjs/i18n':
         specifier: 10.6.0
         version: 10.6.0(@pinia/colada@1.4.9(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(vue@3.5.45(typescript@6.0.3)))(@vue/compiler-dom@3.5.43)(db0@0.3.4)(esbuild@0.28.2)(eslint@10.14.0(jiti@2.7.0))(ioredis@5.11.1)(magicast@0.5.5)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(rolldown@1.2.18)(rollup@4.68.2)(typescript@6.0.3)(vite@8.3.7(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.0))(vue@3.5.45(typescript@6.0.3))
@@ -285,9 +285,6 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
-      vue-router:
-        specifier: 5.4.0
-        version: 5.4.0(@pinia/colada@1.4.9(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(vue@3.5.45(typescript@6.0.3)))(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(rolldown@1.2.18)(rollup@4.68.2)(vite@8.3.7(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.0))(vue@3.5.45(typescript@6.0.3))
       vue-tsc:
         specifier: 'catalog:'
         version: 3.3.14(typescript@6.0.3)
@@ -8941,7 +8938,7 @@ snapshots:
       - vite
       - webpack
 
-  '@nuxt/ui@4.12.0(21b7be1a6d245114632dd8d55cabcd42)':
+  '@nuxt/ui@4.12.0(3e10a8c3b8b141540ec3454c4580f782)':
     dependencies:
       '@floating-ui/dom': 1.8.0
       '@iconify/vue': 5.0.3(vue@3.5.45(typescript@6.0.3))
@@ -9010,7 +9007,7 @@ snapshots:
     optionalDependencies:
       '@internationalized/date': 3.12.1
       '@internationalized/number': 3.6.6
-      vue-router: 5.4.0(@pinia/colada@1.4.9(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(vue@3.5.45(typescript@6.0.3)))(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(rolldown@1.2.18)(rollup@4.68.2)(vite@8.3.7(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.0))(vue@3.5.45(typescript@6.0.3))
+      vue-router: 5.5.0(@pinia/colada@1.4.9(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(vue@3.5.45(typescript@6.0.3)))(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.45(typescript@6.0.3)))(rolldown@1.2.18)(rollup@4.68.2)(vite@8.3.7(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.0))(vue@3.5.45(typescript@6.0.3))
       zod: 4.6.7
     transitivePeerDependencies:
       - '@azure/app-configuration'

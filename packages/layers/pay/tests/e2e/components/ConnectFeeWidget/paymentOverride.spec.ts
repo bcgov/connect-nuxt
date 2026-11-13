@@ -73,7 +73,7 @@ test.describe('Connect Fee (payment override, pad pending)', () => {
     // expect modal
     const modal = page.getByRole('dialog')
     await expect(modal).toBeVisible()
-    await expect(modal.getByRole('heading', { name: 'PAD Account in Confirmation Period' }).first()).toBeVisible()
+    await expect(modal.getByRole('heading', { name: 'PAD Account in Confirmation Period' })).toBeVisible()
     // close modal
     await modal.getByRole('button', { name: 'Close' }).click()
     // Should still be set to credit card

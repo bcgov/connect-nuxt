@@ -3,7 +3,14 @@ import { defineVitestConfig } from '@nuxt/test-utils/config'
 const SUPPRESSED_WARNINGS = [
   'No match found for location with path "/"',
   '<Suspense> is an experimental feature',
-  'has already been registered in target app.',
+  // suppress warnings from i18n package
+  'Component "i18n-t"',
+  'Component "I18nT"',
+  'Component "i18n-n"',
+  'Component "I18nN"',
+  'Component "i18n-d"',
+  'Component "I18nD"',
+  'Directive "t"'
 ]
 
 export default defineVitestConfig({

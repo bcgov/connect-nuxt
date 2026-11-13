@@ -44,7 +44,6 @@
     "dotenv": "catalog:",
     "nuxt": "catalog:",
     "typescript": "catalog:",
-    "vue-router": "5.4.0",
     "vue-tsc": "catalog:"
   }
 }
